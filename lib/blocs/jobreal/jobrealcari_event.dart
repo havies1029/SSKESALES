@@ -39,3 +39,4 @@ class UbahJobRealCariEvent extends JobRealCariEvents {
 class TambahJobRealCariEvent extends JobRealCariEvents{}
 class HapusJobRealCariEvent extends JobRealCariEvents{}
 class CloseDialogJobRealCariEvent extends JobRealCariEvents{}
+class ResetStateJobRealCariEvent extends JobRealCariEvents{}

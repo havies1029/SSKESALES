@@ -6,9 +6,9 @@ class JobRealCariMainPage extends StatelessWidget {
 
 	@override
 	Widget build(BuildContext context) {
-		return Scaffold(
-			backgroundColor: Colors.grey[100],
-			body: const JobRealCariPage(),
+		return const Scaffold(
+			//backgroundColor: Colors.grey[200],
+			body: JobRealCariPage(),
 		);
 	}
 }

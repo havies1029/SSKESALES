@@ -22,5 +22,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<CustCatCariPageActiveEvent>((event, emit) => emit(CustCatCariPageActive())); 
     on<PolisCariPageActiveEvent>((event, emit) => emit(PolisCariPageActive())); 
     on<CobCariPageActiveEvent>((event, emit) => emit(CobCariPageActive())); 
+    on<CalendarPageActiveEvent>((event, emit) => emit(CalendarPageActive())); 
   }
 }

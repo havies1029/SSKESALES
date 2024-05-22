@@ -77,6 +77,9 @@ class _HomePageState extends State<HomePage> {
           } else if (state is CobCariPageActive) {
             debugPrint("CobCariPageActive");
             return const PageContainer(pageType: PageType.cob);     
+          } else if (state is CalendarPageActive) {
+            debugPrint("CalendarPageActive");
+            return const PageContainer(pageType: PageType.calendar);     
           } else if (state is ProfilePageActive) {
             return PageContainerWithUserRepository(
               pageType: PageType.profile,

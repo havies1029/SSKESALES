@@ -43,55 +43,56 @@ class JobRealCariListWidgetState extends State<JobRealCariListWidget> {
 			return state.items.isNotEmpty
 				? Flexible(
 					child: ListView.builder(
-						padding: EdgeInsets.zero,
-						controller: _scrollController,
-						itemCount: state.items.length,
-						itemBuilder: (_, index) => Container(
-							margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
-							padding: const EdgeInsets.all(0.2),
-							decoration: BoxDecoration(
-								borderRadius: BorderRadius.circular(15.0)),
-							child: Column(
-								children: <Widget>[
-									Slidable(
-										endActionPane: ActionPane(
-											motion: const BehindMotion(),
-												children: [
-													SlidableAction(
-														onPressed: (context) {
-															jobRealCariBloc.add(
-																UbahJobRealCariEvent(
-																	recordId: state
-																		.items[index]
-																		.jobreal1Id));
-														},
-														backgroundColor: Colors.green,
-														icon: Icons.edit,
-														label: "Edit",
-													),
-													SlidableAction(
-														onPressed: (context) {
-															showDialogHapus(
-																state.items[index].jobreal1Id);
-														},
-														backgroundColor: Colors.red,
-														icon: Icons.delete,
-														label: "Delete",
-													),
-												]),
-											child: JobRealCariTileWidget(
-												catName: state.items[index].catName??'',
-												hasil: state.items[index].hasil,
-												jobNama: state.items[index].jobNama??'',
-												jobreal1Id: state.items[index].jobreal1Id,
-												materi: state.items[index].materi,
-												mediaNama: state.items[index].mediaNama??'',
-												picName: state.items[index].picName,
-												realJam: state.items[index].realJam,
-												realTgl: state.items[index].realTgl,
-											)),
-							],
-						),
+					  padding: EdgeInsets.zero,
+					  controller: _scrollController,
+					  itemCount: state.items.length,
+					  itemBuilder: (_, index) => Container(
+					    margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
+					    padding: const EdgeInsets.all(0.2),
+					    decoration: BoxDecoration(
+					      borderRadius: BorderRadius.circular(15.0)),
+					    child: Column(
+					      children: <Widget>[
+					        Slidable(
+					          endActionPane: ActionPane(
+					            motion: const BehindMotion(),
+					              children: [
+					                SlidableAction(
+					                  onPressed: (context) {
+					                    jobRealCariBloc.add(
+					                      UbahJobRealCariEvent(
+					                        recordId: state
+					                          .items[index]
+					                          .jobreal1Id));
+					                  },
+					                  backgroundColor: Colors.green,
+					                  icon: Icons.edit,
+					                  label: "Edit",
+					                ),
+					                SlidableAction(
+					                  onPressed: (context) {
+					                    showDialogHapus(
+					                      state.items[index].jobreal1Id);
+					                  },
+					                  backgroundColor: Colors.red,
+					                  icon: Icons.delete,
+					                  label: "Delete",
+					                ),
+					              ]),
+					            child: JobRealCariTileWidget(
+					              catName: state.items[index].catName??'',
+					              hasil: state.items[index].hasil,
+					              jobNama: state.items[index].jobNama??'',
+					              jobreal1Id: state.items[index].jobreal1Id,
+					              materi: state.items[index].materi,
+					              mediaNama: state.items[index].mediaNama??'',
+					              picName: state.items[index].picName,
+					              realJam: state.items[index].realJam,
+					              realTgl: state.items[index].realTgl,
+					              customerNama: state.items[index].customerNama,
+					            )),
+					    ],
+					  ),
 					)),
 				)
 			: const Center(

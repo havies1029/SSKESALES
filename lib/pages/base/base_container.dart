@@ -15,6 +15,7 @@ import 'package:esalesapp/pages/mstrekan/rekancari_main.dart';
 import 'package:esalesapp/pages/mststaff/staffcari_main.dart';
 import 'package:esalesapp/pages/msttitle/titlecari_main.dart';
 import 'package:esalesapp/pages/polis/poliscari_main.dart';
+import 'package:esalesapp/pages/testing/syncfusion_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:esalesapp/pages/profile/profile_main_page.dart';
 import 'package:esalesapp/repositories/user/user_repository.dart';
@@ -121,6 +122,8 @@ class PageContainer extends PageContainerBase {
         return "List Policy";
       case PageType.cob:
         return "Master Class of Business";
+      case PageType.calendar:
+        return "Calendar";
       default:
         return "Login Page";
     }
@@ -173,6 +176,9 @@ class PageContainer extends PageContainerBase {
         break;
       case PageType.cob:
         page = const CobCariMainPage();
+        break;
+      case PageType.calendar:
+        page = const SfCalendarPage();
         break;
       default:
         page = null;

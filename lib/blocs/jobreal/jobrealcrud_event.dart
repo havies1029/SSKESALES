@@ -7,6 +7,16 @@ abstract class JobRealCrudEvents extends Equatable {
 	List<Object> get props => [];
 }
 
+class JobRealCrudResetStateEvent extends JobRealCrudEvents{}
+
+class JobRealCrudPreOpenEvent extends JobRealCrudEvents {
+	final String viewmode;
+	const JobRealCrudPreOpenEvent({required this.viewmode});
+
+	@override
+	List<Object> get props => [viewmode];
+}
+
 class JobRealCrudTambahEvent extends JobRealCrudEvents {
 	final JobRealCrudModel record;
 	const JobRealCrudTambahEvent({required this.record});
@@ -51,9 +61,9 @@ class ComboJobChangedEvent extends JobRealCrudEvents{
 
 	@override	List<Object> get props => [comboJob];}
 
-class ComboCustomerChangedEvent extends JobRealCrudEvents{
+class ComboCustomerJobRealCrudChangedEvent extends JobRealCrudEvents{
 	final ComboCustomerModel comboCustomer;
-	const ComboCustomerChangedEvent({required this.comboCustomer});
+	const ComboCustomerJobRealCrudChangedEvent({required this.comboCustomer});
 
 	@override	List<Object> get props => [comboCustomer];}
 

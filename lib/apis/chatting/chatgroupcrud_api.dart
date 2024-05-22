@@ -84,10 +84,11 @@ class ChatGroupCrudAPI {
     await request.send().then((response) {
       if (response.statusCode == 200) {
         debugPrint("Success send Image");
-
+        /*
         response.stream.transform(utf8.decoder).listen((value) {
           debugPrint(value);
         });
+        */
         //returnData = ReturnDataAPI.fromDatabaseJson(jsonDecode(response.));
       } else {
         debugPrint("Error send Image");

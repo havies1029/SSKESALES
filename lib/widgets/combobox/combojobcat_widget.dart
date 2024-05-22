@@ -4,6 +4,7 @@ import 'package:esalesapp/models/combobox/combojobcat_model.dart';
 import 'package:esalesapp/repositories/combobox/combojobcat_repository.dart';
 
 DropdownSearch<ComboJobcatModel> buildFieldComboJobcat({
+  GlobalKey<DropdownSearchState<ComboJobcatModel>>? comboKey,
 	required String labelText,
 	ComboJobcatModel? initItem,
 	Function(ComboJobcatModel?)? onChangedCallback,
@@ -11,6 +12,7 @@ DropdownSearch<ComboJobcatModel> buildFieldComboJobcat({
 	Function(ComboJobcatModel?)? validatorCallback
 	}) {
 	return DropdownSearch<ComboJobcatModel>(
+    key: comboKey,
 		selectedItem: initItem,
 		dropdownDecoratorProps: DropDownDecoratorProps(
 			dropdownSearchDecoration: InputDecoration(

@@ -6,10 +6,11 @@ import 'package:esalesapp/pages/jobreal/jobreal2cari_list_widget.dart';
 
 class JobReal2CariPage extends StatefulWidget {
   final String custId;
-  final String jobCatId;
   final String jobReal1Id;
-  const JobReal2CariPage({super.key, required this.custId,
-    required this.jobCatId, required this.jobReal1Id});
+  const JobReal2CariPage(
+      {super.key,
+      required this.custId,
+      required this.jobReal1Id});
 
   @override
   JobReal2CariPageState createState() => JobReal2CariPageState();
@@ -42,11 +43,15 @@ class JobReal2CariPageState extends State<JobReal2CariPage> {
     );
   }
 
-  void refreshData() {    
+  void refreshData() {
+    debugPrint("JobReal2CariPage -> refreshData #10");
+    debugPrint("widget.custId : ${widget.custId}");
     if (widget.custId.isNotEmpty) {
-      jobReal2CariBloc.add(RefreshJobReal2CariEvent(
-          custId: widget.custId, jobcatId: widget.jobCatId, 
-          jobreal1Id: widget.jobReal1Id));
+      if (context.read<JobReal2CariBloc>().state.items.isEmpty) {
+        jobReal2CariBloc.add(RefreshJobReal2CariEvent(
+            custId: widget.custId,
+            jobreal1Id: widget.jobReal1Id));
+      }
     }
   }
 
@@ -56,11 +61,11 @@ class JobReal2CariPageState extends State<JobReal2CariPage> {
           Icons.autorenew_rounded,
           size: 35.0,
         ),
-        onPressed: () {          
-          if (widget.custId.isNotEmpty) {            
+        onPressed: () {
+          if (widget.custId.isNotEmpty) {
             jobReal2CariBloc.add(RefreshJobReal2CariEvent(
-              custId: widget.custId, jobcatId: widget.jobCatId, 
-              jobreal1Id: widget.jobReal1Id));
+                custId: widget.custId,
+                jobreal1Id: widget.jobReal1Id));
           }
         });
   }
@@ -70,7 +75,8 @@ class JobReal2CariPageState extends State<JobReal2CariPage> {
         child: Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        JobReal2CariListWidget(searchText: _searchController.text)
+        JobReal2CariListWidget(
+            jobReal1Id: widget.jobReal1Id, searchText: _searchController.text)
       ],
     ));
   }

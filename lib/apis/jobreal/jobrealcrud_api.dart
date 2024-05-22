@@ -85,8 +85,8 @@ class JobRealCrudAPI {
 		});
 
     
-    debugPrint("jobRealCrudLihatAPI");
-    debugPrint("response.body : ${response.body}");
+    //debugPrint("jobRealCrudLihatAPI");
+    //debugPrint("response.body : ${response.body}");
 
 		if (response.statusCode == 200) {
 			var returnData = JobRealCrudModel.fromJson(jsonDecode(response.body));

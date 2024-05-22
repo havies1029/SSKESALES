@@ -54,6 +54,17 @@ class AppMenuState extends State<AppMenu> with RouteAware {
           ),
           ListTile(
             leading: const Icon(Icons.person),
+            title: const Text("Calendar"),
+            //selected: _activeRoute == AppRoutes.homePage,
+            onTap: () {
+              SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+                Navigator.of(context).pop();
+                homeBloc.add(CalendarPageActiveEvent());
+              });
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.person),
             title: const Text("Job Realization"),
             //selected: _activeRoute == AppRoutes.homePage,
             onTap: () {

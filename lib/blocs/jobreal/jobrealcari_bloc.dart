@@ -8,75 +8,88 @@ part 'jobrealcari_event.dart';
 part 'jobrealcari_state.dart';
 
 class JobRealCariBloc extends Bloc<JobRealCariEvents, JobRealCariState> {
-	JobRealCariBloc() : super(const JobRealCariState()) {
-		on<FetchJobRealCariEvent>(onFetchJobRealCari);
-		on<RefreshJobRealCariEvent>(onRefreshJobRealCari);
-		on<UbahJobRealCariEvent>(onUbahJobRealCari);
-		on<TambahJobRealCariEvent>(onTambahJobRealCari);
-		on<HapusJobRealCariEvent>(onHapusJobRealCari);
-		on<CloseDialogJobRealCariEvent>(onCloseDialogJobRealCari);
-	}
+  JobRealCariBloc() : super(const JobRealCariState()) {
+    on<FetchJobRealCariEvent>(onFetchJobRealCari);
+    on<RefreshJobRealCariEvent>(onRefreshJobRealCari);
+    on<UbahJobRealCariEvent>(onUbahJobRealCari);
+    on<TambahJobRealCariEvent>(onTambahJobRealCari);
+    on<HapusJobRealCariEvent>(onHapusJobRealCari);
+    on<CloseDialogJobRealCariEvent>(onCloseDialogJobRealCari);
+    on<ResetStateJobRealCariEvent>(onResetState);
+  }
 
-	Future<void> onRefreshJobRealCari(
-			RefreshJobRealCariEvent event, Emitter<JobRealCariState> emit) async {
-		emit(const JobRealCariState());
+  Future<void> onResetState(
+      ResetStateJobRealCariEvent event, Emitter<JobRealCariState> emit) async {
+    emit(state.copyWith(
+        status: ListStatus.initial,
+        items: <JobRealCariModel>[],
+        hasReachedMax: false,
+        hal: 0,
+        viewMode: "",
+        recordId: ""));
+  }
 
-		await Future.delayed(const Duration(seconds: 1));
+  Future<void> onRefreshJobRealCari(
+      RefreshJobRealCariEvent event, Emitter<JobRealCariState> emit) async {
+    emit(const JobRealCariState());
 
-		add(FetchJobRealCariEvent(hal: 0, searchText: event.searchText));
-	}
+    await Future.delayed(const Duration(seconds: 1));
 
-	Future<void> onFetchJobRealCari(
-			FetchJobRealCariEvent event, Emitter<JobRealCariState> emit) async {
-		if (state.hasReachedMax) return;
+    add(FetchJobRealCariEvent(hal: 0, searchText: event.searchText));
+  }
 
-		JobRealCariRepository repo = JobRealCariRepository();
-		if (state.status == ListStatus.initial) {
-			List<JobRealCariModel> items = await repo.getJobRealCari(event.searchText, 0);
-			return emit(state.copyWith(
-				items: items,
-				hasReachedMax: false,
-				status: ListStatus.success,
-				hal: 1));
-		}
-		List<JobRealCariModel> items = await repo.getJobRealCari(event.searchText, state.hal);
-		if (items.isEmpty) {
-			return emit(state.copyWith(hasReachedMax: true));
-		} else {
-			List<JobRealCariModel> jobRealCari = List.of(state.items)..addAll(items);
+  Future<void> onFetchJobRealCari(
+      FetchJobRealCariEvent event, Emitter<JobRealCariState> emit) async {
+    if (state.hasReachedMax) return;
 
-			final result = jobRealCari
-				.whereWithIndex((e, index) =>
-					jobRealCari.indexWhere((e2) => e2.jobreal1Id == e.jobreal1Id) ==
-					index)
-				.toList();
+    JobRealCariRepository repo = JobRealCariRepository();
+    if (state.status == ListStatus.initial) {
+      List<JobRealCariModel> items =
+          await repo.getJobRealCari(event.searchText, 0);
+      return emit(state.copyWith(
+          items: items,
+          hasReachedMax: false,
+          status: ListStatus.success,
+          hal: 1));
+    }
+    List<JobRealCariModel> items =
+        await repo.getJobRealCari(event.searchText, state.hal);
+    if (items.isEmpty) {
+      return emit(state.copyWith(hasReachedMax: true));
+    } else {
+      List<JobRealCariModel> jobRealCari = List.of(state.items)..addAll(items);
 
-			return emit(state.copyWith(
-				items: result,
-				hasReachedMax: false,
-				status: ListStatus.success,
-				hal: state.hal + 1));
-		}
-	}
+      final result = jobRealCari
+          .whereWithIndex((e, index) =>
+              jobRealCari.indexWhere((e2) => e2.jobreal1Id == e.jobreal1Id) ==
+              index)
+          .toList();
 
-	Future<void> onHapusJobRealCari(
-		HapusJobRealCariEvent event, Emitter<JobRealCariState> emit) async {
-		return emit(state.copyWith(viewMode: "hapus"));
-	}
+      return emit(state.copyWith(
+          items: result,
+          hasReachedMax: false,
+          status: ListStatus.success,
+          hal: state.hal + 1));
+    }
+  }
 
-	Future<void> onCloseDialogJobRealCari(
-		CloseDialogJobRealCariEvent event, Emitter<JobRealCariState> emit) async {
-		return emit(state.copyWith(viewMode: ""));
-	}
+  Future<void> onHapusJobRealCari(
+      HapusJobRealCariEvent event, Emitter<JobRealCariState> emit) async {
+    return emit(state.copyWith(viewMode: "hapus"));
+  }
 
-	Future<void> onTambahJobRealCari(
-		TambahJobRealCariEvent event, Emitter<JobRealCariState> emit) async {
-		return emit(state.copyWith(viewMode: "tambah"));
-	}
+  Future<void> onCloseDialogJobRealCari(
+      CloseDialogJobRealCariEvent event, Emitter<JobRealCariState> emit) async {
+    return emit(state.copyWith(viewMode: ""));
+  }
 
-	Future<void> onUbahJobRealCari(
-		UbahJobRealCariEvent event, Emitter<JobRealCariState> emit) async {
-		return emit(state.copyWith(viewMode: "ubah", recordId: event.recordId));
-	}
+  Future<void> onTambahJobRealCari(
+      TambahJobRealCariEvent event, Emitter<JobRealCariState> emit) async {
+    return emit(state.copyWith(viewMode: "tambah"));
+  }
 
+  Future<void> onUbahJobRealCari(
+      UbahJobRealCariEvent event, Emitter<JobRealCariState> emit) async {
+    return emit(state.copyWith(viewMode: "ubah", recordId: event.recordId));
+  }
 }

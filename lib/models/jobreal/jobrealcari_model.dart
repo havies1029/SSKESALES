@@ -9,12 +9,13 @@ class JobRealCariModel {
 	String? catName;
 	String? jobNama;
 	String? mediaNama;
+  String customerNama;
 
 	JobRealCariModel({required this.hasil, required this.jobreal1Id, 
 		required this.materi, required this.picName, 
 		required this.realJam, required this.realTgl, 
 		this.catName, this.jobNama, 
-		this.mediaNama});
+		this.mediaNama, required this.customerNama});
 
 	factory JobRealCariModel.fromJson(Map<String, dynamic> data) {
 		return JobRealCariModel(
@@ -26,7 +27,8 @@ class JobRealCariModel {
 			realTgl: DateTime.tryParse(data['realTgl'].toString())??DateTime.now(),
 			catName: data['catName']??'',
 			jobNama: data['jobNama']??'',
-			mediaNama: data['mediaNama']??''
+			mediaNama: data['mediaNama']??'',
+			customerNama: data['customerNama']??''
 		);
 
 	}
@@ -40,6 +42,7 @@ class JobRealCariModel {
 		'realTgl': realTgl.toIso8601String(),
 		'catName': catName,
 		'jobNama': jobNama,
-		'mediaNama': mediaNama};
+		'mediaNama': mediaNama,
+		'customerNama': customerNama};
 
 }

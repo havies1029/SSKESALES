@@ -6,7 +6,9 @@ import 'package:esalesapp/widgets/my_colors.dart';
 import 'package:esalesapp/widgets/my_text.dart';
 
 DropdownSearch<ComboCustomerModel> buildFieldComboCustomer(
-	  {required String labelText,
+	  {
+    GlobalKey<DropdownSearchState<ComboCustomerModel>>? comboKey,
+      required String labelText,
     ComboCustomerModel? initItem,
     Function(ComboCustomerModel?)? onChangedCallback,
     required Function(ComboCustomerModel?) onSaveCallback,

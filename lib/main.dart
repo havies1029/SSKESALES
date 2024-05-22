@@ -1,7 +1,8 @@
 import 'package:esalesapp/blocs/jobreal/jobreal2cari_bloc.dart';
-import 'package:esalesapp/blocs/jobreal/jobreal2list_bloc.dart';
+import 'package:esalesapp/blocs/jobreal/jobreal2grid_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealcari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealcrud_bloc.dart';
+import 'package:esalesapp/blocs/jobreal/jobrealfoto_bloc.dart';
 import 'package:esalesapp/blocs/mstcob/cobcari_bloc.dart';
 import 'package:esalesapp/blocs/mstcob/cobcrud_bloc.dart';
 import 'package:esalesapp/blocs/mstcustcat/custcatcari_bloc.dart';
@@ -24,6 +25,7 @@ import 'package:esalesapp/blocs/polis/poliscari_bloc.dart';
 import 'package:esalesapp/blocs/polis/poliscrud_bloc.dart';
 import 'package:esalesapp/common/app_data.dart';
 import 'package:esalesapp/repositories/jobreal/jobrealcrud_repository.dart';
+import 'package:esalesapp/repositories/jobreal/jobrealfoto_repository.dart';
 import 'package:esalesapp/repositories/mstcob/cobcrud_repository.dart';
 import 'package:esalesapp/repositories/mstcustcat/custcatcrud_repository.dart';
 import 'package:esalesapp/repositories/mstjabatan/jabatancrud_repository.dart';
@@ -91,12 +93,16 @@ class App extends StatelessWidget {
             create: (context) => NetworkBloc()..add(NetworkObserve())),        
         BlocProvider<JobRealCariBloc>(
             create: (context) => JobRealCariBloc()),
-        BlocProvider<JobRealCrudBloc>(
-            create: (context) => JobRealCrudBloc(repository: JobRealCrudRepository())), 
         BlocProvider<JobReal2CariBloc>(
             create: (context) => JobReal2CariBloc()),  
-        BlocProvider<JobReal2ListBloc>(
-            create: (context) => JobReal2ListBloc()),  
+        BlocProvider<JobReal2GridBloc>(
+            create: (context) => JobReal2GridBloc(jobReal2CariBloc: context.read<JobReal2CariBloc>())), 
+        BlocProvider<JobRealFotoBloc>(
+            create: (context) => JobRealFotoBloc(repository: JobRealFotoRepository())),
+        BlocProvider<JobRealCrudBloc>(
+            create: (context) => JobRealCrudBloc(repository: JobRealCrudRepository(),
+            jobReal2CariBloc: context.read<JobReal2CariBloc>(),
+            jobRealFotoBloc: context.read<JobRealFotoBloc>())),          
         BlocProvider<MediaCariBloc>(
             create: (context) => MediaCariBloc()),
         BlocProvider<MediaCrudBloc>(
@@ -137,6 +143,7 @@ class App extends StatelessWidget {
             create: (context) => CobCariBloc()),
         BlocProvider<CobCrudBloc>(
             create: (context) => CobCrudBloc(repository: CobCrudRepository())),
+        
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

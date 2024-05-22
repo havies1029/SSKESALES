@@ -7,6 +7,7 @@ class JobRealCrudState extends Equatable {
   final bool isSaving;
   final bool isSaved;
   final bool hasFailure;
+  final String viewMode;
   final ComboJobcatModel? comboJobCat;
   final ComboJobModel? comboJob;
   final ComboMediaModel? comboMedia;
@@ -18,6 +19,7 @@ class JobRealCrudState extends Equatable {
       this.isSaving = false,
       this.isSaved = false,
       this.hasFailure = false,
+      this.viewMode = "",
       this.comboJobCat,
       this.comboJob,
       this.comboMedia,
@@ -30,6 +32,7 @@ class JobRealCrudState extends Equatable {
       bool? isSaving,
       bool? isSaved,
       bool? hasFailure,
+      String? viewMode,
       ComboJobcatModel? comboJobCat,
       ComboJobModel? comboJob,
       ComboMediaModel? comboMedia,
@@ -41,6 +44,7 @@ class JobRealCrudState extends Equatable {
         isSaving: isSaving ?? this.isSaving,
         isSaved: isSaved ?? this.isSaved,
         hasFailure: hasFailure ?? this.hasFailure,
+        viewMode: viewMode ?? this.viewMode,
         comboJobCat: comboJobCat ?? this.comboJobCat,
         comboJob: comboJob ?? this.comboJob,
         comboMedia: comboMedia ?? this.comboMedia,
@@ -49,5 +53,5 @@ class JobRealCrudState extends Equatable {
 
   @override
   List<Object> get props =>
-      [isLoading, isLoaded, isSaving, isSaved, hasFailure];
+      [isLoading, isLoaded, isSaving, isSaved, hasFailure, viewMode];
 }
