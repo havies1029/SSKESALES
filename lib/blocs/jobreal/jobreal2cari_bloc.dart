@@ -6,6 +6,8 @@ import 'package:esalesapp/widgets/list_extension.dart';
 import 'package:esalesapp/models/jobreal/jobreal2cari_model.dart';
 import 'package:esalesapp/repositories/jobreal/jobreal2cari_repository.dart';
 
+import '../../common/constants.dart';
+
 part 'jobreal2cari_event.dart';
 part 'jobreal2cari_state.dart';
 

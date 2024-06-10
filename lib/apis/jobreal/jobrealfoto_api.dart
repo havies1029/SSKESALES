@@ -54,19 +54,17 @@ class JobRealFotoAPI {
     final http.Response response =
         await http.get(uri, headers: AppData.httpHeaders);
 
-    debugPrint("downloadFotoJobRealAPI #20");
+    //debugPrint("downloadFotoJobRealAPI #20");
 
-    debugPrint(
-        "downloadFotoJobRealAPI response.statusCode : ${response.statusCode}");
+    //debugPrint("downloadFotoJobRealAPI response.statusCode : ${response.statusCode}");
 
     if (response.statusCode == 200) {
-      debugPrint(
-          "downloadFotoJobRealAPI -> response.body #30: ${response.body}");
+      //debugPrint("downloadFotoJobRealAPI -> response.body #30: ${response.body}");
 
       fileInfo =
           DownloadFileInfo64Model.fromJson(jsonDecode(response.body));
 
-      debugPrint("fileInfo.namafile : ${fileInfo.namafile}");
+      //debugPrint("fileInfo.namafile : ${fileInfo.namafile}");
 
     } 
     return fileInfo;

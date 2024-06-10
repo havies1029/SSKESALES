@@ -14,6 +14,7 @@ class JobRealCariTileWidget extends StatelessWidget {
   final String jobNama;
   final String mediaNama;
   final String customerNama;
+  final bool isConfirmed;
 
   const JobRealCariTileWidget(
       {super.key,
@@ -26,7 +27,8 @@ class JobRealCariTileWidget extends StatelessWidget {
       required this.catName,
       required this.jobNama,
       required this.mediaNama,
-      required this.customerNama});
+      required this.customerNama,
+      this.isConfirmed = false});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class JobRealCariTileWidget extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
         ),
-        color: Colors.white,
+        color: isConfirmed?Colors.blueGrey[200]:Colors.orange[200],
         margin: const EdgeInsets.symmetric(horizontal: 10),
         elevation: 2,
         clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -53,11 +55,11 @@ class JobRealCariTileWidget extends StatelessWidget {
                     children: [
                       Text("Registration ID",
                           style: MyText.bodyLarge(context)!
-                              .copyWith(color: MyColors.grey_40)),
+                              .copyWith(color: MyColors.grey_60)),
                       Container(height: 5),
                       Text(jobreal1Id,
                           style: MyText.bodyLarge(context)!
-                              .copyWith(color: MyColors.grey_80)),
+                              .copyWith(color: MyColors.grey_95)),
                       Container(height: 10),
                     ],
                   ),
@@ -69,12 +71,12 @@ class JobRealCariTileWidget extends StatelessWidget {
                     children: [
                       Text("Date",
                           style: MyText.bodyLarge(context)!
-                              .copyWith(color: MyColors.grey_40)),
+                              .copyWith(color: MyColors.grey_60)),
                       Container(height: 5),
                       Text(
                           "${DateFormat('dd/MM/yyyy').format(realTgl)} ${DateFormat('HH:mm').format(realJam)}",
                           style: MyText.bodyLarge(context)!
-                              .copyWith(color: MyColors.grey_80)),
+                              .copyWith(color: MyColors.grey_95)),
                       Container(height: 10),
                     ],
                   ),
@@ -83,27 +85,28 @@ class JobRealCariTileWidget extends StatelessWidget {
             ),
             Text("Customer",
                 style: MyText.bodyLarge(context)!
-                    .copyWith(color: MyColors.grey_40)),
-            Container(height: 5),            
+                    .copyWith(color: MyColors.grey_60)),
+            Container(height: 5),
             Text(customerNama,
-                style: MyText.bodyLarge(context)!
-                    .copyWith(color: MyColors.grey_80)),
-            Container(height: 10),            
+                style: MyText.titleLarge(context)!
+                    .copyWith(color: MyColors.grey_95),
+                maxLines: 2,),
+            Container(height: 10),
             Text("Perihal",
                 style: MyText.bodyLarge(context)!
-                    .copyWith(color: MyColors.grey_40)),
+                    .copyWith(color: MyColors.grey_60)),
             Container(height: 5),
             Text(materi,
                 style: MyText.bodyLarge(context)!
-                    .copyWith(color: MyColors.grey_80)),
+                    .copyWith(color: MyColors.grey_95)),
             Container(height: 10),
             Text("Feedback",
                 style: MyText.bodyLarge(context)!
-                    .copyWith(color: MyColors.grey_40)),
+                    .copyWith(color: MyColors.grey_60)),
             Container(height: 5),
             Text(hasil,
                 style: MyText.bodyLarge(context)!
-                    .copyWith(color: MyColors.grey_80)),
+                    .copyWith(color: MyColors.grey_95)),
             Container(height: 10),
           ]),
         ));

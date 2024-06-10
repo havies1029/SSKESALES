@@ -43,5 +43,14 @@ class ComboJobcatChangedEvent extends JobCrudEvents{
 	final ComboJobcatModel comboJobcat;
 	const ComboJobcatChangedEvent({required this.comboJobcat});
 
-	@override	List<Object> get props => [comboJobcat];}
+	@override	List<Object> get props => [comboJobcat];
+}
+
+class ComboCustCatChangedEvent extends JobCrudEvents{
+	final ComboCustCatModel comboCustCat;
+	const ComboCustCatChangedEvent({required this.comboCustCat});
+
+	@override	List<Object> get props => [comboCustCat];
+}
+
 

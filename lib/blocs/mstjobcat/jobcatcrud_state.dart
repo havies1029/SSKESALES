@@ -8,6 +8,7 @@ class JobCatCrudState extends Equatable {
 	final bool isSaving;
 	final bool isSaved;
 	final bool hasFailure;
+	final ComboJobGroupModel? comboJobGroup;
 	const JobCatCrudState(
 		{this.record,
 		this.isLoading = false,
@@ -15,6 +16,7 @@ class JobCatCrudState extends Equatable {
 		this.isSaving = false,
 		this.isSaved = false,
 		this.hasFailure = false,
+		this.comboJobGroup,
 });
 
 	JobCatCrudState copyWith({
@@ -24,6 +26,7 @@ class JobCatCrudState extends Equatable {
 		bool? isSaving,
 		bool? isSaved,
 		bool? hasFailure,
+		ComboJobGroupModel? comboJobGroup,
 	}){
 		return JobCatCrudState(
 			record: record ?? this.record,
@@ -32,6 +35,7 @@ class JobCatCrudState extends Equatable {
 			isSaving: isSaving ?? this.isSaving,
 			isSaved: isSaved ?? this.isSaved,
 			hasFailure: hasFailure ?? this.hasFailure,
+			comboJobGroup: comboJobGroup?? this.comboJobGroup,
 		);
 	}
 

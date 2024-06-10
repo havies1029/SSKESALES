@@ -1,7 +1,5 @@
 part of 'mediacari_bloc.dart';
 
-enum ListStatus { initial, success, failure }
-
 class MediaCariState extends Equatable {
 
 	final ListStatus status;

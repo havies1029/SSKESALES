@@ -1,7 +1,5 @@
 part of 'roomcari_bloc.dart';
 
-enum ListStatus { initial, success, failure }
-
 class RoomCariState extends Equatable {
 
 	final ListStatus status;

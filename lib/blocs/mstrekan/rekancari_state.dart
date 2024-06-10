@@ -1,7 +1,5 @@
 part of 'rekancari_bloc.dart';
 
-enum ListStatus { initial, success, failure }
-
 class RekanCariState extends Equatable {
 
 	final ListStatus status;

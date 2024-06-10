@@ -1,7 +1,5 @@
 part of 'staffcari_bloc.dart';
 
-enum ListStatus { initial, success, failure }
-
 class StaffCariState extends Equatable {
 
 	final ListStatus status;

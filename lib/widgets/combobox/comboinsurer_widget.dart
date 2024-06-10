@@ -4,13 +4,17 @@ import 'package:esalesapp/models/combobox/comboinsurer_model.dart';
 import 'package:esalesapp/repositories/combobox/comboinsurer_repository.dart';
 
 DropdownSearch<ComboInsurerModel> buildFieldComboInsurer(
-  {required String labelText,
+  { GlobalKey<DropdownSearchState<ComboInsurerModel>>? comboKey,
+    bool enabled = true,
+    required String labelText,
     ComboInsurerModel? initItem,
     Function(ComboInsurerModel?)? onChangedCallback,
     required Function(ComboInsurerModel?) onSaveCallback,
     Function(ComboInsurerModel?)? validatorCallback}) 
   {
   return DropdownSearch<ComboInsurerModel>(
+    enabled: enabled,
+    key: comboKey,
     selectedItem: initItem,
     dropdownDecoratorProps: DropDownDecoratorProps(
       dropdownSearchDecoration: InputDecoration(

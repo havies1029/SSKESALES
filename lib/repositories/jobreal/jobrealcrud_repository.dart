@@ -18,4 +18,7 @@ class JobRealCrudRepository {
 	Future<JobRealCrudModel> jobRealCrudLihat(String jobreal1Id) async {
 		return await api.jobRealCrudLihatAPI(jobreal1Id);
 	}
+  Future<ReturnDataAPI> jobRealOtorisasi(String jobreal1Id) async {
+		return await api.jobRealOtorisasiAPI(jobreal1Id);
+	}
 }

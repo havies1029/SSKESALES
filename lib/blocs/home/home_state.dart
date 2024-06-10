@@ -23,3 +23,4 @@ class CustCatCariPageActive extends HomeState {}
 class PolisCariPageActive extends HomeState {}
 class CobCariPageActive extends HomeState {}
 class CalendarPageActive extends HomeState {}
+class JobGroupPageActive extends HomeState {}

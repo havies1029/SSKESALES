@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:esalesapp/common/constants.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:esalesapp/widgets/list_extension.dart';
 import 'package:esalesapp/models/jobreal/jobrealcari_model.dart';
@@ -16,6 +17,8 @@ class JobRealCariBloc extends Bloc<JobRealCariEvents, JobRealCariState> {
     on<HapusJobRealCariEvent>(onHapusJobRealCari);
     on<CloseDialogJobRealCariEvent>(onCloseDialogJobRealCari);
     on<ResetStateJobRealCariEvent>(onResetState);
+    on<SetFilterDocRealCariEvent>(onSetFilterDoc);
+    on<LihatJobRealCariEvent>(onLihatJobRealCari);
   }
 
   Future<void> onResetState(
@@ -26,7 +29,14 @@ class JobRealCariBloc extends Bloc<JobRealCariEvents, JobRealCariState> {
         hasReachedMax: false,
         hal: 0,
         viewMode: "",
-        recordId: ""));
+        recordId: "",
+        filterDoc: "all"));
+  }
+
+  Future<void> onSetFilterDoc(
+      SetFilterDocRealCariEvent event, Emitter<JobRealCariState> emit) async {    
+    emit(state.copyWith(requestToRefresh: false));
+    emit(state.copyWith(filterDoc: event.filterDoc, requestToRefresh: true));
   }
 
   Future<void> onRefreshJobRealCari(
@@ -35,7 +45,8 @@ class JobRealCariBloc extends Bloc<JobRealCariEvents, JobRealCariState> {
 
     await Future.delayed(const Duration(seconds: 1));
 
-    add(FetchJobRealCariEvent(hal: 0, searchText: event.searchText));
+    add(FetchJobRealCariEvent(
+        hal: 0, searchText: event.searchText, filterDoc: event.filterDoc));
   }
 
   Future<void> onFetchJobRealCari(
@@ -45,7 +56,7 @@ class JobRealCariBloc extends Bloc<JobRealCariEvents, JobRealCariState> {
     JobRealCariRepository repo = JobRealCariRepository();
     if (state.status == ListStatus.initial) {
       List<JobRealCariModel> items =
-          await repo.getJobRealCari(event.searchText, 0);
+          await repo.getJobRealCari(event.filterDoc, event.searchText, 0);
       return emit(state.copyWith(
           items: items,
           hasReachedMax: false,
@@ -53,7 +64,7 @@ class JobRealCariBloc extends Bloc<JobRealCariEvents, JobRealCariState> {
           hal: 1));
     }
     List<JobRealCariModel> items =
-        await repo.getJobRealCari(event.searchText, state.hal);
+        await repo.getJobRealCari(event.filterDoc, event.searchText, state.hal);
     if (items.isEmpty) {
       return emit(state.copyWith(hasReachedMax: true));
     } else {
@@ -91,5 +102,10 @@ class JobRealCariBloc extends Bloc<JobRealCariEvents, JobRealCariState> {
   Future<void> onUbahJobRealCari(
       UbahJobRealCariEvent event, Emitter<JobRealCariState> emit) async {
     return emit(state.copyWith(viewMode: "ubah", recordId: event.recordId));
+  }
+
+  Future<void> onLihatJobRealCari(
+      LihatJobRealCariEvent event, Emitter<JobRealCariState> emit) async {
+    return emit(state.copyWith(viewMode: "lihat", recordId: event.recordId));
   }
 }

@@ -1,3 +1,4 @@
+import 'package:esalesapp/common/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -5,6 +6,7 @@ import 'package:esalesapp/widgets/showdialoghapus_widget.dart';
 import 'package:esalesapp/blocs/mstjobcat/jobcatcari_bloc.dart';
 import 'package:esalesapp/blocs/mstjobcat/jobcatcrud_bloc.dart';
 import 'package:esalesapp/pages/mstjobcat/jobcatcari_tile_widget.dart';
+import 'package:grouped_list/grouped_list.dart';
 
 class JobCatCariListWidget extends StatefulWidget {
 	final String searchText;
@@ -39,14 +41,44 @@ class JobCatCariListWidgetState extends State<JobCatCariListWidget> {
 		jobCatCrudBloc = BlocProvider.of<JobCatCrudBloc>(context);
 		return BlocConsumer<JobCatCariBloc, JobCatCariState>(
 			builder: (context, state) {
-			if (state.status == ListStatus.success) {
+			if (state.status == ListStatus.success) {        
+        var elements = state.items.map((e) => e.toJson()).toList();
 			return state.items.isNotEmpty
 				? Flexible(
-					child: ListView.builder(
-						padding: EdgeInsets.zero,
-						controller: _scrollController,
-						itemCount: state.items.length,
-						itemBuilder: (_, index) => Container(
+					child: GroupedListView<dynamic, String>(                    
+              controller: _scrollController,          
+              elements: elements,
+              groupBy: (elements) => elements['custCatName'],
+              groupComparator: (value1, value2) {
+                return value1.compareTo(value2);
+              },
+              itemComparator: (item1, item2) =>
+                  item1['mjobcatId'].compareTo(item2['mjobcatId']),
+              order: GroupedListOrder.ASC,
+              useStickyGroupSeparators: true,
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              groupSeparatorBuilder: (String value) => Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      decoration: const BoxDecoration(
+                        color: Colors.yellow,
+                        borderRadius:
+                            BorderRadius.all(Radius.circular(8.0)),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          value,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ),
+              indexedItemBuilder: (c, element, index) => Container(
 							margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
 							padding: const EdgeInsets.all(0.2),
 							decoration: BoxDecoration(

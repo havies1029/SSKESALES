@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:esalesapp/common/constants.dart';
 import 'package:esalesapp/widgets/form_error.dart';
 import 'package:esalesapp/blocs/mstcustcat/custcatcrud_bloc.dart';
 import 'package:esalesapp/models/mstcustcat/custcatcrud_model.dart';
@@ -63,17 +62,17 @@ class CustCatCrudFormPageFormState extends State<CustCatCrudFormPage> {
 											maxLines: 3,
 											controller: fieldCatNameController,
 											decoration: const InputDecoration(
-												labelText: "catName",
+												labelText: "Category",
 												floatingLabelBehavior: FloatingLabelBehavior.always,
 											),
 											onChanged: (value) {
 												if (value.isNotEmpty) {
-													removeError(error: kStringNullError);
+													removeError(error: "Field 'Category' tidak boleh kosong.");
 												}
 											},
 											validator: (value) {
 												if (value == null || value.isEmpty) {
-													addError(error: kStringNullError);
+													addError(error: "Field 'Category' tidak boleh kosong.");
 													return "";
 												}
 												return null;

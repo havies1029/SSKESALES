@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:esalesapp/models/responseAPI/returndataapi_model.dart';
+import 'package:esalesapp/models/combobox/combojobgroup_model.dart';
 import 'package:esalesapp/models/mstjobcat/jobcatcrud_model.dart';
 import 'package:esalesapp/repositories/mstjobcat/jobcatcrud_repository.dart';
 

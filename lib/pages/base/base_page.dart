@@ -26,7 +26,8 @@ enum PageType {
   custcat,
   polis,
   cob,
-  calendar
+  calendar,
+  jobgroup
 }
 
 abstract class PageContainerBase extends StatelessWidget {

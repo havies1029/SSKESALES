@@ -10,12 +10,13 @@ import 'package:esalesapp/pages/mstcustcat/custcatcari_main.dart';
 import 'package:esalesapp/pages/mstjabatan/jabatancari_main.dart';
 import 'package:esalesapp/pages/mstjob/jobcari_main.dart';
 import 'package:esalesapp/pages/mstjobcat/jobcatcari_main.dart';
+import 'package:esalesapp/pages/mstjobgroup/jobgroupcari_main.dart';
 import 'package:esalesapp/pages/mstmedia/mediacari_main.dart';
 import 'package:esalesapp/pages/mstrekan/rekancari_main.dart';
 import 'package:esalesapp/pages/mststaff/staffcari_main.dart';
 import 'package:esalesapp/pages/msttitle/titlecari_main.dart';
 import 'package:esalesapp/pages/polis/poliscari_main.dart';
-import 'package:esalesapp/pages/testing/syncfusion_calendar.dart';
+import 'package:esalesapp/pages/testing/sfcalendar_page.dart';
 import 'package:flutter/material.dart';
 import 'package:esalesapp/pages/profile/profile_main_page.dart';
 import 'package:esalesapp/repositories/user/user_repository.dart';
@@ -99,7 +100,7 @@ class PageContainer extends PageContainerBase {
       case PageType.roomchat:
         return "Chat Support";
       case PageType.action:
-        return "Action";
+        return "Finished Task";
       case PageType.media:
         return "Master Media";
       case PageType.jobcat:
@@ -117,13 +118,15 @@ class PageContainer extends PageContainerBase {
       case PageType.staff:
         return "Master Karyawan";
       case PageType.custcat:
-        return "Master Client Category";
+        return "Client Category";
       case PageType.polis:
         return "List Policy";
       case PageType.cob:
-        return "Master Class of Business";
+        return "Class of Business";
       case PageType.calendar:
         return "Calendar";
+      case PageType.jobgroup:
+        return "Job Function";
       default:
         return "Login Page";
     }
@@ -178,7 +181,10 @@ class PageContainer extends PageContainerBase {
         page = const CobCariMainPage();
         break;
       case PageType.calendar:
-        page = const SfCalendarPage();
+        page = const SFCalendarPage();
+        break;
+      case PageType.jobgroup:
+        page = const JobGroupCariMainPage();
         break;
       default:
         page = null;
@@ -198,3 +204,5 @@ class PageContainer extends PageContainerBase {
   @override
   PageType? get parentModal => null;
 }
+
+

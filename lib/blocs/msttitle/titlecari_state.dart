@@ -1,7 +1,5 @@
 part of 'titlecari_bloc.dart';
 
-enum ListStatus { initial, success, failure }
-
 class TitleCariState extends Equatable {
 
 	final ListStatus status;

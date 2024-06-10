@@ -1,4 +1,5 @@
 import 'package:esalesapp/blocs/jobreal/jobreal2grid_bloc.dart';
+import 'package:esalesapp/common/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:esalesapp/pages/jobreal/jobreal2grid_tile_widget.dart';
@@ -11,7 +12,7 @@ class JobReal2GridListWidget extends StatefulWidget {
 }
 
 class JobReal2GridListWidgetState extends State<JobReal2GridListWidget> {
-	late JobReal2GridBloc jobReal2GridBloc;
+	late JobReal2GridBloc jobReal2GridBloc;  
 	final ScrollController _scrollController = ScrollController();
 
 	@override
@@ -23,8 +24,9 @@ class JobReal2GridListWidgetState extends State<JobReal2GridListWidget> {
 
 		return state.items.isNotEmpty
 			? ListView.builder(
+        //shrinkWrap: true,
+        controller: _scrollController,
 				padding: EdgeInsets.zero,
-				controller: _scrollController,
 				itemCount: state.items.length,
 				itemBuilder: (_, index) => Container(
 					margin: const EdgeInsets.symmetric(horizontal: 1, vertical: 3),

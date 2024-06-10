@@ -1,3 +1,4 @@
+import 'package:esalesapp/common/constants.dart';
 import 'package:esalesapp/pages/chatting/roomcari_tile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,11 +48,12 @@ class RoomCariListWidgetState extends State<RoomCariListWidget> {
                 ? Flexible(
                     child: Container(
                     color: Colors.grey[200],
-                    child: GroupedListView<dynamic, String>(
+                    child: GroupedListView<dynamic, String>(  
+                      controller: _scrollController,                    
                       elements: elements,
                       groupBy: (elements) => elements['groupName'],
                       groupComparator: (value1, value2) =>
-                          value2.compareTo(value1),
+                          value1.compareTo(value2),
                       itemComparator: (item1, item2) =>
                           item1['chatroomId'].compareTo(item2['chatroomId']),
                       order: GroupedListOrder.ASC,

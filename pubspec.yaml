@@ -32,8 +32,6 @@ dependencies:
   flutter_launcher_icons: ^0.13.1
   dropdown_search: ^5.0.6
   checkbox_grouped: ^2.0.0
-  accordion: ^2.6.0
-  expansion_tile_card: ^3.0.0
   flex_color_scheme: ^7.3.1
   grouped_list: ^5.1.2
   flutter_chat_ui: ^1.6.12

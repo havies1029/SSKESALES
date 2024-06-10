@@ -12,6 +12,8 @@ class JobRealCrudState extends Equatable {
   final ComboJobModel? comboJob;
   final ComboMediaModel? comboMedia;
   final ComboCustomerModel? comboCustomer;
+  final ComboInsurerModel? comboInsurer;
+  final bool requireComboInsurer;
   const JobRealCrudState(
       {this.record,
       this.isLoading = false,
@@ -23,7 +25,9 @@ class JobRealCrudState extends Equatable {
       this.comboJobCat,
       this.comboJob,
       this.comboMedia,
-      this.comboCustomer});
+      this.comboCustomer,
+      this.comboInsurer,
+      this.requireComboInsurer = false});
 
   JobRealCrudState copyWith(
       {JobRealCrudModel? record,
@@ -36,7 +40,9 @@ class JobRealCrudState extends Equatable {
       ComboJobcatModel? comboJobCat,
       ComboJobModel? comboJob,
       ComboMediaModel? comboMedia,
-      ComboCustomerModel? comboCustomer}) {
+      ComboCustomerModel? comboCustomer,
+      ComboInsurerModel? comboInsurer,
+      bool? requireComboInsurer}) {
     return JobRealCrudState(
         record: record ?? this.record,
         isLoading: isLoading ?? this.isLoading,
@@ -48,10 +54,12 @@ class JobRealCrudState extends Equatable {
         comboJobCat: comboJobCat ?? this.comboJobCat,
         comboJob: comboJob ?? this.comboJob,
         comboMedia: comboMedia ?? this.comboMedia,
-        comboCustomer: comboCustomer ?? this.comboCustomer);
+        comboCustomer: comboCustomer ?? this.comboCustomer,
+        comboInsurer: comboInsurer ?? this.comboInsurer,
+        requireComboInsurer: requireComboInsurer ?? this.requireComboInsurer);
   }
 
   @override
   List<Object> get props =>
-      [isLoading, isLoaded, isSaving, isSaved, hasFailure, viewMode];
+      [isLoading, isLoaded, isSaving, isSaved, hasFailure, viewMode, requireComboInsurer];
 }

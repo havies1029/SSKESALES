@@ -26,8 +26,8 @@ class JobCatCariTileWidget extends StatelessWidget {
 				padding: const EdgeInsets.all(15),
 				child: Column(
 					crossAxisAlignment: CrossAxisAlignment.start,
-					children: [
-						Text("catName",
+					children: [            
+						Text("Task Category",
 							style: MyText.bodyLarge(context)!
 								.copyWith(color: MyColors.grey_40)),
 						Container(height: 5),
@@ -35,16 +35,8 @@ class JobCatCariTileWidget extends StatelessWidget {
 							catName,
 							style: MyText.bodyLarge(context)!
 								.copyWith(color: MyColors.grey_80)),
-						Container(height: 10),
-						Text("mjobcatId",
-							style: MyText.bodyLarge(context)!
-								.copyWith(color: MyColors.grey_40)),
-						Container(height: 5),
-						Text(
-							mjobcatId,
-							style: MyText.bodyLarge(context)!
-								.copyWith(color: MyColors.grey_80)),
-						Container(height: 10),
+						Container(height: 10),						
+						
 				]),
 			)
 		);

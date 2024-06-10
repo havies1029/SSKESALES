@@ -1,7 +1,5 @@
 part of 'poliscari_bloc.dart';
 
-enum ListStatus { initial, success, failure }
-
 class PolisCariState extends Equatable {
 
 	final ListStatus status;

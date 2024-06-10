@@ -41,6 +41,14 @@ class JobRealCrudHapusEvent extends JobRealCrudEvents {
 	List<Object> get props => [recordId];
 }
 
+class JobRealOtorisasiEvent extends JobRealCrudEvents {
+	final String recordId;
+	const JobRealOtorisasiEvent({required this.recordId});
+
+	@override
+	List<Object> get props => [recordId];
+}
+
 class JobRealCrudLihatEvent extends JobRealCrudEvents {
 	final String recordId;
 	const JobRealCrudLihatEvent({required this.recordId});
@@ -59,17 +67,27 @@ class ComboJobChangedEvent extends JobRealCrudEvents{
 	final ComboJobModel comboJob;
 	const ComboJobChangedEvent({required this.comboJob});
 
-	@override	List<Object> get props => [comboJob];}
+	@override	List<Object> get props => [comboJob];
+}
 
 class ComboCustomerJobRealCrudChangedEvent extends JobRealCrudEvents{
 	final ComboCustomerModel comboCustomer;
 	const ComboCustomerJobRealCrudChangedEvent({required this.comboCustomer});
 
-	@override	List<Object> get props => [comboCustomer];}
+	@override	List<Object> get props => [comboCustomer];
+}
+
+class ComboInsurerJobRealCrudChangedEvent extends JobRealCrudEvents{
+	final ComboInsurerModel comboInsurer;
+	const ComboInsurerJobRealCrudChangedEvent({required this.comboInsurer});
+
+	@override	List<Object> get props => [comboInsurer];
+}
 
 class ComboMediaChangedEvent extends JobRealCrudEvents{
 	final ComboMediaModel comboMedia;
 	const ComboMediaChangedEvent({required this.comboMedia});
 
-	@override	List<Object> get props => [comboMedia];}
+	@override	List<Object> get props => [comboMedia];
+}
 

@@ -27,7 +27,7 @@ class CustCatCariTileWidget extends StatelessWidget {
 				child: Column(
 					crossAxisAlignment: CrossAxisAlignment.start,
 					children: [
-						Text("catName",
+						Text("Category",
 							style: MyText.bodyLarge(context)!
 								.copyWith(color: MyColors.grey_40)),
 						Container(height: 5),
@@ -35,16 +35,7 @@ class CustCatCariTileWidget extends StatelessWidget {
 							catName,
 							style: MyText.bodyLarge(context)!
 								.copyWith(color: MyColors.grey_80)),
-						Container(height: 10),
-						Text("mcustcatId",
-							style: MyText.bodyLarge(context)!
-								.copyWith(color: MyColors.grey_40)),
-						Container(height: 5),
-						Text(
-							mcustcatId,
-							style: MyText.bodyLarge(context)!
-								.copyWith(color: MyColors.grey_80)),
-						Container(height: 10),
+						Container(height: 10),						
 				]),
 			)
 		);

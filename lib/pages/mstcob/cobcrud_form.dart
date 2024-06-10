@@ -64,17 +64,17 @@ class CobCrudFormPageFormState extends State<CobCrudFormPage> {
 											maxLines: 3,
 											controller: fieldCobNamaController,
 											decoration: const InputDecoration(
-												labelText: "cobNama",
+												labelText: "Class of Business",
 												floatingLabelBehavior: FloatingLabelBehavior.always,
 											),
 											onChanged: (value) {
 												if (value.isNotEmpty) {
-													removeError(error: kStringNullError);
+													removeError(error: "Field 'Class of Business' tidak boleh kosong.");
 												}
 											},
 											validator: (value) {
 												if (value == null || value.isEmpty) {
-													addError(error: kStringNullError);
+													addError(error: "Field 'Class of Business' tidak boleh kosong.");
 													return "";
 												}
 												return null;
@@ -83,17 +83,17 @@ class CobCrudFormPageFormState extends State<CobCrudFormPage> {
 										TextFormField(
 											controller: fieldShortNameController,
 											decoration: const InputDecoration(
-												labelText: "shortName",
+												labelText: "Short Name",
 												floatingLabelBehavior: FloatingLabelBehavior.always,
 											),
 											onChanged: (value) {
 												if (value.isNotEmpty) {
-													removeError(error: kStringNullError);
+													removeError(error: "Field 'Short Name' tidak boleh kosong.");
 												}
 											},
 											validator: (value) {
 												if (value == null || value.isEmpty) {
-													addError(error: kStringNullError);
+													addError(error: "Field 'Short Name' tidak boleh kosong.");
 													return "";
 												}
 												return null;

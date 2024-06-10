@@ -5,18 +5,17 @@ import 'package:esalesapp/repositories/combobox/combojob_repository.dart';
 
 DropdownSearch<ComboJobModel> buildFieldComboJob(
     {GlobalKey<DropdownSearchState<ComboJobModel>>? comboKey,
+    bool enabled = true,
     required String labelText,
     TextEditingController? userEditTextController,
-    String? externalFilter,
+    required String jobCatId,
     ComboJobModel? initItem,
     Function(ComboJobModel?)? onChangedCallback,
     required Function(ComboJobModel?) onSaveCallback,
     Function(ComboJobModel?)? validatorCallback}) {
-  debugPrint("buildFieldComboJob #10");
-  debugPrint("buildFieldComboJob -> initItem : $initItem");
-  debugPrint("buildFieldComboJob -> externalFilter : $externalFilter");
   
   return DropdownSearch<ComboJobModel>(
+    enabled: enabled,
     key: comboKey,
     selectedItem: initItem,    
     dropdownDecoratorProps: DropDownDecoratorProps(
@@ -26,8 +25,7 @@ DropdownSearch<ComboJobModel> buildFieldComboJob(
       ),
     ),
     asyncItems: (String filter) async {
-      debugPrint("asyncItems -> externalFilter : $externalFilter");
-      return ComboJobRepository().getComboJob(externalFilter!);
+      return ComboJobRepository().getComboJob(jobCatId);
     },
     clearButtonProps: const ClearButtonProps(isVisible: true),
     popupProps: PopupPropsMultiSelection.modalBottomSheet(

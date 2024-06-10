@@ -3,14 +3,19 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:esalesapp/models/combobox/combocustcat_model.dart';
 import 'package:esalesapp/repositories/combobox/combocustcat_repository.dart';
 
-DropdownSearch<ComboCustCatModel> buildFieldComboCustCat({
+DropdownSearch<ComboCustCatModel> buildFieldComboCustCat({  
+  GlobalKey<DropdownSearchState<ComboCustCatModel>>? comboKey,
+  bool enabled = true,
+	required String usage,
 	required String labelText,
 	ComboCustCatModel? initItem,
 	Function(ComboCustCatModel?)? onChangedCallback,
 	required Function(ComboCustCatModel?) onSaveCallback,
 	Function(ComboCustCatModel?)? validatorCallback
 	}) {
-	return DropdownSearch<ComboCustCatModel>(
+	return DropdownSearch<ComboCustCatModel>(    
+    enabled: enabled,
+    key: comboKey,
 		selectedItem: initItem,
 		dropdownDecoratorProps: DropDownDecoratorProps(
 			dropdownSearchDecoration: InputDecoration(
@@ -19,7 +24,7 @@ DropdownSearch<ComboCustCatModel> buildFieldComboCustCat({
 			),
 		),
 			asyncItems: (String filter) async {
-				return ComboCustCatRepository().getComboCustCat();
+				return ComboCustCatRepository().getComboCustCat(usage);
 			},
 			clearButtonProps: const ClearButtonProps(isVisible: true),
 			popupProps: const PopupPropsMultiSelection.modalBottomSheet(

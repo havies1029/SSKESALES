@@ -2,16 +2,18 @@
 class JobCariModel {
 	String jobNama;
 	String mjobId;
-	String? catName;
+	String catName;  
+	String custCatName;
 
 	JobCariModel({required this.jobNama, required this.mjobId, 
-		this.catName});
+		required this.catName, required this.custCatName});
 
 	factory JobCariModel.fromJson(Map<String, dynamic> data) {
 		return JobCariModel(
 			jobNama: data['jobNama']??'',
 			mjobId: data['mjobId']??'',
-			catName: data['catName']??''
+			catName: data['catName']??'',
+			custCatName: data['custCatName']??''
 		);
 
 	}
@@ -19,6 +21,7 @@ class JobCariModel {
 	Map<String, dynamic> toJson() =>
 		{'jobNama': jobNama,
 		'mjobId': mjobId,
-		'catName': catName};
+		'catName': catName,
+		'custCatName': custCatName};
 
 }

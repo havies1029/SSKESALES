@@ -99,6 +99,7 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
                           },
                         ),
                         buildFieldComboCustCat(
+                          usage: "mcst",
                           labelText: 'Category',
                           initItem: fieldComboCustCat,
                           onChangedCallback: (value) {

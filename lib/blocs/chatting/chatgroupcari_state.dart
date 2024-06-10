@@ -1,7 +1,5 @@
 part of 'chatgroupcari_bloc.dart';
 
-enum ListStatus { initial, success, failure }
-
 class ChatGroupCariState extends Equatable {
   final ListStatus status;
   final List<types.Message> items;

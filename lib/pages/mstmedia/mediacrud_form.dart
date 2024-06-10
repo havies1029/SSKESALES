@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:esalesapp/common/constants.dart';
 import 'package:esalesapp/widgets/form_error.dart';
 import 'package:esalesapp/blocs/mstmedia/mediacrud_bloc.dart';
 import 'package:esalesapp/models/mstmedia/mediacrud_model.dart';
@@ -63,17 +62,17 @@ class MediaCrudFormPageFormState extends State<MediaCrudFormPage> {
 											maxLines: 3,
 											controller: fieldMediaNamaController,
 											decoration: const InputDecoration(
-												labelText: "mediaNama",
+												labelText: "Nama Media",
 												floatingLabelBehavior: FloatingLabelBehavior.always,
 											),
 											onChanged: (value) {
 												if (value.isNotEmpty) {
-													removeError(error: kStringNullError);
+													removeError(error: "Field 'Media' tidak boleh kosong.");
 												}
 											},
 											validator: (value) {
 												if (value == null || value.isEmpty) {
-													addError(error: kStringNullError);
+													addError(error: "Field 'Media' tidak boleh kosong.");
 													return "";
 												}
 												return null;

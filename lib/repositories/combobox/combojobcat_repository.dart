@@ -3,8 +3,8 @@ import 'package:esalesapp/models/combobox/combojobcat_model.dart';
 
 class ComboJobcatRepository {
 
-	Future<List<ComboJobcatModel>> getComboJobcat() async {
+	Future<List<ComboJobcatModel>> getComboJobcat(String custCatId) async {
 		ComboJobcatAPI api = ComboJobcatAPI();
-		return await api.getComboJobcatAPI();
+		return await api.getComboJobcatAPI(custCatId);
 	}
 }

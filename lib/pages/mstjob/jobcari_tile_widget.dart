@@ -29,7 +29,7 @@ class JobCariTileWidget extends StatelessWidget {
 				child: Column(
 					crossAxisAlignment: CrossAxisAlignment.start,
 					children: [
-						Text("jobNama",
+						Text("Task",
 							style: MyText.bodyLarge(context)!
 								.copyWith(color: MyColors.grey_40)),
 						Container(height: 5),
@@ -37,25 +37,8 @@ class JobCariTileWidget extends StatelessWidget {
 							jobNama,
 							style: MyText.bodyLarge(context)!
 								.copyWith(color: MyColors.grey_80)),
-						Container(height: 10),
-						Text("mjobId",
-							style: MyText.bodyLarge(context)!
-								.copyWith(color: MyColors.grey_40)),
-						Container(height: 5),
-						Text(
-							mjobId,
-							style: MyText.bodyLarge(context)!
-								.copyWith(color: MyColors.grey_80)),
-						Container(height: 10),
-						Text("catName",
-							style: MyText.bodyLarge(context)!
-								.copyWith(color: MyColors.grey_40)),
-						Container(height: 5),
-						Text(
-							catName,
-							style: MyText.bodyLarge(context)!
-								.copyWith(color: MyColors.grey_80)),
-						Container(height: 10),
+						Container(height: 10),						
+						
 				]),
 			)
 		);

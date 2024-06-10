@@ -29,7 +29,7 @@ class CobCariTileWidget extends StatelessWidget {
 				child: Column(
 					crossAxisAlignment: CrossAxisAlignment.start,
 					children: [
-						Text("cobNama",
+						Text("Class of Business",
 							style: MyText.bodyLarge(context)!
 								.copyWith(color: MyColors.grey_40)),
 						Container(height: 5),
@@ -37,17 +37,8 @@ class CobCariTileWidget extends StatelessWidget {
 							cobNama,
 							style: MyText.bodyLarge(context)!
 								.copyWith(color: MyColors.grey_80)),
-						Container(height: 10),
-						Text("mcobId",
-							style: MyText.bodyLarge(context)!
-								.copyWith(color: MyColors.grey_40)),
-						Container(height: 5),
-						Text(
-							mcobId,
-							style: MyText.bodyLarge(context)!
-								.copyWith(color: MyColors.grey_80)),
-						Container(height: 10),
-						Text("shortName",
+						Container(height: 10),						
+						Text("Short Name",
 							style: MyText.bodyLarge(context)!
 								.copyWith(color: MyColors.grey_40)),
 						Container(height: 5),

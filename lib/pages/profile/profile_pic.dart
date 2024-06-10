@@ -1,12 +1,12 @@
 import 'dart:io';
 import 'dart:typed_data';
 
+import 'package:esalesapp/widgets/my_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:esalesapp/blocs/takeimage/takeimage_cubit.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:esalesapp/constance/themse.dart';
 import 'package:esalesapp/dao/user/user_dao.dart';
 import 'dart:io' as io;
 

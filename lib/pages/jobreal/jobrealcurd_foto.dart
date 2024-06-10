@@ -70,7 +70,7 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
                         fit: BoxFit.cover,
                       ))),
                 ),
-                Align(
+                jobRealCrudBloc.state.viewMode != "lihat" ? Align(
                   alignment: Alignment.topRight,
                   child: Column(
                     children: [
@@ -113,7 +113,7 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
                       ),
                     ],
                   ),
-                ),
+                ):Container(),
               ],
             ));
       },
@@ -147,12 +147,15 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
   }
 
   void saveFoto(String filePath) {
-    var viewMode = jobRealCrudBloc.state.viewMode;
-    if (viewMode == "tambah") {
-      jobRealFotoBloc.add(Save2StateFotoJobRealEvent(filePath: filePath));
-    } else if (viewMode == "ubah") {
-      jobRealFotoBloc.add(UploadFotoJobRealEvent(
-          jobReal1Id: widget.jobReal1Id, filePath: filePath));
+    debugPrint("saveFoto -> filePath $filePath");
+    if (filePath.isNotEmpty) {
+      var viewMode = jobRealCrudBloc.state.viewMode;
+      if (viewMode == "tambah") {
+        jobRealFotoBloc.add(Save2StateFotoJobRealEvent(filePath: filePath));
+      } else if (viewMode == "ubah") {
+        jobRealFotoBloc.add(UploadFotoJobRealEvent(
+            jobReal1Id: widget.jobReal1Id, filePath: filePath));
+      }
     }
   }
 

@@ -24,3 +24,4 @@ class CustCatCariPageActiveEvent extends HomeEvent {}
 class PolisCariPageActiveEvent extends HomeEvent {}
 class CobCariPageActiveEvent extends HomeEvent {}
 class CalendarPageActiveEvent extends HomeEvent {}
+class JobGroupPageActiveEvent extends HomeEvent {}

@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:esalesapp/common/app_data.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:esalesapp/models/combobox/combocustomer_model.dart';
@@ -6,14 +9,19 @@ import 'package:esalesapp/widgets/my_colors.dart';
 import 'package:esalesapp/widgets/my_text.dart';
 
 DropdownSearch<ComboCustomerModel> buildFieldComboCustomer(
-	  {
-    GlobalKey<DropdownSearchState<ComboCustomerModel>>? comboKey,
-      required String labelText,
+    {GlobalKey<DropdownSearchState<ComboCustomerModel>>? comboKey,
+    bool enabled = true,
+    required String labelText,
     ComboCustomerModel? initItem,
     Function(ComboCustomerModel?)? onChangedCallback,
     required Function(ComboCustomerModel?) onSaveCallback,
     Function(ComboCustomerModel?)? validatorCallback}) {
+
+  debugPrint("buildFieldComboCustomer : initItem ${jsonEncode(initItem?.toJson())}");
+
   return DropdownSearch<ComboCustomerModel>(
+    enabled: enabled,
+    key: comboKey,
     selectedItem: initItem,
     dropdownDecoratorProps: DropDownDecoratorProps(
       dropdownSearchDecoration: InputDecoration(
@@ -101,7 +109,6 @@ Widget itemBuilderComboCustomer(
                   "${item.telp1} ${item.telp2.isNotEmpty ? "/ ${item.telp2}" : ""}",
                   style: MyText.bodyLarge(context)!
                       .copyWith(color: MyColors.grey_80)),
-              
             ]))),
   );
 }

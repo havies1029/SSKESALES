@@ -5,13 +5,19 @@ import 'package:esalesapp/repositories/combobox/combojobcat_repository.dart';
 
 DropdownSearch<ComboJobcatModel> buildFieldComboJobcat({
   GlobalKey<DropdownSearchState<ComboJobcatModel>>? comboKey,
+  bool enabled = true,
 	required String labelText,
 	ComboJobcatModel? initItem,
+  required String custCatId,
 	Function(ComboJobcatModel?)? onChangedCallback,
 	required Function(ComboJobcatModel?) onSaveCallback,
 	Function(ComboJobcatModel?)? validatorCallback
 	}) {
+
+  debugPrint("buildFieldComboJobcat custCatId : $custCatId}");
+
 	return DropdownSearch<ComboJobcatModel>(
+    enabled: enabled,
     key: comboKey,
 		selectedItem: initItem,
 		dropdownDecoratorProps: DropDownDecoratorProps(
@@ -21,7 +27,7 @@ DropdownSearch<ComboJobcatModel> buildFieldComboJobcat({
 			),
 		),
 			asyncItems: (String filter) async {
-				return ComboJobcatRepository().getComboJobcat();
+				return ComboJobcatRepository().getComboJobcat(custCatId);
 			},
 			clearButtonProps: const ClearButtonProps(isVisible: true),
 			popupProps: const PopupPropsMultiSelection.modalBottomSheet(

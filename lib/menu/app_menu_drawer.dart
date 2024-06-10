@@ -21,19 +21,13 @@ class AppMenuState extends State<AppMenu> with RouteAware {
       child: ListView(
         children: <Widget>[
           UserAccountsDrawerHeader(
-            currentAccountPictureSize: const Size.square(120),
-            currentAccountPicture: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                //color: Colors.blue,
-              ),
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Image.asset('assets/images/login_logo.png', width: 100, height: 100,),
-              ),
+            currentAccountPictureSize: const Size.square(100),
+            currentAccountPicture: const CircleAvatar(
+              backgroundImage: AssetImage('assets/images/login_logo.png'),
+              //child: Image.asset('assets/images/login_logo.png', width: 100, height: 100,),
             ),
             accountEmail: const Text("support@ptssk.id"),
-            accountName: const Text("CS-Support"),
+            accountName: const Text("Smartsoft"),
             onDetailsPressed: () {
               SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
                 Navigator.of(context).pop();
@@ -41,17 +35,8 @@ class AppMenuState extends State<AppMenu> with RouteAware {
               });
             },
           ),
-          ListTile(
-            leading: const Icon(Icons.person),
-            title: const Text("Profile"),
-            //selected: _activeRoute == AppRoutes.homePage,
-            onTap: () {
-              SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-                Navigator.of(context).pop();
-                homeBloc.add(ProfilePageActiveEvent());
-              });
-            },
-          ),
+
+          /*
           ListTile(
             leading: const Icon(Icons.person),
             title: const Text("Calendar"),
@@ -63,17 +48,8 @@ class AppMenuState extends State<AppMenu> with RouteAware {
               });
             },
           ),
-          ListTile(
-            leading: const Icon(Icons.person),
-            title: const Text("Job Realization"),
-            //selected: _activeRoute == AppRoutes.homePage,
-            onTap: () {
-              SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-                Navigator.of(context).pop();
-                homeBloc.add(JobRealCariPageActiveEvent());
-              });
-            },
-          ),
+          */
+          
           
           ExpansionTile(
             leading: const Icon(
@@ -106,6 +82,19 @@ class AppMenuState extends State<AppMenu> with RouteAware {
                 padding: const EdgeInsets.only(left: 15.0),
                 child: ListTile(
                   leading: const Icon(Icons.timer),
+                  title: const Text("Job Function"),
+                  onTap: () {
+                    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+                      Navigator.of(context).pop();
+                      homeBloc.add(JobGroupPageActiveEvent());
+                    });
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15.0),
+                child: ListTile(
+                  leading: const Icon(Icons.timer),
                   title: const Text("Task Category"),
                   onTap: () {
                     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
@@ -124,6 +113,20 @@ class AppMenuState extends State<AppMenu> with RouteAware {
                     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
                       Navigator.of(context).pop();
                       homeBloc.add(JobCariPageActiveEvent());
+                    });
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15.0),
+                child: ListTile(
+                  leading: const Icon(Icons.person),
+                  title: const Text("Finished Task"),
+                  //selected: _activeRoute == AppRoutes.homePage,
+                  onTap: () {
+                    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+                      Navigator.of(context).pop();
+                      homeBloc.add(JobRealCariPageActiveEvent());
                     });
                   },
                 ),
@@ -264,6 +267,17 @@ class AppMenuState extends State<AppMenu> with RouteAware {
                   },
                 ),
               ),
+              ListTile(
+                leading: const Icon(Icons.person),
+                title: const Text("Profile"),
+                //selected: _activeRoute == AppRoutes.homePage,
+                onTap: () {
+                  SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+                    Navigator.of(context).pop();
+                    homeBloc.add(ProfilePageActiveEvent());
+                  });
+                },
+              ),                
             ],
           ),          
           ListTile(
@@ -275,14 +289,14 @@ class AppMenuState extends State<AppMenu> with RouteAware {
                 Navigator.of(context).pop();
                 homeBloc.add(RoomCariPageActiveEvent());
               });
-            },
-          ),                       
+            },            
+          ),                 
           const AboutListTile(
             icon: Icon(Icons.info),
-            applicationName: "JPS SuperApp",
+            applicationName: "e-Planner",
             aboutBoxChildren: <Widget>[
-              Text("http://www.jayaproteksindo.co.id/", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
-              Text("version : 0.2", style: TextStyle(fontSize: 12.0),),
+              Text("http://www.smartsoft-id.com/", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
+              Text("version : 0.3", style: TextStyle(fontSize: 12.0),),
             ],
           ),
           ListTile(

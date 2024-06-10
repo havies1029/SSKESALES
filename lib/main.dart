@@ -1,5 +1,8 @@
+import 'package:esalesapp/blocs/calendar/eventrenewalcari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal2cari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal2grid_bloc.dart';
+import 'package:esalesapp/blocs/jobreal/jobreal3cari_bloc.dart';
+import 'package:esalesapp/blocs/jobreal/jobreal3grid_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealcari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealcrud_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealfoto_bloc.dart';
@@ -13,6 +16,8 @@ import 'package:esalesapp/blocs/mstjob/jobcari_bloc.dart';
 import 'package:esalesapp/blocs/mstjob/jobcrud_bloc.dart';
 import 'package:esalesapp/blocs/mstjobcat/jobcatcari_bloc.dart';
 import 'package:esalesapp/blocs/mstjobcat/jobcatcrud_bloc.dart';
+import 'package:esalesapp/blocs/mstjobgroup/jobgroupcari_bloc.dart';
+import 'package:esalesapp/blocs/mstjobgroup/jobgroupcrud_bloc.dart';
 import 'package:esalesapp/blocs/mstmedia/mediacari_bloc.dart';
 import 'package:esalesapp/blocs/mstmedia/mediacrud_bloc.dart';
 import 'package:esalesapp/blocs/mstrekan/rekancari_bloc.dart';
@@ -31,6 +36,7 @@ import 'package:esalesapp/repositories/mstcustcat/custcatcrud_repository.dart';
 import 'package:esalesapp/repositories/mstjabatan/jabatancrud_repository.dart';
 import 'package:esalesapp/repositories/mstjob/jobcrud_repository.dart';
 import 'package:esalesapp/repositories/mstjobcat/jobcatcrud_repository.dart';
+import 'package:esalesapp/repositories/mstjobgroup/jobgroupcrud_repository.dart';
 import 'package:esalesapp/repositories/mstmedia/mediacrud_repository.dart';
 import 'package:esalesapp/repositories/mstrekan/rekancrud_repository.dart';
 import 'package:esalesapp/repositories/mststaff/staffcrud_repository.dart';
@@ -96,12 +102,17 @@ class App extends StatelessWidget {
         BlocProvider<JobReal2CariBloc>(
             create: (context) => JobReal2CariBloc()),  
         BlocProvider<JobReal2GridBloc>(
-            create: (context) => JobReal2GridBloc(jobReal2CariBloc: context.read<JobReal2CariBloc>())), 
+            create: (context) => JobReal2GridBloc(jobReal2CariBloc: context.read<JobReal2CariBloc>())),         
+        BlocProvider<JobReal3CariBloc>(
+            create: (context) => JobReal3CariBloc()),  
+        BlocProvider<JobReal3GridBloc>(
+            create: (context) => JobReal3GridBloc(jobReal3CariBloc: context.read<JobReal3CariBloc>())), 
         BlocProvider<JobRealFotoBloc>(
             create: (context) => JobRealFotoBloc(repository: JobRealFotoRepository())),
         BlocProvider<JobRealCrudBloc>(
             create: (context) => JobRealCrudBloc(repository: JobRealCrudRepository(),
             jobReal2CariBloc: context.read<JobReal2CariBloc>(),
+            jobReal3CariBloc: context.read<JobReal3CariBloc>(),
             jobRealFotoBloc: context.read<JobRealFotoBloc>())),          
         BlocProvider<MediaCariBloc>(
             create: (context) => MediaCariBloc()),
@@ -143,6 +154,12 @@ class App extends StatelessWidget {
             create: (context) => CobCariBloc()),
         BlocProvider<CobCrudBloc>(
             create: (context) => CobCrudBloc(repository: CobCrudRepository())),
+        BlocProvider<EventRenewalCariBloc>(
+            create: (context) => EventRenewalCariBloc()),
+        BlocProvider<JobGroupCariBloc>(
+            create: (context) => JobGroupCariBloc()),
+        BlocProvider<JobGroupCrudBloc>(
+            create: (context) => JobGroupCrudBloc(repository: JobGroupCrudRepository())),
         
       ],
       child: MaterialApp(
@@ -152,7 +169,7 @@ class App extends StatelessWidget {
         // The Mandy red, dark theme.
         darkTheme: FlexThemeData.dark(scheme: FlexScheme.mandyRed),
         // Use dark or light theme based on system setting.
-        themeMode: ThemeMode.system,
+        themeMode: ThemeMode.light,
 
         routes: const {},
 

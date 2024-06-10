@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:esalesapp/common/app_data.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:esalesapp/models/jobreal/jobrealcari_model.dart';
 
@@ -7,10 +8,15 @@ class JobRealCariAPI {
   String urlGetListEndPoint =
       "${AppData.prefixEndPoint}/api/jobreal/jobrealcari/getlist";
 
-  Future<List<JobRealCariModel>> getJobRealCariAPI(
+  Future<List<JobRealCariModel>> getJobRealCariAPI(String filterDoc,
       String searchText, int hal) async {
+
+    debugPrint("getJobRealCariAPI");    
+    debugPrint("urlGetListEndPoint : $urlGetListEndPoint");
+
     Map<String, String> queryParams = {
       "searchText": searchText,
+      "filterDoc": filterDoc,
       "hal": hal.toString()
     };
     var uri = Uri.http(AppData.httpAuthority, urlGetListEndPoint, queryParams);
@@ -20,6 +26,10 @@ class JobRealCariAPI {
       'Accept': 'application/json; odata=verbos',
       'Authorization': 'Bearer ${AppData.userToken}'
     });
+
+    debugPrint("getJobRealCariAPI");
+    debugPrint("response.statusCode : ${response.statusCode}");
+    debugPrint("response.body : ${response.body}");
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body).cast<Map<String, dynamic>>();

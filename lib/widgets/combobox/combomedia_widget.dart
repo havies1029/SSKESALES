@@ -4,6 +4,7 @@ import 'package:esalesapp/models/combobox/combomedia_model.dart';
 import 'package:esalesapp/repositories/combobox/combomedia_repository.dart';
 
 DropdownSearch<ComboMediaModel> buildFieldComboMedia({
+  bool enabled = true,
 	required String labelText,
 	ComboMediaModel? initItem,
 	Function(ComboMediaModel?)? onChangedCallback,
@@ -11,6 +12,7 @@ DropdownSearch<ComboMediaModel> buildFieldComboMedia({
 	Function(ComboMediaModel?)? validatorCallback
 	}) {
 	return DropdownSearch<ComboMediaModel>(
+    enabled: enabled,
 		selectedItem: initItem,
 		dropdownDecoratorProps: DropDownDecoratorProps(
 			dropdownSearchDecoration: InputDecoration(

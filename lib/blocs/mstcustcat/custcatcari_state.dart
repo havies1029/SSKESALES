@@ -1,7 +1,5 @@
 part of 'custcatcari_bloc.dart';
 
-enum ListStatus { initial, success, failure }
-
 class CustCatCariState extends Equatable {
 
 	final ListStatus status;

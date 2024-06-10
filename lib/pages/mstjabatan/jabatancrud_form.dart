@@ -60,17 +60,17 @@ class JabatanCrudFormPageFormState extends State<JabatanCrudFormPage> {
 										TextFormField(
 											controller: fieldJabatanDescController,
 											decoration: const InputDecoration(
-												labelText: "jabatanDesc",
+												labelText: "Jabatan",
 												floatingLabelBehavior: FloatingLabelBehavior.always,
 											),
 											onChanged: (value) {
 												if (value.isNotEmpty) {
-													removeError(error: kStringNullError);
+													removeError(error: "Field 'Jabatan' tidak boleh kosong.");
 												}
 											},
 											validator: (value) {
 												if (value == null || value.isEmpty) {
-													addError(error: kStringNullError);
+													addError(error: "Field 'Jabatan' tidak boleh kosong.");
 													return "";
 												}
 												return null;

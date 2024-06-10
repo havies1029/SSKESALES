@@ -49,3 +49,5 @@ OutlineInputBorder outlineInputBorder() {
     borderSide: const BorderSide(color: kTextColor),
   );
 }
+
+enum ListStatus { initial, success, failure }

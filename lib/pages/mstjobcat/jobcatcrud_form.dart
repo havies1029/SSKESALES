@@ -1,9 +1,12 @@
+import 'package:esalesapp/models/combobox/combocustcat_model.dart';
+import 'package:esalesapp/widgets/combobox/combocustcat_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:esalesapp/common/constants.dart';
 import 'package:esalesapp/widgets/form_error.dart';
 import 'package:esalesapp/blocs/mstjobcat/jobcatcrud_bloc.dart';
 import 'package:esalesapp/models/mstjobcat/jobcatcrud_model.dart';
+import 'package:esalesapp/models/combobox/combojobgroup_model.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 
 
 class JobCatCrudFormPage extends StatefulWidget {
@@ -21,6 +24,8 @@ class JobCatCrudFormPageFormState extends State<JobCatCrudFormPage> {
 	final _formKey = GlobalKey<FormState>();
 	final List<String> errors = [];
 	var fieldCatNameController = TextEditingController();
+  ComboCustCatModel? fieldComboCustCat;  	
+  final comboCustCatKey = GlobalKey<DropdownSearchState<ComboCustCatModel>>();
 
 	@override
 	void initState() {
@@ -46,7 +51,7 @@ class JobCatCrudFormPageFormState extends State<JobCatCrudFormPage> {
 									children: [
 										const SizedBox(height: 10),
 										Text(
-											"${widget.viewMode == "tambah" ? "Tambah" : "Ubah"} Task Category",
+											"${widget.viewMode == "tambah" ? "Tambah" : "Ubah"} Job Category",
 											style: const TextStyle(
 												fontSize: 20.0,
 												color: Color(0xffff6101),
@@ -57,28 +62,52 @@ class JobCatCrudFormPageFormState extends State<JobCatCrudFormPage> {
 											),
 										),
 										const SizedBox(height: 25),
+                    buildFieldComboCustCat(
+                      usage: "mjobcat",
+                      comboKey: comboCustCatKey,
+                      labelText: 'Category',
+                      initItem: fieldComboCustCat,
+                      onChangedCallback: (value) {
+                        if (value != null) {
+                          removeError(
+                              error: "Field Category tidak boleh kosong.");
+                          fieldComboCustCat = value;
+                        }
+                      },
+                      onSaveCallback: (value) {
+                        if (value != null) {
+                          fieldComboCustCat = value;
+                        }
+                      },
+                      validatorCallback: (value) {
+                        if (value == null) {
+                          addError(
+                              error: "Field Category tidak boleh kosong.");
+                        }
+                      },
+                    ),                    
 										TextFormField(
 											keyboardType: TextInputType.multiline,
 											minLines: 1,
 											maxLines: 3,
 											controller: fieldCatNameController,
 											decoration: const InputDecoration(
-												labelText: "catName",
+												labelText: "Task Category",
 												floatingLabelBehavior: FloatingLabelBehavior.always,
 											),
 											onChanged: (value) {
 												if (value.isNotEmpty) {
-													removeError(error: kStringNullError);
+													removeError(error: "Field 'Task Category' tidak boleh kosong.");
 												}
 											},
 											validator: (value) {
 												if (value == null || value.isEmpty) {
-													addError(error: kStringNullError);
+													addError(error: "Field 'Task Category' tidak boleh kosong.");
 													return "";
 												}
 												return null;
 											},
-										),
+										),										
 										const SizedBox(height: 25),
 										FormError(
 											errors: errors,
@@ -128,7 +157,8 @@ class JobCatCrudFormPageFormState extends State<JobCatCrudFormPage> {
 				},
 				listener: (context, state) {
 					if (state.isLoaded) {
-						fieldCatNameController.text = state.record!.catName;
+						fieldCatNameController.text = state.record!.catName;      
+            fieldComboCustCat = state.record!.comboCustCat;
 					}
 				},
 			);
@@ -149,7 +179,8 @@ class JobCatCrudFormPageFormState extends State<JobCatCrudFormPage> {
 			_formKey.currentState!.save();
 			JobCatCrudModel record = JobCatCrudModel(
 				catName: fieldCatNameController.text,
-				mjobcatId: '',
+        mcustcatId: comboCustCatKey.currentState?.getSelectedItem?.mcustcatId??"",
+				mjobcatId: '',				
 			);
 			if (widget.viewMode == "tambah") {
 				jobCatCrudBloc.add(JobCatCrudTambahEvent(record: record));

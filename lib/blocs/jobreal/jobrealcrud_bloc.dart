@@ -1,7 +1,10 @@
 import 'package:equatable/equatable.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal2cari_bloc.dart';
+import 'package:esalesapp/blocs/jobreal/jobreal3cari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealfoto_bloc.dart';
+import 'package:esalesapp/common/app_data.dart';
 import 'package:esalesapp/models/combobox/combocustomer_model.dart';
+import 'package:esalesapp/models/combobox/comboinsurer_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:esalesapp/models/responseAPI/returndataapi_model.dart';
@@ -17,10 +20,12 @@ part 'jobrealcrud_state.dart';
 class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
   final JobRealCrudRepository repository;
   final JobReal2CariBloc jobReal2CariBloc;
+  final JobReal3CariBloc jobReal3CariBloc;
   final JobRealFotoBloc jobRealFotoBloc;
   JobRealCrudBloc(
       {required this.repository,
       required this.jobReal2CariBloc,
+      required this.jobReal3CariBloc,
       required this.jobRealFotoBloc})
       : super(const JobRealCrudState()) {
     on<JobRealCrudUbahEvent>(onUbahJobRealCrud);
@@ -33,6 +38,8 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
     on<ComboCustomerJobRealCrudChangedEvent>(onComboCustomerChanged);
     on<JobRealCrudResetStateEvent>(onResetState);
     on<JobRealCrudPreOpenEvent>(onPreOpen);
+    on<JobRealOtorisasiEvent>(onOtorisasiJobReal);
+    on<ComboInsurerJobRealCrudChangedEvent>(onComboInsurerChange);
   }
 
   Future<void> onPreOpen(
@@ -67,12 +74,14 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
 
     if (!hasFailure) {
       String jobReal1Id = returnData.data;
-      jobReal2CariBloc
-          .add(Update2ApiJobReal2Event(jobreal1Id: jobReal1Id));
+      jobReal2CariBloc.add(Update2ApiJobReal2Event(jobreal1Id: jobReal1Id));
+      jobReal3CariBloc.add(Update2ApiJobReal3Event(jobreal1Id: jobReal1Id));
 
       var fotoState = jobRealFotoBloc.state;
-      jobRealFotoBloc.add(UploadFotoJobRealEvent(
-          jobReal1Id: jobReal1Id, filePath: fotoState.fotoPath));
+      if (fotoState.fotoPath.isNotEmpty) {
+        jobRealFotoBloc.add(UploadFotoJobRealEvent(
+            jobReal1Id: jobReal1Id, filePath: fotoState.fotoPath));
+      }
     }
 
     emit(
@@ -104,6 +113,7 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
     ComboJobModel? comboJob = record.comboJob;
     ComboCustomerModel? comboCustomer = record.comboCustomer;
     ComboMediaModel? comboMedia = record.comboMedia;
+    ComboInsurerModel? comboInsurer = record.comboInsurer;
 
     emit(state.copyWith(
         isLoading: false,
@@ -112,7 +122,8 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
         comboCustomer: comboCustomer,
         comboJob: comboJob,
         comboJobCat: comboJobcat,
-        comboMedia: comboMedia));
+        comboMedia: comboMedia,
+        comboInsurer: comboInsurer));
   }
 
   Future<void> onComboJobcatChanged(
@@ -134,21 +145,51 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
     emit(state.copyWith(isLoading: false, isLoaded: true, comboJob: comboJob));
   }
 
-  Future<void> onComboCustomerChanged(
-      ComboCustomerJobRealCrudChangedEvent event,
+  Future<void> onComboInsurerChange(ComboInsurerJobRealCrudChangedEvent event,
       Emitter<JobRealCrudState> emit) async {
     emit(state.copyWith(isLoading: true, isLoaded: false));
 
+    ComboInsurerModel comboInsurer = event.comboInsurer;
+    ComboJobcatModel comboJobCat = const ComboJobcatModel();
+    ComboJobModel comboJob = const ComboJobModel();
+
+    emit(state.copyWith(
+        isLoading: false, 
+        isLoaded: true, 
+        comboInsurer: comboInsurer,
+        comboJobCat: comboJobCat,
+        comboJob: comboJob
+      ));
+  }
+
+  Future<void> onComboCustomerChanged(
+      ComboCustomerJobRealCrudChangedEvent event,
+      Emitter<JobRealCrudState> emit) async {
+    emit(state.copyWith(
+        isLoading: true, isLoaded: false, requireComboInsurer: false));
+
     ComboCustomerModel comboCustomer = event.comboCustomer;
-    JobRealCrudModel rec = state.record!;
-    rec.mrekanId = comboCustomer.mrekanId;
-    rec.comboCustomer = comboCustomer;
+    ComboJobcatModel comboJobcat = const ComboJobcatModel();
+    ComboJobModel comboJob = const ComboJobModel();
+    String rekanType = comboCustomer.rekanType;
+    bool requireComboInsurer = false;
+
+    debugPrint("AppData.userCabang : ${AppData.userCabang}");
+    debugPrint("comboCustomer.rekanType : ${comboCustomer.rekanType}");
+
+    if (AppData.userCabang == "teknik") {
+      if (rekanType == "customer") {
+        requireComboInsurer = true;
+      }
+    }
 
     emit(state.copyWith(
         isLoading: false,
         isLoaded: true,
-        record: rec,
-        comboCustomer: comboCustomer));
+        comboJobCat: comboJobcat,
+        comboJob: comboJob,
+        comboCustomer: comboCustomer,
+        requireComboInsurer: requireComboInsurer));
   }
 
   Future<void> onComboMediaChanged(
@@ -161,5 +202,13 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
     rec.comboMedia = comboMedia;
 
     emit(state.copyWith(isLoading: false, isLoaded: true, record: rec));
+  }
+
+  Future<void> onOtorisasiJobReal(
+      JobRealOtorisasiEvent event, Emitter<JobRealCrudState> emit) async {
+    emit(state.copyWith(isSaving: true, isSaved: false, hasFailure: false));
+    ReturnDataAPI result = await repository.jobRealOtorisasi(event.recordId);
+    emit(state.copyWith(
+        isSaving: false, isSaved: true, hasFailure: result.success));
   }
 }

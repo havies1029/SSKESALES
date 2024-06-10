@@ -1,7 +1,5 @@
 part of 'jobreal2cari_bloc.dart';
 
-enum ListStatus { initial, success, failure }
-
 class JobReal2CariState extends Equatable {
   final ListStatus status;
   final List<JobReal2CariModel> items;

@@ -3,8 +3,8 @@ import 'package:esalesapp/models/combobox/combocustcat_model.dart';
 
 class ComboCustCatRepository {
 
-	Future<List<ComboCustCatModel>> getComboCustCat() async {
+	Future<List<ComboCustCatModel>> getComboCustCat(String usage) async {
 		ComboCustCatAPI api = ComboCustCatAPI();
-		return await api.getComboCustCatAPI();
+		return await api.getComboCustCatAPI(usage);
 	}
 }

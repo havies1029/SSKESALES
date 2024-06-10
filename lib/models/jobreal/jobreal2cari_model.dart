@@ -22,7 +22,7 @@ class JobReal2CariModel {
   String polis1Id;
   String polisNo;
   DateTime periodeAwal;
-  DateTime periodeAkhir;
+  DateTime? periodeAkhir;
   String curr;
   double cstPremi;
   double tsi;
@@ -35,7 +35,7 @@ class JobReal2CariModel {
       {required this.polis1Id,
       required this.polisNo,
       required this.periodeAwal,
-      required this.periodeAkhir,
+      this.periodeAkhir,
       required this.curr,
       required this.cstPremi,
       required this.tsi,
@@ -51,8 +51,7 @@ class JobReal2CariModel {
         polisNo: data['polisNo'] ?? '',
         periodeAwal:
             DateTime.tryParse(data['periodeAwal'].toString()) ?? DateTime.now(),
-        periodeAkhir: DateTime.tryParse(data['periodeAkhir'].toString()) ??
-            DateTime.now(),
+        periodeAkhir: data['periodeAkhir'] != null ? DateTime.tryParse(data['periodeAkhir'].toString()):null,
         curr: data['curr'] ?? '',
         cstPremi: double.tryParse(data['cstPremi'].toString()) ?? 0,
         tsi: double.tryParse(data['tsi'].toString()) ?? 0,
@@ -67,7 +66,7 @@ class JobReal2CariModel {
         'polis1Id': polis1Id,
         'polisNo': polisNo,
         'periodeAwal': periodeAwal.toIso8601String(),
-        'periodeAkhir': periodeAkhir.toIso8601String(),
+        'periodeAkhir': periodeAkhir?.toIso8601String()??"",
         'curr': curr,
         'cstPremi': cstPremi.toString(),
         'tsi': tsi.toString(),

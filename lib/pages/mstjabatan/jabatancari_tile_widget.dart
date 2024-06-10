@@ -27,7 +27,7 @@ class JabatanCariTileWidget extends StatelessWidget {
 				child: Column(
 					crossAxisAlignment: CrossAxisAlignment.start,
 					children: [
-						Text("jabatanDesc",
+						Text("Jabatan",
 							style: MyText.bodyLarge(context)!
 								.copyWith(color: MyColors.grey_40)),
 						Container(height: 5),
@@ -35,16 +35,7 @@ class JabatanCariTileWidget extends StatelessWidget {
 							jabatanDesc,
 							style: MyText.bodyLarge(context)!
 								.copyWith(color: MyColors.grey_80)),
-						Container(height: 10),
-						Text("mjabatanId",
-							style: MyText.bodyLarge(context)!
-								.copyWith(color: MyColors.grey_40)),
-						Container(height: 5),
-						Text(
-							mjabatanId,
-							style: MyText.bodyLarge(context)!
-								.copyWith(color: MyColors.grey_80)),
-						Container(height: 10),
+						Container(height: 10),						
 				]),
 			)
 		);

@@ -15,7 +15,7 @@ class JobRealCrudMainPage extends StatelessWidget {
     return MobileDesignWidget(
         child: Scaffold(
             appBar: AppBar(
-              title: Text('${viewMode == "tambah"?"Tambah":"Ubah"} Action'),
+              title: Text('${viewMode == "tambah"?"Tambah": viewMode == "ubah"?"Ubah":"Lihat"} Task'),
             ),
             //backgroundColor: Colors.grey[200],
             body: JobRealCrudFormPage(viewMode: viewMode, recordId: recordId)));

@@ -8,6 +8,8 @@ import 'package:esalesapp/widgets/list_extension.dart';
 import 'package:esalesapp/models/jobreal/jobreal2cari_model.dart';
 import 'package:esalesapp/repositories/jobreal/jobreal2cari_repository.dart';
 
+import '../../common/constants.dart';
+
 part 'jobreal2grid_event.dart';
 part 'jobreal2grid_state.dart';
 
@@ -22,10 +24,10 @@ class JobReal2GridBloc extends Bloc<JobReal2ListEvents, JobReal2GridState> {
         var selectedPolicies =
             pickPolisState.items.where((element) => element.isChecked).toList();
 
-        if (selectedPolicies.isNotEmpty) {
+        //if (selectedPolicies.isNotEmpty) {
           add(GetPickedPoliciesJobReal2ListEvent(
               pickedPolicies: selectedPolicies));
-        }
+        //}
       }
     });
 

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
 class SfCalendarPage extends StatefulWidget {

@@ -1,3 +1,4 @@
+import 'package:esalesapp/models/combobox/combocustcat_model.dart';
 import 'package:esalesapp/models/combobox/combojobcat_model.dart';
 
 class JobCrudModel {
@@ -5,9 +6,10 @@ class JobCrudModel {
 	String mjobId;
 	String? mjobcatId;
 	ComboJobcatModel? comboJobcat;
+  ComboCustCatModel? comboCustCat;
 
 	JobCrudModel({required this.jobNama, required this.mjobId, 
-		this.mjobcatId, this.comboJobcat});
+		this.mjobcatId, this.comboJobcat, this.comboCustCat});
 
 	factory JobCrudModel.fromJson(Map<String, dynamic> data) {
 		ComboJobcatModel? comboJobcat;
@@ -15,11 +17,17 @@ class JobCrudModel {
 			comboJobcat = ComboJobcatModel.fromJson(data['comboJobcat']);
 		}
 
+    ComboCustCatModel? comboCustCat;
+    if (data['comboCustCat'] != null) {
+      comboCustCat = ComboCustCatModel.fromJson(data['comboCustCat']);
+    }
+
 		return JobCrudModel(
 			jobNama: data['jobNama']??'',
 			mjobId: data['mjobId']??'',
 			mjobcatId: data['mjobcatId']??'',
-			comboJobcat: comboJobcat
+			comboJobcat: comboJobcat,      
+      comboCustCat: comboCustCat,
 		);
 
 	}
@@ -28,6 +36,8 @@ class JobCrudModel {
 		{'jobNama': jobNama,
 		'mjobId': mjobId,
 		'mjobcatId': mjobcatId,
-		'comboJobcat': comboJobcat?.toJson()};
+		'comboJobcat': comboJobcat?.toJson(),
+    'comboCustCat': comboCustCat?.toJson()
+  };
 
 }

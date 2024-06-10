@@ -8,7 +8,7 @@ class JobReal2GridTileWidget extends StatelessWidget {
   final String polis1Id;
 	final String? polisNo;
 	final DateTime periodeAwal;
-	final DateTime periodeAkhir;
+	final DateTime? periodeAkhir;
 	final String curr;
 	final double cstPremi;
 	final double tsi;
@@ -17,7 +17,7 @@ class JobReal2GridTileWidget extends StatelessWidget {
 
 	const JobReal2GridTileWidget(
 		{super.key, required this.polis1Id, this.polisNo, 
-    required this.periodeAwal, required this.periodeAkhir, 
+    required this.periodeAwal, this.periodeAkhir, 
     required this.curr, required this.cstPremi, 
     required this.tsi, required this.cob, required this.insuredNama, 
     required this.jobreal2Id});
@@ -52,7 +52,7 @@ class JobReal2GridTileWidget extends StatelessWidget {
               .copyWith(color: MyColors.grey_80)),
             Container(height: 10),
             Text(
-						"${DateFormat("dd/MM/yyyy").format(periodeAwal)} - ${DateFormat("dd/MM/yyyy").format(periodeAkhir)}",
+						"${DateFormat("dd/MM/yyyy").format(periodeAwal)} - ${periodeAkhir != null?(DateFormat("dd/MM/yyyy").format(periodeAkhir!)):""}",
 						style: MyText.bodyLarge(context)!
 							.copyWith(color: MyColors.grey_80)),
           ]

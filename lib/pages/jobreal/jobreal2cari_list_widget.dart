@@ -1,4 +1,5 @@
 import 'package:esalesapp/blocs/jobreal/jobrealcrud_bloc.dart';
+import 'package:esalesapp/common/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal2cari_bloc.dart';
@@ -19,6 +20,7 @@ class JobReal2CariListWidget extends StatefulWidget {
 
 class JobReal2CariListWidgetState extends State<JobReal2CariListWidget> {
   late JobReal2CariBloc jobReal2CariBloc;
+  final ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -40,11 +42,12 @@ class JobReal2CariListWidgetState extends State<JobReal2CariListWidget> {
               ? Flexible(
                   child: Container(
                   color: Colors.grey[200],
-                  child: GroupedListView<dynamic, String>(
+                  child: GroupedListView<dynamic, String>(                    
+                    controller: _scrollController,           
                     elements: elements,
                     groupBy: (elements) => elements['cob'],
                     groupComparator: (value1, value2) =>
-                        value2.compareTo(value1),
+                        value1.compareTo(value2),
                     itemComparator: (item1, item2) =>
                         item1['polis1Id'].compareTo(item2['polis1Id']),
                     order: GroupedListOrder.ASC,
@@ -112,8 +115,7 @@ class JobReal2CariListWidgetState extends State<JobReal2CariListWidget> {
                                 polisNo: element["polisNo"],
                                 periodeAwal:
                                     DateTime.parse(element["periodeAwal"]),
-                                periodeAkhir:
-                                    DateTime.parse(element["periodeAkhir"]),
+                                periodeAkhir: DateTime.tryParse(element["periodeAkhir"]),
                                 curr: element["curr"],
                                 cstPremi: double.parse(element["cstPremi"]),
                                 tsi: double.parse(element["tsi"]),
@@ -179,7 +181,7 @@ class JobReal2CariListWidgetState extends State<JobReal2CariListWidget> {
         }
       },
       listenWhen: (previous, current) {
-        debugPrint("listenWhen current.requestToUpdate : ${current.requestToUpdate}");
+        debugPrint("JobReal2CariBloc listenWhen current.requestToUpdate : ${current.requestToUpdate}");
         return (current.requestToUpdate || (current.isSaved));
       },
     );

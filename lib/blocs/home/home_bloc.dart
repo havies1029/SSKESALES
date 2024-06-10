@@ -23,5 +23,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<PolisCariPageActiveEvent>((event, emit) => emit(PolisCariPageActive())); 
     on<CobCariPageActiveEvent>((event, emit) => emit(CobCariPageActive())); 
     on<CalendarPageActiveEvent>((event, emit) => emit(CalendarPageActive())); 
+    on<JobGroupPageActiveEvent>((event, emit) => emit(JobGroupPageActive())); 
   }
 }

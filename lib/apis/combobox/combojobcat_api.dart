@@ -5,11 +5,12 @@ import 'package:http/http.dart' as http;
 import 'package:esalesapp/models/combobox/combojobcat_model.dart';
 
 class ComboJobcatAPI {
-  Future<List<ComboJobcatModel>> getComboJobcatAPI() async {
-    String urlGetComboEndPoint =
-        "${AppData.prefixEndPoint}/api/mjobcatcombobox/getlist";
+  Future<List<ComboJobcatModel>> getComboJobcatAPI(String custCatId) async {
+    String urlGetComboEndPoint = "${AppData.prefixEndPoint}/api/mjobcatcombobox/byuser/getlist";
 
-    var uri = AppData.uriHtpp(AppData.httpAuthority, urlGetComboEndPoint);
+    Map<String, String> queryParams = {"custCatId": custCatId};
+
+    var uri = AppData.uriHtpp(AppData.httpAuthority, urlGetComboEndPoint, queryParams);
     final http.Response response =
         await http.get(uri, headers: <String, String>{
       'Content-Type': 'application/json; odata=verbos',

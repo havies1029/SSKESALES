@@ -1,7 +1,5 @@
 part of 'cobcari_bloc.dart';
 
-enum ListStatus { initial, success, failure }
-
 class CobCariState extends Equatable {
 
 	final ListStatus status;
