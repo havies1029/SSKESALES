@@ -3,8 +3,8 @@ import 'package:esalesapp/models/mstjob/jobcari_model.dart';
 
 class JobCariRepository {
 
-	Future<List<JobCariModel>> getJobCari(String searchText, int hal) async {
+	Future<List<JobCariModel>> getJobCari(String personId, String searchText, int hal) async {
 		JobCariAPI api = JobCariAPI();
-		return await api.getJobCariAPI(searchText, hal);
+		return await api.getJobCariAPI(personId, searchText, hal);
 	}
 }

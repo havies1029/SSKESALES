@@ -6,6 +6,7 @@ import 'package:esalesapp/blocs/jobreal/jobreal3grid_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealcari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealcrud_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealfoto_bloc.dart';
+import 'package:esalesapp/blocs/login/change_password_bloc.dart';
 import 'package:esalesapp/blocs/mstcob/cobcari_bloc.dart';
 import 'package:esalesapp/blocs/mstcob/cobcrud_bloc.dart';
 import 'package:esalesapp/blocs/mstcustcat/custcatcari_bloc.dart';
@@ -31,6 +32,7 @@ import 'package:esalesapp/blocs/polis/poliscrud_bloc.dart';
 import 'package:esalesapp/common/app_data.dart';
 import 'package:esalesapp/repositories/jobreal/jobrealcrud_repository.dart';
 import 'package:esalesapp/repositories/jobreal/jobrealfoto_repository.dart';
+import 'package:esalesapp/repositories/login/change_password_repository.dart';
 import 'package:esalesapp/repositories/mstcob/cobcrud_repository.dart';
 import 'package:esalesapp/repositories/mstcustcat/custcatcrud_repository.dart';
 import 'package:esalesapp/repositories/mstjabatan/jabatancrud_repository.dart';
@@ -84,6 +86,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider<ChangePasswordBloc>(
+            create: (context) => ChangePasswordBloc(repository: ChangePasswordRepository())),
         BlocProvider<TakeImageCubit>(
           create: (context) => TakeImageCubit(),
         ),
@@ -160,6 +164,7 @@ class App extends StatelessWidget {
             create: (context) => JobGroupCariBloc()),
         BlocProvider<JobGroupCrudBloc>(
             create: (context) => JobGroupCrudBloc(repository: JobGroupCrudRepository())),
+        
         
       ],
       child: MaterialApp(

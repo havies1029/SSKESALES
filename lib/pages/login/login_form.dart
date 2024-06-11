@@ -158,6 +158,7 @@ class _LoginFormState extends State<LoginForm> {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 10,),
                     TextFormField(
                       decoration: const InputDecoration(
                           labelText: 'username', icon: Icon(Icons.person)),

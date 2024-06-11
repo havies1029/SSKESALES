@@ -91,3 +91,4 @@ class ComboMediaChangedEvent extends JobRealCrudEvents{
 	@override	List<Object> get props => [comboMedia];
 }
 
+

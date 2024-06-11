@@ -45,8 +45,9 @@ class Token {
 
     AppData.userToken = enkriptToken;
     AppData.userCabang = info[1];
+    AppData.personId = info[12];
+    AppData.personName = info[2];
 
-    
     debugPrint("AppData.userCabang : ${AppData.userCabang}");
 
     String dekripToken = stringToBase64.decode(enkriptToken);

@@ -1,10 +1,16 @@
 import 'package:esalesapp/apis/jobreal/jobrealcari_api.dart';
 import 'package:esalesapp/models/jobreal/jobrealcari_model.dart';
+import 'package:esalesapp/models/responseAPI/returndataapi_model.dart';
 
 class JobRealCariRepository {
 
-	Future<List<JobRealCariModel>> getJobRealCari(String filterDoc, String searchText, int hal) async {
-		JobRealCariAPI api = JobRealCariAPI();
-		return await api.getJobRealCariAPI(filterDoc, searchText, hal);
+  JobRealCariAPI api = JobRealCariAPI();
+
+	Future<List<JobRealCariModel>> getJobRealCari(String personId, String filterDoc, String searchText, int hal) async {
+		return await api.getJobRealCariAPI(personId, filterDoc, searchText, hal);
+	}
+
+  Future<ReturnDataAPI> jobRealDuplicate(String jobreal1Id) async {
+		return await api.jobRealDuplicateAPI(jobreal1Id);
 	}
 }

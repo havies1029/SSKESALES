@@ -59,6 +59,7 @@ class DatabaseProvider {
         "id INTEGER PRIMARY KEY, "
         "username TEXT, "
         "nama TEXT, "
+        "personId TEXT, "
         "hp TEXT, "
         "email TEXT, "
         "alamat1 TEXT, "
@@ -72,13 +73,14 @@ class DatabaseProvider {
   }
 
   void _createDb(Database db, int newVersion) async {
-    //await db.execute("drop table if exists $userTable");
+    await db.execute("drop table if exists $userTable");
 
     await db.execute('''
       create table if not exists $userTable (
         id integer primary key,
         username text not null,
         nama text not null,
+        personId text not null,
         hp text,
         email text,
         alamat1 text,

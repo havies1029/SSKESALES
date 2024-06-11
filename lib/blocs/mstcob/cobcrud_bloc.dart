@@ -9,6 +9,7 @@ part 'cobcrud_state.dart';
 
 class CobCrudBloc extends Bloc<CobCrudEvents, CobCrudState> {
 	final CobCrudRepository repository;
+  
 	CobCrudBloc({required this.repository}) : super(const CobCrudState()) {
 		on<CobCrudUbahEvent>(onUbahCobCrud);
 		on<CobCrudTambahEvent>(onTambahCobCrud);

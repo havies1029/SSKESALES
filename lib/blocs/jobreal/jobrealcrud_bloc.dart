@@ -212,3 +212,5 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
         isSaving: false, isSaved: true, hasFailure: result.success));
   }
 }
+
+  

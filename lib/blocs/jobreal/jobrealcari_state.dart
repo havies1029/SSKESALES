@@ -9,6 +9,10 @@ class JobRealCariState extends Equatable {
   final String recordId;
   final String filterDoc;
   final bool requestToRefresh;
+  final bool isDuplicating;
+  final bool isDuplicated;
+  final bool hasFailure;
+  final String personId;
 
   const JobRealCariState(
       {this.status = ListStatus.initial,
@@ -18,7 +22,11 @@ class JobRealCariState extends Equatable {
       this.viewMode = "",
       this.recordId = "",
       this.filterDoc = "all",
-      this.requestToRefresh = false});
+      this.requestToRefresh = false,
+      this.isDuplicating = false,
+      this.isDuplicated = false,
+      this.hasFailure = false,
+      this.personId = ""});
 
   const JobRealCariState.success(List<JobRealCariModel> items)
       : this(status: ListStatus.success, items: items);
@@ -33,7 +41,11 @@ class JobRealCariState extends Equatable {
       String? viewMode,
       String? recordId,
       String? filterDoc,
-      bool? requestToRefresh}) {
+      bool? requestToRefresh,
+      bool? isDuplicating,
+      bool? isDuplicated,
+      bool? hasFailure,
+      String? personId}) {
     return JobRealCariState(
         items: items ?? this.items,
         hasReachedMax: hasReachedMax ?? this.hasReachedMax,
@@ -42,10 +54,15 @@ class JobRealCariState extends Equatable {
         viewMode: viewMode ?? this.viewMode,
         recordId: recordId ?? this.recordId,
         filterDoc: filterDoc ?? this.filterDoc,
-        requestToRefresh: requestToRefresh ?? this.requestToRefresh);
+        requestToRefresh: requestToRefresh ?? this.requestToRefresh,
+        isDuplicating: isDuplicating ?? this.isDuplicating,
+        isDuplicated: isDuplicated ?? this.isDuplicated,
+        hasFailure: hasFailure ?? this.hasFailure,
+        personId: personId ?? this.personId);
   }
 
   @override
   List<Object> get props =>
-      [status, items, hasReachedMax, hal, viewMode, recordId, filterDoc, requestToRefresh];
+      [status, items, hasReachedMax, hal, viewMode, recordId, filterDoc, requestToRefresh,
+        isDuplicating, isDuplicated, hasFailure, personId];
 }

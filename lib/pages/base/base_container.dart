@@ -1,3 +1,4 @@
+import 'package:esalesapp/common/app_data.dart';
 import 'package:esalesapp/pages/chatting/roomcari_list.dart';
 import 'package:esalesapp/pages/groupchat/groupchat_page.dart';
 import 'package:esalesapp/pages/home/home_page.dart';
@@ -5,10 +6,13 @@ import 'package:esalesapp/menu/app_menu_drawer.dart';
 import 'package:esalesapp/pages/base/base_page.dart';
 import 'package:esalesapp/common/styles.dart';
 import 'package:esalesapp/pages/jobreal/jobrealcari_main.dart';
+import 'package:esalesapp/pages/jobreal/realgroupcari_main.dart';
+import 'package:esalesapp/pages/login/change_pswd_main.dart';
 import 'package:esalesapp/pages/mstcob/cobcari_main.dart';
 import 'package:esalesapp/pages/mstcustcat/custcatcari_main.dart';
 import 'package:esalesapp/pages/mstjabatan/jabatancari_main.dart';
 import 'package:esalesapp/pages/mstjob/jobcari_main.dart';
+import 'package:esalesapp/pages/mstjob/jobsalescari_main.dart';
 import 'package:esalesapp/pages/mstjobcat/jobcatcari_main.dart';
 import 'package:esalesapp/pages/mstjobgroup/jobgroupcari_main.dart';
 import 'package:esalesapp/pages/mstmedia/mediacari_main.dart';
@@ -100,13 +104,13 @@ class PageContainer extends PageContainerBase {
       case PageType.roomchat:
         return "Chat Support";
       case PageType.action:
-        return "Finished Task";
+        return "Finished Tasks";
       case PageType.media:
         return "Master Media";
       case PageType.jobcat:
         return "Task Category";
       case PageType.job:
-        return "Master Task";
+        return "List of Tasks";
       case PageType.customer:
         return "Master Customer";
       case PageType.insurer:
@@ -127,6 +131,12 @@ class PageContainer extends PageContainerBase {
         return "Calendar";
       case PageType.jobgroup:
         return "Job Function";
+      case PageType.changepswd:
+        return "Change Password";
+      case PageType.jobsales:
+        return "Subordinate Tasks";
+      case PageType.realgroup:
+        return "Subordinate Finished Tasks";
       default:
         return "Login Page";
     }
@@ -145,7 +155,7 @@ class PageContainer extends PageContainerBase {
         page = const RoomCariPage();
         break;      
       case PageType.action:
-        page = const JobRealCariMainPage();
+        page = JobRealCariMainPage(personId: AppData.personId, readOnly: false);
         break;      
       case PageType.media:
         page = const MediaCariMainPage();
@@ -154,7 +164,7 @@ class PageContainer extends PageContainerBase {
         page = const JobCatCariMainPage();
         break;      
       case PageType.job:
-        page = const JobCariMainPage();
+        page = JobCariMainPage(personId: AppData.personId, personName: AppData.personName);
         break;      
       case PageType.customer:
         page = const RekanCariMainPage(rekanTypeId: "00010");
@@ -185,6 +195,15 @@ class PageContainer extends PageContainerBase {
         break;
       case PageType.jobgroup:
         page = const JobGroupCariMainPage();
+        break;
+      case PageType.changepswd:
+        page = const ChangePswdMainPage();
+        break;
+      case PageType.jobsales:
+        page = const JobSalesCariMainPage();
+        break;
+      case PageType.realgroup:
+        page = const RealGroupCariMainPage();
         break;
       default:
         page = null;

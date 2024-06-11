@@ -13,8 +13,10 @@ import 'package:esalesapp/blocs/jobreal/jobrealcari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealcrud_bloc.dart';
 import 'package:esalesapp/pages/jobreal/jobrealcari_list_widget.dart';
 
-class JobRealCariPage extends StatefulWidget {
-  const JobRealCariPage({super.key});
+class JobRealCariPage extends StatefulWidget {  
+  final bool readOnly;
+  final String personId;
+  const JobRealCariPage({super.key, required this.personId, required this.readOnly});
 
   @override
   JobRealCariPageState createState() => JobRealCariPageState();
@@ -42,18 +44,26 @@ class JobRealCariPageState extends State<JobRealCariPage> {
     return MultiBlocListener(
         listeners: [
           BlocListener<JobRealCariBloc, JobRealCariState>(
-              listener: (context, state) {
-            if (state.viewMode == "tambah") {
-              showDialogViewData(context, state.viewMode, "");
-            } else if (state.viewMode == "ubah") {
-              showDialogViewData(context, state.viewMode, state.recordId);
-            } else if (state.viewMode == "lihat") {
-              showDialogViewData(context, state.viewMode, state.recordId);
-            } 
-            
-          }, listenWhen: (previous, current) {
-            return previous.viewMode != current.viewMode;
-          }),
+            listener: (context, state) {
+              //debugPrint("MultiBlocListener -> JobRealCariBloc");
+
+              if (state.viewMode == "tambah") {
+                showDialogViewData(context, state.viewMode, "");
+              } else if (state.viewMode == "ubah") {
+                showDialogViewData(context, state.viewMode, state.recordId);
+              } else if (state.viewMode == "lihat") {
+                showDialogViewData(context, state.viewMode, state.recordId);
+              }
+
+              //debugPrint("state.isDuplicated : ${state.isDuplicated}");
+              if (state.isDuplicated) {
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text("Data sudah berhasil diduplikasi."),
+                  backgroundColor: Colors.green,
+                ));
+              }
+            },
+          ),
           BlocListener<JobRealCrudBloc, JobRealCrudState>(
               listener: (context, state) {
             if (state.isSaved) {
@@ -64,7 +74,7 @@ class JobRealCariPageState extends State<JobRealCariPage> {
           }),
         ],
         child: Scaffold(
-          floatingActionButton:
+          floatingActionButton: widget.readOnly?null:
               FloatingMenuMasterWidget(onTambah: onTambahData),
           body: Container(
             color: Colors.grey[200],
@@ -85,7 +95,7 @@ class JobRealCariPageState extends State<JobRealCariPage> {
   }
 
   void refreshData() {
-    jobRealCariBloc.add(RefreshJobRealCariEvent(
+    jobRealCariBloc.add(RefreshJobRealCariEvent(personId: widget.personId,
         searchText: _searchController.text, hal: 0, filterDoc: filterList));
   }
 
@@ -101,6 +111,7 @@ class JobRealCariPageState extends State<JobRealCariPage> {
         ),
         onPressed: () {
           jobRealCariBloc.add(RefreshJobRealCariEvent(
+              personId: widget.personId,
               searchText: _searchController.text,
               hal: 0,
               filterDoc: filterList));
@@ -112,7 +123,7 @@ class JobRealCariPageState extends State<JobRealCariPage> {
         child: Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        JobRealCariListWidget(searchText: _searchController.text)
+        JobRealCariListWidget(personId: widget.personId, searchText: _searchController.text, readOnly: widget.readOnly,)
       ],
     ));
   }
@@ -142,7 +153,7 @@ class JobRealCariPageState extends State<JobRealCariPage> {
     BlocProvider.of<JobReal3CariBloc>(context)
         .add(ResetStateJobReal3CariEvent());
     BlocProvider.of<JobRealFotoBloc>(context).add(ResetStateJobRealFotoEvent());
-    BlocProvider.of<JobRealCariBloc>(context).add(ResetStateJobRealCariEvent());
+    BlocProvider.of<JobRealCariBloc>(context).add(ResetStateJobRealCariEvent(personId: widget.personId));
     BlocProvider.of<JobReal2GridBloc>(context)
         .add(ResetStateJobReal2ListEvent());
     BlocProvider.of<JobReal3GridBloc>(context)
@@ -158,7 +169,9 @@ class JobRealCariPageState extends State<JobRealCariPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(
-                width: AppData.kIsWeb?80:MediaQuery.of(context).size.width * 0.25,
+                width: AppData.kIsWeb
+                    ? 80
+                    : MediaQuery.of(context).size.width * 0.25,
                 height: 55,
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 20, right: 10),
@@ -167,13 +180,12 @@ class JobRealCariPageState extends State<JobRealCariPage> {
                       setState(() {
                         filterList = "all";
                       });
-                      jobRealCariBloc
-                          .add(const SetFilterDocRealCariEvent(filterDoc: "all"));
+                      jobRealCariBloc.add(
+                          const SetFilterDocRealCariEvent(filterDoc: "all"));
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
-                      backgroundColor:
-                          Colors.green[500],                  
+                      backgroundColor: Colors.green[500],
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12.0),
                       ),
@@ -186,7 +198,9 @@ class JobRealCariPageState extends State<JobRealCariPage> {
                 ),
               ),
               SizedBox(
-                width: AppData.kIsWeb?100:MediaQuery.of(context).size.width * 0.25,
+                width: AppData.kIsWeb
+                    ? 100
+                    : MediaQuery.of(context).size.width * 0.25,
                 height: 55,
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 20.0, right: 10),
@@ -195,13 +209,12 @@ class JobRealCariPageState extends State<JobRealCariPage> {
                       setState(() {
                         filterList = "draft";
                       });
-                      jobRealCariBloc
-                          .add(const SetFilterDocRealCariEvent(filterDoc: "draft"));
+                      jobRealCariBloc.add(
+                          const SetFilterDocRealCariEvent(filterDoc: "draft"));
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
-                      backgroundColor:
-                          Colors.orange[500],
+                      backgroundColor: Colors.orange[500],
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12.0),
                       ),
@@ -214,7 +227,9 @@ class JobRealCariPageState extends State<JobRealCariPage> {
                 ),
               ),
               SizedBox(
-                width: AppData.kIsWeb?130:MediaQuery.of(context).size.width * 0.3,
+                width: AppData.kIsWeb
+                    ? 130
+                    : MediaQuery.of(context).size.width * 0.3,
                 height: 55,
                 child: Padding(
                   padding: const EdgeInsets.only(bottom: 20.0),
@@ -223,13 +238,12 @@ class JobRealCariPageState extends State<JobRealCariPage> {
                       setState(() {
                         filterList = "confirmed";
                       });
-                      jobRealCariBloc.add(
-                          const SetFilterDocRealCariEvent(filterDoc: "confirmed"));
+                      jobRealCariBloc.add(const SetFilterDocRealCariEvent(
+                          filterDoc: "confirmed"));
                     },
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.black,
-                      backgroundColor:
-                          Colors.blueGrey[200],
+                      backgroundColor: Colors.blueGrey[200],
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(12.0),
                       ),
@@ -247,29 +261,38 @@ class JobRealCariPageState extends State<JobRealCariPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               SizedBox(
-                width: AppData.kIsWeb?80:MediaQuery.of(context).size.width * 0.25,
+                width: AppData.kIsWeb
+                    ? 80
+                    : MediaQuery.of(context).size.width * 0.25,
                 height: 23,
                 child: Padding(
-                  padding: const EdgeInsets.only(bottom: 20, right: 10),
-                  child: filterList == "all" ? Container(color: Colors.red[500]):Container()
-                ),
+                    padding: const EdgeInsets.only(bottom: 20, right: 10),
+                    child: filterList == "all"
+                        ? Container(color: Colors.red[500])
+                        : Container()),
               ),
               SizedBox(
-                width: AppData.kIsWeb?100:MediaQuery.of(context).size.width * 0.25,
+                width: AppData.kIsWeb
+                    ? 100
+                    : MediaQuery.of(context).size.width * 0.25,
                 height: 23,
                 child: Padding(
-                  padding: const EdgeInsets.only(bottom: 20.0, right: 10),
-                  child: filterList == "draft" ? Container(color: Colors.red[500]):Container()
-                  ),
-                ),              
-                SizedBox(
-                  width: AppData.kIsWeb?130:MediaQuery.of(context).size.width * 0.3,
-                  height: 23,
-                  child: Padding(
-                    padding: const EdgeInsets.only(bottom: 20.0),                  
-                    child: filterList == "confirmed" ? Container(color: Colors.red[500]):Container()
-                  ),
-                ),
+                    padding: const EdgeInsets.only(bottom: 20.0, right: 10),
+                    child: filterList == "draft"
+                        ? Container(color: Colors.red[500])
+                        : Container()),
+              ),
+              SizedBox(
+                width: AppData.kIsWeb
+                    ? 130
+                    : MediaQuery.of(context).size.width * 0.3,
+                height: 23,
+                child: Padding(
+                    padding: const EdgeInsets.only(bottom: 20.0),
+                    child: filterList == "confirmed"
+                        ? Container(color: Colors.red[500])
+                        : Container()),
+              ),
             ],
           ),
         ],

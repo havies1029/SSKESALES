@@ -53,6 +53,7 @@ dependencies:
   jiffy: ^6.3.0
   syncfusion_flutter_calendar: ^25.2.4
   syncfusion_flutter_datagrid: ^25.2.4
+  animated_tree_view: ^2.2.0
 
 dev_dependencies:
   flutter_test:

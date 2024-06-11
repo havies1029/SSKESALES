@@ -24,7 +24,6 @@ class AppMenuState extends State<AppMenu> with RouteAware {
             currentAccountPictureSize: const Size.square(100),
             currentAccountPicture: const CircleAvatar(
               backgroundImage: AssetImage('assets/images/login_logo.png'),
-              //child: Image.asset('assets/images/login_logo.png', width: 100, height: 100,),
             ),
             accountEmail: const Text("support@ptssk.id"),
             accountName: const Text("Smartsoft"),
@@ -108,7 +107,7 @@ class AppMenuState extends State<AppMenu> with RouteAware {
                 padding: const EdgeInsets.only(left: 15.0),
                 child: ListTile(
                   leading: const Icon(Icons.timer),
-                  title: const Text("Task"),
+                  title: const Text("List of Tasks"),
                   onTap: () {
                     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
                       Navigator.of(context).pop();
@@ -120,13 +119,40 @@ class AppMenuState extends State<AppMenu> with RouteAware {
               Padding(
                 padding: const EdgeInsets.only(left: 15.0),
                 child: ListTile(
+                  leading: const Icon(Icons.timer),
+                  title: const Text("Subordinate Tasks"),
+                  onTap: () {
+                    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+                      Navigator.of(context).pop();
+                      homeBloc.add(JobSalesPageActiveEvent());
+                    });
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15.0),
+                child: ListTile(
                   leading: const Icon(Icons.person),
-                  title: const Text("Finished Task"),
+                  title: const Text("Finished Tasks"),
                   //selected: _activeRoute == AppRoutes.homePage,
                   onTap: () {
                     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
                       Navigator.of(context).pop();
                       homeBloc.add(JobRealCariPageActiveEvent());
+                    });
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15.0),
+                child: ListTile(
+                  leading: const Icon(Icons.person),
+                  title: const Text("Subordinate Finished Tasks"),
+                  //selected: _activeRoute == AppRoutes.homePage,
+                  onTap: () {
+                    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+                      Navigator.of(context).pop();
+                      homeBloc.add(RealGroupPageActiveEvent());
                     });
                   },
                 ),
@@ -266,20 +292,53 @@ class AppMenuState extends State<AppMenu> with RouteAware {
                     });
                   },
                 ),
-              ),
-              ListTile(
-                leading: const Icon(Icons.person),
-                title: const Text("Profile"),
-                //selected: _activeRoute == AppRoutes.homePage,
-                onTap: () {
-                  SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-                    Navigator.of(context).pop();
-                    homeBloc.add(ProfilePageActiveEvent());
-                  });
-                },
               ),                
             ],
           ),          
+          ExpansionTile(
+            leading: const Icon(
+              Icons.settings,          
+            ),
+            trailing: const Icon(
+              Icons.arrow_forward_ios_rounded,
+              size: 10.0,          
+            ),
+            title: const Text(
+              "User Security",
+              style: TextStyle(            
+              ),
+            ),
+            children: <Widget>[             
+              Padding(
+                padding: const EdgeInsets.only(left: 15.0),
+                child: ListTile(
+                  leading: const Icon(Icons.person),
+                  title: const Text("Profile"),
+                  //selected: _activeRoute == AppRoutes.homePage,
+                  onTap: () {
+                    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+                      Navigator.of(context).pop();
+                      homeBloc.add(ProfilePageActiveEvent());
+                    });
+                  },
+                ),
+              ),           
+              Padding(
+                padding: const EdgeInsets.only(left: 15.0),
+                child: ListTile(
+                  leading: const Icon(Icons.security),
+                  title: const Text("Change Password"),
+                  //selected: _activeRoute == AppRoutes.homePage,
+                  onTap: () {
+                    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+                      Navigator.of(context).pop();
+                      homeBloc.add(ChangePasswordPageActiveEvent());
+                    });
+                  },
+                ),
+              ),         
+            ],
+          ),       
           ListTile(
             leading: const Icon(Icons.chat),
             title: const Text("Chat Support"),

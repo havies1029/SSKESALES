@@ -57,7 +57,7 @@ Future<User> validateUserLogin(UserLogin userLogin) async {
     String tokeninfo = jsonDecode(response.body);
     List<String> info = tokeninfo.split(";");
 
-    Token token = Token.split(userLogin.username!, jsonDecode(response.body));
+    Token token = Token.split(userLogin.username!, tokeninfo);
 
     //debugPrint("Berhasil Login #40");
 
@@ -67,8 +67,8 @@ Future<User> validateUserLogin(UserLogin userLogin) async {
         token: token.token,
         username: userLogin.username,
         nama: info[2],
-        hp: info[4],
         email: info[5],
+        personId: info[12]
       );
       return user;
     } on Exception catch (e) {

@@ -7,9 +7,11 @@ import 'package:esalesapp/blocs/jobreal/jobrealcari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealcrud_bloc.dart';
 import 'package:esalesapp/pages/jobreal/jobrealcari_tile_widget.dart';
 
-class JobRealCariListWidget extends StatefulWidget {
+class JobRealCariListWidget extends StatefulWidget { 
+  final bool readOnly;
+  final String personId;
   final String searchText;
-  const JobRealCariListWidget({super.key, required this.searchText});
+  const JobRealCariListWidget({super.key, required this.searchText, required this.personId, required this.readOnly});
 
   @override
   JobRealCariListWidgetState createState() => JobRealCariListWidgetState();
@@ -57,15 +59,19 @@ class JobRealCariListWidgetState extends State<JobRealCariListWidget> {
                               startActionPane: ActionPane(
                                 motion: const BehindMotion(),
                                 children: [
-                                    SlidableAction(
-                                      onPressed: (context) {                                        
+                                    widget.readOnly?Container(): SlidableAction(
+                                      onPressed: (context) {      
+                                        jobRealCariBloc.add(
+                                            JobRealDuplicateEvent(
+                                                recordId: state.items[index]
+                                                    .jobreal1Id));                                  
                                       },
                                       backgroundColor: Colors.deepPurple,
                                       icon: Icons.copy,
                                       label: "Duplicate",
                                     )                          
                                   ]),                             
-                              endActionPane: state.items[index].isConfirmed ?
+                              endActionPane: (state.items[index].isConfirmed || widget.readOnly)?
                               ActionPane(
                                   motion: const BehindMotion(),
                                   children: [
@@ -148,6 +154,7 @@ class JobRealCariListWidgetState extends State<JobRealCariListWidget> {
     }, listener: (context, state) {
       if (state.requestToRefresh) {
         jobRealCariBloc.add(RefreshJobRealCariEvent(
+            personId: widget.personId,
             hal: 0,
             searchText: widget.searchText,
             filterDoc: jobRealCariBloc.state.filterDoc));
@@ -178,6 +185,7 @@ class JobRealCariListWidgetState extends State<JobRealCariListWidget> {
           return ShowDialogHapusWidget(
               onHapusFunction: onHapusFunction, recordId: recordId);
         }).then((value) {
+          
       jobRealCariBloc.add(CloseDialogJobRealCariEvent());
     });
   }

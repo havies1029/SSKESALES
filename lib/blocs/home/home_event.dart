@@ -25,3 +25,6 @@ class PolisCariPageActiveEvent extends HomeEvent {}
 class CobCariPageActiveEvent extends HomeEvent {}
 class CalendarPageActiveEvent extends HomeEvent {}
 class JobGroupPageActiveEvent extends HomeEvent {}
+class ChangePasswordPageActiveEvent extends HomeEvent {}
+class JobSalesPageActiveEvent extends HomeEvent {}
+class RealGroupPageActiveEvent extends HomeEvent {}

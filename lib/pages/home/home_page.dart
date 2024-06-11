@@ -82,7 +82,16 @@ class _HomePageState extends State<HomePage> {
             return const PageContainer(pageType: PageType.calendar);                
           } else if (state is JobGroupPageActive) {
             debugPrint("JobGroupPageActive");
-            return const PageContainer(pageType: PageType.jobgroup);     
+            return const PageContainer(pageType: PageType.jobgroup);                
+          } else if (state is ChangePasswordPageActive) {
+            debugPrint("ChangePasswordPageActive");
+            return const PageContainer(pageType: PageType.changepswd);              
+          } else if (state is JobSalesPageActive) {
+            debugPrint("JobSalesPageActive");
+            return const PageContainer(pageType: PageType.jobsales);                
+          } else if (state is RealGroupPageActive) {
+            debugPrint("RealGroupPageActive");
+            return const PageContainer(pageType: PageType.realgroup);     
           } else if (state is ProfilePageActive) {
             return PageContainerWithUserRepository(
               pageType: PageType.profile,

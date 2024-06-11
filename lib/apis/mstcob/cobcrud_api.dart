@@ -51,6 +51,7 @@ class CobCrudAPI {
 		}
 		return returnData.success;
 	}
+  
 	Future<bool> cobCrudHapusAPI(String mcobId) async {
 		String hapusEndpoint = "${AppData.prefixEndPoint}/api/mstcob/cobcrud/delete";
 		Map<String, String> queryParams = {
@@ -72,6 +73,7 @@ class CobCrudAPI {
 		}
 		return returnData.success;
 	}
+
 	Future<CobCrudModel> cobCrudLihatAPI(String mcobId) async {
 		String lihatEndpoint = "${AppData.prefixEndPoint}/api/mstcob/cobcrud/read";
 		Map<String, String> queryParams = {'mcobId': mcobId};

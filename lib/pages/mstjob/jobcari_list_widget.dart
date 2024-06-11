@@ -87,6 +87,7 @@ class JobCariListWidgetState extends State<JobCariListWidget> {
                               child: Column(
                                 children: <Widget>[
                                   Slidable(
+                                      enabled: false,
                                       endActionPane: ActionPane(
                                           motion: const BehindMotion(),
                                           children: [

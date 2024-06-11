@@ -19,14 +19,17 @@ class FetchJobRealCariEvent extends JobRealCariEvents {
 }
 
 class RefreshJobRealCariEvent extends JobRealCariEvents {
+  final String personId;
   final int hal;
   final String searchText;
   final String filterDoc;
 
-  const RefreshJobRealCariEvent({required this.hal, required this.searchText, required this.filterDoc});
+  const RefreshJobRealCariEvent({required this.hal, 
+  required this.searchText, required this.filterDoc,
+  required this.personId});
 
   @override
-  List<Object> get props => [hal, searchText, filterDoc];
+  List<Object> get props => [hal, searchText, filterDoc, personId];
 }
 
 class UbahJobRealCariEvent extends JobRealCariEvents {
@@ -49,11 +52,15 @@ class LihatJobRealCariEvent extends JobRealCariEvents {
 
 class TambahJobRealCariEvent extends JobRealCariEvents {}
 
-class HapusJobRealCariEvent extends JobRealCariEvents {}
-
 class CloseDialogJobRealCariEvent extends JobRealCariEvents {}
 
-class ResetStateJobRealCariEvent extends JobRealCariEvents {}
+class ResetStateJobRealCariEvent extends JobRealCariEvents {  
+  final String personId;
+  const ResetStateJobRealCariEvent({required this.personId});
+
+  @override
+  List<Object> get props => [personId];
+}
 
 class SetFilterDocRealCariEvent extends JobRealCariEvents {
   final String filterDoc;
@@ -62,4 +69,12 @@ class SetFilterDocRealCariEvent extends JobRealCariEvents {
 
   @override
   List<Object> get props => [filterDoc];
+}
+
+class JobRealDuplicateEvent extends JobRealCariEvents {
+	final String recordId;
+	const JobRealDuplicateEvent({required this.recordId});
+
+	@override
+	List<Object> get props => [recordId];
 }

@@ -5,6 +5,8 @@ class AppData {
   static String userid = "";
   static String userCabang = "";
   static String userToken = "";
+  static String personId = "";
+  static String personName = "";
   static int chatRefresh = 10;
   static bool kIsWeb = false;
   static User user = User();

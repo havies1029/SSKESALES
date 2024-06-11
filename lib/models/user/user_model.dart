@@ -13,6 +13,7 @@ class User {
   String? jnskel;
   String? token;
   Uint8List? foto;
+  String? personId;
 
   User(
       {this.id,
@@ -26,7 +27,8 @@ class User {
       this.propinsiDesc,
       this.jnskel,
       this.token,
-      this.foto});
+      this.foto,
+      this.personId});
 
   factory User.fromDatabaseJson(Map<String, dynamic> data) => User(
         id: data['id'],
@@ -34,13 +36,14 @@ class User {
         nama: data['nama'],
         hp: data['hp'],
         email: data['email'],
-        alamat1: data['alamat1']??'',
-        alamat2: data['alamat2']??'',
-        propinsiId: data['propinsiId']??'',
-        propinsiDesc: data['propinsiDesc']??'',
-        jnskel: data['jnskel']??'',
-        foto: data['foto']??'',
+        alamat1: data['alamat1'] ?? '',
+        alamat2: data['alamat2'] ?? '',
+        propinsiId: data['propinsiId'] ?? '',
+        propinsiDesc: data['propinsiDesc'] ?? '',
+        jnskel: data['jnskel'] ?? '',
+        foto: data['foto'] ?? '',
         token: data['token'],
+        personId: data['personId'],
       );
 
   Map<String, dynamic> toDatabaseJson() => {
@@ -55,6 +58,7 @@ class User {
         "propinsiDesc": propinsiDesc,
         "jnskel": jnskel,
         "foto": foto,
-        "token": token
+        "token": token,
+        "personId": personId
       };
 }

@@ -125,6 +125,7 @@ class UserDao {
         id: users[0]["id"],
         username: users[0]["username"],
         nama: users[0]["nama"],
+        personId: users[0]["personId"],
         hp: users[0]["hp"],
         email: users[0]["email"],
         alamat1: users[0]["alamat1"],
