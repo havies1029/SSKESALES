@@ -51,7 +51,7 @@ class JobRealFotoBloc extends Bloc<JobRealFotoEvents, JobRealFotoState> {
     emit(state.copyWith(isUploading: true, isUploaded: false));
 
     await repository.uploadFotoJobReal(event.jobReal1Id, event.filePath);
-    //debugPrint("event.filePath : ${event.filePath}");
+    debugPrint("event.filePath : ${event.filePath}");
     emit(state.copyWith(
         isUploading: false, isUploaded: true, fotoPath: event.filePath));
   }

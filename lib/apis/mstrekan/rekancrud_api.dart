@@ -22,6 +22,10 @@ class RekanCrudAPI {
         },
         body: jsonEncode(record.toJson()));
 
+    debugPrint("rekanCrudTambahAPI");
+    debugPrint("response.statusCode : ${response.statusCode}");
+    debugPrint("response.body : ${response.body}");
+
     if (response.statusCode == 200) {
       returnData = ReturnDataAPI.fromDatabaseJson(jsonDecode(response.body));
     } else {

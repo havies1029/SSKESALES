@@ -1,3 +1,4 @@
+import 'package:esalesapp/common/app_data.dart';
 import 'package:esalesapp/pages/home/home.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -26,7 +27,7 @@ class AppMenuState extends State<AppMenu> with RouteAware {
               backgroundImage: AssetImage('assets/images/login_logo.png'),
             ),
             accountEmail: const Text("support@ptssk.id"),
-            accountName: const Text("Smartsoft"),
+            accountName: Text(AppData.personName),
             onDetailsPressed: () {
               SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
                 Navigator.of(context).pop();

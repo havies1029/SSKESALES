@@ -103,7 +103,8 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
                           labelText: 'Category',
                           initItem: fieldComboCustCat,
                           onChangedCallback: (value) {
-                            if (value != null) {
+                            if ((value != null) &&
+                                (value.mcustcatId.isNotEmpty)) {
                               removeError(
                                   error: "Field Category tidak boleh kosong.");
                               fieldComboCustCat = value;
@@ -114,11 +115,13 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
                               fieldComboCustCat = value;
                             }
                           },
-                          validatorCallback: (value) {
-                            if (value == null) {
+                          validatorCallback: (value) {                            
+                            if ((value == null) || (value.mcustcatId.isEmpty)) {                              
                               addError(
                                   error: "Field Category tidak boleh kosong.");
+                              return "";
                             }
+                            return null;
                           },
                         ),
                         TextFormField(
@@ -131,15 +134,19 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                           ),
                           onChanged: (value) {
+                            /*
                             if (value.isNotEmpty) {
                               removeError(error: 'Alamat tidak boleh kosong.');
                             }
+                            */
                           },
                           validator: (value) {
+                            /*
                             if (value == null || value.isEmpty) {
                               addError(error: 'Alamat tidak boleh kosong.');
                               return "";
                             }
+                            */
                             return null;
                           },
                         ),
@@ -161,16 +168,20 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                           ),
                           onChanged: (value) {
+                            /*
                             if (value.isNotEmpty) {
                               removeError(
                                   error: 'Telp / HP tidak boleh kosong.');
                             }
+                            */
                           },
                           validator: (value) {
+                            /*
                             if (value == null || value.isEmpty) {
                               addError(error: 'Telp / HP tidak boleh kosong.');
                               return "";
                             }
+                            */
                             return null;
                           },
                         ),
@@ -256,18 +267,19 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
 
   void onSaveForm() {
     if (_formKey.currentState!.validate()) {
+      debugPrint("onSaveForm #10");
       _formKey.currentState!.save();
       RekanCrudModel record = RekanCrudModel(
-        mrekanId: '',
-        alamat1: fieldAlamat1Controller.text,
-        alamat2: fieldAlamat2Controller.text,
-        mtiperekanId: widget.rekanTypeId,
-        mtitleId: fieldComboTitle?.mtitleId,
-        rekanNama: fieldRekanNamaController.text,
-        telp1: fieldTelp1Controller.text,
-        telp2: fieldTelp2Controller.text,
-        mcustcatId: fieldComboCustCat?.mcustcatId
-      );
+          mrekanId: '',
+          alamat1: fieldAlamat1Controller.text,
+          alamat2: fieldAlamat2Controller.text,
+          mtiperekanId: widget.rekanTypeId,
+          mtitleId: fieldComboTitle?.mtitleId,
+          rekanNama: fieldRekanNamaController.text,
+          telp1: fieldTelp1Controller.text,
+          telp2: fieldTelp2Controller.text,
+          mcustcatId: fieldComboCustCat?.mcustcatId);
+      
       if (widget.viewMode == "tambah") {
         rekanCrudBloc.add(RekanCrudTambahEvent(record: record));
       } else if (widget.viewMode == "ubah") {
@@ -275,6 +287,7 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
         rekanCrudBloc.add(RekanCrudUbahEvent(record: record));
       }
       _dismissDialog();
+      
     }
   }
 

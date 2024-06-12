@@ -209,13 +209,12 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
               } else if (fieldComboJobcat?.mjobcatdoctypeId == "cob") {
                 loadGridCob(state.record?.jobreal1Id ?? "");
               }
-            } 
+            }
             fieldComboJob = state.comboJob;
             fieldComboJobcat = state.comboJobCat;
             fieldComboMedia = state.comboMedia;
             fieldComboCustomer = state.comboCustomer;
             fieldComboInsurer = state.comboInsurer;
-            
           }
         },
       ),
@@ -272,9 +271,11 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
         errorCount++;
         addError(error: "Field Task Category tidak boleh kosong.");
       }
-      if (fieldComboJob?.mjobId == "") {
-        errorCount++;
-        addError(error: "Field Task tidak boleh kosong.");
+      if (state.comboJobCat?.mjobcatdoctypeId != "others") {
+        if (fieldComboJob?.mjobId == "") {
+          errorCount++;
+          addError(error: "Field Task tidak boleh kosong.");
+        }
       }
       if (state.comboJobCat?.mjobcatdoctypeId == "others") {
         if (fieldTaskDescController.text.isEmpty) {
@@ -336,6 +337,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
             realJam: DateTime.parse(fieldRealJamController.text),
             realTgl: DateTime.parse(fieldRealTglController.text),
             rdpartyId: fieldComboInsurer?.mrekanId,
+            taskDesc: fieldTaskDescController.text,
             isConfirmed: isRequestConfirm);
 
         if (widget.viewMode == "tambah") {
@@ -424,7 +426,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
           : MainAxisAlignment.spaceAround,
       children: [
         SizedBox(
-          width: AppData.kIsWeb?120:MediaQuery.of(context).size.width * 0.3,
+          width: AppData.kIsWeb ? 120 : MediaQuery.of(context).size.width * 0.3,
           height: 60,
           child: Padding(
             padding: const EdgeInsets.only(top: 30.0),
@@ -441,7 +443,9 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
         ),
         state.viewMode != "lihat"
             ? SizedBox(
-                width: AppData.kIsWeb?120:MediaQuery.of(context).size.width * 0.3,
+                width: AppData.kIsWeb
+                    ? 120
+                    : MediaQuery.of(context).size.width * 0.3,
                 height: 60,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 30.0),
@@ -459,7 +463,9 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
             : Container(),
         state.viewMode != "lihat"
             ? SizedBox(
-                width: AppData.kIsWeb?120:MediaQuery.of(context).size.width * 0.3,
+                width: AppData.kIsWeb
+                    ? 120
+                    : MediaQuery.of(context).size.width * 0.3,
                 height: 60,
                 child: Padding(
                   padding: const EdgeInsets.only(top: 30.0),
@@ -484,7 +490,9 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       mode: DateTimeFieldPickerMode.date,
       dateFormat: DateFormat('dd/MM/yyyy'),
       firstDate: DateTime.now().add(const Duration(days: -3)),
-      initialValue: DateTime.now(),
+      initialValue: widget.viewMode == "tambah"
+          ? DateTime.now()
+          : DateTime.parse(fieldRealJamController.text),
       decoration: const InputDecoration(
         labelText: "Tanggal",
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -507,7 +515,9 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       enableFeedback: false,
       mode: DateTimeFieldPickerMode.time,
       dateFormat: DateFormat('HH:mm'),
-      initialValue: DateTime.now(),
+      initialValue: widget.viewMode == "tambah"
+          ? DateTime.now()
+          : DateTime.parse(fieldRealJamController.text),
       decoration: const InputDecoration(
         labelText: "Jam",
         floatingLabelBehavior: FloatingLabelBehavior.always,
