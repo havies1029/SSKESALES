@@ -147,10 +147,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
                             cmdBuildFieldMedia(),
                             buildGridSPPA(state),
                             buildGridCob(state),
-                            Container(
-                              height: 20,
-                            ),
-                            JobRealCrudFotoWidget(jobReal1Id: widget.recordId),
+                            buildWidgetFoto(),
                             const SizedBox(height: 25),
                             FormError(
                               errors: errors,
@@ -182,7 +179,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
             //debugPrint("fieldComboJobcat : ${jsonEncode(fieldComboJobcat?.toJson())}");
             //debugPrint("state.comboJobCat?.mjobcatdoctypeId : ${state.comboJobCat?.mjobcatdoctypeId}");
 
-            if (state.viewMode == "ubah") {
+            if (state.viewMode != "tambah") {
               fieldHasilController.text = state.record?.hasil ?? "";
               fieldMateriController.text = state.record?.materi ?? "";
               fieldPicNameController.text = state.record?.picName ?? "";
@@ -486,13 +483,14 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
   }
 
   DateTimeFormField buildTanggalJob() {
+    debugPrint("buildTanggalJob : ${DateTime.tryParse(fieldRealJamController.text)}");
     return DateTimeFormField(
       mode: DateTimeFieldPickerMode.date,
       dateFormat: DateFormat('dd/MM/yyyy'),
       firstDate: DateTime.now().add(const Duration(days: -3)),
       initialValue: widget.viewMode == "tambah"
           ? DateTime.now()
-          : DateTime.parse(fieldRealJamController.text),
+          : DateTime.tryParse(fieldRealJamController.text),
       decoration: const InputDecoration(
         labelText: "Tanggal",
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -511,13 +509,15 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
   }
 
   DateTimeFormField buildJamJob() {
+    
+    debugPrint("buildJamJob : ${DateTime.tryParse(fieldRealJamController.text)}");
     return DateTimeFormField(
       enableFeedback: false,
       mode: DateTimeFieldPickerMode.time,
       dateFormat: DateFormat('HH:mm'),
       initialValue: widget.viewMode == "tambah"
           ? DateTime.now()
-          : DateTime.parse(fieldRealJamController.text),
+          : DateTime.tryParse(fieldRealJamController.text),
       decoration: const InputDecoration(
         labelText: "Jam",
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -723,7 +723,11 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
 
   Visibility buildGridSPPA(JobRealCrudState state) {
     return Visibility(
-      visible: state.comboJobCat?.mjobcatdoctypeId == "sppa",
+      visible: (state.comboJobCat?.mjobcatdoctypeId == "sppa"),
+      /*
+      visible: ((state.comboJobCat?.mjobcatdoctypeId == "sppa") &&
+          !(widget.viewMode == "tambah" && AppData.kIsWeb)),
+      */
       child: Column(
         children: [
           Container(
@@ -777,9 +781,27 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
     );
   }
 
+  Visibility buildWidgetFoto() {
+    return Visibility(
+        //visible: !(widget.viewMode == "tambah" && AppData.kIsWeb),
+        visible: true,
+        child: Column(
+          children: [
+            Container(
+              height: 20,
+            ),
+            JobRealCrudFotoWidget(jobReal1Id: widget.recordId),
+          ],
+        ));
+  }
+
   Visibility buildGridCob(JobRealCrudState state) {
     return Visibility(
-      visible: state.comboJobCat?.mjobcatdoctypeId == "cob",
+      visible : state.comboJobCat?.mjobcatdoctypeId == "cob",
+      /*
+      visible: ((state.comboJobCat?.mjobcatdoctypeId == "cob") &&
+          !(widget.viewMode == "tambah" && AppData.kIsWeb)),
+      */
       child: Column(
         children: [
           Container(

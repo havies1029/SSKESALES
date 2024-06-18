@@ -5,13 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:esalesapp/models/jobreal/jobreal2cari_model.dart';
 
-class JobReal2CariAPI {  
-
+class JobReal2CariAPI {
   Future<List<JobReal2CariModel>> getJobReal2CariAPI(
       String custId, String? jobreal1Id) async {
-
     String urlGetListEndPoint =
-      "${AppData.prefixEndPoint}/api/jobreal/jobreal2cari/getlist";
+        "${AppData.prefixEndPoint}/api/jobreal/jobreal2cari/getlist";
 
     Map<String, String> queryParams = {
       "custId": custId,
@@ -40,13 +38,10 @@ class JobReal2CariAPI {
   }
 
   Future<List<JobReal2CariModel>> getJobReal2GridAPI(String jobreal1Id) async {
-
     String urlGetListEndPoint =
-      "${AppData.prefixEndPoint}/api/jobreal/jobreal2crud/getlist";
+        "${AppData.prefixEndPoint}/api/jobreal/jobreal2crud/getlist";
 
-    Map<String, String> queryParams = {      
-      "jobreal1Id": jobreal1Id
-    };
+    Map<String, String> queryParams = {"jobreal1Id": jobreal1Id};
     var uri = Uri.http(AppData.httpAuthority, urlGetListEndPoint, queryParams);
     final http.Response response =
         await http.get(uri, headers: <String, String>{
@@ -69,29 +64,35 @@ class JobReal2CariAPI {
     }
   }
 
-  Future<ReturnDataAPI> jobReal2UpdateListAPI(String jobreal1Id, 
-    List<JobReal2CariCheckboxModel> listChecked) async {
-		String updateListEndpoint =
-			"${AppData.prefixEndPoint}/api/jobreal/jobreal2crud/updatelistchecked";
-		Map<String, String> queryParams = {
+  Future<ReturnDataAPI> jobReal2UpdateListAPI(
+      String jobreal1Id, List<JobReal2CariCheckboxModel> listChecked) async {
+    debugPrint("jobReal2UpdateListAPI");
+    String updateListEndpoint =
+        "${AppData.prefixEndPoint}/api/jobreal/jobreal2crud/updatelistchecked";
+    Map<String, String> queryParams = {
       "jobreal1Id": jobreal1Id,
-      "modul_id": "jobReal2UpdateListAPI"};
-		var uri = AppData.uriHtpp(AppData.httpAuthority, updateListEndpoint, queryParams);
+      "modul_id": "jobReal2UpdateListAPI"
+    };
+    var uri =
+        AppData.uriHtpp(AppData.httpAuthority, updateListEndpoint, queryParams);
 
-		ReturnDataAPI returnData;
-		final http.Response response = await http.post(uri,
-			headers: <String, String>{
-				'Content-Type': 'application/json; odata=verbos',
-				'Accept': 'application/json; odata=verbos',
-				'Authorization': 'Bearer ${AppData.userToken}'
-			},
-			body: jsonEncode(listChecked));
+    ReturnDataAPI returnData;
+    final http.Response response = await http.post(uri,
+        headers: <String, String>{
+          'Content-Type': 'application/json; odata=verbos',
+          'Accept': 'application/json; odata=verbos',
+          'Authorization': 'Bearer ${AppData.userToken}'
+        },
+        body: jsonEncode(listChecked));
 
-		if (response.statusCode == 200) {
-			returnData = ReturnDataAPI.fromDatabaseJson(jsonDecode(response.body));
-		} else {
-			returnData = ReturnDataAPI(success: false, data: "", rowcount: 0);
-		}
-		return returnData;
-	}
+    debugPrint("response.statusCode : ${response.statusCode}");
+
+    if (response.statusCode == 200) {
+      returnData = ReturnDataAPI.fromDatabaseJson(jsonDecode(response.body));
+    } else {
+      debugPrint("response.body : ${response.body}");
+      returnData = ReturnDataAPI(success: false, data: "", rowcount: 0);
+    }
+    return returnData;
+  }
 }

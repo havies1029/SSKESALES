@@ -66,6 +66,8 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
 
   Future<void> onTambahJobRealCrud(
       JobRealCrudTambahEvent event, Emitter<JobRealCrudState> emit) async {
+    debugPrint("onTambahJobRealCrud #10");
+
     ReturnDataAPI returnData;
     bool hasFailure = true;
     emit(state.copyWith(isSaving: true, isSaved: false));
@@ -73,14 +75,25 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
     hasFailure = !returnData.success;
 
     if (!hasFailure) {
+      debugPrint("onTambahJobRealCrud #20");
       String jobReal1Id = returnData.data;
       jobReal2CariBloc.add(Update2ApiJobReal2Event(jobreal1Id: jobReal1Id));
       jobReal3CariBloc.add(Update2ApiJobReal3Event(jobreal1Id: jobReal1Id));
 
       var fotoState = jobRealFotoBloc.state;
-      if (fotoState.fotoPath.isNotEmpty) {
-        jobRealFotoBloc.add(UploadFotoJobRealEvent(
-            jobReal1Id: jobReal1Id, filePath: fotoState.fotoPath));
+      if (fotoState.isPendingUpload) {
+        if (fotoState.imageSource == "camera") {
+          jobRealFotoBloc.add(UploadFotoJobRealEvent(
+              jobReal1Id: jobReal1Id,
+              filePath: fotoState.fotoPath,
+              imageSource: fotoState.imageSource));
+        } else if (fotoState.imageSource == "gallery") {
+          jobRealFotoBloc.add(UploadFotoBytesJobRealEvent(
+              jobReal1Id: jobReal1Id,
+              fileName: fotoState.fileName,
+              bytes: fotoState.fotoBytes!,
+              imageSource: fotoState.imageSource));
+        }
       }
     }
 
@@ -154,12 +167,11 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
     ComboJobModel comboJob = const ComboJobModel();
 
     emit(state.copyWith(
-        isLoading: false, 
-        isLoaded: true, 
+        isLoading: false,
+        isLoaded: true,
         comboInsurer: comboInsurer,
         comboJobCat: comboJobCat,
-        comboJob: comboJob
-      ));
+        comboJob: comboJob));
   }
 
   Future<void> onComboCustomerChanged(
@@ -212,5 +224,3 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
         isSaving: false, isSaved: true, hasFailure: result.success));
   }
 }
-
-  

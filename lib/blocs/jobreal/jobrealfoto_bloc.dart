@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:equatable/equatable.dart';
 import 'package:esalesapp/helper/image_helper.dart';
 import 'package:esalesapp/models/image/downloadfileinfo64.dart';
+import 'package:esalesapp/models/responseAPI/returndataapi_model.dart';
 import 'package:esalesapp/repositories/jobreal/jobrealfoto_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,17 +13,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'jobrealfoto_event.dart';
 part 'jobrealfoto_state.dart';
 
-class JobRealFotoBloc extends Bloc<JobRealFotoEvents, JobRealFotoState> {  
-  final JobRealFotoRepository repository;  
+class JobRealFotoBloc extends Bloc<JobRealFotoEvents, JobRealFotoState> {
+  final JobRealFotoRepository repository;
 
   JobRealFotoBloc({required this.repository})
-      : super(const JobRealFotoState()) {   
+      : super(const JobRealFotoState()) {
     on<UploadFotoJobRealEvent>(onUploadFile);
+    on<UploadFotoBytesJobRealEvent>(onUploadFileBytes);
     on<DownloadFotoJobRealEvent>(onDownloadFile);
     on<HapusFotoAPIJobRealEvent>(onHapusFotoAPI);
     on<HapusFotoStateJobRealFotoEvent>(onHapusFotoState);
     on<ResetStateJobRealFotoEvent>(onResetState);
-    on<Save2StateFotoJobRealEvent>(onSave2State);
+    on<Save2StateFotoLocalPathJobRealEvent>(onSaveFotoLocalPath2State);
+    on<Save2StateFotoBinaryJobRealEvent>(onSaveFotoBinary2State);
+    on<SetErrorJobRealFotoEvent>(onSetError);
   }
 
   Future<void> onResetState(
@@ -35,15 +39,35 @@ class JobRealFotoBloc extends Bloc<JobRealFotoEvents, JobRealFotoState> {
         isDeleted: false,
         isDeleting: false,
         hasFailure: false,
-        fotoPath: ""));
+        fotoPath: "",
+        isPendingUpload: false,
+        imageSource: ""
+        ));
   }
 
-  Future<void> onSave2State(
-      Save2StateFotoJobRealEvent event, Emitter<JobRealFotoState> emit) async {
-    emit(state.copyWith(isUploading: true, isUploaded: false));
+  Future<void> onSetError(
+      SetErrorJobRealFotoEvent event, Emitter<JobRealFotoState> emit) async {
+    debugPrint("onSetError");
+    emit(state.copyWith(hasFailure: false));
+    emit(state.copyWith(hasFailure: true));
+  }
+
+  Future<void> onSaveFotoLocalPath2State(
+      Save2StateFotoLocalPathJobRealEvent event, Emitter<JobRealFotoState> emit) async {
+    emit(state.copyWith(isUploading: true, isUploaded: false, isPendingUpload: false));
 
     emit(state.copyWith(
-        isUploading: false, isUploaded: true, fotoPath: event.filePath));
+        isUploading: false, isUploaded: true, fotoPath: event.filePath, 
+        isPendingUpload: true, imageSource: event.imageSource));
+  }
+
+    Future<void> onSaveFotoBinary2State(
+      Save2StateFotoBinaryJobRealEvent event, Emitter<JobRealFotoState> emit) async {
+    emit(state.copyWith(isUploading: true, isUploaded: false, isPendingUpload: false));
+
+    emit(state.copyWith(
+        isUploading: false, isUploaded: true, fotoBytes: event.fotoBytes, 
+        isPendingUpload: true, imageSource: event.imageSource, fileName: event.fileName));
   }
 
   Future<void> onUploadFile(
@@ -53,7 +77,19 @@ class JobRealFotoBloc extends Bloc<JobRealFotoEvents, JobRealFotoState> {
     await repository.uploadFotoJobReal(event.jobReal1Id, event.filePath);
     debugPrint("event.filePath : ${event.filePath}");
     emit(state.copyWith(
-        isUploading: false, isUploaded: true, fotoPath: event.filePath));
+        isUploading: false, isUploaded: true, fotoPath: event.filePath, isPendingUpload: false));
+  }
+
+  Future<void> onUploadFileBytes(
+      UploadFotoBytesJobRealEvent event, Emitter<JobRealFotoState> emit) async {
+    emit(state.copyWith(
+        isUploading: true, isUploaded: false, hasFailure: false));
+
+    ReturnDataAPI result = await repository.uploadFotoBytesJobReal(
+        event.jobReal1Id, event.fileName, event.bytes);
+    //debugPrint("event.filePath : ${event.bytes}");
+    emit(state.copyWith(
+        isUploading: false, isUploaded: true, hasFailure: !result.success, isPendingUpload: false));
   }
 
   Future<void> onDownloadFile(
@@ -106,16 +142,10 @@ class JobRealFotoBloc extends Bloc<JobRealFotoEvents, JobRealFotoState> {
         fotoPath: ""));
   }
 
-  Future<void> onHapusFotoState(
-    HapusFotoStateJobRealFotoEvent event, Emitter<JobRealFotoState> emit) async {
-
+  Future<void> onHapusFotoState(HapusFotoStateJobRealFotoEvent event,
+      Emitter<JobRealFotoState> emit) async {
     emit(state.copyWith(isDeleting: true, isDeleted: false));
 
-    emit(state.copyWith(
-      isDeleting: false,
-      isDeleted: true,
-      fotoPath: ""));
-
+    emit(state.copyWith(isDeleting: false, isDeleted: true, fotoPath: ""));
   }
-  
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 import 'package:esalesapp/common/app_data.dart';
 import 'package:esalesapp/models/image/downloadfileinfo64.dart';
 import 'package:esalesapp/models/responseAPI/returndataapi_model.dart';
@@ -36,6 +37,40 @@ class JobRealFotoAPI {
     return returnData;
   }
 
+  Future<ReturnDataAPI> uploadFotoBytesJobReal(
+      String jobReal1Id, String fileName, Uint8List bytes) async {
+    String base = AppData.apiDomain;
+    String uploadFotoEndpoint = "api/jobreal/jobrealcrud/uploadfotobinary";
+    String uploadFotoURL = base + uploadFotoEndpoint;
+
+    ReturnDataAPI returnData =
+        ReturnDataAPI(success: false, data: "", rowcount: 0);
+
+    var request = http.MultipartRequest('POST', Uri.parse(uploadFotoURL));
+    request.headers.addAll(AppData.httpHeaders);
+    request.fields['jobReal1Id'] = jobReal1Id;
+    request.fields['filename'] = fileName;
+
+    request.files.add(
+        http.MultipartFile.fromBytes('image_file', bytes, filename: fileName));
+    await request.send().then((response) {
+      if (response.statusCode == 200) {
+        debugPrint("Success send Image");        
+        returnData.success = true;
+
+        response.stream.transform(utf8.decoder).listen((value) {
+          debugPrint("response.stream.transform(utf8.decoder).listen((value)");
+          debugPrint(value);
+        });
+        //returnData = ReturnDataAPI.fromDatabaseJson(jsonDecode(response.));
+      } else {
+        debugPrint("Error send Image");
+        returnData.success = false;
+      }
+    });
+    return returnData;
+  }
+
   Future<DownloadFileInfo64Model?> downloadFotoJobRealAPI(
       String jobReal1Id) async {
     DownloadFileInfo64Model? fileInfo;
@@ -61,14 +96,11 @@ class JobRealFotoAPI {
     if (response.statusCode == 200) {
       //debugPrint("downloadFotoJobRealAPI -> response.body #30: ${response.body}");
 
-      fileInfo =
-          DownloadFileInfo64Model.fromJson(jsonDecode(response.body));
+      fileInfo = DownloadFileInfo64Model.fromJson(jsonDecode(response.body));
 
       //debugPrint("fileInfo.namafile : ${fileInfo.namafile}");
-
-    } 
+    }
     return fileInfo;
-    
   }
 
   Future<bool> jobRealCrudHapusFotoAPI(String jobreal1Id) async {

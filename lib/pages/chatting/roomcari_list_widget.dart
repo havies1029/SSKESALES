@@ -48,8 +48,8 @@ class RoomCariListWidgetState extends State<RoomCariListWidget> {
                 ? Flexible(
                     child: Container(
                     color: Colors.grey[200],
-                    child: GroupedListView<dynamic, String>(
-                      controller: _scrollController,
+                    child: GroupedListView<dynamic, String>(  
+                      controller: _scrollController,                    
                       elements: elements,
                       groupBy: (elements) => elements['groupName'],
                       groupComparator: (value1, value2) =>
@@ -127,7 +127,3 @@ class RoomCariListWidgetState extends State<RoomCariListWidget> {
     }
   }
 }
-
-/*
-test
-*/

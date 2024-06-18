@@ -8,19 +8,28 @@ class JobRealFotoState extends Equatable {
   final bool isDeleting;
   final bool isDeleted;
   final bool hasFailure;
-  //final Uint8List? fileFoto;
+  final Uint8List? fotoBytes;
+  final bool isPendingUpload;
   final String fotoPath;
+  final String imageSource;
+  final String errorMsg;
+  final String fileName;
 
-  const JobRealFotoState(
-      {this.isUploading = false,
-      this.isUploaded = false,
-      this.isDownloading = false,
-      this.isDownloaded = false,
-      this.isDeleting = false,
-      this.isDeleted = false,
-      this.hasFailure = false,
-      //this.fileFoto,
-      this.fotoPath = ""});
+  const JobRealFotoState({
+    this.isUploading = false,
+    this.isUploaded = false,
+    this.isDownloading = false,
+    this.isDownloaded = false,
+    this.isDeleting = false,
+    this.isDeleted = false,
+    this.hasFailure = false,
+    this.isPendingUpload = false,
+    this.fotoBytes,
+    this.fotoPath = "",
+    this.imageSource = "",
+    this.errorMsg = "",
+    this.fileName = "",
+  });
 
   JobRealFotoState copyWith({
     bool? isUploading,
@@ -30,8 +39,12 @@ class JobRealFotoState extends Equatable {
     bool? isDeleting,
     bool? isDeleted,
     bool? hasFailure,
-    //Uint8List? fileFoto,
+    bool? isPendingUpload,
+    Uint8List? fotoBytes,
     String? fotoPath,
+    String? imageSource,
+    String? errorMsg,
+    String? fileName,
   }) {
     return JobRealFotoState(
         isUploading: isUploading ?? this.isUploading,
@@ -41,12 +54,27 @@ class JobRealFotoState extends Equatable {
         isDeleting: isDeleting ?? this.isDeleting,
         isDeleted: isDeleted ?? this.isDeleted,
         hasFailure: hasFailure ?? this.hasFailure,
-        //fileFoto: fileFoto ?? this.fileFoto,
-        fotoPath: fotoPath ?? this.fotoPath);
+        isPendingUpload: isPendingUpload ?? this.isPendingUpload,
+        fotoBytes: fotoBytes ?? this.fotoBytes,
+        fotoPath: fotoPath ?? this.fotoPath,
+        imageSource: imageSource ?? this.imageSource,
+        errorMsg: errorMsg ?? this.errorMsg,
+        fileName: fileName ?? this.fileName
+      );
   }
 
   @override
-  List<Object> get props =>
-      [isUploading, isUploaded, isDownloaded, isDownloaded, hasFailure,
-       isDeleting, isDeleted];
+  List<Object> get props => [
+        isUploading,
+        isUploaded,
+        isDownloaded,
+        isDownloaded,
+        hasFailure,
+        isDeleting,
+        isDeleted,
+        isPendingUpload,
+        imageSource,
+        errorMsg,
+        fileName,
+      ];
 }

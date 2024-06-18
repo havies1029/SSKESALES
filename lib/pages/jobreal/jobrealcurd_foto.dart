@@ -1,15 +1,13 @@
 import 'dart:io';
-import 'dart:typed_data';
+
 import 'package:esalesapp/blocs/jobreal/jobrealcrud_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealfoto_bloc.dart';
 import 'package:esalesapp/common/app_data.dart';
-import 'package:esalesapp/helper/image_helper.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:path/path.dart';
 
 class JobRealCrudFotoWidget extends StatefulWidget {
   final String jobReal1Id;
@@ -33,7 +31,7 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
       debugPrint(
           "jobRealCrudBloc.state.viewMode -> ${jobRealCrudBloc.state.viewMode}");
       if (jobRealCrudBloc.state.viewMode != "tambah") {
-        downloadFoto();
+        //downloadFoto();
       } else {
         //jobRealFotoBloc.add(ResetStateJobRealFotoEvent());
       }
@@ -43,6 +41,7 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
   @override
   Widget build(BuildContext context) {
     debugPrint("Build #10 ${DateTime.now()}");
+    debugPrint("widget.jobReal1Id : ${widget.jobReal1Id}");
 
     jobRealFotoBloc = BlocProvider.of<JobRealFotoBloc>(context);
     jobRealCrudBloc = BlocProvider.of<JobRealCrudBloc>(context);
@@ -50,7 +49,8 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
     return BlocConsumer<JobRealFotoBloc, JobRealFotoState>(
       builder: (context, state) {
         debugPrint("Build #20 ${DateTime.now()}");
-
+        debugPrint(
+            'url : ${AppData.apiDomain}${AppData.endPointViewJobRealImage}${widget.jobReal1Id}/${DateTime.now().millisecondsSinceEpoch}');
         return SizedBox(
             height: 300,
             child: Stack(
@@ -68,17 +68,27 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
                     ),
                   ),
                   child: Container(
-                      width: MediaQuery.of(context).size.width,
+                      width: AppData.kIsWeb
+                          ? 500
+                          : MediaQuery.of(context).size.width,
                       height: 320,
                       decoration: BoxDecoration(
                           image: DecorationImage(
-                        image: state.fotoPath.isNotEmpty
-                            ? NetworkImage(
-                                '${AppData.apiDomain}${AppData.endPointViewJobRealImage}${widget.jobReal1Id}/${DateTime.now().millisecondsSinceEpoch}',
-                                headers: AppData.httpHeaders)
-                            : const AssetImage(
-                                    "assets/images/icon-user-default.png")
-                                as ImageProvider,
+                        image: state.isPendingUpload
+                            ? (state.imageSource == "camera"
+                                ? Image.file(File(state.fotoPath)).image
+                                : MemoryImage(state.fotoBytes!))
+                            : !state.hasFailure
+                                ? NetworkImage(
+                                    '${AppData.apiDomain}${AppData.endPointViewJobRealImage}${widget.jobReal1Id}/${DateTime.now().millisecondsSinceEpoch}',
+                                    headers: AppData.httpHeaders)
+                                : const AssetImage(
+                                        "assets/images/icon-user-default.png")
+                                    as ImageProvider,
+                        onError: (exception, stackTrace) {
+                          jobRealFotoBloc.add(SetErrorJobRealFotoEvent(
+                              errorMsg: exception.toString()));
+                        },
                         fit: BoxFit.cover,
                       ))),
                 ),
@@ -86,6 +96,7 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
                     ? Align(
                         alignment: Alignment.topRight,
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             AppData.kIsWeb
                                 ? Container()
@@ -109,25 +120,28 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
                                       ),
                                     ),
                                   ),
-                            GestureDetector(
-                              onTap: () {
-                                handleGallerySelection();
-                              },
-                              child: const CircleAvatar(
-                                backgroundColor: Color.fromARGB(255, 0, 0, 0),
-                                radius: 20,
-                                child: CircleAvatar(
-                                  backgroundColor:
-                                      Color.fromARGB(255, 255, 255, 255),
-                                  //backgroundColor: Color.fromARGB(255, 1, 117, 11),
-                                  radius: 19,
-                                  child: Icon(
-                                    Icons.folder,
-                                    size: 25,
-                                  ),
-                                ),
-                              ),
-                            ),
+                            AppData.kIsWeb
+                                ? GestureDetector(
+                                    onTap: () async {
+                                      handleGallerySelection();
+                                    },
+                                    child: const CircleAvatar(
+                                      backgroundColor:
+                                          Color.fromARGB(255, 0, 0, 0),
+                                      radius: 20,
+                                      child: CircleAvatar(
+                                        backgroundColor:
+                                            Color.fromARGB(255, 255, 255, 255),
+                                        //backgroundColor: Color.fromARGB(255, 1, 117, 11),
+                                        radius: 19,
+                                        child: Icon(
+                                          Icons.folder,
+                                          size: 25,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : Container(),
                             GestureDetector(
                               onTap: () {
                                 hapusFoto();
@@ -156,13 +170,66 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
             ));
       },
       listener: (context, state) {
-        if (state.isDownloaded) {}
+        String displayMessage = "";
+        if (state.isDownloaded) {
+          displayMessage = "Photo has been downloaded";
+        }
+        /*
+        if (state.isDownloading) {
+          if (displayMessage.isNotEmpty) displayMessage += '\r';
+          displayMessage += "Foto isDownloading";
+        }
+        
+        if (state.isUploading) {
+          if (displayMessage.isNotEmpty) displayMessage += '\r';
+          displayMessage += "Foto isUploading";
+        }
+        */
+        if (state.isUploaded) {
+          if (displayMessage.isNotEmpty) displayMessage += '\r';
+          displayMessage += "Photo has been uploaded";
+        }
+        /*
+        if (state.isDeleting) {
+          if (displayMessage.isNotEmpty) displayMessage += '\r';
+          displayMessage += "Foto isDeleting";
+        }
+        */
+        if (state.isDeleted) {
+          if (displayMessage.isNotEmpty) displayMessage += '\r';
+          displayMessage += "Photo has been deleted";
+        }
+
+        if (displayMessage.isNotEmpty) {
+          if (state.hasFailure) {
+            if (displayMessage.isNotEmpty) displayMessage += '\r';
+            displayMessage += "Photo has failure : ${state.errorMsg}";
+          }
+        }
+        /*
+        if (state.isPendingUpload) {
+          if (displayMessage.isNotEmpty) displayMessage += '\r';
+          displayMessage += "Photo isPendingUpload";
+        }
+        if (state.fotoPath.isNotEmpty) {
+          if (displayMessage.isNotEmpty) displayMessage += '\r';
+          displayMessage += "fotoPath : ${state.fotoPath}";
+        }
+        */
+        if (displayMessage.isNotEmpty) {
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text(displayMessage),
+            backgroundColor: Colors.orange,
+          ));
+        }
       },
       buildWhen: (before, current) {
         debugPrint("current.isUploaded : ${current.isUploaded}");
+        debugPrint("state.hasFailure : ${current.hasFailure}");
         return (current.isDownloaded ||
             current.isUploaded ||
-            current.isDeleted);
+            current.isDeleted ||
+            current.hasFailure);
       },
     );
   }
@@ -178,6 +245,7 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
       String filePath = result.path;
       debugPrint("filePath #10 : $filePath");
 
+      /*
       if (AppData.kIsWeb) {
         debugPrint("filePath #15");
         XFile file = XFile(filePath);
@@ -189,8 +257,9 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
 
         debugPrint("filePath #20 : $filePath");
       }
+      */
 
-      saveFoto(filePath);
+      saveFotoCamera(filePath, "camera");
 
       //debugPrint("Length : ${data.length}");
       //debugPrint(data.toString());
@@ -208,26 +277,52 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
 
       if (fileBytes != null) {
         debugPrint("fileBytes : ${fileBytes.length}");
-        ImageHelper helper = ImageHelper();
-        String filePath = await helper.convertBytes2LocalImage(
-            fileName: fileName, bytes: fileBytes);
-
-        debugPrint("filePath : $filePath");
-
-        saveFoto(filePath);
+        var viewMode = jobRealCrudBloc.state.viewMode;
+        debugPrint("viewMode : $viewMode");
+        if (viewMode == "tambah") {
+          jobRealFotoBloc.add(Save2StateFotoBinaryJobRealEvent(
+              fotoBytes: fileBytes,
+              imageSource: "gallery",
+              fileName: fileName));
+        } else {
+          jobRealFotoBloc.add(UploadFotoBytesJobRealEvent(
+              jobReal1Id: widget.jobReal1Id,
+              fileName: fileName,
+              bytes: fileBytes,
+              imageSource: "gallery"));
+        }
+      } else {
+        jobRealFotoBloc.add(const SetErrorJobRealFotoEvent(
+            errorMsg: "Image's fileBytes is null"));
       }
+    } else {
+      jobRealFotoBloc.add(
+          const SetErrorJobRealFotoEvent(errorMsg: "FilePickerResult is null"));
     }
   }
 
-  void saveFoto(String filePath) {
-    debugPrint("saveFoto -> filePath $filePath");
+  void saveFotoCamera(String filePath, String imageSource) {
+    debugPrint("saveFotoCamera -> filePath $filePath");
     if (filePath.isNotEmpty) {
       var viewMode = jobRealCrudBloc.state.viewMode;
       if (viewMode == "tambah") {
-        jobRealFotoBloc.add(Save2StateFotoJobRealEvent(filePath: filePath));
+        debugPrint("saveFotoCamera -> viewMode : $viewMode");
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content:
+              Text("saveFotoCamera -> Save2StateFotoLocalPathJobRealEvent"),
+          backgroundColor: Colors.orange,
+        ));
+        jobRealFotoBloc.add(Save2StateFotoLocalPathJobRealEvent(
+            filePath: filePath, imageSource: imageSource));
       } else if (viewMode == "ubah") {
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text("saveFotoCamera -> UploadFotoJobRealEvent"),
+          backgroundColor: Colors.orange,
+        ));
         jobRealFotoBloc.add(UploadFotoJobRealEvent(
-            jobReal1Id: widget.jobReal1Id, filePath: filePath));
+            jobReal1Id: widget.jobReal1Id,
+            filePath: filePath,
+            imageSource: imageSource));
       }
     }
   }
@@ -246,47 +341,5 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
     } else {
       jobRealFotoBloc.add(HapusFotoStateJobRealFotoEvent());
     }
-  }
-}
-
-class ForcePicRefresh extends StatefulWidget {
-  final String url;
-
-  const ForcePicRefresh(this.url, {super.key});
-
-  @override
-  ForcePicRefreshState createState() => ForcePicRefreshState();
-}
-
-class ForcePicRefreshState extends State<ForcePicRefresh> {
-  late Widget _pic;
-
-  @override
-  void initState() {
-    _pic = Image.network(widget.url);
-    super.initState();
-  }
-
-  _updateImgWidget() async {
-    setState(() {
-      _pic = const CircularProgressIndicator();
-    });
-    Uint8List bytes =
-        (await NetworkAssetBundle(Uri.parse(widget.url)).load(widget.url))
-            .buffer
-            .asUint8List();
-    setState(() {
-      _pic = Image.memory(bytes);
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      child: _pic,
-      onTap: () {
-        _updateImgWidget();
-      },
-    );
   }
 }

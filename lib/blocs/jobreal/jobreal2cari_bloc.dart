@@ -16,7 +16,7 @@ class JobReal2CariBloc extends Bloc<JobReal2CariEvents, JobReal2CariState> {
     on<FetchJobReal2CariEvent>(onFetchJobReal2Cari);
     on<RefreshJobReal2CariEvent>(onRefreshJobReal2Cari);
     on<Update2ApiJobReal2Event>(onUpdate2ApiJobReal2);
-    //on<Update2StateJobReal2Event>(onUpdate2StateJobReal2);
+    on<Update2StateJobReal2Event>(onUpdate2StateJobReal2);
     on<RequestToUpdateJobReal2Event>(onRequestToUpdate);
     on<UpdateCheckboxJobReal2Event>(onUpdateCheckboxChanged);
     on<ResetStateJobReal2CariEvent>(onResetState);
@@ -111,7 +111,9 @@ class JobReal2CariBloc extends Bloc<JobReal2CariEvents, JobReal2CariState> {
         requestToUpdate: false));
     bool hasFailure = false;
 
-    if (event.jobreal1Id.isNotEmpty) {
+    if (event.jobreal1Id.isNotEmpty) {      
+    debugPrint("onUpdate2ApiJobReal2 #20");
+
       List<JobReal2CariModel> jobReal2List = state.items;
       List<JobReal2CariCheckboxModel> listCheckbox =
           List<JobReal2CariCheckboxModel>.generate(
@@ -121,7 +123,8 @@ class JobReal2CariBloc extends Bloc<JobReal2CariEvents, JobReal2CariState> {
                   isChecked: jobReal2List[index].isChecked));
 
       listCheckbox.removeWhere((element) => !element.isChecked);
-      if (listCheckbox.isNotEmpty) {
+      if (listCheckbox.isNotEmpty) {        
+        debugPrint("onUpdate2ApiJobReal2 #30");
         JobReal2CariRepository repo = JobReal2CariRepository();
         ReturnDataAPI returnApi =
             await repo.jobReal2UpdateList(event.jobreal1Id, listCheckbox);

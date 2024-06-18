@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:equatable/equatable.dart';
 import 'package:esalesapp/models/responseAPI/returndataapi_model.dart';
 import 'package:flutter/material.dart';
