@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:image/image.dart' as img;
 
 import 'package:esalesapp/blocs/jobreal/jobrealcrud_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealfoto_bloc.dart';
@@ -271,11 +272,12 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
         .pickFiles(withData: true, type: FileType.image);
 
     if (result != null) {
-      Uint8List? fileBytes = result.files.first.bytes;
-      String fileName = result.files.first.name;
-      debugPrint("fileName : $fileName");
+      if (result.files.first.bytes != null) {
+        Uint8List fileBytes = compressAndResizeImage(result.files.first.bytes!);
+        //Uint8List? fileBytes = result.files.first.bytes;
+        String fileName = result.files.first.name;
+        debugPrint("fileName : $fileName");
 
-      if (fileBytes != null) {
         debugPrint("fileBytes : ${fileBytes.length}");
         var viewMode = jobRealCrudBloc.state.viewMode;
         debugPrint("viewMode : $viewMode");
@@ -291,14 +293,37 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
               bytes: fileBytes,
               imageSource: "gallery"));
         }
-      } else {
-        jobRealFotoBloc.add(const SetErrorJobRealFotoEvent(
-            errorMsg: "Image's fileBytes is null"));
       }
     } else {
       jobRealFotoBloc.add(
           const SetErrorJobRealFotoEvent(errorMsg: "FilePickerResult is null"));
     }
+  }
+
+  Uint8List compressAndResizeImage(Uint8List fileBytes) {
+    debugPrint("compressAndResizeImage");
+    img.Image? image = img.decodeImage(fileBytes);
+
+    // Resize the image to have the longer side be 800 pixels
+    int width;
+    int height;
+
+    if (image!.width > image.height) {
+      width = 800;
+      height = (image.height / image.width * 800).round();
+    } else {
+      height = 800;
+      width = (image.width / image.height * 800).round();
+    }
+
+    img.Image resizedImage =
+        img.copyResize(image, width: width, height: height);
+
+    // Compress the image with JPEG format
+    Uint8List compressedBytes =
+        img.encodeJpg(resizedImage, quality: 85); // Adjust quality as needed
+
+    return compressedBytes;
   }
 
   void saveFotoCamera(String filePath, String imageSource) {
