@@ -35,21 +35,6 @@ class AppMenuState extends State<AppMenu> with RouteAware {
               });
             },
           ),
-
-          /*
-          ListTile(
-            leading: const Icon(Icons.person),
-            title: const Text("Calendar"),
-            //selected: _activeRoute == AppRoutes.homePage,
-            onTap: () {
-              SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
-                Navigator.of(context).pop();
-                homeBloc.add(CalendarPageActiveEvent());
-              });
-            },
-          ),
-          */
-          
           
           ExpansionTile(
             leading: const Icon(
@@ -191,7 +176,7 @@ class AppMenuState extends State<AppMenu> with RouteAware {
                 padding: const EdgeInsets.only(left: 15.0),
                 child: ListTile(
                   leading: const Icon(Icons.timer),
-                  title: const Text("Asuransi"),
+                  title: const Text("Insurer"),
                   onTap: () {
                     SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
                       Navigator.of(context).pop();
@@ -212,7 +197,21 @@ class AppMenuState extends State<AppMenu> with RouteAware {
                     });
                   },
                 ),
-              ),              
+              ),    
+              Padding(
+                padding: const EdgeInsets.only(left: 15.0),
+                child: ListTile(
+                  leading: const Icon(Icons.person),
+                  title: const Text("Policy Expired"),
+                  //selected: _activeRoute == AppRoutes.homePage,
+                  onTap: () {
+                    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+                      Navigator.of(context).pop();
+                      homeBloc.add(CalendarPageActiveEvent());
+                    });
+                  },
+                ),
+              ),          
             ],
           ),          
           ExpansionTile(

@@ -128,7 +128,7 @@ class PageContainer extends PageContainerBase {
       case PageType.cob:
         return "Class of Business";
       case PageType.calendar:
-        return "Calendar";
+        return "Policy Expired";
       case PageType.jobgroup:
         return "Job Function";
       case PageType.changepswd:

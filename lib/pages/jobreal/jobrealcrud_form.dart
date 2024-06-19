@@ -483,7 +483,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
   }
 
   DateTimeFormField buildTanggalJob() {
-    debugPrint("buildTanggalJob : ${DateTime.tryParse(fieldRealJamController.text)}");
+    debugPrint("buildTanggalJob : ${DateTime.tryParse(fieldRealTglController.text)}");
     return DateTimeFormField(
       mode: DateTimeFieldPickerMode.date,
       dateFormat: DateFormat('dd/MM/yyyy'),
