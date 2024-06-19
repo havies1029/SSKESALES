@@ -490,7 +490,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       firstDate: DateTime.now().add(const Duration(days: -3)),
       initialValue: widget.viewMode == "tambah"
           ? DateTime.now()
-          : DateTime.tryParse(fieldRealJamController.text),
+          : DateTime.tryParse(fieldRealTglController.text),
       decoration: const InputDecoration(
         labelText: "Tanggal",
         floatingLabelBehavior: FloatingLabelBehavior.always,
