@@ -37,7 +37,8 @@ class _SFCalendarPageState extends State<SFCalendarPage>
                 length: 2,
                 child: Scaffold(
                   appBar: AppBar(
-                    backgroundColor: Colors.blueGrey[900],
+                    toolbarHeight: 0,
+                    backgroundColor: Colors.orange[900],
                     bottom: const TabBar(
                       tabs: [
                         Tab(

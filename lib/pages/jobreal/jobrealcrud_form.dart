@@ -483,14 +483,14 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
   }
 
   DateTimeFormField buildTanggalJob() {
-    debugPrint("buildTanggalJob : ${DateTime.tryParse(fieldRealJamController.text)}");
+    debugPrint("buildTanggalJob : ${DateTime.tryParse(fieldRealTglController.text)}");
     return DateTimeFormField(
       mode: DateTimeFieldPickerMode.date,
       dateFormat: DateFormat('dd/MM/yyyy'),
       firstDate: DateTime.now().add(const Duration(days: -3)),
       initialValue: widget.viewMode == "tambah"
           ? DateTime.now()
-          : DateTime.tryParse(fieldRealJamController.text),
+          : DateTime.tryParse(fieldRealTglController.text),
       decoration: const InputDecoration(
         labelText: "Tanggal",
         floatingLabelBehavior: FloatingLabelBehavior.always,
