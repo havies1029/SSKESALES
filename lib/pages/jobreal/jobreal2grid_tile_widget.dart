@@ -36,7 +36,7 @@ class JobReal2GridTileWidget extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text("SPPA : $polis1Id"),
+            Text("Policy No: $polis1Id"),
             const Spacer(),
             Text("($cob)",
               style: MyText.bodyLarge(context)!
@@ -67,7 +67,7 @@ class JobReal2GridTileWidget extends StatelessWidget {
 			    		children: [
 			    			  
 			    			Container(height: 10),
-			                Text("Policy No:",
+			                Text("SPPA No:",
 			    				style: MyText.bodyLarge(context)!
 			    					.copyWith(color: MyColors.grey_40)),
 			    			Container(height: 5),

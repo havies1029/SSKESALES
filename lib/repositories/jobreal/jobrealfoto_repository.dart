@@ -7,8 +7,8 @@ import 'package:esalesapp/models/responseAPI/returndataapi_model.dart';
 class JobRealFotoRepository {
   JobRealFotoAPI api = JobRealFotoAPI();
 
-  Future<void> uploadFotoJobReal(String jobReal1Id, String filePath) async {
-    await api.uploadFotoJobReal(jobReal1Id, filePath);
+  Future<ReturnDataAPI> uploadFotoJobReal(String jobReal1Id, String filePath) async {
+    return await api.uploadFotoJobReal(jobReal1Id, filePath);
   }
 
   Future<ReturnDataAPI> uploadFotoBytesJobReal(String jobReal1Id, String fileName, Uint8List bytes) async {

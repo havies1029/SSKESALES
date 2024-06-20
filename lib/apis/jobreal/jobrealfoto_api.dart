@@ -25,6 +25,7 @@ class JobRealFotoAPI {
     await request.send().then((response) {
       if (response.statusCode == 200) {
         debugPrint("Success send Image");
+        returnData.success = true;
 
         response.stream.transform(utf8.decoder).listen((value) {
           debugPrint(value);
@@ -55,7 +56,7 @@ class JobRealFotoAPI {
         http.MultipartFile.fromBytes('image_file', bytes, filename: fileName));
     await request.send().then((response) {
       if (response.statusCode == 200) {
-        debugPrint("Success send Image");        
+        debugPrint("Success send Image");
         returnData.success = true;
 
         response.stream.transform(utf8.decoder).listen((value) {

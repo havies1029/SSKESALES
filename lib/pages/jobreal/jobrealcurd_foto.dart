@@ -52,6 +52,11 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
         debugPrint("Build #20 ${DateTime.now()}");
         debugPrint(
             'url : ${AppData.apiDomain}${AppData.endPointViewJobRealImage}${widget.jobReal1Id}/${DateTime.now().millisecondsSinceEpoch}');
+            
+        debugPrint("state.isPendingUpload : ${state.isPendingUpload}");
+        debugPrint("state.imageSource : ${state.imageSource}");
+        debugPrint("state.fotoPath : ${state.fotoPath}");
+
         return SizedBox(
             height: 300,
             child: Stack(

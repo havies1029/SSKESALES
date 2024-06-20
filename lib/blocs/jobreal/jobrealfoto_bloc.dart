@@ -41,8 +41,7 @@ class JobRealFotoBloc extends Bloc<JobRealFotoEvents, JobRealFotoState> {
         hasFailure: false,
         fotoPath: "",
         isPendingUpload: false,
-        imageSource: ""
-        ));
+        imageSource: ""));
   }
 
   Future<void> onSetError(
@@ -53,31 +52,47 @@ class JobRealFotoBloc extends Bloc<JobRealFotoEvents, JobRealFotoState> {
   }
 
   Future<void> onSaveFotoLocalPath2State(
-      Save2StateFotoLocalPathJobRealEvent event, Emitter<JobRealFotoState> emit) async {
-    emit(state.copyWith(isUploading: true, isUploaded: false, isPendingUpload: false));
+      Save2StateFotoLocalPathJobRealEvent event,
+      Emitter<JobRealFotoState> emit) async {
+    emit(state.copyWith(
+        isUploading: true, isUploaded: false, isPendingUpload: false));
 
     emit(state.copyWith(
-        isUploading: false, isUploaded: true, fotoPath: event.filePath, 
-        isPendingUpload: true, imageSource: event.imageSource));
+        isUploading: false,
+        isUploaded: true,
+        fotoPath: event.filePath,
+        isPendingUpload: true,
+        imageSource: event.imageSource));
   }
 
-    Future<void> onSaveFotoBinary2State(
-      Save2StateFotoBinaryJobRealEvent event, Emitter<JobRealFotoState> emit) async {
-    emit(state.copyWith(isUploading: true, isUploaded: false, isPendingUpload: false));
+  Future<void> onSaveFotoBinary2State(Save2StateFotoBinaryJobRealEvent event,
+      Emitter<JobRealFotoState> emit) async {
+    emit(state.copyWith(
+        isUploading: true, isUploaded: false, isPendingUpload: false));
 
     emit(state.copyWith(
-        isUploading: false, isUploaded: true, fotoBytes: event.fotoBytes, 
-        isPendingUpload: true, imageSource: event.imageSource, fileName: event.fileName));
+        isUploading: false,
+        isUploaded: true,
+        fotoBytes: event.fotoBytes,
+        isPendingUpload: true,
+        imageSource: event.imageSource,
+        fileName: event.fileName));
   }
 
   Future<void> onUploadFile(
       UploadFotoJobRealEvent event, Emitter<JobRealFotoState> emit) async {
-    emit(state.copyWith(isUploading: true, isUploaded: false));
+    debugPrint("JobRealFotoBloc -> onUploadFile");
+    emit(state.copyWith(isUploading: true, isUploaded: false, hasFailure: false));
 
-    await repository.uploadFotoJobReal(event.jobReal1Id, event.filePath);
+    ReturnDataAPI returnData = await repository.uploadFotoJobReal(event.jobReal1Id, event.filePath);
     debugPrint("event.filePath : ${event.filePath}");
     emit(state.copyWith(
-        isUploading: false, isUploaded: true, fotoPath: event.filePath, isPendingUpload: false));
+        isUploading: false,
+        isUploaded: true,
+        fotoPath: event.filePath,
+        isPendingUpload: false,
+        hasFailure: !returnData.success,
+        imageSource: event.imageSource));
   }
 
   Future<void> onUploadFileBytes(
@@ -89,7 +104,11 @@ class JobRealFotoBloc extends Bloc<JobRealFotoEvents, JobRealFotoState> {
         event.jobReal1Id, event.fileName, event.bytes);
     //debugPrint("event.filePath : ${event.bytes}");
     emit(state.copyWith(
-        isUploading: false, isUploaded: true, hasFailure: !result.success, isPendingUpload: false));
+        isUploading: false,
+        isUploaded: true,
+        hasFailure: !result.success,
+        isPendingUpload: false,
+        imageSource: event.imageSource));
   }
 
   Future<void> onDownloadFile(

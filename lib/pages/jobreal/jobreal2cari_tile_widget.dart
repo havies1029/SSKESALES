@@ -38,7 +38,7 @@ class JobReal2CariTileWidget extends StatelessWidget {
 		                  child: Column(
 		                    crossAxisAlignment: CrossAxisAlignment.start,
 		                    children: [
-		                      Text("SPPA No",
+		                      Text("Policy No",
 		                          style: MyText.bodyLarge(context)!
 		                            .copyWith(color: MyColors.grey_40)),
 		                      Container(height: 5),
@@ -55,7 +55,7 @@ class JobReal2CariTileWidget extends StatelessWidget {
 		                  child: Column(
 		                    crossAxisAlignment: CrossAxisAlignment.start,
 		                    children: [
-		                      Text("Policy No",
+		                      Text("SPPA No",
 		                        style: MyText.bodyLarge(context)!
 		                          .copyWith(color: MyColors.grey_40)),
 		                      Container(height: 5),
