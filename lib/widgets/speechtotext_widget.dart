@@ -39,6 +39,7 @@ class _SpeechToTextWidgetState extends State<SpeechToTextWidget> {
   @override
   void initState() {
     super.initState();
+    initSpeechState();
   }
 
   /// This initializes SpeechToText. That only has to be done
@@ -59,7 +60,8 @@ class _SpeechToTextWidgetState extends State<SpeechToTextWidget> {
         _localeNames = await speech.locales();
 
         var systemLocale = await speech.systemLocale();
-        _currentLocaleId = systemLocale?.localeId ?? '';
+        _currentLocaleId = systemLocale?.localeId ?? 'id';
+        //_currentLocaleId = systemLocale?.localeId ?? '';
       }
       if (!mounted) return;
 
