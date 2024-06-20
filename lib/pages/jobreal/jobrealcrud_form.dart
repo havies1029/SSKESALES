@@ -17,6 +17,7 @@ import 'package:esalesapp/widgets/combobox/combocustomer_widget.dart';
 import 'package:esalesapp/widgets/combobox/comboinsurer_widget.dart';
 import 'package:esalesapp/widgets/my_colors.dart';
 import 'package:esalesapp/widgets/my_text.dart';
+import 'package:esalesapp/widgets/speechtotext_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:esalesapp/widgets/form_error.dart';
@@ -483,7 +484,8 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
   }
 
   DateTimeFormField buildTanggalJob() {
-    debugPrint("buildTanggalJob : ${DateTime.tryParse(fieldRealTglController.text)}");
+    debugPrint(
+        "buildTanggalJob : ${DateTime.tryParse(fieldRealTglController.text)}");
     return DateTimeFormField(
       mode: DateTimeFieldPickerMode.date,
       dateFormat: DateFormat('dd/MM/yyyy'),
@@ -509,8 +511,8 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
   }
 
   DateTimeFormField buildJamJob() {
-    
-    debugPrint("buildJamJob : ${DateTime.tryParse(fieldRealJamController.text)}");
+    debugPrint(
+        "buildJamJob : ${DateTime.tryParse(fieldRealJamController.text)}");
     return DateTimeFormField(
       enableFeedback: false,
       mode: DateTimeFieldPickerMode.time,
@@ -671,10 +673,42 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       minLines: 1,
       maxLines: 3,
       controller: fieldMateriController,
-      decoration: const InputDecoration(
-        labelText: "Perihal",
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-      ),
+      decoration: InputDecoration(
+          labelText: "Perihal",
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          suffixIcon: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween, // added line
+            mainAxisSize: MainAxisSize.min, // added line
+            children: [
+              IconButton(
+                icon: const Icon(Icons.clear),
+                onPressed: () {
+                  fieldMateriController.text = "";
+                },
+              ),
+              IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) {
+                        return const SpeechToTextWidget();
+                      }),
+                    ).then((value) {
+                      debugPrint("value : $value");
+                      if (value != null) {
+                        String message = value as String;
+                        if (message.isNotEmpty) {
+                          if (fieldMateriController.text.isNotEmpty) {
+                            fieldMateriController.text += ' ';
+                          }
+                          fieldMateriController.text += value;
+                        }
+                      }
+                    });
+                  },
+                  icon: const Icon(Icons.mic)),
+            ],
+          )),
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: "Field Perihal tidak boleh kosong.");
@@ -690,10 +724,42 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       minLines: 1,
       maxLines: 3,
       controller: fieldHasilController,
-      decoration: const InputDecoration(
-        labelText: "Feedback",
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-      ),
+      decoration: InputDecoration(
+          labelText: "Feedback",
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          suffixIcon: Row(            
+            mainAxisAlignment: MainAxisAlignment.spaceBetween, // added line
+            mainAxisSize: MainAxisSize.min, // added line
+            children: [
+              IconButton(
+                icon: const Icon(Icons.clear),
+                onPressed: () {
+                  fieldHasilController.text = "";
+                },
+              ),
+              IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) {
+                        return const SpeechToTextWidget();
+                      }),
+                    ).then((value) {
+                      debugPrint("value : $value");
+                      if (value != null) {
+                        String message = value as String;
+                        if (message.isNotEmpty) {
+                          if (fieldHasilController.text.isNotEmpty) {
+                            fieldHasilController.text += ' ';
+                          }
+                          fieldHasilController.text += value;
+                        }
+                      }
+                    });
+                  },
+                  icon: const Icon(Icons.mic)),
+            ],
+          )),
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: "Field Feedback tidak boleh kosong.");
@@ -797,7 +863,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
 
   Visibility buildGridCob(JobRealCrudState state) {
     return Visibility(
-      visible : state.comboJobCat?.mjobcatdoctypeId == "cob",
+      visible: state.comboJobCat?.mjobcatdoctypeId == "cob",
       /*
       visible: ((state.comboJobCat?.mjobcatdoctypeId == "cob") &&
           !(widget.viewMode == "tambah" && AppData.kIsWeb)),
