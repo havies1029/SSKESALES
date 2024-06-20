@@ -676,7 +676,17 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       decoration: InputDecoration(
           labelText: "Perihal",
           floatingLabelBehavior: FloatingLabelBehavior.always,
-          suffixIcon: Row(
+             suffixIcon: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween, // added line
+            mainAxisSize: MainAxisSize.min, // added line
+            children: [
+              IconButton(
+                icon: const Icon(Icons.clear),
+                onPressed: () {
+                  fieldMateriController.text = "";
+                },
+              ),
+              Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween, // added line
             mainAxisSize: MainAxisSize.min, // added line
             children: [
@@ -687,26 +697,28 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
                 },
               ),
               IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) {
-                        return const SpeechToTextWidget();
-                      }),
-                    ).then((value) {
-                      debugPrint("value : $value");
-                      if (value != null) {
-                        String message = value as String;
-                        if (message.isNotEmpty) {
-                          if (fieldMateriController.text.isNotEmpty) {
-                            fieldMateriController.text += ' ';
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) {
+                            return const SpeechToTextWidget();
+                          }),
+                        ).then((value) {
+                          debugPrint("value : $value");
+                          if (value != null) {
+                            String message = value as String;
+                            if (message.isNotEmpty) {
+                              if (fieldMateriController.text.isNotEmpty) {
+                                fieldMateriController.text += ' ';
+                              }
+                              fieldMateriController.text += value;
+                            }
                           }
-                          fieldMateriController.text += value;
-                        }
-                      }
-                    });
-                  },
-                  icon: const Icon(Icons.mic)),
+                        });
+                      },
+                      icon: const Icon(Icons.mic)),
+            ],
+          ),
             ],
           )),
       onChanged: (value) {
@@ -725,41 +737,41 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       maxLines: 3,
       controller: fieldHasilController,
       decoration: InputDecoration(
-          labelText: "Feedback",
-          floatingLabelBehavior: FloatingLabelBehavior.always,
-          suffixIcon: Row(            
-            mainAxisAlignment: MainAxisAlignment.spaceBetween, // added line
-            mainAxisSize: MainAxisSize.min, // added line
-            children: [
-              IconButton(
-                icon: const Icon(Icons.clear),
+      labelText: "Feedback",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: Row(            
+          mainAxisAlignment: MainAxisAlignment.spaceBetween, // added line
+          mainAxisSize: MainAxisSize.min, // added line
+          children: [
+            IconButton(
+              icon: const Icon(Icons.clear),
+              onPressed: () {
+                fieldHasilController.text = "";
+              },
+            ),
+            IconButton(
                 onPressed: () {
-                  fieldHasilController.text = "";
-                },
-              ),
-              IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) {
-                        return const SpeechToTextWidget();
-                      }),
-                    ).then((value) {
-                      debugPrint("value : $value");
-                      if (value != null) {
-                        String message = value as String;
-                        if (message.isNotEmpty) {
-                          if (fieldHasilController.text.isNotEmpty) {
-                            fieldHasilController.text += ' ';
-                          }
-                          fieldHasilController.text += value;
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) {
+                      return const SpeechToTextWidget();
+                    }),
+                  ).then((value) {
+                    debugPrint("value : $value");
+                    if (value != null) {
+                      String message = value as String;
+                      if (message.isNotEmpty) {
+                        if (fieldHasilController.text.isNotEmpty) {
+                          fieldHasilController.text += ' ';
                         }
+                        fieldHasilController.text += value;
                       }
-                    });
-                  },
-                  icon: const Icon(Icons.mic)),
-            ],
-          )),
+                    }
+                  });
+                },
+                icon: const Icon(Icons.mic)),
+          ],
+        )),
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: "Field Feedback tidak boleh kosong.");
