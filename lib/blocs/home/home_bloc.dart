@@ -27,5 +27,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<ChangePasswordPageActiveEvent>((event, emit) => emit(ChangePasswordPageActive())); 
     on<JobSalesPageActiveEvent>((event, emit) => emit(JobSalesPageActive())); 
     on<RealGroupPageActiveEvent>((event, emit) => emit(RealGroupPageActive())); 
+    on<TimelinePolicyExpiredPageActiveEvent>((event, emit) => emit(TimelinePolicyExpiredPageActive())); 
   }
 }

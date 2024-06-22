@@ -2,8 +2,8 @@ import 'package:esalesapp/blocs/calendar/eventrenewalcari_bloc.dart';
 import 'package:esalesapp/common/constants.dart';
 import 'package:esalesapp/common/loading_indicator.dart';
 import 'package:esalesapp/models/calendar/event_renewal_model.dart';
-import 'package:esalesapp/pages/testing/eventrenewal_cal.dart';
-import 'package:esalesapp/pages/testing/monthagenda_cal.dart';
+import 'package:esalesapp/pages/calendar/eventrenewal_cal.dart';
+import 'package:esalesapp/pages/calendar/monthagenda_cal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

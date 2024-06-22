@@ -67,16 +67,7 @@ class _RenewalEventPageState extends State<RenewalEventPage> {
     final List<EventRenewalModel> meetings = <EventRenewalModel>[];
 
     for(EventRenewalModel e in data){
-      debugPrint("e.eventName : ${e.eventName}");
-      debugPrint("e.eventFrom : ${e.eventFrom}");
-      debugPrint("e.eventTo : ${e.eventTo}");
-      debugPrint("e.sppaNo : ${e.sppaNo}");
-      debugPrint("e.theInsured : ${e.theInsured}");
-      debugPrint("e.polisStart : ${e.polisStart}");
-      debugPrint("e.polisEnd : ${e.polisEnd}");
-      debugPrint("e.premi : ${e.premi}");
-      debugPrint("e.curr : ${e.curr}");
-      
+       
       meetings.add(EventRenewalModel(
           eventName: e.eventName,
           eventFrom: e.eventFrom,
@@ -132,36 +123,6 @@ class _RenewalEventPageState extends State<RenewalEventPage> {
     */
     return meetings;
   }
-
-  List<EventRenewalModel> _getDataSource() {
-    final List<EventRenewalModel> meetings = <EventRenewalModel>[];
-    final DateTime today = DateTime.now();
-    final DateTime startTime = DateTime(today.year, today.month, today.day, 9);
-    final DateTime endTime = startTime.add(const Duration(hours: 5));
-    meetings.add(EventRenewalModel(
-      sppaNo: 'SPPA-Q-23-000030',
-      theInsured: 'PT SANTOS PREMIUM KRIMER',
-      polisStart: startTime,
-      polisEnd: endTime,
-      //background: const Color(0xFF0F8644),
-      cobNama: 'PAR',
-      curr: 'IDR',
-      premi: 71250000, eventName: '', eventFrom: startTime, eventTo: endTime,
-      //isAllDay: false
-    ));
-    meetings.add(EventRenewalModel(
-      sppaNo: 'SPPA-Q-23-000052',
-      theInsured: 'PT XYZ',
-      polisStart: startTime,
-      polisEnd: endTime,
-      //background: const Color(0xFF0F8644),
-      cobNama: 'MV',
-      curr: 'IDR',
-      premi: 1250000, eventName: '', eventFrom: startTime, eventTo: endTime,
-      //isAllDay: false
-    ));
-    return meetings;
-  }
 }
 
 class MeetingDataSource extends CalendarDataSource {
@@ -203,29 +164,6 @@ class MeetingDataSource extends CalendarDataSource {
 
     return meetingData;
   }
-}
-
-class RenewalEventx {
-  String sppaNo;
-  String theInsured;
-  DateTime polisStart;
-  DateTime polisEnd;
-  String cobName;
-  String curr;
-  double premi;
-  Color background;
-  bool isAllDay;
-
-  RenewalEventx(
-      {required this.sppaNo,
-      required this.theInsured,
-      required this.polisStart,
-      required this.polisEnd,
-      required this.cobName,
-      required this.curr,
-      required this.premi,
-      required this.background,
-      required this.isAllDay});
 }
 
 Widget scheduleViewBuilder(

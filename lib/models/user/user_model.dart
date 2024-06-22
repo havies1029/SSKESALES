@@ -1,5 +1,7 @@
 import 'dart:typed_data';
 
+import 'package:string_validator/string_validator.dart';
+
 class User {
   int? id;
   String? username;
@@ -12,6 +14,7 @@ class User {
   String? propinsiDesc;
   String? jnskel;
   String? token;
+  bool hasDownline;
   Uint8List? foto;
   String? personId;
 
@@ -27,6 +30,7 @@ class User {
       this.propinsiDesc,
       this.jnskel,
       this.token,
+      this.hasDownline = false,
       this.foto,
       this.personId});
 
@@ -41,6 +45,7 @@ class User {
         propinsiId: data['propinsiId'] ?? '',
         propinsiDesc: data['propinsiDesc'] ?? '',
         jnskel: data['jnskel'] ?? '',
+        hasDownline: toBoolean(data['hasDownline'].toString(), false),
         foto: data['foto'] ?? '',
         token: data['token'],
         personId: data['personId'],
@@ -57,6 +62,7 @@ class User {
         "propinsiId": propinsiId,
         "propinsiDesc": propinsiDesc,
         "jnskel": jnskel,
+        "hasDownline": hasDownline.toString(),
         "foto": foto,
         "token": token,
         "personId": personId

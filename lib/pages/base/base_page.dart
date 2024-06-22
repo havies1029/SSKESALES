@@ -30,7 +30,8 @@ enum PageType {
   jobgroup,
   changepswd,
   jobsales,
-  realgroup
+  realgroup,
+  timeline
 }
 
 abstract class PageContainerBase extends StatelessWidget {

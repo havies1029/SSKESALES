@@ -1,4 +1,6 @@
 class PolisCariModel {
+  String curr;
+  String sppaNo;
   double cstPremi;
   String insuredNama;
   DateTime periodeAkhir;
@@ -10,7 +12,9 @@ class PolisCariModel {
   String rekanNama;
 
   PolisCariModel(
-      {required this.cstPremi,
+      {required this.curr,
+      required this.sppaNo,
+      required this.cstPremi,
       required this.insuredNama,
       required this.periodeAkhir,
       required this.periodeAwal,
@@ -29,6 +33,8 @@ class PolisCariModel {
         periodeAwal:
             DateTime.tryParse(data['periodeAwal'].toString()) ?? DateTime.now(),
         polisNo: data['polisNo'] ?? '',
+        curr: data['curr'] ?? '',
+        sppaNo: data['sppaNo'] ?? '',
         polis1Id: data['polis1Id'] ?? '',
         rekanNama: data['rekanNama'] ?? '',
         tsi: double.tryParse(data['tsi'].toString()) ?? 0,
@@ -41,6 +47,8 @@ class PolisCariModel {
         'periodeAkhir': periodeAkhir.toIso8601String(),
         'periodeAwal': periodeAwal.toIso8601String(),
         'polisNo': polisNo,
+        'curr': curr,
+        'sppaNo': sppaNo,
         'polis1Id': polis1Id,
         'tsi': tsi.toString(),
         'cobNama': cobNama,

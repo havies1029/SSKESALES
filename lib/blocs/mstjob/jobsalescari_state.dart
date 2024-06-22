@@ -1,7 +1,5 @@
 part of 'jobsalescari_bloc.dart';
 
-enum ListStatus { initial, success, failure }
-
 class JobSalesCariState extends Equatable {
 
 	final ListStatus status;

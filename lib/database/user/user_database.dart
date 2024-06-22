@@ -67,6 +67,7 @@ class DatabaseProvider {
         "propinsiId TEXT, "
         "propinsiDesc TEXT, "
         "jnskel TEXT, "
+        "hasDownline INTEGER, "
         "token TEXT, "
         "foto BLOB "
         ")");
@@ -88,6 +89,7 @@ class DatabaseProvider {
         propinsiId text,
         propinsiDesc text,
         jnskel text,
+        hasDownline integer,
         token text not null,
         foto blob
       )''');

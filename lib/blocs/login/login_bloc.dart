@@ -30,13 +30,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         username: event.username,
         password: event.password,
       );
-      debugPrint("_onLoginButtonPressed #20");
+      //debugPrint("_onLoginButtonPressed #20");
       emit(LoginPreAuthenticate());
-      debugPrint("_onLoginButtonPressed #30");
+      //debugPrint("_onLoginButtonPressed #30");
       authenticationBloc.add(LoggedIn(user: user));
-      debugPrint("_onLoginButtonPressed #40");
+      //debugPrint("_onLoginButtonPressed #40");
       emit(LoginPostAuthenticate());
-      debugPrint("_onLoginButtonPressed #50");
+      //debugPrint("_onLoginButtonPressed #50");
     } catch (error) {
       emit(LoginFailure(error: error.toString()));
     }

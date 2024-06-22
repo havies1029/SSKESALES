@@ -133,6 +133,7 @@ class UserDao {
         propinsiId: users[0]["propinsiId"],
         propinsiDesc: users[0]["propinsiDesc"],
         jnskel: users[0]["jnskel"],
+        hasDownline: users[0]["hasDownline"],
         token: users[0]["token"],
         foto: users[0]["foto"]);
 

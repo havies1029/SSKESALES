@@ -28,3 +28,4 @@ class JobGroupPageActiveEvent extends HomeEvent {}
 class ChangePasswordPageActiveEvent extends HomeEvent {}
 class JobSalesPageActiveEvent extends HomeEvent {}
 class RealGroupPageActiveEvent extends HomeEvent {}
+class TimelinePolicyExpiredPageActiveEvent extends HomeEvent {}

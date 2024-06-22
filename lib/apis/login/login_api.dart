@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:esalesapp/models/authentication/auth_model.dart';
 import 'package:esalesapp/common/app_data.dart';
 import 'package:esalesapp/models/user/user_model.dart';
+import 'package:string_validator/string_validator.dart';
 
 final _base = AppData.apiDomain;
 const _tokenEndpoint = "api/login/apilogin";
@@ -16,7 +17,7 @@ Future<User> validateUserLogin(UserLogin userLogin) async {
 
   debugPrint("validateUserLogin #10");
 
-  debugPrint(_tokenURL);
+  //debugPrint(_tokenURL);
 
   try {
     await http.post(Uri.parse(_tokenURL),
@@ -41,7 +42,7 @@ Future<User> validateUserLogin(UserLogin userLogin) async {
 
       body: jsonEncode(userinfo.toJson()));
 
-  debugPrint("validateUserLogin #12");
+  //debugPrint("validateUserLogin #12");
 
   //debugPrint(jsonEncode(userinfo.toJson()));
 
@@ -50,16 +51,14 @@ Future<User> validateUserLogin(UserLogin userLogin) async {
   //debugPrint("validateUserLogin #20");
 
   if (response.statusCode == 200) {
-    debugPrint("Berhasil Login #30");
+    //debugPrint("Berhasil Login #30");
 
-    debugPrint(jsonDecode(response.body));
+    //debugPrint(jsonDecode(response.body));
 
     String tokeninfo = jsonDecode(response.body);
     List<String> info = tokeninfo.split(";");
 
     Token token = Token.split(userLogin.username!, tokeninfo);
-
-    //debugPrint("Berhasil Login #40");
 
     try {
       User user = User(
@@ -68,7 +67,8 @@ Future<User> validateUserLogin(UserLogin userLogin) async {
         username: userLogin.username,
         nama: info[2],
         email: info[5],
-        personId: info[12]
+        personId: info[12],
+        hasDownline: toBoolean(info[6], false)
       );
       return user;
     } on Exception catch (e) {

@@ -3,32 +3,30 @@ import 'package:flutter/material.dart';
 import 'package:esalesapp/widgets/my_colors.dart';
 import 'package:esalesapp/widgets/my_text.dart';
 
-class PolisCariTileWidget extends StatelessWidget {
+class PolisExpCariTileWidget extends StatelessWidget {
+  final int severity;
+  final String cobNama;
   final double cstPremi;
+  final String curr;
   final String insuredNama;
   final DateTime periodeAkhir;
   final DateTime periodeAwal;
-  final String polisNo;
   final String polis1Id;
-  final double tsi;
-  final String cobNama;
-  final String rekanNama;
-  final String curr;
   final String sppaNo;
+  final double tsi;
 
-  const PolisCariTileWidget(
+  const PolisExpCariTileWidget(
       {super.key,
+      required this.severity,
+      required this.cobNama,
       required this.cstPremi,
+      required this.curr,
       required this.insuredNama,
       required this.periodeAkhir,
       required this.periodeAwal,
-      required this.polisNo,
       required this.polis1Id,
-      required this.tsi,
-      required this.cobNama,
-      required this.rekanNama,
-      required this.curr,
-      required this.sppaNo});
+      required this.sppaNo,
+      required this.tsi});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +34,7 @@ class PolisCariTileWidget extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
         ),
-        color: Colors.amber[50],
+        color: PolisExpColor.backgroundColor(severity),
         margin: const EdgeInsets.symmetric(horizontal: 10),
         elevation: 2,
         clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -90,7 +88,7 @@ class PolisCariTileWidget extends StatelessWidget {
                     children: [
                       Text("TSI :",
                           style: MyText.bodyLarge(context)!
-                      .copyWith(color: MyColors.grey_40)),
+                      .copyWith(color: PolisExpColor.labelColor(severity))),
                       Container(height: 5),
                       Text('$curr ${NumberFormat("#,###").format(tsi)}',
                           style: MyText.bodyLarge(context)!
@@ -105,7 +103,7 @@ class PolisCariTileWidget extends StatelessWidget {
                     children: [
                       Text("Premi :",
                           style: MyText.bodyLarge(context)!
-                      .copyWith(color: MyColors.grey_40)),
+                      .copyWith(color: PolisExpColor.labelColor(severity))),
                       Container(height: 5),
                       Text("$curr ${NumberFormat("#,###").format(cstPremi)}",
                         textAlign: TextAlign.right,

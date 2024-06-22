@@ -34,7 +34,10 @@ class _HomePageState extends State<HomePage> {
           SizeConfig().init(context);
           if (state is HomePageActive) {
             debugPrint("HomePageActive");
-            return const PageContainer(pageType: PageType.action);
+            return const PageContainer(pageType: PageType.timeline);
+          } else if (state is TimelinePolicyExpiredPageActive) {
+            debugPrint("TimelinePolicyExpiredPageActive");
+            return const PageContainer(pageType: PageType.timeline);
           } else if (state is RoomCariPageActive) {
             debugPrint("RoomCariPageActive");
             return const PageContainer(pageType: PageType.roomchat);

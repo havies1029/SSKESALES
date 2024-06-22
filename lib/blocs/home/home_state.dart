@@ -27,3 +27,4 @@ class JobGroupPageActive extends HomeState {}
 class ChangePasswordPageActive extends HomeState {}
 class JobSalesPageActive extends HomeState {}
 class RealGroupPageActive extends HomeState {}
+class TimelinePolicyExpiredPageActive extends HomeState {}

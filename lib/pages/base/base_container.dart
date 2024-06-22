@@ -20,7 +20,8 @@ import 'package:esalesapp/pages/mstrekan/rekancari_main.dart';
 import 'package:esalesapp/pages/mststaff/staffcari_main.dart';
 import 'package:esalesapp/pages/msttitle/titlecari_main.dart';
 import 'package:esalesapp/pages/polis/poliscari_main.dart';
-import 'package:esalesapp/pages/testing/sfcalendar_page.dart';
+import 'package:esalesapp/pages/calendar/sfcalendar_page.dart';
+import 'package:esalesapp/pages/timeline/expiredpolis_main.dart';
 import 'package:flutter/material.dart';
 import 'package:esalesapp/pages/profile/profile_main_page.dart';
 import 'package:esalesapp/repositories/user/user_repository.dart';
@@ -128,7 +129,9 @@ class PageContainer extends PageContainerBase {
       case PageType.cob:
         return "Class of Business";
       case PageType.calendar:
-        return "Policy Expired";
+        return "Calendar Policy Exp";      
+      case PageType.timeline:
+        return "Timeline Policy Exp";
       case PageType.jobgroup:
         return "Job Function";
       case PageType.changepswd:
@@ -192,6 +195,9 @@ class PageContainer extends PageContainerBase {
         break;
       case PageType.calendar:
         page = const SFCalendarPage();
+        break;
+      case PageType.timeline:
+        page = const ExpiredPolicyMainPage();
         break;
       case PageType.jobgroup:
         page = const JobGroupCariMainPage();

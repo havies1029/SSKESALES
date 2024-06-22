@@ -1,7 +1,5 @@
 part of 'realgroupcari_bloc.dart';
 
-enum ListStatus { initial, success, failure }
-
 class RealGroupCariState extends Equatable {
 
 	final ListStatus status;
