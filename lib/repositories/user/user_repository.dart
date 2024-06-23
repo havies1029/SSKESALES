@@ -38,11 +38,15 @@ class UserRepository {
     await userDao.deleteUser(id);
   }
 
+  Future<void> dropTableUser() async {
+    await userDao.dropTableUser();
+  }
+
   Future<bool> hasToken() async {
-    //debugPrint("func hasToken() a");
+    debugPrint("func hasToken() a");
     bool result = await userDao.checkUser(0);
 
-    //debugPrint("func hasToken() b");
+    debugPrint("func hasToken() b");
     return result;
   }
 

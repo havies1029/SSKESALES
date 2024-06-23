@@ -63,14 +63,14 @@ class PolisExpColor {
 
   static Color labelColor(int severity) {
     Color textColor = (severity == 10
-        ? Colors.grey[800]
+        ? Colors.white
         : severity == 20
-            ? Colors.grey[800]
+            ? Colors.amber[50]
             : severity == 30
-                ? Colors.grey[800]
+                ? MyColors.grey_80
                 : severity == 40
-                ? Colors.grey[800]
-                : Colors.grey[800]) as Color;
+                ? MyColors.grey_80
+                : Colors.white) as Color;
 
     return textColor;
   }

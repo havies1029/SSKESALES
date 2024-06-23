@@ -364,12 +364,12 @@ class AppMenuState extends State<AppMenu> with RouteAware {
               });
             },            
           ),                 
-          const AboutListTile(
-            icon: Icon(Icons.info),
+          AboutListTile(
+            icon: const Icon(Icons.info),
             applicationName: "e-Planner",
             aboutBoxChildren: <Widget>[
-              Text("http://www.smartsoft-id.com/", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
-              Text("version : 0.3", style: TextStyle(fontSize: 12.0),),
+              const Text("http://www.smartsoft-id.com/", style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),),
+              Text("version : ${AppData.version}", style: const TextStyle(fontSize: 12.0),),
             ],
           ),
           ListTile(

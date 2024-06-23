@@ -25,12 +25,11 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
 
   @override
   void initState() {
-    debugPrint("JobRealCrudFotoWidget -> initState #10");
+    //debugPrint("JobRealCrudFotoWidget -> initState #10");
 
     super.initState();
     Future.delayed(const Duration(milliseconds: 500), () {
-      debugPrint(
-          "jobRealCrudBloc.state.viewMode -> ${jobRealCrudBloc.state.viewMode}");
+      //debugPrint("jobRealCrudBloc.state.viewMode -> ${jobRealCrudBloc.state.viewMode}");
       if (jobRealCrudBloc.state.viewMode != "tambah") {
         //downloadFoto();
       } else {
@@ -41,21 +40,20 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("Build #10 ${DateTime.now()}");
-    debugPrint("widget.jobReal1Id : ${widget.jobReal1Id}");
+    //debugPrint("Build #10 ${DateTime.now()}");
+    //debugPrint("widget.jobReal1Id : ${widget.jobReal1Id}");
 
     jobRealFotoBloc = BlocProvider.of<JobRealFotoBloc>(context);
     jobRealCrudBloc = BlocProvider.of<JobRealCrudBloc>(context);
 
     return BlocConsumer<JobRealFotoBloc, JobRealFotoState>(
       builder: (context, state) {
-        debugPrint("Build #20 ${DateTime.now()}");
-        debugPrint(
-            'url : ${AppData.apiDomain}${AppData.endPointViewJobRealImage}${widget.jobReal1Id}/${DateTime.now().millisecondsSinceEpoch}');
+        //debugPrint("Build #20 ${DateTime.now()}");
+        //debugPrint('url : ${AppData.apiDomain}${AppData.endPointViewJobRealImage}${widget.jobReal1Id}/${DateTime.now().millisecondsSinceEpoch}');
             
-        debugPrint("state.isPendingUpload : ${state.isPendingUpload}");
-        debugPrint("state.imageSource : ${state.imageSource}");
-        debugPrint("state.fotoPath : ${state.fotoPath}");
+        //debugPrint("state.isPendingUpload : ${state.isPendingUpload}");
+        //debugPrint("state.imageSource : ${state.imageSource}");
+        //debugPrint("state.fotoPath : ${state.fotoPath}");
 
         return SizedBox(
             height: 300,
@@ -249,7 +247,7 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
 
     if (result != null) {
       String filePath = result.path;
-      debugPrint("filePath #10 : $filePath");
+      //debugPrint("filePath #10 : $filePath");
 
       /*
       if (AppData.kIsWeb) {
@@ -281,11 +279,11 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
         Uint8List fileBytes = compressAndResizeImage(result.files.first.bytes!);
         //Uint8List? fileBytes = result.files.first.bytes;
         String fileName = result.files.first.name;
-        debugPrint("fileName : $fileName");
+        //debugPrint("fileName : $fileName");
 
-        debugPrint("fileBytes : ${fileBytes.length}");
+        //debugPrint("fileBytes : ${fileBytes.length}");
         var viewMode = jobRealCrudBloc.state.viewMode;
-        debugPrint("viewMode : $viewMode");
+        //debugPrint("viewMode : $viewMode");
         if (viewMode == "tambah") {
           jobRealFotoBloc.add(Save2StateFotoBinaryJobRealEvent(
               fotoBytes: fileBytes,
@@ -332,11 +330,11 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
   }
 
   void saveFotoCamera(String filePath, String imageSource) {
-    debugPrint("saveFotoCamera -> filePath $filePath");
+    //debugPrint("saveFotoCamera -> filePath $filePath");
     if (filePath.isNotEmpty) {
       var viewMode = jobRealCrudBloc.state.viewMode;
       if (viewMode == "tambah") {
-        debugPrint("saveFotoCamera -> viewMode : $viewMode");
+        //debugPrint("saveFotoCamera -> viewMode : $viewMode");
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content:
               Text("saveFotoCamera -> Save2StateFotoLocalPathJobRealEvent"),

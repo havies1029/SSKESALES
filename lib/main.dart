@@ -62,7 +62,7 @@ import 'package:esalesapp/pages/splash/splash_page.dart';
 import 'package:esalesapp/common/loading_indicator.dart';
 import 'blocs/takeimage/takeimage_cubit.dart';
 
-void main() {
+Future<void> main() async {
   final userRepository = UserRepository();
   AppData.kIsWeb = kIsWeb;
   runApp(BlocProvider<AuthenticationBloc>(

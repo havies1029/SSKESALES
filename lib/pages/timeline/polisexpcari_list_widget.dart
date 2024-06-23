@@ -55,7 +55,7 @@ class PolisExpCariListWidgetState extends State<PolisExpCariListWidget> {
 				child: ListView.builder(
 					padding: EdgeInsets.zero,
 					controller: _scrollController,
-					itemCount: state.items.length,
+					itemCount: polisExpCari.length,
 					itemBuilder: (_, index) => Container(
 						margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 3),
 						padding: const EdgeInsets.all(0.2),
@@ -65,15 +65,15 @@ class PolisExpCariListWidgetState extends State<PolisExpCariListWidget> {
 							children: <Widget>[
 								PolisExpCariTileWidget(
                   severity: widget.severity,
-									cobNama: state.items[index].cobNama,
-									cstPremi: state.items[index].cstPremi,
-									curr: state.items[index].curr,
-									insuredNama: state.items[index].insuredNama,
-									periodeAkhir: state.items[index].periodeAkhir,
-									periodeAwal: state.items[index].periodeAwal,
-									polis1Id: state.items[index].polis1Id,
-									sppaNo: state.items[index].sppaNo,
-									tsi: state.items[index].tsi,
+									cobNama: polisExpCari[index].cobNama,
+									cstPremi: polisExpCari[index].cstPremi,
+									curr: polisExpCari[index].curr,
+									insuredNama: polisExpCari[index].insuredNama,
+									periodeAkhir: polisExpCari[index].periodeAkhir,
+									periodeAwal: polisExpCari[index].periodeAwal,
+									polis1Id: polisExpCari[index].polis1Id,
+									sppaNo: polisExpCari[index].sppaNo,
+									tsi: polisExpCari[index].tsi,
 								)
 							],
 						),

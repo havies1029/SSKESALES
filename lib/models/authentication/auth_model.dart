@@ -52,7 +52,7 @@ class Token {
 
     //debugPrint("AppData.userCabang : ${AppData.userCabang}");
 
-    String dekripToken = stringToBase64.decode(enkriptToken);
+    //String dekripToken = stringToBase64.decode(enkriptToken);
     //debugPrint("dekrip Token : $dekripToken");
 
     return Token(token: enkriptToken);

@@ -14,6 +14,7 @@ class User {
   String? propinsiDesc;
   String? jnskel;
   String? token;
+  String? userCabang;
   bool hasDownline;
   Uint8List? foto;
   String? personId;
@@ -30,6 +31,7 @@ class User {
       this.propinsiDesc,
       this.jnskel,
       this.token,
+      this.userCabang,
       this.hasDownline = false,
       this.foto,
       this.personId});
@@ -45,6 +47,7 @@ class User {
         propinsiId: data['propinsiId'] ?? '',
         propinsiDesc: data['propinsiDesc'] ?? '',
         jnskel: data['jnskel'] ?? '',
+        userCabang: data['userCabang'] ?? '',
         hasDownline: toBoolean(data['hasDownline'].toString(), false),
         foto: data['foto'] ?? '',
         token: data['token'],
@@ -54,7 +57,8 @@ class User {
   Map<String, dynamic> toDatabaseJson() => {
         "id": id,
         "username": username,
-        "nama": nama,
+        "nama": nama,        
+        "personId": personId,
         "hp": hp,
         "email": email,
         "alamat1": alamat1,
@@ -62,9 +66,9 @@ class User {
         "propinsiId": propinsiId,
         "propinsiDesc": propinsiDesc,
         "jnskel": jnskel,
-        "hasDownline": hasDownline.toString(),
-        "foto": foto,
+        "userCabang": userCabang,
+        "hasDownline": hasDownline?1:0,
         "token": token,
-        "personId": personId
+        "foto": foto
       };
 }

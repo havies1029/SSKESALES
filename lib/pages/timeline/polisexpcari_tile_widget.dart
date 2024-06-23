@@ -48,7 +48,7 @@ class PolisExpCariTileWidget extends StatelessWidget {
                 Text(sppaNo,
                     textAlign: TextAlign.left,
                     style: MyText.bodyLarge(context)!
-                    .copyWith(color: MyColors.grey_80, fontWeight: FontWeight.w700)),
+                    .copyWith(color: PolisExpColor.textColor(severity), fontWeight: FontWeight.w700)),
                 const Spacer(),
                 Center(
                   child: Container(
@@ -65,20 +65,24 @@ class PolisExpCariTileWidget extends StatelessWidget {
                 ),
               ],
             ),
+            const SizedBox(height: 5,),
             Text(insuredNama,
                 textAlign: TextAlign.left,
                 maxLines: 1,
                 style: MyText.titleLarge(context)!
-                    .copyWith(color: MyColors.grey_80)),
+                    .copyWith(color: PolisExpColor.textColor(severity))),            
+            const SizedBox(height: 5,),
             Row(
               children: [
                 Text(
                     '${DateFormat('dd/MM/yyyy').format(periodeAwal)} - ${DateFormat('dd/MM/yyyy').format(periodeAkhir)}',
                     textAlign: TextAlign.left,
                     style: MyText.bodyLarge(context)!
-                    .copyWith(color: MyColors.grey_80, fontWeight: FontWeight.w700))
+                    .copyWith(color: PolisExpColor.textColor(severity), fontWeight: FontWeight.w700))
               ],
             ),
+            const SizedBox(height: 5,),
+            const Divider(thickness: 3, color: Colors.blueGrey,),
             Row(
               children: [
                 Expanded(
@@ -92,7 +96,7 @@ class PolisExpCariTileWidget extends StatelessWidget {
                       Container(height: 5),
                       Text('$curr ${NumberFormat("#,###").format(tsi)}',
                           style: MyText.bodyLarge(context)!
-                      .copyWith(color: MyColors.grey_80, fontWeight: FontWeight.w700)),
+                      .copyWith(color: PolisExpColor.textColor(severity), fontWeight: FontWeight.w700)),
                     ],
                   ),
                 ),
@@ -108,7 +112,7 @@ class PolisExpCariTileWidget extends StatelessWidget {
                       Text("$curr ${NumberFormat("#,###").format(cstPremi)}",
                         textAlign: TextAlign.right,
                         style: MyText.bodyLarge(context)!
-                        .copyWith(color: MyColors.grey_80, fontWeight: FontWeight.w700))
+                        .copyWith(color: PolisExpColor.textColor(severity), fontWeight: FontWeight.w700))
                     ],
                   ),
                 ),

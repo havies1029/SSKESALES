@@ -680,23 +680,18 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween, // added line
             mainAxisSize: MainAxisSize.min, // added line
             children: [
-              IconButton(
-                icon: const Icon(Icons.clear),
-                onPressed: () {
-                  fieldMateriController.text = "";
-                },
-              ),
+              
               Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween, // added line
-            mainAxisSize: MainAxisSize.min, // added line
-            children: [
-              IconButton(
-                icon: const Icon(Icons.clear),
-                onPressed: () {
-                  fieldMateriController.text = "";
-                },
-              ),
-              IconButton(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween, // added line
+                mainAxisSize: MainAxisSize.min, // added line
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.clear),
+                    onPressed: () {
+                      fieldMateriController.text = "";
+                    },
+                  ),
+                  IconButton(
                       onPressed: () {
                         Navigator.push(
                           context,

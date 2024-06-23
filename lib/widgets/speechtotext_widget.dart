@@ -34,11 +34,18 @@ class _SpeechToTextWidgetState extends State<SpeechToTextWidget> {
   String _currentLocaleId = '';
   List<LocaleName> _localeNames = [];
   final SpeechToText speech = SpeechToText();
+  List<LocaleName> speechLang = [];
 
   @override
   void initState() {
     super.initState();
+    getSpeechLang();
     initSpeechState();
+  }
+
+  Future<void> getSpeechLang() async {
+    speechLang.add(LocaleName("en_GB", "English"));
+    speechLang.add(LocaleName("in_ID", "Indonesia"));
   }
 
   /// This initializes SpeechToText. That only has to be done
@@ -56,10 +63,14 @@ class _SpeechToTextWidgetState extends State<SpeechToTextWidget> {
       if (hasSpeech) {
         // Get the list of languages installed on the supporting platform so they
         // can be displayed in the UI for selection by the user.
-        _localeNames = await speech.locales();
+        //_localeNames = await speech.locales();
+        _localeNames = speechLang;
 
+        /*
         var systemLocale = await speech.systemLocale();
-        _currentLocaleId = systemLocale?.localeId ?? 'id';
+        _currentLocaleId = systemLocale?.localeId ?? '';
+        */
+        _currentLocaleId = "in_ID";
       }
       if (!mounted) return;
 
@@ -389,7 +400,15 @@ class SessionOptionsWidget extends StatelessWidget {
             children: [
               const Text('Language: '),
               DropdownButton<String>(
-                onChanged: (selectedVal) => switchLang(selectedVal),
+                onChanged: (selectedVal) {
+                  /*
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text("Language -> $selectedVal"),
+                    backgroundColor: Colors.orange,
+                  ));
+                  */
+                  switchLang(selectedVal);
+                },
                 value: currentLocaleId,
                 items: localeNames
                     .map(

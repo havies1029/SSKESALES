@@ -23,9 +23,9 @@ class JobReal2CariAPI {
       'Authorization': 'Bearer ${AppData.userToken}'
     });
 
-    debugPrint("getJobReal2CariAPI");
-    debugPrint("response.statusCode : ${response.statusCode}");
-    debugPrint("response.body : ${response.body}");
+    //debugPrint("getJobReal2CariAPI");
+    //debugPrint("response.statusCode : ${response.statusCode}");
+    //debugPrint("response.body : ${response.body}");
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
@@ -50,9 +50,9 @@ class JobReal2CariAPI {
       'Authorization': 'Bearer ${AppData.userToken}'
     });
 
-    debugPrint("getJobReal2GridAPI");
-    debugPrint("response.statusCode : ${response.statusCode}");
-    debugPrint("response.body : ${response.body}");
+    //debugPrint("getJobReal2GridAPI");
+    //debugPrint("response.statusCode : ${response.statusCode}");
+    //debugPrint("response.body : ${response.body}");
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
@@ -85,7 +85,7 @@ class JobReal2CariAPI {
         },
         body: jsonEncode(listChecked));
 
-    debugPrint("response.statusCode : ${response.statusCode}");
+    //debugPrint("response.statusCode : ${response.statusCode}");
 
     if (response.statusCode == 200) {
       returnData = ReturnDataAPI.fromDatabaseJson(jsonDecode(response.body));

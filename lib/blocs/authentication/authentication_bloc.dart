@@ -57,7 +57,8 @@ class AuthenticationBloc
       LoggedOut event, Emitter<AuthenticationState> emit) async {
     emit(AuthenticationLoading());
     if (!AppData.kIsWeb) {
-      await userRepository.deleteToken(id: 0);
+      //await userRepository.deleteToken(id: 0);
+      userRepository.dropTableUser();
     }
     emit(AuthenticationUnauthenticated());
   }

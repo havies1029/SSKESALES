@@ -53,7 +53,7 @@ class ExpiredBySalesListWidgetState extends State<ExpiredBySalesListWidget> {
                     child: ListView.builder(
                         padding: EdgeInsets.zero,
                         controller: _scrollController,
-                        itemCount: state.items.length,
+                        itemCount: expiredBySales.length,
                         itemBuilder: (_, index) => Container(
                               margin: const EdgeInsets.symmetric(
                                   horizontal: 5, vertical: 3),
@@ -66,9 +66,9 @@ class ExpiredBySalesListWidgetState extends State<ExpiredBySalesListWidget> {
                                     expgroupId: widget.expgroupId,  
                                     groupName: widget.groupNama,                                  
                                     severity: widget.severity,
-                                    jml: state.items[index].jml,
-                                    salesId: state.items[index].salesId,
-                                    salesNama: state.items[index].salesNama,
+                                    jml: expiredBySales[index].jml,
+                                    salesId: expiredBySales[index].salesId,
+                                    salesNama: expiredBySales[index].salesNama,
                                   )
                                 ],
                               ),

@@ -6,15 +6,29 @@ import 'package:esalesapp/models/user/user_model.dart';
 
 class UserDao {
   final dbProvider = DatabaseProvider.dbProvider;
+  String userTable = 'userProfile';
 
   Future<int?> createUser(User user) async {
+    debugPrint("UserDao -> createUser");
     final db = await dbProvider.database;
+
+    if (db == null) {
+      debugPrint("createUser db is null");
+    } else {
+      debugPrint("createUser db is not null");
+    }
+
+    debugPrint("createUser userTable : $userTable");
+
     Future<int>? result;
     try {
       result = db?.insert(userTable, user.toDatabaseJson());
+      debugPrint(user.toDatabaseJson().toString());
     } catch (e) {
       debugPrint("createUser error : ${e.toString()}");
     }
+    bool hasUser = await checkUser(0);
+    debugPrint("hasUser? : $hasUser");
     return result;
   }
 
@@ -22,6 +36,11 @@ class UserDao {
     final db = await dbProvider.database;
     var result = await db?.delete(userTable, where: "id = ?", whereArgs: [id]);
     return result;
+  }
+
+  Future<void> dropTableUser() async {
+    final db = await dbProvider.database;
+    dbProvider.dropTableUser(db);
   }
 
   Future<String> getUserToken(int id) async {
@@ -38,32 +57,37 @@ class UserDao {
   }
 
   Future<bool> checkUser(int id) async {
-    //debugPrint("func checkUser");
+    debugPrint("func checkUser");
     final db = await dbProvider.database;
 
-    //debugPrint("func checkUser -> get db");
+    debugPrint("func checkUser -> get db");
 
     try {
-      //debugPrint("func checkUser -> start -> cek users");
+      debugPrint("func checkUser -> start -> cek users id : $id");
 
       List<Map> users =
           await db!.query(userTable, where: 'id = ?', whereArgs: [id]);
 
-      //debugPrint("func checkUser cek users");
-
       if (users.isNotEmpty) {
-        //debugPrint("func checkUser -> has user");
+        debugPrint("func checkUser -> has user #10");
 
         AppData.userToken = users[0]["token"];
         AppData.userid = users[0]["username"];
+        AppData.personId = users[0]["personId"];
+        AppData.personName = users[0]["nama"] ?? "";
+        AppData.userCabang = users[0]["userCabang"] ?? "";
+        AppData.hasDownline = users[0]["hasDownline"] == 1;
+
+        debugPrint("func checkUser -> has user #20");
+
         return true;
       } else {
-        //debugPrint("func checkUser -> no user");
+        debugPrint("func checkUser -> no user");
 
         return false;
       }
     } catch (error) {
-      //debugPrint("error func checkUser");
+      debugPrint("error func checkUser : $error");
       return false;
     }
   }
@@ -133,6 +157,7 @@ class UserDao {
         propinsiId: users[0]["propinsiId"],
         propinsiDesc: users[0]["propinsiDesc"],
         jnskel: users[0]["jnskel"],
+        userCabang: users[0]["userCabang"],
         hasDownline: users[0]["hasDownline"],
         token: users[0]["token"],
         foto: users[0]["foto"]);

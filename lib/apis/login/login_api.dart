@@ -68,6 +68,7 @@ Future<User> validateUserLogin(UserLogin userLogin) async {
         nama: info[2],
         email: info[5],
         personId: info[12],
+        userCabang: info[1],
         hasDownline: toBoolean(info[6], false)
       );
       return user;
