@@ -9,10 +9,11 @@ class ExpiredBySalesListWidget extends StatefulWidget {
   final int severity;
   final String expgroupId;
   final String groupNama;
-  const ExpiredBySalesListWidget({super.key, 
-    required this.expgroupId,
-    required this.severity,
-    required this.groupNama});
+  const ExpiredBySalesListWidget(
+      {super.key,
+      required this.expgroupId,
+      required this.severity,
+      required this.groupNama});
 
   @override
   ExpiredBySalesListWidgetState createState() =>
@@ -45,7 +46,8 @@ class ExpiredBySalesListWidgetState extends State<ExpiredBySalesListWidget> {
         builder: (context, state) {
           if (state.status == ListStatus.success) {
             if (!state.hasReachedMax) {
-              expiredBySales.addAll(state.items);
+              //expiredBySales.addAll(state.items);
+              expiredBySales = state.items;
             }
 
             return state.items.isNotEmpty
@@ -63,8 +65,8 @@ class ExpiredBySalesListWidgetState extends State<ExpiredBySalesListWidget> {
                               child: Column(
                                 children: <Widget>[
                                   ExpiredBySalesTileWidget(
-                                    expgroupId: widget.expgroupId,  
-                                    groupName: widget.groupNama,                                  
+                                    expgroupId: widget.expgroupId,
+                                    groupName: widget.groupNama,
                                     severity: widget.severity,
                                     jml: expiredBySales[index].jml,
                                     salesId: expiredBySales[index].salesId,

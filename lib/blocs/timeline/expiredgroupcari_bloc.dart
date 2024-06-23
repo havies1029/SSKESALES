@@ -33,7 +33,7 @@ Future<void> onFetchExpiredGroupCari(
 		return emit(state.copyWith(
 			items: items,
 			hasReachedMax: false,
-			status: ListStatus.success,
+			status: ListStatus.success,      
 			));
 	}
 	List<ExpiredGroupCariModel> items = await repo.getExpiredGroupCari();

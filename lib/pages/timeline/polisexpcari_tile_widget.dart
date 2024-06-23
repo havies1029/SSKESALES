@@ -86,7 +86,7 @@ class PolisExpCariTileWidget extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  flex: 1,
+                  flex: 6,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -101,7 +101,7 @@ class PolisExpCariTileWidget extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  flex: 1,
+                  flex: 4,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
