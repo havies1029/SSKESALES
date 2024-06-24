@@ -220,7 +220,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
   }
 
   void loadGridPolis(String jobreal1Id) {
-    if (widget.viewMode == "ubah") {
+    if (widget.viewMode != "tambah") {
       if (jobreal1Id.isNotEmpty) {
         jobReal2GridBloc.add(RefreshJobReal2ListEvent(jobreal1Id: jobreal1Id));
       }
@@ -228,7 +228,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
   }
 
   void loadGridCob(String jobreal1Id) {
-    if (widget.viewMode == "ubah") {
+    if (widget.viewMode != "tambah") {
       if (jobreal1Id.isNotEmpty) {
         jobReal3GridBloc.add(RefreshJobReal3GridEvent(jobreal1Id: jobreal1Id));
       }
