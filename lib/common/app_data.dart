@@ -21,6 +21,7 @@ class AppData {
   static String httpAuthority = "10.0.2.2";
 */
 
+
 static String apiDomain = "http${useSSL ? "s" : ""}://216.172.109.8/esalesapi/";
 static String prefixEndPoint = "/esalesapi";
 static String httpAuthority = "216.172.109.8";
