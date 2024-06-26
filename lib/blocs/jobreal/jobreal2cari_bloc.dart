@@ -43,7 +43,7 @@ class JobReal2CariBloc extends Bloc<JobReal2CariEvents, JobReal2CariState> {
     //await Future.delayed(const Duration(seconds: 1));
 
     add(FetchJobReal2CariEvent(
-        custId: event.custId, jobreal1Id: event.jobreal1Id));
+        custId: event.custId, jobreal1Id: event.jobreal1Id, searchText: event.searchText));
   }
 
   Future<void> onFetchJobReal2Cari(
@@ -55,13 +55,13 @@ class JobReal2CariBloc extends Bloc<JobReal2CariEvents, JobReal2CariState> {
     JobReal2CariRepository repo = JobReal2CariRepository();
     if (state.status == ListStatus.initial) {
       List<JobReal2CariModel> items =
-          await repo.getJobReal2Cari(event.custId, event.jobreal1Id);
+          await repo.getJobReal2Cari(event.custId, event.jobreal1Id, event.searchText);
 
       return emit(state.copyWith(
           items: items, hasReachedMax: false, status: ListStatus.success));
     }
     List<JobReal2CariModel> items =
-        await repo.getJobReal2Cari(event.custId, event.jobreal1Id);
+        await repo.getJobReal2Cari(event.custId, event.jobreal1Id, event.searchText);
     if (items.isEmpty) {
       return emit(state.copyWith(hasReachedMax: true));
     } else {

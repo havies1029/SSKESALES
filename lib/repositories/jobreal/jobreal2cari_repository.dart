@@ -4,9 +4,9 @@ import 'package:esalesapp/models/responseAPI/returndataapi_model.dart';
 
 class JobReal2CariRepository {
   Future<List<JobReal2CariModel>> getJobReal2Cari(
-      String custId, String? jobreal1Id) async {
+      String custId, String? jobreal1Id, String? searchText) async {
     JobReal2CariAPI api = JobReal2CariAPI();
-    return await api.getJobReal2CariAPI(custId, jobreal1Id);
+    return await api.getJobReal2CariAPI(custId, jobreal1Id, searchText);
   }
 
   Future<List<JobReal2CariModel>> getJobReal2Grid(String jobreal1Id) async {

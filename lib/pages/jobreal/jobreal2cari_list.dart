@@ -50,7 +50,8 @@ class JobReal2CariPageState extends State<JobReal2CariPage> {
       if (context.read<JobReal2CariBloc>().state.items.isEmpty) {
         jobReal2CariBloc.add(RefreshJobReal2CariEvent(
             custId: widget.custId,
-            jobreal1Id: widget.jobReal1Id));
+            jobreal1Id: widget.jobReal1Id,
+            searchText: _searchController.text));
       }
     }
   }
@@ -65,7 +66,8 @@ class JobReal2CariPageState extends State<JobReal2CariPage> {
           if (widget.custId.isNotEmpty) {
             jobReal2CariBloc.add(RefreshJobReal2CariEvent(
                 custId: widget.custId,
-                jobreal1Id: widget.jobReal1Id));
+                jobreal1Id: widget.jobReal1Id,
+                searchText: _searchController.text));
           }
         });
   }

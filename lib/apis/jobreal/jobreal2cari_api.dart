@@ -7,13 +7,14 @@ import 'package:esalesapp/models/jobreal/jobreal2cari_model.dart';
 
 class JobReal2CariAPI {
   Future<List<JobReal2CariModel>> getJobReal2CariAPI(
-      String custId, String? jobreal1Id) async {
+      String custId, String? jobreal1Id, String? searchText) async {
     String urlGetListEndPoint =
         "${AppData.prefixEndPoint}/api/jobreal/jobreal2cari/getlist";
 
     Map<String, String> queryParams = {
       "custId": custId,
-      "jobreal1Id": jobreal1Id ?? ""
+      "jobreal1Id": jobreal1Id ?? "",
+      "searchText": searchText ?? ""
     };
     var uri = Uri.http(AppData.httpAuthority, urlGetListEndPoint, queryParams);
     final http.Response response =
@@ -23,9 +24,9 @@ class JobReal2CariAPI {
       'Authorization': 'Bearer ${AppData.userToken}'
     });
 
-    //debugPrint("getJobReal2CariAPI");
-    //debugPrint("response.statusCode : ${response.statusCode}");
-    //debugPrint("response.body : ${response.body}");
+    debugPrint("getJobReal2CariAPI");
+    debugPrint("response.statusCode : ${response.statusCode}");
+    debugPrint("response.body : ${response.body}");
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body).cast<Map<String, dynamic>>();

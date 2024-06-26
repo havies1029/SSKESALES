@@ -58,8 +58,8 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
   ComboInsurerModel? fieldComboInsurer;
   var fieldComboJobController = TextEditingController();
   var fieldPicNameController = TextEditingController();
-  var fieldRealJamController = TextEditingController();
-  var fieldRealTglController = TextEditingController();
+  var fieldRealJamController = TextEditingController(text: DateTime.now().toIso8601String());
+  var fieldRealTglController = TextEditingController(text: DateTime.now().toIso8601String());  
   var fieldTaskDescController = TextEditingController();
   final comboJobKey = GlobalKey<DropdownSearchState<ComboJobModel>>();
   final comboJobCatKey = GlobalKey<DropdownSearchState<ComboJobcatModel>>();
@@ -338,6 +338,9 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
             taskDesc: fieldTaskDescController.text,
             isConfirmed: isRequestConfirm);
 
+        debugPrint(
+            "fieldComboJobcat?.mjobcatId : ${fieldComboJobcat?.mjobcatId}");
+
         if (widget.viewMode == "tambah") {
           jobRealCrudBloc.add(JobRealCrudTambahEvent(record: record));
         } else if (widget.viewMode == "ubah") {
@@ -484,15 +487,17 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
   }
 
   DateTimeFormField buildTanggalJob() {
-    debugPrint(
-        "buildTanggalJob : ${DateTime.tryParse(fieldRealTglController.text)}");
+    //debugPrint("buildTanggalJob : ${DateTime.tryParse(fieldRealTglController.text)}");
     return DateTimeFormField(
       mode: DateTimeFieldPickerMode.date,
       dateFormat: DateFormat('dd/MM/yyyy'),
       firstDate: DateTime.now().add(const Duration(days: -3)),
+      initialValue: DateTime.tryParse(fieldRealTglController.text),
+      /*
       initialValue: widget.viewMode == "tambah"
           ? DateTime.now()
           : DateTime.tryParse(fieldRealTglController.text),
+      */
       decoration: const InputDecoration(
         labelText: "Tanggal",
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -511,15 +516,17 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
   }
 
   DateTimeFormField buildJamJob() {
-    debugPrint(
-        "buildJamJob : ${DateTime.tryParse(fieldRealJamController.text)}");
+    //debugPrint("buildJamJob : ${DateTime.tryParse(fieldRealJamController.text)}");
     return DateTimeFormField(
       enableFeedback: false,
       mode: DateTimeFieldPickerMode.time,
       dateFormat: DateFormat('HH:mm'),
+      initialValue: DateTime.tryParse(fieldRealJamController.text),
+      /*
       initialValue: widget.viewMode == "tambah"
           ? DateTime.now()
           : DateTime.tryParse(fieldRealJamController.text),
+      */
       decoration: const InputDecoration(
         labelText: "Jam",
         floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -629,6 +636,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
 
           comboJobKey.currentState?.clear();
           fieldComboJob = const ComboJobModel();
+          fieldComboJobcat = value;
           jobRealCrudBloc.add(ComboJobcatChangedEvent(comboJobcat: value));
         }
       },
@@ -676,11 +684,10 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       decoration: InputDecoration(
           labelText: "Perihal",
           floatingLabelBehavior: FloatingLabelBehavior.always,
-             suffixIcon: Row(
+          suffixIcon: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween, // added line
             mainAxisSize: MainAxisSize.min, // added line
             children: [
-              
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween, // added line
                 mainAxisSize: MainAxisSize.min, // added line
@@ -712,8 +719,8 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
                         });
                       },
                       icon: const Icon(Icons.mic)),
-            ],
-          ),
+                ],
+              ),
             ],
           )),
       onChanged: (value) {
@@ -732,41 +739,41 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       maxLines: 3,
       controller: fieldHasilController,
       decoration: InputDecoration(
-      labelText: "Feedback",
-        floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: Row(            
-          mainAxisAlignment: MainAxisAlignment.spaceBetween, // added line
-          mainAxisSize: MainAxisSize.min, // added line
-          children: [
-            IconButton(
-              icon: const Icon(Icons.clear),
-              onPressed: () {
-                fieldHasilController.text = "";
-              },
-            ),
-            IconButton(
+          labelText: "Feedback",
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          suffixIcon: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween, // added line
+            mainAxisSize: MainAxisSize.min, // added line
+            children: [
+              IconButton(
+                icon: const Icon(Icons.clear),
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) {
-                      return const SpeechToTextWidget();
-                    }),
-                  ).then((value) {
-                    debugPrint("value : $value");
-                    if (value != null) {
-                      String message = value as String;
-                      if (message.isNotEmpty) {
-                        if (fieldHasilController.text.isNotEmpty) {
-                          fieldHasilController.text += ' ';
-                        }
-                        fieldHasilController.text += value;
-                      }
-                    }
-                  });
+                  fieldHasilController.text = "";
                 },
-                icon: const Icon(Icons.mic)),
-          ],
-        )),
+              ),
+              IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) {
+                        return const SpeechToTextWidget();
+                      }),
+                    ).then((value) {
+                      debugPrint("value : $value");
+                      if (value != null) {
+                        String message = value as String;
+                        if (message.isNotEmpty) {
+                          if (fieldHasilController.text.isNotEmpty) {
+                            fieldHasilController.text += ' ';
+                          }
+                          fieldHasilController.text += value;
+                        }
+                      }
+                    });
+                  },
+                  icon: const Icon(Icons.mic)),
+            ],
+          )),
       onChanged: (value) {
         if (value.isNotEmpty) {
           removeError(error: "Field Feedback tidak boleh kosong.");

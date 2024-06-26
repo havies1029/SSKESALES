@@ -10,9 +10,10 @@ abstract class JobReal2CariEvents extends Equatable {
 class FetchJobReal2CariEvent extends JobReal2CariEvents {
   final String custId;
   final String? jobreal1Id;
+  final String? searchText;
 
   const FetchJobReal2CariEvent(
-      {required this.custId, this.jobreal1Id});
+      {required this.custId, this.jobreal1Id, this.searchText});
 
   @override
   List<Object> get props => [custId];
@@ -21,9 +22,10 @@ class FetchJobReal2CariEvent extends JobReal2CariEvents {
 class RefreshJobReal2CariEvent extends JobReal2CariEvents {
   final String custId;
   final String? jobreal1Id;
+  final String? searchText;
 
   const RefreshJobReal2CariEvent(
-      {required this.custId, this.jobreal1Id});
+      {required this.custId, this.jobreal1Id, this.searchText});
 
   @override
   List<Object> get props => [custId];
