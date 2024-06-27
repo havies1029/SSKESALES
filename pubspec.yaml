@@ -73,6 +73,7 @@ flutter:
     - assets/images/
     - assets/images/month/
     - assets/icons/ 
+    - packages/timezone/data/latest.tzf
   fonts:
     - family: HeeboBold
       fonts:

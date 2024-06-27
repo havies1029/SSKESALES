@@ -31,7 +31,6 @@ class _SFCalendarPageState extends State<SFCalendarPage>
     cariBloc = context.read<EventRenewalCariBloc>();
     return BlocConsumer<EventRenewalCariBloc, EventRenewalCariState>(
       builder: (context, state) {
-        var x = state.items;
         return state.items.isNotEmpty
             ? DefaultTabController(
                 length: 2,
