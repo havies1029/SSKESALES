@@ -9,7 +9,7 @@ class ExpiredGroupCariAPI {
     String urlGetListEndPoint =
         "${AppData.prefixEndPoint}/api/timeline/expiredgroupcari/getlist";
 
-    var uri = Uri.http(AppData.httpAuthority, urlGetListEndPoint);
+    var uri = AppData.uriHtpp(AppData.httpAuthority, urlGetListEndPoint);
     final http.Response response =
         await http.get(uri, headers: <String, String>{
       'Content-Type': 'application/json; odata=verbos',

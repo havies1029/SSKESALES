@@ -14,7 +14,7 @@ class JobReal3CariAPI{
       "searchText": searchText,
       "hal": hal.toString()
     };
-		var uri = Uri.http(AppData.httpAuthority, urlGetListEndPoint, queryParams);
+		var uri = AppData.uriHtpp(AppData.httpAuthority, urlGetListEndPoint, queryParams);
 		final http.Response response = await http.get(uri, headers: <String, String>{
 			'Content-Type': 'application/json; odata=verbos',
 			'Accept': 'application/json; odata=verbos',
@@ -65,7 +65,7 @@ class JobReal3CariAPI{
     Map<String, String> queryParams = {      
       "jobreal1Id": jobreal1Id
     };
-    var uri = Uri.http(AppData.httpAuthority, urlGetListEndPoint, queryParams);
+    var uri = AppData.uriHtpp(AppData.httpAuthority, urlGetListEndPoint, queryParams);
     final http.Response response =
         await http.get(uri, headers: <String, String>{
       'Content-Type': 'application/json; odata=verbos',

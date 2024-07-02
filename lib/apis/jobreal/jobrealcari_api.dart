@@ -21,7 +21,7 @@ class JobRealCariAPI {
       "filterDoc": filterDoc,
       "hal": hal.toString()
     };
-    var uri = Uri.http(AppData.httpAuthority, urlGetListEndPoint, queryParams);
+    var uri = AppData.uriHtpp(AppData.httpAuthority, urlGetListEndPoint, queryParams);
     final http.Response response =
         await http.get(uri, headers: <String, String>{
       'Content-Type': 'application/json; odata=verbos',

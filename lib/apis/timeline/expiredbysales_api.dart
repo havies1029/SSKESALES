@@ -9,7 +9,7 @@ class ExpiredBySalesAPI{
     Map<String, String> queryParams = {
       "expgroup_id": expgroupId,
     };
-		var uri = Uri.http(AppData.httpAuthority, urlGetListEndPoint, queryParams);
+		var uri = AppData.uriHtpp(AppData.httpAuthority, urlGetListEndPoint, queryParams);
 		final http.Response response = await http.get(uri, headers: <String, String>{
 			'Content-Type': 'application/json; odata=verbos',
 			'Accept': 'application/json; odata=verbos',
