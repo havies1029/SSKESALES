@@ -16,7 +16,7 @@ class JobReal2CariAPI {
       "jobreal1Id": jobreal1Id ?? "",
       "searchText": searchText ?? ""
     };
-    var uri = Uri.http(AppData.httpAuthority, urlGetListEndPoint, queryParams);
+    var uri = AppData.uriHtpp(AppData.httpAuthority, urlGetListEndPoint, queryParams);
     final http.Response response =
         await http.get(uri, headers: <String, String>{
       'Content-Type': 'application/json; odata=verbos',
@@ -43,7 +43,7 @@ class JobReal2CariAPI {
         "${AppData.prefixEndPoint}/api/jobreal/jobreal2crud/getlist";
 
     Map<String, String> queryParams = {"jobreal1Id": jobreal1Id};
-    var uri = Uri.http(AppData.httpAuthority, urlGetListEndPoint, queryParams);
+    var uri = AppData.uriHtpp(AppData.httpAuthority, urlGetListEndPoint, queryParams);
     final http.Response response =
         await http.get(uri, headers: <String, String>{
       'Content-Type': 'application/json; odata=verbos',
