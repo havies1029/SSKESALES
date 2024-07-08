@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:esalesapp/common/constants.dart';
 import 'package:esalesapp/widgets/form_error.dart';
 import 'package:esalesapp/blocs/msttitle/titlecrud_bloc.dart';
 import 'package:esalesapp/models/msttitle/titlecrud_model.dart';
