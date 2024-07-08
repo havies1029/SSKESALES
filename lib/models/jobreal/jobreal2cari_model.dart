@@ -29,7 +29,8 @@ class JobReal2CariModel {
   String cob;
   String insuredNama;
   String jobreal2Id;
-  bool isChecked = false;
+  bool isChecked = false;  
+  String sppaNo;
 
   JobReal2CariModel(
       {required this.polis1Id,
@@ -42,7 +43,8 @@ class JobReal2CariModel {
       required this.cob,
       required this.insuredNama,
       required this.jobreal2Id,
-      required this.isChecked});
+      required this.isChecked,
+      required this.sppaNo});
 
   factory JobReal2CariModel.fromJson(Map<String, dynamic> data) {
     debugPrint("data['isChecked'] : ${data['isChecked']}");
@@ -58,7 +60,7 @@ class JobReal2CariModel {
         cob: data['cob'] ?? '',
         insuredNama: data['insuredNama'] ?? '',
         jobreal2Id: data['jobreal2Id'] ?? '',
-        //isChecked: false
+        sppaNo: data['sppaNo'] ?? '',
         isChecked: toBoolean(data['isChecked'].toString(), true));
   }
 
@@ -73,6 +75,7 @@ class JobReal2CariModel {
         'cob': cob,
         'insuredNama': insuredNama,
         'jobreal2Id': jobreal2Id,
-        'isChecked': isChecked.toString()
+        'isChecked': isChecked.toString(),
+        'sppaNo': sppaNo
       };
 }

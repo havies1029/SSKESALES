@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:esalesapp/common/app_data.dart';
 import 'package:flutter/material.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:esalesapp/models/combobox/combocustomer_model.dart';

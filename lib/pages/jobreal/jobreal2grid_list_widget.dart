@@ -38,6 +38,7 @@ class JobReal2GridListWidgetState extends State<JobReal2GridListWidget> {
 							JobReal2GridTileWidget(
 								polis1Id: state.items[index].polis1Id,
 								polisNo: state.items[index].polisNo,
+								sppaNo: state.items[index].sppaNo,
 								periodeAwal: state.items[index].periodeAwal,
 								periodeAkhir: state.items[index].periodeAkhir,
 								curr: state.items[index].curr,

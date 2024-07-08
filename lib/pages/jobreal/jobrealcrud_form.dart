@@ -17,6 +17,7 @@ import 'package:esalesapp/widgets/combobox/combocustomer_widget.dart';
 import 'package:esalesapp/widgets/combobox/comboinsurer_widget.dart';
 import 'package:esalesapp/widgets/my_colors.dart';
 import 'package:esalesapp/widgets/my_text.dart';
+import 'package:esalesapp/widgets/showdialog_widget.dart';
 import 'package:esalesapp/widgets/speechtotext_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -58,8 +59,10 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
   ComboInsurerModel? fieldComboInsurer;
   var fieldComboJobController = TextEditingController();
   var fieldPicNameController = TextEditingController();
-  var fieldRealJamController = TextEditingController(text: DateTime.now().toIso8601String());
-  var fieldRealTglController = TextEditingController(text: DateTime.now().toIso8601String());  
+  var fieldRealJamController =
+      TextEditingController(text: DateTime.now().toIso8601String());
+  var fieldRealTglController =
+      TextEditingController(text: DateTime.now().toIso8601String());
   var fieldTaskDescController = TextEditingController();
   final comboJobKey = GlobalKey<DropdownSearchState<ComboJobModel>>();
   final comboJobCatKey = GlobalKey<DropdownSearchState<ComboJobcatModel>>();
@@ -89,6 +92,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
     fieldPicNameController.dispose();
     fieldRealJamController.dispose();
     fieldRealTglController.dispose();
+    fieldTaskDescController.dispose();
   }
 
   @override
@@ -208,11 +212,24 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
                 loadGridCob(state.record?.jobreal1Id ?? "");
               }
             }
+
+            /*
             fieldComboJob = state.comboJob;
             fieldComboJobcat = state.comboJobCat;
             fieldComboMedia = state.comboMedia;
             fieldComboCustomer = state.comboCustomer;
             fieldComboInsurer = state.comboInsurer;
+            */
+
+            debugPrint(
+                "listener -> fieldComboCustomer?.rekanNama : ${fieldComboCustomer?.rekanNama}");
+
+            if (state.forceChangeComboCustomer) {
+              debugPrint("listener -> state.forceChangeComboCustomer");
+              //undo combo changed
+              comboCustomerKey.currentState
+                  ?.changeSelectedItem(fieldComboCustomer);
+            }
           }
         },
       ),
@@ -316,7 +333,8 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
     return errorCount;
   }
 
-  void onSaveForm(bool isRequestConfirm, JobRealCrudState state) {
+  void onSaveForm(bool isRequestConfirm, JobRealCrudState state,
+      {bool dismissDialog = true}) {
     debugPrint("onSaveForm #10");
     removeErrValidation();
     if (validateForm(isRequestConfirm, state) == 0) {
@@ -348,7 +366,9 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
           record.jobreal1Id = jobRealCrudBloc.state.record!.jobreal1Id;
           jobRealCrudBloc.add(JobRealCrudUbahEvent(record: record));
         }
-        _dismissDialog();
+        if (dismissDialog) {
+          _dismissDialog();
+        }
       }
     }
   }
@@ -552,10 +572,21 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       initItem: fieldComboCustomer,
       onChangedCallback: (value) {
         if (value != null) {
+          if ((fieldComboCustomer?.mrekanId == "") ||
+              (jobRealCrudBloc.state.forceChangeComboCustomer)) {
+            onComboCustomerChangeTaskA(value);
+            if (jobRealCrudBloc.state.forceChangeComboCustomer) {
+              jobRealCrudBloc
+                  .add(FinishedUndoComboCustomerJobRealCrudChangedEvent());
+            }
+          } else {
+            if (isSudahAdaSPPA()) {
+              confirmCustomerChange(value);
+            } else {
+              onComboCustomerChangeTaskA(value);
+            }
+          }
           removeError(error: "Field Customer tidak boleh kosong.");
-          comboJobKey.currentState?.clear();
-          jobRealCrudBloc
-              .add(ComboCustomerJobRealCrudChangedEvent(comboCustomer: value));
         }
       },
       onSaveCallback: (value) {
@@ -569,6 +600,71 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
         }
       },
     );
+  }
+
+  void onComboCustomerChangeTaskA(newValue) {
+    //comboJobKey.currentState?.clear();
+    jobRealCrudBloc
+        .add(ComboCustomerJobRealCrudChangedEvent(comboCustomer: newValue));
+
+    /*
+    //reset sppa
+    if (isSudahAdaSPPA()) {
+      debugPrint("state.forceChangeComboCustomer -> reset sppa");
+      jobReal2GridBloc
+          .add(DeleteAllJobReal2ListEvent(jobreal1Id: widget.recordId));
+    }
+    */
+  }
+
+  void onComboCustomerChangeTaskB() {
+    //reset sppa
+    debugPrint("state.forceChangeComboCustomer -> reset sppa");
+    jobReal2GridBloc
+        .add(DeleteAllJobReal2ListEvent(jobreal1Id: widget.recordId));
+  }
+
+  bool isSudahAdaSPPA() {
+    return jobReal2GridBloc.state.items.isNotEmpty;
+  }
+
+  void confirmCustomerChange(newValue) {
+    showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+              title: const Text("Perhatian!"),
+              content: const Text(
+                  "Perubahan Customer akan menghapus list SPPA sebelumnya.\nApakah Anda yakin untuk menghapus data ini?"),
+              actions: [
+                TextButton(
+                  child: const Text("Ya"),
+                  onPressed: () {
+                    debugPrint("showDialog => Tab : Ya");
+                    onComboCustomerChangeTaskA(newValue);
+                    onComboCustomerChangeTaskB();
+                    onSaveForm(false, jobRealCrudBloc.state,
+                        dismissDialog: false);
+                    Navigator.pop(context);
+                  },
+                ),
+                TextButton(
+                  child: const Text("Batal"),
+                  onPressed: () {
+                    Navigator.pop(context, "Batal");
+                  },
+                ),
+              ]);
+        }).then((value) {
+      if (value == "Batal") {
+        debugPrint(
+            "confirmCustomerChange -> fieldComboCustomer : ${fieldComboCustomer?.rekanNama}");
+
+        jobRealCrudBloc.add(UndoComboCustomerJobRealCrudChangedEvent(
+            comboCustomer: fieldComboCustomer));
+      }
+    });
   }
 
   Widget cmdBuildComboInsurer(JobRealCrudState state) {
@@ -629,7 +725,6 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       labelText: 'Task Category',
       initItem: fieldComboJobcat,
       custCatId: fieldComboCustomer?.custCatId ?? "",
-      //comboCustomerKey.currentState?.getSelectedItem?.custCatId ?? "",
       onChangedCallback: (value) {
         if (value != null) {
           removeError(error: "Field 'Task Category' tidak boleh kosong.");

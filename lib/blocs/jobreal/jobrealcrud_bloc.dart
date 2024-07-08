@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal2cari_bloc.dart';
+import 'package:esalesapp/blocs/jobreal/jobreal2grid_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal3cari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealfoto_bloc.dart';
 import 'package:esalesapp/common/app_data.dart';
@@ -22,11 +23,13 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
   final JobReal2CariBloc jobReal2CariBloc;
   final JobReal3CariBloc jobReal3CariBloc;
   final JobRealFotoBloc jobRealFotoBloc;
+  final JobReal2GridBloc jobReal2GridBloc;
   JobRealCrudBloc(
       {required this.repository,
       required this.jobReal2CariBloc,
       required this.jobReal3CariBloc,
-      required this.jobRealFotoBloc})
+      required this.jobRealFotoBloc,
+      required this.jobReal2GridBloc})
       : super(const JobRealCrudState()) {
     on<JobRealCrudUbahEvent>(onUbahJobRealCrud);
     on<JobRealCrudTambahEvent>(onTambahJobRealCrud);
@@ -40,6 +43,10 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
     on<JobRealCrudPreOpenEvent>(onPreOpen);
     on<JobRealOtorisasiEvent>(onOtorisasiJobReal);
     on<ComboInsurerJobRealCrudChangedEvent>(onComboInsurerChange);
+    on<Request2RefreshJobRealCrudEvent>(onRequest2Refresh);
+    on<UndoComboCustomerJobRealCrudChangedEvent>(onUndoComboCustomerChanged);
+    on<FinishedUndoComboCustomerJobRealCrudChangedEvent>(
+        onFinishedUndoComboCustomerChanged);
   }
 
   Future<void> onPreOpen(
@@ -181,8 +188,8 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
         isLoading: true, isLoaded: false, requireComboInsurer: false));
 
     ComboCustomerModel comboCustomer = event.comboCustomer;
-    ComboJobcatModel comboJobcat = const ComboJobcatModel();
-    ComboJobModel comboJob = const ComboJobModel();
+    //ComboJobcatModel comboJobcat = const ComboJobcatModel();
+    //ComboJobModel comboJob = const ComboJobModel();
     String rekanType = comboCustomer.rekanType;
     bool requireComboInsurer = false;
 
@@ -195,13 +202,40 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
       }
     }
 
+    //reset grid sppa
+    jobReal2GridBloc.add(ResetStateJobReal2ListEvent());
+    jobReal2CariBloc.add(ResetStateJobReal2CariEvent());
+
     emit(state.copyWith(
         isLoading: false,
         isLoaded: true,
-        comboJobCat: comboJobcat,
-        comboJob: comboJob,
+        //comboJobCat: comboJobcat,
+        //comboJob: comboJob,
         comboCustomer: comboCustomer,
         requireComboInsurer: requireComboInsurer));
+  }
+
+  Future<void> onUndoComboCustomerChanged(
+      UndoComboCustomerJobRealCrudChangedEvent event,
+      Emitter<JobRealCrudState> emit) async {
+    debugPrint("onUndoComboCustomerChanged");
+
+    emit(state.copyWith(isLoading: true, isLoaded: false));
+
+    ComboCustomerModel? comboCustomer = event.comboCustomer;
+
+    emit(state.copyWith(
+        isLoading: false,
+        isLoaded: true,
+        comboCustomer: comboCustomer,
+        forceChangeComboCustomer: true));
+  }
+
+  Future<void> onFinishedUndoComboCustomerChanged(
+      FinishedUndoComboCustomerJobRealCrudChangedEvent event,
+      Emitter<JobRealCrudState> emit) async {    
+    debugPrint("onFinishedUndoComboCustomerChanged");
+    emit(state.copyWith(forceChangeComboCustomer: false));
   }
 
   Future<void> onComboMediaChanged(
@@ -222,5 +256,10 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
     ReturnDataAPI result = await repository.jobRealOtorisasi(event.recordId);
     emit(state.copyWith(
         isSaving: false, isSaved: true, hasFailure: result.success));
+  }
+
+  Future<void> onRequest2Refresh(Request2RefreshJobRealCrudEvent event,
+      Emitter<JobRealCrudState> emit) async {
+    emit(state.copyWith(isLoading: false, isLoaded: true));
   }
 }

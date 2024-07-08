@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:esalesapp/common/app_data.dart';
 import 'package:http/http.dart' as http;
 import 'package:esalesapp/models/combobox/combocustomer_model.dart';
@@ -17,8 +16,8 @@ class ComboCustomerAPI {
 			'Authorization': 'Bearer ${AppData.userToken}'
 		});
 
-    debugPrint("response.statusCode : ${response.statusCode}");
-    debugPrint("response.body : ${response.body}");
+    //debugPrint("response.statusCode : ${response.statusCode}");
+    //debugPrint("response.body : ${response.body}");
 
 		if (response.statusCode == 200) {
 			final parsed = json.decode(response.body).cast<Map<String, dynamic>>();

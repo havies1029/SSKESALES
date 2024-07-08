@@ -96,4 +96,31 @@ class JobReal2CariAPI {
     }
     return returnData;
   }
+
+  Future<ReturnDataAPI> deleteAllJobReal2GridAPI(String jobreal1Id) async {
+    String urlEndPoint =
+        "${AppData.prefixEndPoint}/api/jobreal/jobreal2crud/hapusall";
+    ReturnDataAPI returnData;
+    Map<String, String> queryParams = {"jobreal1Id": jobreal1Id};
+    var uri = AppData.uriHtpp(AppData.httpAuthority, urlEndPoint, queryParams);
+    final http.Response response =
+        await http.get(uri, headers: <String, String>{
+      'Content-Type': 'application/json; odata=verbos',
+      'Accept': 'application/json; odata=verbos',
+      'Authorization': 'Bearer ${AppData.userToken}'
+    });
+
+    debugPrint("deleteAllJobReal2GridAPI");
+    debugPrint("urlEndPoint : $urlEndPoint");
+    debugPrint("response.statusCode : ${response.statusCode}");
+    debugPrint("response.body : ${response.body}");
+
+    if (response.statusCode == 200) {
+      returnData = ReturnDataAPI.fromDatabaseJson(jsonDecode(response.body));
+    } else {
+      debugPrint("response.body : ${response.body}");
+      returnData = ReturnDataAPI(success: false, data: "", rowcount: 0);
+    }
+    return returnData;
+  }
 }

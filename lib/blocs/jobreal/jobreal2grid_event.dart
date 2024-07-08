@@ -25,6 +25,15 @@ class RefreshJobReal2ListEvent extends JobReal2ListEvents {
   List<Object> get props => [jobreal1Id];
 }
 
+class DeleteAllJobReal2ListEvent extends JobReal2ListEvents {
+  final String jobreal1Id;
+
+  const DeleteAllJobReal2ListEvent({required this.jobreal1Id});
+
+  @override
+  List<Object> get props => [jobreal1Id];
+}
+
 class ResetStateJobReal2ListEvent extends JobReal2ListEvents {}
 
 class ReloadGridJobReal2ListEvent extends JobReal2ListEvents {}

@@ -113,6 +113,7 @@ class JobReal2CariListWidgetState extends State<JobReal2CariListWidget> {
                               child: JobReal2CariTileWidget(
                                 polis1Id: element["polis1Id"],
                                 polisNo: element["polisNo"],
+                                sppaNo: element["sppaNo"],
                                 periodeAwal:
                                     DateTime.parse(element["periodeAwal"]),
                                 periodeAkhir: DateTime.tryParse(element["periodeAkhir"]),

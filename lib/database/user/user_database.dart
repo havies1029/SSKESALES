@@ -28,7 +28,7 @@ class DatabaseProvider {
 
     var database = await openDatabase(path);
 
-    _createDb(database);
+    await _createDb(database);
 
     return database;
   }
@@ -37,8 +37,8 @@ class DatabaseProvider {
     await db?.execute("drop table if exists $userTable");
   }
   
-  void _createDb(Database db) async {
-    //await db.execute("drop table if exists $userTable");
+  Future<void> _createDb(Database db) async {
+    await db.execute("drop table if exists $userTable");
 
     debugPrint("_createDb -> userTable :$userTable");
 

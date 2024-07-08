@@ -13,14 +13,17 @@ class ShowDialogHapusWidget extends StatefulWidget {
 }
 
 class ShowDialogHapusWidgetState extends State<ShowDialogHapusWidget> {
+
   @override
   Widget build(BuildContext context) {
+    
     Widget cancelButton = TextButton(
       child: const Text("Batal"),
       onPressed: () {
         Navigator.pop(context);
       },
     );
+
     Widget continueButton = TextButton(
       child: const Text("Ya"),
       onPressed: () {
@@ -28,6 +31,7 @@ class ShowDialogHapusWidgetState extends State<ShowDialogHapusWidget> {
         Navigator.pop(context);
       },
     );
+
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: const Text("Confirmation !"),

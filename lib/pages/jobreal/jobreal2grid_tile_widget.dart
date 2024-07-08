@@ -7,6 +7,7 @@ class JobReal2GridTileWidget extends StatelessWidget {
 	final String jobreal2Id;
   final String polis1Id;
 	final String? polisNo;
+  final String sppaNo;
 	final DateTime periodeAwal;
 	final DateTime? periodeAkhir;
 	final String curr;
@@ -20,7 +21,7 @@ class JobReal2GridTileWidget extends StatelessWidget {
     required this.periodeAwal, this.periodeAkhir, 
     required this.curr, required this.cstPremi, 
     required this.tsi, required this.cob, required this.insuredNama, 
-    required this.jobreal2Id});
+    required this.jobreal2Id, required this.sppaNo});
 
 	@override
 	Widget build(BuildContext context) {
@@ -36,7 +37,7 @@ class JobReal2GridTileWidget extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text("Policy No: $polis1Id"),
+            Text("SPPA No: $sppaNo"),
             const Spacer(),
             Text("($cob)",
               style: MyText.bodyLarge(context)!
@@ -67,7 +68,7 @@ class JobReal2GridTileWidget extends StatelessWidget {
 			    		children: [
 			    			  
 			    			Container(height: 10),
-			                Text("SPPA No:",
+			                Text("Policy No:",
 			    				style: MyText.bodyLarge(context)!
 			    					.copyWith(color: MyColors.grey_40)),
 			    			Container(height: 5),

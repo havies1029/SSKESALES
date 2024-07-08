@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 class JobReal2CariTileWidget extends StatelessWidget {
   final String polis1Id;
 	final String? polisNo;
+	final String sppaNo;
 	final DateTime periodeAwal;
 	final DateTime? periodeAkhir;
 	final String curr;
@@ -20,7 +21,7 @@ class JobReal2CariTileWidget extends StatelessWidget {
     required this.periodeAwal, this.periodeAkhir, 
     required this.curr, required this.cstPremi, 
     required this.tsi, required this.cob, required this.insuredNama, 
-    required this.jobreal2Id});
+    required this.jobreal2Id, required this.sppaNo});
 
 	@override
 	Widget build(BuildContext context) {
@@ -38,12 +39,12 @@ class JobReal2CariTileWidget extends StatelessWidget {
 		                  child: Column(
 		                    crossAxisAlignment: CrossAxisAlignment.start,
 		                    children: [
-		                      Text("Policy No",
+		                      Text("SPPA No",
 		                          style: MyText.bodyLarge(context)!
 		                            .copyWith(color: MyColors.grey_40)),
 		                      Container(height: 5),
 		                      Text(
-		                        polis1Id,
+		                        sppaNo,
 		                        style: MyText.bodyLarge(context)!
 		                          .copyWith(color: MyColors.grey_80)),
 		                    ],
@@ -55,7 +56,7 @@ class JobReal2CariTileWidget extends StatelessWidget {
 		                  child: Column(
 		                    crossAxisAlignment: CrossAxisAlignment.start,
 		                    children: [
-		                      Text("SPPA No",
+		                      Text("Policy No",
 		                        style: MyText.bodyLarge(context)!
 		                          .copyWith(color: MyColors.grey_40)),
 		                      Container(height: 5),

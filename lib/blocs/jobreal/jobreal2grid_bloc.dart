@@ -25,8 +25,8 @@ class JobReal2GridBloc extends Bloc<JobReal2ListEvents, JobReal2GridState> {
             pickPolisState.items.where((element) => element.isChecked).toList();
 
         //if (selectedPolicies.isNotEmpty) {
-          add(GetPickedPoliciesJobReal2ListEvent(
-              pickedPolicies: selectedPolicies));
+        add(GetPickedPoliciesJobReal2ListEvent(
+            pickedPolicies: selectedPolicies));
         //}
       }
     });
@@ -36,6 +36,7 @@ class JobReal2GridBloc extends Bloc<JobReal2ListEvents, JobReal2GridState> {
     on<ResetStateJobReal2ListEvent>(onResetState);
     on<ReloadGridJobReal2ListEvent>(onReloadGrid);
     on<GetPickedPoliciesJobReal2ListEvent>(onGetPickedPolicies);
+    on<DeleteAllJobReal2ListEvent>(onDeleteAllJobReal2List);
   }
 
   Future<void> onGetPickedPolicies(GetPickedPoliciesJobReal2ListEvent event,
@@ -66,9 +67,21 @@ class JobReal2GridBloc extends Bloc<JobReal2ListEvents, JobReal2GridState> {
 
     emit(const JobReal2GridState());
 
-    await Future.delayed(const Duration(seconds: 1));
-
     add(FetchJobReal2ListEvent(jobreal1Id: event.jobreal1Id));
+  }
+
+  Future<void> onDeleteAllJobReal2List(
+      DeleteAllJobReal2ListEvent event, Emitter<JobReal2GridState> emit) async {
+    debugPrint("onDeleteAllJobReal2List");
+
+    JobReal2CariRepository repo = JobReal2CariRepository();
+    var result = await repo.jobReal2DeleteAll(event.jobreal1Id);
+
+    List<JobReal2CariModel> items = [];
+
+    emit(state.copyWith(
+        status: result.success ? ListStatus.success : ListStatus.failure,
+        items: result.success ? items : state.items));
   }
 
   Future<void> onFetchJobReal2List(

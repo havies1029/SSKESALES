@@ -117,7 +117,8 @@ class App extends StatelessWidget {
             create: (context) => JobRealCrudBloc(repository: JobRealCrudRepository(),
             jobReal2CariBloc: context.read<JobReal2CariBloc>(),
             jobReal3CariBloc: context.read<JobReal3CariBloc>(),
-            jobRealFotoBloc: context.read<JobRealFotoBloc>())),          
+            jobRealFotoBloc: context.read<JobRealFotoBloc>(),
+            jobReal2GridBloc: context.read<JobReal2GridBloc>())),          
         BlocProvider<MediaCariBloc>(
             create: (context) => MediaCariBloc()),
         BlocProvider<MediaCrudBloc>(

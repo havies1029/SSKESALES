@@ -19,4 +19,9 @@ class JobReal2CariRepository {
     JobReal2CariAPI api = JobReal2CariAPI();
     return api.jobReal2UpdateListAPI(jobreal1Id, listChecked);
   }
+
+  Future<ReturnDataAPI> jobReal2DeleteAll(String jobreal1Id) async {    
+    JobReal2CariAPI api = JobReal2CariAPI();
+    return api.deleteAllJobReal2GridAPI(jobreal1Id);
+  }
 }

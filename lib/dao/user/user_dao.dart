@@ -18,13 +18,12 @@ class UserDao {
       debugPrint("createUser db is not null");
     }
 
-    debugPrint("createUser userTable : $userTable");
-
     Future<int>? result;
     try {
       result = db?.insert(userTable, user.toDatabaseJson());
-      debugPrint(user.toDatabaseJson().toString());
+      debugPrint("user. : ${user.toDatabaseJson().toString()}");
     } catch (e) {
+      debugPrint("error ==>> db?.insert(userTable, user.toDatabaseJson());");
       debugPrint("createUser error : ${e.toString()}");
     }
     bool hasUser = await checkUser(0);
