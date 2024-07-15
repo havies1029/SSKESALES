@@ -7,9 +7,11 @@ class JobCrudModel {
 	String? mjobcatId;
 	ComboJobcatModel? comboJobcat;
   ComboCustCatModel? comboCustCat;
+  double urutRenew; 
 
 	JobCrudModel({required this.jobNama, required this.mjobId, 
-		this.mjobcatId, this.comboJobcat, this.comboCustCat});
+		this.mjobcatId, this.comboJobcat, this.comboCustCat, required this.urutRenew
+     });
 
 	factory JobCrudModel.fromJson(Map<String, dynamic> data) {
 		ComboJobcatModel? comboJobcat;
@@ -28,6 +30,7 @@ class JobCrudModel {
 			mjobcatId: data['mjobcatId']??'',
 			comboJobcat: comboJobcat,      
       comboCustCat: comboCustCat,
+      urutRenew: data['urutRenew'] ?? '',
 		);
 
 	}
@@ -37,7 +40,8 @@ class JobCrudModel {
 		'mjobId': mjobId,
 		'mjobcatId': mjobcatId,
 		'comboJobcat': comboJobcat?.toJson(),
-    'comboCustCat': comboCustCat?.toJson()
+    'comboCustCat': comboCustCat?.toJson(),
+    'urutRenew': urutRenew,
   };
 
 }
