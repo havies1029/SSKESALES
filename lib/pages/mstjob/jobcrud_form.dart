@@ -9,7 +9,8 @@ import 'package:esalesapp/blocs/mstjob/jobcrud_bloc.dart';
 import 'package:esalesapp/models/mstjob/jobcrud_model.dart';
 import 'package:esalesapp/models/combobox/combojobcat_model.dart';
 import 'package:esalesapp/widgets/combobox/combojobcat_widget.dart';
-
+import 'package:esalesapp/common/thousand_separator_input_formatter.dart';
+import 'package:intl/intl.dart';
 import '../../widgets/combobox/combocustcat_widget.dart';
 
 class JobCrudFormPage extends StatefulWidget {
@@ -32,6 +33,7 @@ class JobCrudFormPageFormState extends State<JobCrudFormPage> {
   ComboCustCatModel? fieldComboCustCat;
   final comboJobCatKey = GlobalKey<DropdownSearchState<ComboJobcatModel>>();
   final comboCustCatKey = GlobalKey<DropdownSearchState<ComboCustCatModel>>();
+  var fieldurutRenewController = TextEditingController();
 
   @override
   void initState() {
@@ -159,6 +161,22 @@ class JobCrudFormPageFormState extends State<JobCrudFormPage> {
                           errors: errors,
                           key: null,
                         ),
+
+                        TextFormField(
+                          keyboardType: TextInputType.multiline,
+                          minLines: 1,
+                          maxLines: 3,
+                          controller: fieldurutRenewController,
+                          decoration: const InputDecoration(
+                            labelText: "No Urut",
+                            floatingLabelBehavior: FloatingLabelBehavior.always,
+                          ),
+                        ),
+                        const SizedBox(height: 25),
+                        FormError(
+                          errors: errors,
+                          key: null,
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
@@ -210,6 +228,8 @@ class JobCrudFormPageFormState extends State<JobCrudFormPage> {
             fieldJobNamaController.text = state.record!.jobNama;
             fieldComboJobcat = state.record!.comboJobcat;
             fieldComboCustCat = state.record!.comboCustCat;
+            fieldurutRenewController.text =
+              NumberFormat("#,###").format(state.record!.urutRenew); 
           } else if (widget.viewMode == "tambah") {
             fieldComboJobcat = state.comboJobCat;
             fieldComboCustCat = state.comboCustCat;
@@ -238,10 +258,12 @@ class JobCrudFormPageFormState extends State<JobCrudFormPage> {
   void onSaveForm() {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+
       JobCrudModel record = JobCrudModel(
         jobNama: fieldJobNamaController.text,
         mjobId: '',
         mjobcatId: fieldComboJobcat?.mjobcatId,
+        urutRenew: double.parse(fieldurutRenewController.text.replaceAll(',', '')),		
       );
       if (widget.viewMode == "tambah") {
         jobCrudBloc.add(JobCrudTambahEvent(record: record));
