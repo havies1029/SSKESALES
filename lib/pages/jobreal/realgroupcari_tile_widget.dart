@@ -1,6 +1,4 @@
-import 'package:esalesapp/pages/jobreal/jobrealcari_main.dart';
 import 'package:esalesapp/pages/jobreal/realgroupcari_route.dart';
-import 'package:esalesapp/pages/mstjob/jobsalescari_detail.dart';
 import 'package:flutter/material.dart';
 import 'package:esalesapp/widgets/my_colors.dart';
 import 'package:esalesapp/widgets/my_text.dart';

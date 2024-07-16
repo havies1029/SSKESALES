@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:esalesapp/widgets/form_error.dart';
 import 'package:esalesapp/blocs/mstjobcat/jobcatcrud_bloc.dart';
 import 'package:esalesapp/models/mstjobcat/jobcatcrud_model.dart';
-import 'package:esalesapp/models/combobox/combojobgroup_model.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 
 
