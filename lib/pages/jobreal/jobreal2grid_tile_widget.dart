@@ -29,7 +29,7 @@ class JobReal2GridTileWidget extends StatelessWidget {
 			shape: RoundedRectangleBorder(
 				borderRadius: BorderRadius.circular(15),
 			),
-			color: Colors.white,
+			color: Colors.amber[100],
 			margin: const EdgeInsets.symmetric(horizontal: 1),
 			elevation: 2,
 			clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -37,25 +37,27 @@ class JobReal2GridTileWidget extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Text("SPPA No: $sppaNo"),
+            Text(sppaNo,
+              style: MyText.bodyLarge(context)!
+                .copyWith(color: MyColors.grey_80, fontWeight: FontWeight.bold)),
             const Spacer(),
             Text("($cob)",
               style: MyText.bodyLarge(context)!
-                .copyWith(color: MyColors.grey_80)),
+                .copyWith(color: MyColors.grey_80, fontWeight: FontWeight.bold)),
           ],
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-            insuredNama,
+            insuredNama.length > 30 ? insuredNama.substring(0, 30): insuredNama,
             style: MyText.bodyLarge(context)!
               .copyWith(color: MyColors.grey_80)),
-            Container(height: 10),
+            Container(height: 5),
             Text(
 						"${DateFormat("dd/MM/yyyy").format(periodeAwal)} - ${periodeAkhir != null?(DateFormat("dd/MM/yyyy").format(periodeAkhir!)):""}",
 						style: MyText.bodyLarge(context)!
-							.copyWith(color: MyColors.grey_80)),
+							.copyWith(color: MyColors.grey_80, fontWeight: FontWeight.bold)),
           ]
           
         ),

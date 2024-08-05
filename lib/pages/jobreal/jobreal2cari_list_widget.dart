@@ -1,3 +1,4 @@
+import 'package:esalesapp/blocs/jobreal/jobreal2grid_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealcrud_bloc.dart';
 import 'package:esalesapp/common/constants.dart';
 import 'package:flutter/material.dart';
@@ -29,12 +30,14 @@ class JobReal2CariListWidgetState extends State<JobReal2CariListWidget> {
       builder: (context, state) {
         if (state.status == ListStatus.success) {
           if (!state.hasReachedMax) {
-            debugPrint("builder #10");
+            //debugPrint("builder #10");
             //jobReal2List = state.items;
           }
 
           //var elements = jobReal2List.map((e) => e.toJson()).toList();
           var elements = state.items.map((e) => e.toJson()).toList();
+
+          //debugPrint("builder #20");
 
           //debugPrint("elements : $elements");
 
@@ -42,8 +45,8 @@ class JobReal2CariListWidgetState extends State<JobReal2CariListWidget> {
               ? Flexible(
                   child: Container(
                   color: Colors.grey[200],
-                  child: GroupedListView<dynamic, String>(                    
-                    controller: _scrollController,           
+                  child: GroupedListView<dynamic, String>(
+                    controller: _scrollController,
                     elements: elements,
                     groupBy: (elements) => elements['cob'],
                     groupComparator: (value1, value2) =>
@@ -116,7 +119,8 @@ class JobReal2CariListWidgetState extends State<JobReal2CariListWidget> {
                                 sppaNo: element["sppaNo"],
                                 periodeAwal:
                                     DateTime.parse(element["periodeAwal"]),
-                                periodeAkhir: DateTime.tryParse(element["periodeAkhir"]),
+                                periodeAkhir:
+                                    DateTime.tryParse(element["periodeAkhir"]),
                                 curr: element["curr"],
                                 cstPremi: double.parse(element["cstPremi"]),
                                 tsi: double.parse(element["tsi"]),
@@ -160,35 +164,21 @@ class JobReal2CariListWidgetState extends State<JobReal2CariListWidget> {
       },
       listener: (context, state) {
         if (state.requestToUpdate) {
-          debugPrint("state.requestToUpdate : ${state.requestToUpdate}");
+          //debugPrint("state.requestToUpdate : ${state.requestToUpdate}");
           var viewMode = context.read<JobRealCrudBloc>().state.viewMode;
-          debugPrint("viewMode : $viewMode");
+          //debugPrint("viewMode : $viewMode");
           if (viewMode == "ubah") {
             jobReal2CariBloc
                 .add(Update2ApiJobReal2Event(jobreal1Id: widget.jobReal1Id));
-          } else {
-            _dismissDialog();
+
           }
-        } else if (state.isSaved) {
-          _dismissDialog();
-        }
-        if (state.status == ListStatus.success) {
-          /*
-                listCheckbox = List<JobReal2CariCheckboxModel>.generate(
-                  state.items.length, (index) => 
-                  JobReal2CariCheckboxModel(polis1Id: state.items[index].polis1Id, 
-                  isChecked: state.items[index].isChecked);
-                */
         }
       },
       listenWhen: (previous, current) {
-        debugPrint("JobReal2CariBloc listenWhen current.requestToUpdate : ${current.requestToUpdate}");
+        //debugPrint("JobReal2CariBloc listenWhen current.requestToUpdate : ${current.requestToUpdate}");
         return (current.requestToUpdate || (current.isSaved));
       },
     );
   }
 
-  void _dismissDialog() {
-    Navigator.pop(context);
-  }
 }

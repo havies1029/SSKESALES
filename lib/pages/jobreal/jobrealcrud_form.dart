@@ -1,7 +1,9 @@
 import 'dart:convert';
 
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:esalesapp/blocs/jobreal/jobreal2cari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal2grid_bloc.dart';
+import 'package:esalesapp/blocs/jobreal/jobreal3cari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal3grid_bloc.dart';
 import 'package:esalesapp/common/app_data.dart';
 import 'package:esalesapp/common/constants.dart';
@@ -79,7 +81,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
 
   @override
   void dispose() {
-    debugPrint("JobRealCrudFormPage dispose #10");
+    //debugPrint("JobRealCrudFormPage dispose #10");
     disposalController();
     super.dispose();
   }
@@ -101,15 +103,20 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
     jobReal3GridBloc = BlocProvider.of<JobReal3GridBloc>(context);
     return MultiBlocListener(
       listeners: [
-        BlocListener<JobReal3GridBloc, JobReal3GridState>(
-            listenWhen: (previous, current) {
-          return (current.status == ListStatus.success);
-        }, listener: (context, state) {
-          if (state.status == ListStatus.success) {
-            debugPrint(
-                "MultiBlocListener -> JobReal3GridBloc state.items : ${state.items.length}");
+        BlocListener<JobReal3CariBloc, JobReal3CariState>(
+            listener: (context, state) {
+          if (state.isSaved) {
+            jobReal3GridBloc
+                .add(RefreshJobReal3GridEvent(jobreal1Id: widget.recordId));
           }
         }),
+        BlocListener<JobReal2CariBloc, JobReal2CariState>(
+            listener: (context, state) {
+          if (state.isSaved) {
+            jobReal2GridBloc
+                .add(RefreshJobReal2ListEvent(jobreal1Id: widget.recordId));
+          }
+        })
       ],
       child: BlocConsumer<JobRealCrudBloc, JobRealCrudState>(
         builder: (context, state) {
@@ -389,6 +396,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
   }
 
   void showDialogPickPolicy(BuildContext context) {
+    debugPrint("showDialogPickPolicy");
     String custId = fieldComboCustomer?.mrekanId ?? "";
     if (custId.isNotEmpty) {
       String custName = fieldComboCustomer?.rekanNama ?? "";
@@ -402,9 +410,12 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
           );
         }),
       ).then((value) {
-        //var viewMode = context.read<JobRealCrudBloc>().state.viewMode;
-        //loadGridPolis(jobRealCrudBloc.state.record?.jobreal1Id ?? "");
-        jobReal2GridBloc.add(ReloadGridJobReal2ListEvent());
+        if (widget.viewMode == "tambah") {
+          JobReal2CariBloc jobReal2CariBloc =
+              BlocProvider.of<JobReal2CariBloc>(context);
+          jobReal2GridBloc.add(GetPickedPoliciesJobReal2ListEvent(
+              pickedPolicies: jobReal2CariBloc.state.selectedItems));
+        }
 
         return null;
       });
@@ -421,7 +432,14 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       }),
     ).then((value) {
       debugPrint("showDialogPickCob -> closed");
-      jobReal3GridBloc.add(ReloadGridJobReal3ListEvent());
+      //jobReal3GridBloc.add(ReloadGridJobReal3ListEvent());
+
+      if (widget.viewMode == "tambah") {
+        JobReal3CariBloc jobReal3CariBloc =
+            BlocProvider.of<JobReal3CariBloc>(context);
+        jobReal3GridBloc.add(GetPickedCobJobReal3ListEvent(
+            pickedCob: jobReal3CariBloc.state.selectedItems));
+      }
 
       return null;
     });
@@ -505,12 +523,28 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
     );
   }
 
+  int maxDays2BackDate() {
+    //angka 1 mulai dari minggu
+    int dayOfWeek = DateTime.now().weekday;
+    int backDays = 0;
+
+    //debugPrint("dayOfWeek : $dayOfWeek");
+
+    backDays = (dayOfWeek <= 3)
+        ? 5
+        : (dayOfWeek == 7)
+            ? 4
+            : 3;
+
+    return backDays * -1;
+  }
+
   DateTimeFormField buildTanggalJob() {
     //debugPrint("buildTanggalJob : ${DateTime.tryParse(fieldRealTglController.text)}");
     return DateTimeFormField(
       mode: DateTimeFieldPickerMode.date,
       dateFormat: DateFormat('dd/MM/yyyy'),
-      firstDate: DateTime.now().add(const Duration(days: -3)),
+      firstDate: DateTime.now().add(Duration(days: maxDays2BackDate())),
       initialValue: DateTime.tryParse(fieldRealTglController.text),
       /*
       initialValue: widget.viewMode == "tambah"
@@ -920,8 +954,8 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
                         fontSize: 20,
                       ),
                       border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10.0),
-                      ),
+                          borderRadius: BorderRadius.circular(10.0),
+                          borderSide: const BorderSide(width: 3)),
                     ),
                     child: const JobReal2GridListWidget(),
                   ),
@@ -940,7 +974,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
                                     Color.fromARGB(255, 255, 255, 254),
                                 radius: 19,
                                 child: Icon(
-                                  Icons.checklist,
+                                  Icons.check_box_outlined,
                                   size: 25,
                                 ),
                               ),

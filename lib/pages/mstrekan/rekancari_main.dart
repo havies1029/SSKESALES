@@ -9,8 +9,11 @@ class RekanCariMainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    /*
     BlocProvider.of<RekanCariBloc>(context).add(RefreshRekanCariEvent(
         rekanTypeId: rekanTypeId, hal: 0, searchText: ""));
+    */
     return Scaffold(
       backgroundColor: Colors.grey[100],
       body: RekanCariPage(rekanTypeId: rekanTypeId),

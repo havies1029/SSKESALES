@@ -1,5 +1,7 @@
 import 'package:esalesapp/models/combobox/combocustcat_model.dart';
+import 'package:esalesapp/models/combobox/combomarketing_model.dart';
 import 'package:esalesapp/widgets/combobox/combocustcat_widget.dart';
+import 'package:esalesapp/widgets/combobox/combomarketing_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:esalesapp/widgets/form_error.dart';
@@ -27,14 +29,11 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
   late RekanCrudBloc rekanCrudBloc;
   final _formKey = GlobalKey<FormState>();
   final List<String> errors = [];
-  var fieldAlamat1Controller = TextEditingController();
-  var fieldAlamat2Controller = TextEditingController();
   var fieldMtiperekanIdController = TextEditingController();
   ComboTitleModel? fieldComboTitle = const ComboTitleModel();
   var fieldRekanNamaController = TextEditingController();
-  var fieldTelp1Controller = TextEditingController();
-  var fieldTelp2Controller = TextEditingController();
   ComboCustCatModel? fieldComboCustCat = const ComboCustCatModel();
+  ComboMarketingModel? fieldComboMarketing = const ComboMarketingModel();
 
   @override
   void initState() {
@@ -115,8 +114,8 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
                               fieldComboCustCat = value;
                             }
                           },
-                          validatorCallback: (value) {                            
-                            if ((value == null) || (value.mcustcatId.isEmpty)) {                              
+                          validatorCallback: (value) {
+                            if ((value == null) || (value.mcustcatId.isEmpty)) {
                               addError(
                                   error: "Field Category tidak boleh kosong.");
                               return "";
@@ -124,74 +123,30 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
                             return null;
                           },
                         ),
-                        TextFormField(
-                          keyboardType: TextInputType.multiline,
-                          minLines: 1,
-                          maxLines: 3,
-                          controller: fieldAlamat1Controller,
-                          decoration: const InputDecoration(
-                            labelText: "Alamat 1",
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                          ),
-                          onChanged: (value) {
-                            /*
-                            if (value.isNotEmpty) {
-                              removeError(error: 'Alamat tidak boleh kosong.');
-                            }
-                            */
-                          },
-                          validator: (value) {
-                            /*
-                            if (value == null || value.isEmpty) {
-                              addError(error: 'Alamat tidak boleh kosong.');
-                              return "";
-                            }
-                            */
-                            return null;
-                          },
-                        ),
-                        TextFormField(
-                          keyboardType: TextInputType.multiline,
-                          minLines: 1,
-                          maxLines: 3,
-                          controller: fieldAlamat2Controller,
-                          decoration: const InputDecoration(
-                            labelText: "Alamat 2",
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                          ),
-                          onChanged: (value) {},
-                        ),
-                        TextFormField(
-                          controller: fieldTelp1Controller,
-                          decoration: const InputDecoration(
-                            labelText: "Telp / HP #1",
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                          ),
-                          onChanged: (value) {
-                            /*
-                            if (value.isNotEmpty) {
+                        buildFieldComboMarketing(
+                          labelText: 'Marketing',
+                          initItem: fieldComboMarketing,
+                          onChangedCallback: (value) {
+                            if ((value != null) &&
+                                (value.msalesId.isNotEmpty)) {
                               removeError(
-                                  error: 'Telp / HP tidak boleh kosong.');
+                                  error: "Field Marketing tidak boleh kosong.");
+                              fieldComboMarketing = value;
                             }
-                            */
                           },
-                          validator: (value) {
-                            /*
-                            if (value == null || value.isEmpty) {
-                              addError(error: 'Telp / HP tidak boleh kosong.');
+                          onSaveCallback: (value) {
+                            if (value != null) {
+                              fieldComboMarketing = value;
+                            }
+                          },
+                          validatorCallback: (value) {
+                            if ((value == null) || (value.msalesId.isEmpty)) {
+                              addError(
+                                  error: "Field Marketing tidak boleh kosong.");
                               return "";
                             }
-                            */
                             return null;
                           },
-                        ),
-                        TextFormField(
-                          decoration: const InputDecoration(
-                            labelText: "Telp / HP #2",
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                          ),
-                          controller: fieldTelp2Controller,
-                          onChanged: (value) {},
                         ),
                         const SizedBox(height: 25),
                         FormError(
@@ -242,14 +197,11 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
       },
       listener: (context, state) {
         if (state.isLoaded) {
-          fieldAlamat1Controller.text = state.record!.alamat1;
-          fieldAlamat2Controller.text = state.record!.alamat2;
           fieldMtiperekanIdController.text = state.record!.mtiperekanId;
           fieldComboTitle = state.record!.comboTitle;
           fieldRekanNamaController.text = state.record!.rekanNama;
-          fieldTelp1Controller.text = state.record!.telp1;
-          fieldTelp2Controller.text = state.record!.telp2;
           fieldComboCustCat = state.record!.comboCustCat;
+          fieldComboMarketing = state.record!.comboMarketing;
         }
       },
     );
@@ -271,15 +223,12 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
       _formKey.currentState!.save();
       RekanCrudModel record = RekanCrudModel(
           mrekanId: '',
-          alamat1: fieldAlamat1Controller.text,
-          alamat2: fieldAlamat2Controller.text,
           mtiperekanId: widget.rekanTypeId,
           mtitleId: fieldComboTitle?.mtitleId,
           rekanNama: fieldRekanNamaController.text,
-          telp1: fieldTelp1Controller.text,
-          telp2: fieldTelp2Controller.text,
-          mcustcatId: fieldComboCustCat?.mcustcatId);
-      
+          mcustcatId: fieldComboCustCat?.mcustcatId,
+          msalesId: fieldComboMarketing?.msalesId);
+
       if (widget.viewMode == "tambah") {
         rekanCrudBloc.add(RekanCrudTambahEvent(record: record));
       } else if (widget.viewMode == "ubah") {
@@ -287,7 +236,6 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
         rekanCrudBloc.add(RekanCrudUbahEvent(record: record));
       }
       _dismissDialog();
-      
     }
   }
 

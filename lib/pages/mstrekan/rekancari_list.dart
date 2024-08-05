@@ -1,3 +1,4 @@
+import 'package:esalesapp/common/app_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:esalesapp/widgets/listpage_filter_bar_ui.dart';
@@ -19,9 +20,10 @@ class RekanCariPageState extends State<RekanCariPage> {
   late RekanCariBloc rekanCariBloc;
   late RekanCrudBloc rekanCrudBloc;
   final TextEditingController _searchController = TextEditingController();
+  //String filterBy = "all";
+
   @override
   void initState() {
-    
     debugPrint("RekanCariPage initState rekanTypeId : ${widget.rekanTypeId}");
 
     super.initState();
@@ -68,6 +70,7 @@ class RekanCariPageState extends State<RekanCariPage> {
                 ListPageFilterBarUIWidget(
                     searchController: _searchController,
                     searchButton: buildSearchButton()),
+                buildBtnFilter(),
                 buildList()
               ],
             ),
@@ -76,8 +79,12 @@ class RekanCariPageState extends State<RekanCariPage> {
   }
 
   void refreshData(String rekanTypeId) {
+    debugPrint("RekanCariPage -> refreshData");
     rekanCariBloc.add(RefreshRekanCariEvent(
-        rekanTypeId: rekanTypeId, searchText: _searchController.text, hal: 0));
+        rekanTypeId: rekanTypeId,
+        searchText: _searchController.text,
+        hal: 0,
+        filterBy: rekanCariBloc.state.filterBy));
   }
 
   void onTambahData() {
@@ -94,7 +101,8 @@ class RekanCariPageState extends State<RekanCariPage> {
           rekanCariBloc.add(RefreshRekanCariEvent(
               rekanTypeId: widget.rekanTypeId,
               searchText: _searchController.text,
-              hal: 0));
+              hal: 0,
+              filterBy: rekanCariBloc.state.filterBy));
         });
   }
 
@@ -116,11 +124,143 @@ class RekanCariPageState extends State<RekanCariPage> {
             context: context,
             barrierDismissible: false,
             builder: (BuildContext context) {
-              return RekanCrudFormPage(rekanTypeId: widget.rekanTypeId, viewMode: viewMode, recordId: recordId);
+              return RekanCrudFormPage(
+                  rekanTypeId: widget.rekanTypeId,
+                  viewMode: viewMode,
+                  recordId: recordId);
             },
             useSafeArea: true)
         .then((value) {
       rekanCariBloc.add(CloseDialogRekanCariEvent());
+    });
+  }
+
+  Widget buildBtnFilter() {
+    return BlocBuilder<RekanCariBloc, RekanCariState>(
+        buildWhen: (previous, current) {
+      return (previous.filterBy != current.filterBy);
+    }, builder: (context, state) {
+      return Padding(
+        padding: const EdgeInsets.only(left: 10.0, right: 10.0),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: AppData.kIsWeb
+                      ? 80
+                      : MediaQuery.of(context).size.width * 0.25,
+                  height: 55,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 20, right: 10),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        debugPrint("Press Btn Filter All");
+                        //_searchController.text = "";
+                        rekanCariBloc.add(RefreshRekanCariEvent(
+                            rekanTypeId: widget.rekanTypeId,
+                            searchText: "",
+                            hal: 0,
+                            filterBy: "all"));
+                        /*
+                          setState(() {
+                            filterBy = "all";
+                          });
+                          */
+                        /*
+                          jobRealCariBloc.add(
+                              const SetFilterDocRealCariEvent(filterDoc: "all"));
+                          */
+                      },
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.green[500],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                      ),
+                      child: const Text(
+                        'All',
+                        style: TextStyle(fontSize: 13.0),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: AppData.kIsWeb
+                      ? 130
+                      : MediaQuery.of(context).size.width * 0.35,
+                  height: 55,
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 20.0, right: 10),
+                    child: ElevatedButton(
+                      onPressed: () {
+                        debugPrint("Press Btn Filter Unassigned");
+
+                        //_searchController.text = "";
+
+                        rekanCariBloc.add(RefreshRekanCariEvent(
+                            rekanTypeId: widget.rekanTypeId,
+                            searchText: "",
+                            hal: 0,
+                            filterBy: "unassigned"));
+                        /*             
+                          setState(() {
+                            filterBy = "unassigned";
+                          });
+                          */
+                        /*
+                          jobRealCariBloc.add(
+                              const SetFilterDocRealCariEvent(filterDoc: "draft"));
+                          */
+                      },
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: Colors.orange[500],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.0),
+                        ),
+                      ),
+                      child: const Text(
+                        'Unassigned',
+                        style: TextStyle(fontSize: 13.0),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: AppData.kIsWeb
+                      ? 80
+                      : MediaQuery.of(context).size.width * 0.25,
+                  height: 23,
+                  child: Padding(
+                      padding: const EdgeInsets.only(bottom: 20, right: 10),
+                      child: state.filterBy == "all"
+                          ? Container(color: Colors.red[500])
+                          : Container()),
+                ),
+                SizedBox(
+                  width: AppData.kIsWeb
+                      ? 130
+                      : MediaQuery.of(context).size.width * 0.35,
+                  height: 23,
+                  child: Padding(
+                      padding: const EdgeInsets.only(bottom: 20.0, right: 10),
+                      child: state.filterBy == "unassigned"
+                          ? Container(color: Colors.red[500])
+                          : Container()),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
     });
   }
 }

@@ -9,25 +9,23 @@ abstract class PolisExpCariEvents extends Equatable {
 
 class FetchPolisExpCariEvent extends PolisExpCariEvents {
   final String expgroupId;
-  final String personalId;
-  final int hal;
+  final String personalId;  
 	final String searchText;
   const FetchPolisExpCariEvent({required this.expgroupId, required this.personalId,
-    required this.hal, required this.searchText});
+    required this.searchText});
   
   @override
-  List<Object> get props => [expgroupId, personalId, hal, searchText];
+  List<Object> get props => [expgroupId, personalId, searchText];
 }
 
 class RefreshPolisExpCariEvent extends PolisExpCariEvents {
   final String expgroupId;
-  final String personalId;
-  final int hal;
+  final String personalId;  
 	final String searchText;
   const RefreshPolisExpCariEvent(
-      {required this.expgroupId, required this.personalId,
-    required this.hal, required this.searchText});
+    {required this.expgroupId, required this.personalId,
+      required this.searchText});
   
   @override
-  List<Object> get props => [expgroupId, personalId, hal, searchText];
+  List<Object> get props => [expgroupId, personalId, searchText];
 }

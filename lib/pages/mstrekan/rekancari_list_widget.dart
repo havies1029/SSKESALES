@@ -96,6 +96,8 @@ class RekanCariListWidgetState extends State<RekanCariListWidget> {
                                             state.items[index].titleDesc ?? '',
                                         catName:
                                             state.items[index].catName ?? '',
+                                        marketingNama:
+                                            state.items[index].marketingNama,
                                       )),
                                 ],
                               ),
@@ -136,7 +138,8 @@ class RekanCariListWidgetState extends State<RekanCariListWidget> {
     if (_scrollController.position.pixels ==
         _scrollController.position.maxScrollExtent) {
       rekanCariBloc.add(FetchRekanCariEvent(rekanTypeId: widget.rekanTypeId,
-          searchText: widget.searchText, hal: rekanCariBloc.state.hal));
+          searchText: widget.searchText, hal: rekanCariBloc.state.hal,
+          filterBy: rekanCariBloc.state.filterBy));
     }
   }
 

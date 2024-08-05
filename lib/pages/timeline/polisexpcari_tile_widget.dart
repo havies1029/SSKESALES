@@ -14,6 +14,8 @@ class PolisExpCariTileWidget extends StatelessWidget {
   final String polis1Id;
   final String sppaNo;
   final double tsi;
+  final String newSppaNo;
+  final String newSppaStatus;
 
   const PolisExpCariTileWidget(
       {super.key,
@@ -26,7 +28,9 @@ class PolisExpCariTileWidget extends StatelessWidget {
       required this.periodeAwal,
       required this.polis1Id,
       required this.sppaNo,
-      required this.tsi});
+      required this.tsi,
+      required this.newSppaNo,
+      required this.newSppaStatus});
 
   @override
   Widget build(BuildContext context) {
@@ -118,6 +122,25 @@ class PolisExpCariTileWidget extends StatelessWidget {
                 ),
               ],
             ),
+            const SizedBox(height: 5,),
+            const Divider(thickness: 3, color: Colors.blueGrey,),
+            Text("New SPPA :",
+                style: MyText.bodyLarge(context)!
+            .copyWith(color: PolisExpColor.labelColor(severity))),
+            Container(height: 5),
+            Text(newSppaNo,
+              textAlign: TextAlign.left,
+              style: MyText.bodyLarge(context)!
+                    .copyWith(color: PolisExpColor.textColor(severity))),            
+            const SizedBox(height: 10,),
+            Text("Last Action :",
+                style: MyText.bodyLarge(context)!
+            .copyWith(color: PolisExpColor.labelColor(severity))),
+            Container(height: 5),
+            Text(newSppaStatus,
+              textAlign: TextAlign.left,
+              style: MyText.bodyLarge(context)!
+                    .copyWith(color: PolisExpColor.textColor(severity))),  
           ]),
         ));
   }

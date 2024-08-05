@@ -31,6 +31,7 @@ class RefreshJobReal2CariEvent extends JobReal2CariEvents {
   List<Object> get props => [custId];
 }
 
+/*
 class Update2StateJobReal2Event extends JobReal2CariEvents {
   final List<JobReal2CariModel> jobReal2List;
 
@@ -40,6 +41,7 @@ class Update2StateJobReal2Event extends JobReal2CariEvents {
   @override
   List<Object> get props => [jobReal2List];
 }
+*/
 
 class Update2ApiJobReal2Event extends JobReal2CariEvents {
   final String jobreal1Id;
@@ -67,3 +69,15 @@ class UpdateCheckboxJobReal2Event extends JobReal2CariEvents {
 
 
 class ResetStateJobReal2CariEvent extends JobReal2CariEvents {}
+
+class ResetStateJobReal2ForLoadDataPurposeCariEvent extends JobReal2CariEvents {}
+
+class InitialSelectedSPPAJobReal2Event extends JobReal2CariEvents {
+  final List<JobReal2CariModel> selectedSPPA;
+
+  const InitialSelectedSPPAJobReal2Event(
+      {required this.selectedSPPA});
+
+  @override
+  List<Object> get props => [selectedSPPA];
+}

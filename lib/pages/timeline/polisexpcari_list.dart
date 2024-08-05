@@ -47,7 +47,7 @@ class PolisExpCariPageState extends State<PolisExpCariPage> {
 	}
 	void refreshData() {
 		polisExpCariBloc.add(
-			RefreshPolisExpCariEvent(searchText: _searchController.text, hal: 0, expgroupId: widget.expgroupId, personalId: widget.personalId));
+			RefreshPolisExpCariEvent(searchText: _searchController.text, expgroupId: widget.expgroupId, personalId: widget.personalId));
 	}
 
 	IconButton buildSearchButton() {
@@ -58,7 +58,7 @@ class PolisExpCariPageState extends State<PolisExpCariPage> {
 			),
 			onPressed: () {
 			polisExpCariBloc.add(RefreshPolisExpCariEvent(
-        searchText: _searchController.text, hal: 0,
+        searchText: _searchController.text, 
         expgroupId: widget.expgroupId, personalId: widget.personalId
 				));
 			});

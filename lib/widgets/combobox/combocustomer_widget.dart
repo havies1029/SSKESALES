@@ -16,7 +16,7 @@ DropdownSearch<ComboCustomerModel> buildFieldComboCustomer(
     required Function(ComboCustomerModel?) onSaveCallback,
     Function(ComboCustomerModel?)? validatorCallback}) {
 
-  debugPrint("buildFieldComboCustomer : initItem ${jsonEncode(initItem?.toJson())}");
+  //debugPrint("buildFieldComboCustomer : initItem ${jsonEncode(initItem?.toJson())}");
 
   return DropdownSearch<ComboCustomerModel>(
     enabled: enabled,

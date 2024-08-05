@@ -87,7 +87,8 @@ class App extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider<ChangePasswordBloc>(
-            create: (context) => ChangePasswordBloc(repository: ChangePasswordRepository())),
+            create: (context) =>
+                ChangePasswordBloc(repository: ChangePasswordRepository())),
         BlocProvider<TakeImageCubit>(
           create: (context) => TakeImageCubit(),
         ),
@@ -100,73 +101,70 @@ class App extends StatelessWidget {
         BlocProvider<ProgressIndicatorBloc>(
             create: (context) => ProgressIndicatorBloc()),
         BlocProvider<NetworkBloc>(
-            create: (context) => NetworkBloc()..add(NetworkObserve())),        
-        BlocProvider<JobRealCariBloc>(
-            create: (context) => JobRealCariBloc()),
-        BlocProvider<JobReal2CariBloc>(
-            create: (context) => JobReal2CariBloc()),  
+            create: (context) => NetworkBloc()..add(NetworkObserve())),
+        BlocProvider<JobRealCariBloc>(create: (context) => JobRealCariBloc()),
+        BlocProvider<JobReal2CariBloc>(create: (context) => JobReal2CariBloc()),
         BlocProvider<JobReal2GridBloc>(
-            create: (context) => JobReal2GridBloc(jobReal2CariBloc: context.read<JobReal2CariBloc>())),         
-        BlocProvider<JobReal3CariBloc>(
-            create: (context) => JobReal3CariBloc()),  
+            create: (context) => JobReal2GridBloc(
+                jobReal2CariBloc: context.read<JobReal2CariBloc>())),
+        BlocProvider<JobReal3CariBloc>(create: (context) => JobReal3CariBloc()),
         BlocProvider<JobReal3GridBloc>(
-            create: (context) => JobReal3GridBloc(jobReal3CariBloc: context.read<JobReal3CariBloc>())), 
+            create: (context) => JobReal3GridBloc(
+                jobReal3CariBloc: context.read<JobReal3CariBloc>())),
         BlocProvider<JobRealFotoBloc>(
-            create: (context) => JobRealFotoBloc(repository: JobRealFotoRepository())),
+            create: (context) =>
+                JobRealFotoBloc(repository: JobRealFotoRepository())),
         BlocProvider<JobRealCrudBloc>(
-            create: (context) => JobRealCrudBloc(repository: JobRealCrudRepository(),
-            jobReal2CariBloc: context.read<JobReal2CariBloc>(),
-            jobReal3CariBloc: context.read<JobReal3CariBloc>(),
-            jobRealFotoBloc: context.read<JobRealFotoBloc>(),
-            jobReal2GridBloc: context.read<JobReal2GridBloc>())),          
-        BlocProvider<MediaCariBloc>(
-            create: (context) => MediaCariBloc()),
+            create: (context) => JobRealCrudBloc(
+                repository: JobRealCrudRepository(),
+                jobReal2CariBloc: context.read<JobReal2CariBloc>(),
+                jobReal3CariBloc: context.read<JobReal3CariBloc>(),
+                jobRealFotoBloc: context.read<JobRealFotoBloc>(),
+                jobReal2GridBloc: context.read<JobReal2GridBloc>())),
+        BlocProvider<MediaCariBloc>(create: (context) => MediaCariBloc()),
         BlocProvider<MediaCrudBloc>(
-            create: (context) => MediaCrudBloc(repository: MediaCrudRepository())),   
-        BlocProvider<JobCatCariBloc>(
-            create: (context) => JobCatCariBloc()),
+            create: (context) =>
+                MediaCrudBloc(repository: MediaCrudRepository())),
+        BlocProvider<JobCatCariBloc>(create: (context) => JobCatCariBloc()),
         BlocProvider<JobCatCrudBloc>(
-            create: (context) => JobCatCrudBloc(repository: JobCatCrudRepository())),  
-        BlocProvider<JobCariBloc>(
-            create: (context) => JobCariBloc()),
+            create: (context) =>
+                JobCatCrudBloc(repository: JobCatCrudRepository())),
+        BlocProvider<JobCariBloc>(create: (context) => JobCariBloc()),
         BlocProvider<JobCrudBloc>(
             create: (context) => JobCrudBloc(repository: JobCrudRepository())),
-        BlocProvider<RekanCariBloc>(
-            create: (context) => RekanCariBloc()),
+        BlocProvider<RekanCariBloc>(create: (context) => RekanCariBloc()),
         BlocProvider<RekanCrudBloc>(
-            create: (context) => RekanCrudBloc(repository: RekanCrudRepository())),
-        BlocProvider<TitleCariBloc>(
-            create: (context) => TitleCariBloc()),
+            create: (context) =>
+                RekanCrudBloc(repository: RekanCrudRepository())),
+        BlocProvider<TitleCariBloc>(create: (context) => TitleCariBloc()),
         BlocProvider<TitleCrudBloc>(
-            create: (context) => TitleCrudBloc(repository: TitleCrudRepository())),
-        BlocProvider<JabatanCariBloc>(
-            create: (context) => JabatanCariBloc()),
+            create: (context) =>
+                TitleCrudBloc(repository: TitleCrudRepository())),
+        BlocProvider<JabatanCariBloc>(create: (context) => JabatanCariBloc()),
         BlocProvider<JabatanCrudBloc>(
-            create: (context) => JabatanCrudBloc(repository: JabatanCrudRepository())),
-        BlocProvider<StaffCariBloc>(
-            create: (context) => StaffCariBloc()),
+            create: (context) =>
+                JabatanCrudBloc(repository: JabatanCrudRepository())),
+        BlocProvider<StaffCariBloc>(create: (context) => StaffCariBloc()),
         BlocProvider<StaffCrudBloc>(
-            create: (context) => StaffCrudBloc(repository: StaffCrudRepository())),
-        BlocProvider<CustCatCariBloc>(
-            create: (context) => CustCatCariBloc()),
+            create: (context) =>
+                StaffCrudBloc(repository: StaffCrudRepository())),
+        BlocProvider<CustCatCariBloc>(create: (context) => CustCatCariBloc()),
         BlocProvider<CustCatCrudBloc>(
-            create: (context) => CustCatCrudBloc(repository: CustCatCrudRepository())),
-        BlocProvider<PolisCariBloc>(
-            create: (context) => PolisCariBloc()),
+            create: (context) =>
+                CustCatCrudBloc(repository: CustCatCrudRepository())),
+        BlocProvider<PolisCariBloc>(create: (context) => PolisCariBloc()),
         BlocProvider<PolisCrudBloc>(
-            create: (context) => PolisCrudBloc(repository: PolisCrudRepository())),
-        BlocProvider<CobCariBloc>(
-            create: (context) => CobCariBloc()),
+            create: (context) =>
+                PolisCrudBloc(repository: PolisCrudRepository())),
+        BlocProvider<CobCariBloc>(create: (context) => CobCariBloc()),
         BlocProvider<CobCrudBloc>(
             create: (context) => CobCrudBloc(repository: CobCrudRepository())),
         BlocProvider<EventRenewalCariBloc>(
             create: (context) => EventRenewalCariBloc()),
-        BlocProvider<JobGroupCariBloc>(
-            create: (context) => JobGroupCariBloc()),
+        BlocProvider<JobGroupCariBloc>(create: (context) => JobGroupCariBloc()),
         BlocProvider<JobGroupCrudBloc>(
-            create: (context) => JobGroupCrudBloc(repository: JobGroupCrudRepository())),
-        
-        
+            create: (context) =>
+                JobGroupCrudBloc(repository: JobGroupCrudRepository())),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -178,14 +176,6 @@ class App extends StatelessWidget {
         themeMode: ThemeMode.light,
 
         routes: const {},
-
-        //home: const MyHomePage(title: "Testing in Web",),
-
-/*
-        home: LoginPage(
-                userRepository: userRepository,
-              ),
-*/
 
         home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state) {
@@ -203,6 +193,9 @@ class App extends StatelessWidget {
                 userid: 0,
                 key: null,
               );
+
+
+              //return const OnBoardPage();
             }
 
             if (state is AuthenticationUnauthenticated) {

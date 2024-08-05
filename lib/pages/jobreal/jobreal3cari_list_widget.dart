@@ -120,20 +120,9 @@ class JobReal3CariListWidgetState extends State<JobReal3CariListWidget> {
           if (viewMode == "ubah") {
             jobReal3CariBloc
                 .add(Update2ApiJobReal3Event(jobreal1Id: widget.jobReal1Id));
-          } else {
-            _dismissDialog();
           }
-        } else if (state.isSaved) {
-          _dismissDialog();
         }
-        if (state.status == ListStatus.success) {
-          /*
-                listCheckbox = List<JobReal2CariCheckboxModel>.generate(
-                  state.items.length, (index) => 
-                  JobReal2CariCheckboxModel(polis1Id: state.items[index].polis1Id, 
-                  isChecked: state.items[index].isChecked);
-                */
-        }
+        
       },
       listenWhen: (previous, current) {
         //debugPrint("JobReal3CariBloc listenWhen current.requestToUpdate : ${current.requestToUpdate}");
@@ -147,11 +136,8 @@ class JobReal3CariListWidgetState extends State<JobReal3CariListWidget> {
 		if (_scrollController.position.pixels ==
 				_scrollController.position.maxScrollExtent) {
 			jobReal3CariBloc.add(FetchJobReal3CariEvent(jobreal1Id: widget.jobReal1Id,
-				searchText: widget.searchText, hal: jobReal3CariBloc.state.hal));
+				searchText: widget.searchText));
 		}
-	}
-
-  void _dismissDialog() {
-    Navigator.pop(context);
   }
+
 }

@@ -3,6 +3,7 @@ part of 'jobreal3cari_bloc.dart';
 class JobReal3CariState extends Equatable {
   final ListStatus status;
   final List<JobReal3CariModel> items;
+  final List<JobReal3CariModel> selectedItems;
   final bool hasReachedMax;
   final bool isSaving;
   final bool isSaved;
@@ -18,6 +19,7 @@ class JobReal3CariState extends Equatable {
     this.hasFailure = false,
 		this.hal = 0,
     this.requestToUpdate = false,
+    this.selectedItems = const <JobReal3CariModel>[]
   });
 
   const JobReal3CariState.success(List<JobReal3CariModel> items)
@@ -34,6 +36,7 @@ class JobReal3CariState extends Equatable {
     bool? isSaved,
     bool? hasFailure,
     bool? requestToUpdate,
+    List<JobReal3CariModel>? selectedItems,
   }) {
     return JobReal3CariState(
       items: items ?? this.items,
@@ -44,10 +47,11 @@ class JobReal3CariState extends Equatable {
       isSaved: isSaved ?? this.isSaved,
       hasFailure: hasFailure ?? this.hasFailure,
       requestToUpdate: requestToUpdate ?? this.requestToUpdate,
+      selectedItems: selectedItems ?? this.selectedItems,
     );
   }
 
   @override
   List<Object> get props => [status, items, hasReachedMax, isSaving, isSaved, 
-        hasFailure, requestToUpdate, hal];
+        hasFailure, requestToUpdate, hal, selectedItems];
 }

@@ -1,3 +1,4 @@
+import 'package:esalesapp/pages/onboard/onboard_main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:esalesapp/blocs/home/home_bloc.dart';
@@ -34,7 +35,8 @@ class _HomePageState extends State<HomePage> {
           SizeConfig().init(context);
           if (state is HomePageActive) {
             debugPrint("HomePageActive");
-            return const PageContainer(pageType: PageType.timeline);
+            //return const PageContainer(pageType: PageType.timeline);
+            return const OnboardMainPage();
           } else if (state is TimelinePolicyExpiredPageActive) {
             debugPrint("TimelinePolicyExpiredPageActive");
             return const PageContainer(pageType: PageType.timeline);
@@ -61,40 +63,40 @@ class _HomePageState extends State<HomePage> {
             return const PageContainer(pageType: PageType.customer);
           } else if (state is AsuransiCariPageActive) {
             debugPrint("AsuransiCariPageActive");
-            return const PageContainer(pageType: PageType.insurer);      
+            return const PageContainer(pageType: PageType.insurer);
           } else if (state is TitleCariPageActive) {
             debugPrint("TitleCariPageActive");
-            return const PageContainer(pageType: PageType.title);       
+            return const PageContainer(pageType: PageType.title);
           } else if (state is JabatanCariPageActive) {
             debugPrint("JabatanCariPageActive");
-            return const PageContainer(pageType: PageType.jabatan);  
+            return const PageContainer(pageType: PageType.jabatan);
           } else if (state is StaffCariPageActive) {
             debugPrint("StaffCariPageActive");
-            return const PageContainer(pageType: PageType.staff);     
+            return const PageContainer(pageType: PageType.staff);
           } else if (state is CustCatCariPageActive) {
             debugPrint("CustCatCariPageActive");
-            return const PageContainer(pageType: PageType.custcat);    
+            return const PageContainer(pageType: PageType.custcat);
           } else if (state is PolisCariPageActive) {
             debugPrint("PolisCariPageActive");
-            return const PageContainer(pageType: PageType.polis);     
+            return const PageContainer(pageType: PageType.polis);
           } else if (state is CobCariPageActive) {
             debugPrint("CobCariPageActive");
-            return const PageContainer(pageType: PageType.cob);     
+            return const PageContainer(pageType: PageType.cob);
           } else if (state is CalendarPageActive) {
             debugPrint("CalendarPageActive");
-            return const PageContainer(pageType: PageType.calendar);                
+            return const PageContainer(pageType: PageType.calendar);
           } else if (state is JobGroupPageActive) {
             debugPrint("JobGroupPageActive");
-            return const PageContainer(pageType: PageType.jobgroup);                
+            return const PageContainer(pageType: PageType.jobgroup);
           } else if (state is ChangePasswordPageActive) {
             debugPrint("ChangePasswordPageActive");
-            return const PageContainer(pageType: PageType.changepswd);              
+            return const PageContainer(pageType: PageType.changepswd);
           } else if (state is JobSalesPageActive) {
             debugPrint("JobSalesPageActive");
-            return const PageContainer(pageType: PageType.jobsales);                
+            return const PageContainer(pageType: PageType.jobsales);
           } else if (state is RealGroupPageActive) {
             debugPrint("RealGroupPageActive");
-            return const PageContainer(pageType: PageType.realgroup);     
+            return const PageContainer(pageType: PageType.realgroup);
           } else if (state is ProfilePageActive) {
             return PageContainerWithUserRepository(
               pageType: PageType.profile,
@@ -102,7 +104,7 @@ class _HomePageState extends State<HomePage> {
               userid: widget.userid,
               key: null,
             );
-          } 
+          }
           return Container();
         },
       ),

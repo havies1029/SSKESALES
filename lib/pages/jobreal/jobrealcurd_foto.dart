@@ -228,8 +228,8 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
         }
       },
       buildWhen: (before, current) {
-        debugPrint("current.isUploaded : ${current.isUploaded}");
-        debugPrint("state.hasFailure : ${current.hasFailure}");
+        //debugPrint("current.isUploaded : ${current.isUploaded}");
+        //debugPrint("state.hasFailure : ${current.hasFailure}");
         return (current.isDownloaded ||
             current.isUploaded ||
             current.isDeleted ||

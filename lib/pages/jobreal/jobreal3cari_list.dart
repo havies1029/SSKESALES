@@ -1,3 +1,4 @@
+import 'package:esalesapp/blocs/jobreal/jobreal3grid_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:esalesapp/widgets/listpage_filter_bar_ui.dart';
@@ -14,11 +15,13 @@ class JobReal3CariPage extends StatefulWidget {
 
 class JobReal3CariPageState extends State<JobReal3CariPage> {
   late JobReal3CariBloc jobReal3CariBloc;
+  late JobReal3GridBloc jobReal3GridBloc;
   final TextEditingController _searchController = TextEditingController();
   @override
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 500), () {
+      setSelectedCOB();
       refreshData();
     });
   }
@@ -26,6 +29,7 @@ class JobReal3CariPageState extends State<JobReal3CariPage> {
   @override
   Widget build(BuildContext context) {
     jobReal3CariBloc = BlocProvider.of<JobReal3CariBloc>(context);
+    jobReal3GridBloc = BlocProvider.of<JobReal3GridBloc>(context);
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -40,8 +44,17 @@ class JobReal3CariPageState extends State<JobReal3CariPage> {
   }
 
   void refreshData() {
-    jobReal3CariBloc.add(
-        RefreshJobReal3CariEvent(jobreal1Id: widget.jobReal1Id, searchText: _searchController.text, hal: 0));
+    jobReal3CariBloc.add(RefreshJobReal3CariEvent(
+        jobreal1Id: widget.jobReal1Id,
+        searchText: _searchController.text,
+        hal: 0));
+  }
+
+  void setSelectedCOB() {
+    if (jobReal3GridBloc.state.items.isNotEmpty) {
+      jobReal3CariBloc.add(InitialSelectedCOBJobReal3Event(
+          selectedCOB: jobReal3GridBloc.state.items));
+    }
   }
 
   IconButton buildSearchButton() {
@@ -52,8 +65,10 @@ class JobReal3CariPageState extends State<JobReal3CariPage> {
         ),
         onPressed: () {
           debugPrint("_searchController.text : ${_searchController.text}");
-          jobReal3CariBloc.add(RefreshJobReal3CariEvent(jobreal1Id: widget.jobReal1Id,
-              searchText: _searchController.text, hal: 0));
+          jobReal3CariBloc.add(RefreshJobReal3CariEvent(
+              jobreal1Id: widget.jobReal1Id,
+              searchText: _searchController.text,
+              hal: 0));
         });
   }
 
@@ -63,8 +78,7 @@ class JobReal3CariPageState extends State<JobReal3CariPage> {
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         JobReal3CariListWidget(
-          jobReal1Id: widget.jobReal1Id, 
-          searchText: _searchController.text)
+            jobReal1Id: widget.jobReal1Id, searchText: _searchController.text)
       ],
     ));
   }

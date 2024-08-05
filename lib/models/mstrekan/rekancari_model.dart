@@ -9,12 +9,13 @@ class RekanCariModel {
 	String telp1;
 	String telp2;
 	String? catName;
+	String marketingNama;
 
 	RekanCariModel({required this.alamat1, required this.alamat2, 
 		required this.mrekanId, 
 		required this.mtiperekanId, required this.mtitleId, this.titleDesc, 
 		required this.rekanNama, required this.telp1, 
-		required this.telp2, this.catName});
+		required this.telp2, this.catName, required this.marketingNama});
 
 	factory RekanCariModel.fromJson(Map<String, dynamic> data) =>
 		RekanCariModel(
@@ -27,7 +28,8 @@ class RekanCariModel {
 			rekanNama: data['rekanNama'],
 			telp1: data['telp1']??"",
 			telp2: data['telp2']??"",
-			catName: data['catName']??""
+			catName: data['catName']??"",
+			marketingNama: data['marketingNama']??""
 		);
 
 	Map<String, dynamic> toJson() =>
@@ -40,6 +42,7 @@ class RekanCariModel {
 		'rekanNama': rekanNama,
 		'telp1': telp1,
 		'telp2': telp2,
-		'catName': catName};
+		'catName': catName,
+		'marketingNama': marketingNama};
 
 }

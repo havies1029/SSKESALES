@@ -80,6 +80,8 @@ class PolisExpCariListWidgetState extends State<PolisExpCariListWidget> {
                                     polis1Id: polisExpCari[index].polis1Id,
                                     sppaNo: polisExpCari[index].sppaNo,
                                     tsi: polisExpCari[index].tsi,
+                                    newSppaNo: polisExpCari[index].newSppaNo,
+                                    newSppaStatus: polisExpCari[index].newSppaStatus,
                                   )
                                 ],
                               ),
@@ -120,8 +122,7 @@ class PolisExpCariListWidgetState extends State<PolisExpCariListWidget> {
     if (_scrollController.position.pixels ==
         _scrollController.position.maxScrollExtent) {
       polisExpCariBloc.add(FetchPolisExpCariEvent(
-          searchText: widget.searchText,
-          hal: polisExpCariBloc.state.hal,
+          searchText: widget.searchText,          
           expgroupId: widget.expgroupId,
           personalId: widget.personalId));
     }

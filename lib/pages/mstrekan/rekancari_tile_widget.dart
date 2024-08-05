@@ -13,6 +13,7 @@ class RekanCariTileWidget extends StatelessWidget {
 	final String telp2;
 	final String titleDesc;
 	final String catName;
+	final String marketingNama;
 
 	const RekanCariTileWidget(
 		{super.key,
@@ -25,7 +26,8 @@ class RekanCariTileWidget extends StatelessWidget {
 		required this.telp1, 
 		required this.telp2, 
 		required this.titleDesc, 
-		required this.catName});
+		required this.catName, 
+		required this.marketingNama});
 
 	@override
 	Widget build(BuildContext context) {
@@ -61,7 +63,7 @@ class RekanCariTileWidget extends StatelessWidget {
 							style: MyText.bodyLarge(context)!
 								.copyWith(color: MyColors.grey_80)),
 						Container(height: 10),            
-						Text("Cateogry",
+						Text("Category",
 							style: MyText.bodyLarge(context)!
 								.copyWith(color: MyColors.grey_40)),
 						Container(height: 5),
@@ -70,31 +72,12 @@ class RekanCariTileWidget extends StatelessWidget {
 							style: MyText.bodyLarge(context)!
 								.copyWith(color: MyColors.grey_80)),					
 						Container(height: 10),
-            Text("Alamat",
+            Text("Marketing",
 							style: MyText.bodyLarge(context)!
 								.copyWith(color: MyColors.grey_40)),
 						Container(height: 5),
 						Text(
-							alamat1,
-							style: MyText.bodyLarge(context)!
-								.copyWith(color: MyColors.grey_80)),					
-						Container(height: 5),
-						Text(
-							alamat2,              
-							style: MyText.bodyLarge(context)!
-								.copyWith(color: MyColors.grey_80)),
-						Container(height: 10),
-						Text("Telp / HP",
-							style: MyText.bodyLarge(context)!
-								.copyWith(color: MyColors.grey_40)),
-							Container(height: 5),
-						Text(
-							telp1,
-							style: MyText.bodyLarge(context)!
-								.copyWith(color: MyColors.grey_80)),							
-						Container(height: 5),
-						Text(
-							telp2,
+							marketingNama,
 							style: MyText.bodyLarge(context)!
 								.copyWith(color: MyColors.grey_80)),
 						Container(height: 10),

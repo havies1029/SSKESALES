@@ -25,8 +25,7 @@ class PolisExpCariBloc extends Bloc<PolisExpCariEvents, PolisExpCariState> {
 
     add(FetchPolisExpCariEvent(
         expgroupId: event.expgroupId,
-        personalId: event.personalId,
-        hal: event.hal,
+        personalId: event.personalId,        
         searchText: event.searchText));
   }
 
@@ -39,7 +38,7 @@ class PolisExpCariBloc extends Bloc<PolisExpCariEvents, PolisExpCariState> {
     if (state.status == ListStatus.initial) {
       debugPrint("onFetchPolisExpCari -> ListStatus.initial");
       List<PolisExpCariModel> items = await repo.getPolisExpCari(
-          event.searchText, event.hal, event.expgroupId, event.personalId);
+          event.searchText, 0, event.expgroupId, event.personalId);
       return emit(state.copyWith(
         items: items,
         hasReachedMax: false,
@@ -48,9 +47,7 @@ class PolisExpCariBloc extends Bloc<PolisExpCariEvents, PolisExpCariState> {
       ));
     }
     List<PolisExpCariModel> items = await repo.getPolisExpCari(
-        event.searchText, event.hal, event.expgroupId, event.personalId);
-
-    debugPrint("onFetchPolisExpCari -> event.hal : ${event.hal}");
+        event.searchText, state.hal, event.expgroupId, event.personalId);
 
     if (items.isEmpty) {
       debugPrint("onFetchPolisExpCari -> items.isEmpty");

@@ -7,17 +7,20 @@ class JobReal2CariState extends Equatable {
   final bool isSaving;
   final bool isSaved;
   final bool hasFailure;
+	final int hal;
   final bool requestToUpdate;
+  final List<JobReal2CariModel> selectedItems;
 
-  const JobReal2CariState({
-    this.status = ListStatus.initial,
-    this.items = const <JobReal2CariModel>[],
-    this.hasReachedMax = false,
-    this.isSaving = false,
-    this.isSaved = false,
-    this.hasFailure = false,
-    this.requestToUpdate = false,
-  });
+  const JobReal2CariState(
+      {this.status = ListStatus.initial,
+      this.items = const <JobReal2CariModel>[],
+      this.hasReachedMax = false,
+      this.isSaving = false,
+      this.isSaved = false,
+      this.hasFailure = false,
+		  this.hal = 0,
+      this.requestToUpdate = false,
+      this.selectedItems = const <JobReal2CariModel>[]});
 
   const JobReal2CariState.success(List<JobReal2CariModel> items)
       : this(status: ListStatus.success, items: items);
@@ -31,7 +34,9 @@ class JobReal2CariState extends Equatable {
     bool? isSaving,
     bool? isSaved,
     bool? hasFailure,
+		int? hal,
     bool? requestToUpdate,
+    List<JobReal2CariModel>? selectedItems,
   }) {
     return JobReal2CariState(
       items: items ?? this.items,
@@ -40,12 +45,22 @@ class JobReal2CariState extends Equatable {
       isSaving: isSaving ?? this.isSaving,
       isSaved: isSaved ?? this.isSaved,
       hasFailure: hasFailure ?? this.hasFailure,
+			hal: hal ?? this.hal,
       requestToUpdate: requestToUpdate ?? this.requestToUpdate,
+      selectedItems: selectedItems ?? this.selectedItems,
     );
   }
 
   @override
-  List<Object> get props =>
-      [status, items, hasReachedMax, isSaving, isSaved, 
-        hasFailure, requestToUpdate];
+  List<Object> get props => [
+        status,
+        items,
+        hasReachedMax,
+        isSaving,
+        isSaved,
+        hasFailure,
+        requestToUpdate,
+        selectedItems,
+        hal
+      ];
 }

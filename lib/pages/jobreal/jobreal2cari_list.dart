@@ -1,3 +1,4 @@
+import 'package:esalesapp/blocs/jobreal/jobreal2grid_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:esalesapp/widgets/listpage_filter_bar_ui.dart';
@@ -8,9 +9,7 @@ class JobReal2CariPage extends StatefulWidget {
   final String custId;
   final String jobReal1Id;
   const JobReal2CariPage(
-      {super.key,
-      required this.custId,
-      required this.jobReal1Id});
+      {super.key, required this.custId, required this.jobReal1Id});
 
   @override
   JobReal2CariPageState createState() => JobReal2CariPageState();
@@ -18,11 +17,13 @@ class JobReal2CariPage extends StatefulWidget {
 
 class JobReal2CariPageState extends State<JobReal2CariPage> {
   late JobReal2CariBloc jobReal2CariBloc;
+  late JobReal2GridBloc jobReal2GridBloc;
   final TextEditingController _searchController = TextEditingController();
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 500), () {
+    Future.delayed(const Duration(milliseconds: 500), () {      
+      setSelectedSPPA();
       refreshData();
     });
   }
@@ -30,6 +31,7 @@ class JobReal2CariPageState extends State<JobReal2CariPage> {
   @override
   Widget build(BuildContext context) {
     jobReal2CariBloc = BlocProvider.of<JobReal2CariBloc>(context);
+    jobReal2GridBloc = BlocProvider.of<JobReal2GridBloc>(context);
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -44,8 +46,8 @@ class JobReal2CariPageState extends State<JobReal2CariPage> {
   }
 
   void refreshData() {
-    debugPrint("JobReal2CariPage -> refreshData #10");
-    debugPrint("widget.custId : ${widget.custId}");
+    //debugPrint("JobReal2CariPage -> refreshData #10");
+    //debugPrint("widget.custId : ${widget.custId}");
     if (widget.custId.isNotEmpty) {
       if (context.read<JobReal2CariBloc>().state.items.isEmpty) {
         jobReal2CariBloc.add(RefreshJobReal2CariEvent(
@@ -53,6 +55,13 @@ class JobReal2CariPageState extends State<JobReal2CariPage> {
             jobreal1Id: widget.jobReal1Id,
             searchText: _searchController.text));
       }
+    }
+  }
+
+  void setSelectedSPPA() {
+    if (jobReal2GridBloc.state.items.isNotEmpty) {
+      jobReal2CariBloc.add(InitialSelectedSPPAJobReal2Event(
+          selectedSPPA: jobReal2GridBloc.state.items));
     }
   }
 

@@ -9,7 +9,6 @@ import 'package:esalesapp/blocs/mstjob/jobcrud_bloc.dart';
 import 'package:esalesapp/models/mstjob/jobcrud_model.dart';
 import 'package:esalesapp/models/combobox/combojobcat_model.dart';
 import 'package:esalesapp/widgets/combobox/combojobcat_widget.dart';
-import 'package:esalesapp/common/thousand_separator_input_formatter.dart';
 import 'package:intl/intl.dart';
 import '../../widgets/combobox/combocustcat_widget.dart';
 

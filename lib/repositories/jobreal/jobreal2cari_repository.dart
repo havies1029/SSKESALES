@@ -4,14 +4,14 @@ import 'package:esalesapp/models/responseAPI/returndataapi_model.dart';
 
 class JobReal2CariRepository {
   Future<List<JobReal2CariModel>> getJobReal2Cari(
-      String custId, String? jobreal1Id, String? searchText) async {
+      String custId, String? jobreal1Id, String? searchText, int hal) async {
     JobReal2CariAPI api = JobReal2CariAPI();
-    return await api.getJobReal2CariAPI(custId, jobreal1Id, searchText);
+    return await api.getJobReal2CariAPI(custId, jobreal1Id, searchText, hal);
   }
 
-  Future<List<JobReal2CariModel>> getJobReal2Grid(String jobreal1Id) async {
+  Future<List<JobReal2CariModel>> getJobReal2Grid(String jobreal1Id, int hal) async {
     JobReal2CariAPI api = JobReal2CariAPI();
-    return await api.getJobReal2GridAPI(jobreal1Id);
+    return await api.getJobReal2GridAPI(jobreal1Id, hal);
   }
 
   Future<ReturnDataAPI> jobReal2UpdateList(
@@ -23,5 +23,10 @@ class JobReal2CariRepository {
   Future<ReturnDataAPI> jobReal2DeleteAll(String jobreal1Id) async {    
     JobReal2CariAPI api = JobReal2CariAPI();
     return api.deleteAllJobReal2GridAPI(jobreal1Id);
+  }
+
+  Future<ReturnDataAPI> jobReal2Tambah(String jobreal1Id, String polis1Id) async {    
+    JobReal2CariAPI api = JobReal2CariAPI();
+    return api.jobReal2TambahAPI(jobreal1Id, polis1Id);
   }
 }

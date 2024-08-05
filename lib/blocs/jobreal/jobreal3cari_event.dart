@@ -9,13 +9,12 @@ abstract class JobReal3CariEvents extends Equatable {
 
 class FetchJobReal3CariEvent extends JobReal3CariEvents {
   final String jobreal1Id;
-  final int hal;
 	final String searchText;
 
-	const FetchJobReal3CariEvent({required this.jobreal1Id, required this.hal, required this.searchText});
+	const FetchJobReal3CariEvent({required this.jobreal1Id, required this.searchText});
 
 	@override
-	List<Object> get props => [jobreal1Id, hal, searchText];
+	List<Object> get props => [jobreal1Id, searchText];
 }
 
 class RefreshJobReal3CariEvent extends JobReal3CariEvents {
@@ -51,3 +50,15 @@ class Update2ApiJobReal3Event extends JobReal3CariEvents {
 }
 
 class ResetStateJobReal3CariEvent extends JobReal3CariEvents {}
+
+class ResetStateJobReal3ForLoadDataPurposeCariEvent extends JobReal3CariEvents {}
+
+class InitialSelectedCOBJobReal3Event extends JobReal3CariEvents {
+  final List<JobReal3CariModel> selectedCOB;
+
+  const InitialSelectedCOBJobReal3Event(
+      {required this.selectedCOB});
+
+  @override
+  List<Object> get props => [selectedCOB];
+}

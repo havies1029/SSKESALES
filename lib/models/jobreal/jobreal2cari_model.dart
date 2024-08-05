@@ -47,7 +47,7 @@ class JobReal2CariModel {
       required this.sppaNo});
 
   factory JobReal2CariModel.fromJson(Map<String, dynamic> data) {
-    debugPrint("data['isChecked'] : ${data['isChecked']}");
+    //debugPrint("data['isChecked'] : ${data['isChecked']}");
     return JobReal2CariModel(
         polis1Id: data['polis1Id'] ?? '',
         polisNo: data['polisNo'] ?? '',

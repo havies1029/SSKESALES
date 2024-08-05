@@ -7,14 +7,15 @@ import 'package:esalesapp/models/jobreal/jobreal2cari_model.dart';
 
 class JobReal2CariAPI {
   Future<List<JobReal2CariModel>> getJobReal2CariAPI(
-      String custId, String? jobreal1Id, String? searchText) async {
+      String custId, String? jobreal1Id, String? searchText, int hal) async {
     String urlGetListEndPoint =
         "${AppData.prefixEndPoint}/api/jobreal/jobreal2cari/getlist";
 
     Map<String, String> queryParams = {
       "custId": custId,
       "jobreal1Id": jobreal1Id ?? "",
-      "searchText": searchText ?? ""
+      "searchText": searchText ?? "",
+      "hal": hal.toString()
     };
     var uri = AppData.uriHtpp(AppData.httpAuthority, urlGetListEndPoint, queryParams);
     final http.Response response =
@@ -24,9 +25,9 @@ class JobReal2CariAPI {
       'Authorization': 'Bearer ${AppData.userToken}'
     });
 
-    debugPrint("getJobReal2CariAPI");
-    debugPrint("response.statusCode : ${response.statusCode}");
-    debugPrint("response.body : ${response.body}");
+    //debugPrint("getJobReal2CariAPI");
+    //debugPrint("response.statusCode : ${response.statusCode}");
+    //debugPrint("response.body : ${response.body}");
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
@@ -38,11 +39,14 @@ class JobReal2CariAPI {
     }
   }
 
-  Future<List<JobReal2CariModel>> getJobReal2GridAPI(String jobreal1Id) async {
+  Future<List<JobReal2CariModel>> getJobReal2GridAPI(String jobreal1Id, int hal) async {
     String urlGetListEndPoint =
         "${AppData.prefixEndPoint}/api/jobreal/jobreal2crud/getlist";
 
-    Map<String, String> queryParams = {"jobreal1Id": jobreal1Id};
+    Map<String, String> queryParams = {
+      "jobreal1Id": jobreal1Id,
+      "hal": hal.toString()};
+
     var uri = AppData.uriHtpp(AppData.httpAuthority, urlGetListEndPoint, queryParams);
     final http.Response response =
         await http.get(uri, headers: <String, String>{
@@ -63,6 +67,37 @@ class JobReal2CariAPI {
     } else {
       throw Exception("Failed to load data");
     }
+  }
+
+  Future<ReturnDataAPI> jobReal2TambahAPI(String jobreal1Id, String polis1Id) async {
+
+    String urlJobreal2TambahEndpoint =
+        "${AppData.prefixEndPoint}/api/jobreal/jobreal2crud/create";
+
+    Map<String, String> queryParams = {
+      "jobreal1Id": jobreal1Id,
+      "polis1Id": polis1Id,
+      "modul_id": "jobReal2Tambah"
+    };
+
+    var uri = AppData.uriHtpp(AppData.httpAuthority, urlJobreal2TambahEndpoint, queryParams);
+
+    ReturnDataAPI returnData;
+    final http.Response response =
+        await http.get(uri, headers: <String, String>{
+      'Content-Type': 'application/json; odata=verbos',
+      'Accept': 'application/json; odata=verbos',
+      'Authorization': 'Bearer ${AppData.userToken}'
+    });
+
+    if (response.statusCode == 200) {
+      returnData = ReturnDataAPI.fromDatabaseJson(jsonDecode(response.body));
+    } else {
+      debugPrint("response.body : ${response.body}");
+      returnData = ReturnDataAPI(success: false, data: "", rowcount: 0);
+    }
+    return returnData;
+
   }
 
   Future<ReturnDataAPI> jobReal2UpdateListAPI(
@@ -86,7 +121,7 @@ class JobReal2CariAPI {
         },
         body: jsonEncode(listChecked));
 
-    //debugPrint("response.statusCode : ${response.statusCode}");
+    debugPrint("response.statusCode : ${response.statusCode}");
 
     if (response.statusCode == 200) {
       returnData = ReturnDataAPI.fromDatabaseJson(jsonDecode(response.body));

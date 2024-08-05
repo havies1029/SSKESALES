@@ -11,22 +11,26 @@ class FetchRekanCariEvent extends RekanCariEvents {
   final String rekanTypeId;
   final int hal;
   final String searchText;
+  final String filterBy;
 
-  const FetchRekanCariEvent({required this.rekanTypeId, required this.hal, required this.searchText});
+  const FetchRekanCariEvent(
+      {required this.rekanTypeId, required this.hal, required this.searchText, required this.filterBy});
 
   @override
-  List<Object> get props => [hal, searchText];
+  List<Object> get props => [hal, searchText, rekanTypeId, filterBy];
 }
 
 class RefreshRekanCariEvent extends RekanCariEvents {
   final String rekanTypeId;
   final int hal;
   final String searchText;
+  final String filterBy;
 
-  const RefreshRekanCariEvent({required this.rekanTypeId, required this.hal, required this.searchText});
+  const RefreshRekanCariEvent(
+      {required this.rekanTypeId, required this.hal, required this.searchText, required this.filterBy});
 
   @override
-  List<Object> get props => [hal, searchText];
+  List<Object> get props => [hal, searchText, filterBy, rekanTypeId];
 }
 
 class UbahRekanCariEvent extends RekanCariEvents {
@@ -36,6 +40,15 @@ class UbahRekanCariEvent extends RekanCariEvents {
 
   @override
   List<Object> get props => [recordId];
+}
+
+class SetFilterRekanCariEvent extends RekanCariEvents {
+  final String filterBy;
+
+  const SetFilterRekanCariEvent({required this.filterBy});
+
+  @override
+  List<Object> get props => [filterBy];
 }
 
 class TambahRekanCariEvent extends RekanCariEvents {}

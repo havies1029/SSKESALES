@@ -15,9 +15,10 @@ part 'jobreal3grid_state.dart';
 
 class JobReal3GridBloc extends Bloc<JobReal3GridEvents, JobReal3GridState> {
   final JobReal3CariBloc jobReal3CariBloc;
-  late final StreamSubscription jobReal3CariBlocSubscription;
+  //late final StreamSubscription jobReal3CariBlocSubscription;
   JobReal3GridBloc({required this.jobReal3CariBloc})
       : super(const JobReal3GridState()) {
+    /*
     jobReal3CariBlocSubscription =
         jobReal3CariBloc.stream.listen((JobReal3CariState pickCobState) async {
       if (pickCobState.requestToUpdate) {
@@ -30,6 +31,7 @@ class JobReal3GridBloc extends Bloc<JobReal3GridEvents, JobReal3GridState> {
         //}
       } 
     });
+    */
 
     on<FetchJobReal3GridEvent>(onFetchJobReal3Grid);
     on<RefreshJobReal3GridEvent>(onRefreshJobReal3Grid);
