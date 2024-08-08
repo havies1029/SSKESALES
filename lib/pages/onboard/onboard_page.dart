@@ -87,6 +87,12 @@ class _OnBoardPageState extends State<OnBoardPage> {
                   )));
             }
             */
+
+            if (listPages.isEmpty){
+              BlocProvider.of<HomeBloc>(context)
+                .add(TimelinePolicyExpiredPageActiveEvent());
+            }
+
           }
         },
       );

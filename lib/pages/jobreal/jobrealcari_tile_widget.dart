@@ -15,6 +15,7 @@ class JobRealCariTileWidget extends StatelessWidget {
   final String mediaNama;
   final String customerNama;
   final bool isConfirmed;
+  final String catGroupName;
 
   const JobRealCariTileWidget(
       {super.key,
@@ -28,7 +29,8 @@ class JobRealCariTileWidget extends StatelessWidget {
       required this.jobNama,
       required this.mediaNama,
       required this.customerNama,
-      this.isConfirmed = false});
+      this.isConfirmed = false,
+      required this.catGroupName,});
 
   @override
   Widget build(BuildContext context) {
@@ -108,6 +110,21 @@ class JobRealCariTileWidget extends StatelessWidget {
                 style: MyText.bodyLarge(context)!
                     .copyWith(color: MyColors.grey_95)),
             Container(height: 10),
+            Container(
+              decoration: BoxDecoration(
+                  color: Colors.green[600],
+                  borderRadius: BorderRadius.circular(40)),
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10, right: 10.0),
+                child: Text(catGroupName,
+                    textAlign: TextAlign.right,                    
+                    style: MyText.bodyLarge(context)!
+                    .copyWith(color: Colors.yellow),
+                    
+                  ),
+              ),
+            ),
+            //Container(height: 5),
           ]),
         ));
   }

@@ -125,6 +125,7 @@ class JobRealCariListWidgetState extends State<JobRealCariListWidget> {
                                 customerNama:
                                     state.items[index].customerNama,
                                 isConfirmed: state.items[index].isConfirmed,
+                                catGroupName: state.items[index].catGroupName??"",
                               )),
                         )),
               )

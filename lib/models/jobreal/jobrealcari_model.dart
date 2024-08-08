@@ -12,6 +12,7 @@ class JobRealCariModel {
   bool isConfirmed;
   String? taskDesc;
   String? rdPartyName;
+  String? catGroupName;
 
   JobRealCariModel(
       {required this.hasil,
@@ -26,7 +27,8 @@ class JobRealCariModel {
       required this.customerNama,
       this.isConfirmed = false,
       this.taskDesc,
-      this.rdPartyName});
+      this.rdPartyName,
+      this.catGroupName});
 
   factory JobRealCariModel.fromJson(Map<String, dynamic> data) {
     return JobRealCariModel(
@@ -44,7 +46,8 @@ class JobRealCariModel {
         isConfirmed: data['isConfirmed'] ?? false,
         customerNama: data['customerNama'] ?? '',
         taskDesc: data['taskDesc'] ?? '',
-        rdPartyName: data['rdPartyName'] ?? '');
+        rdPartyName: data['rdPartyName'] ?? '',
+        catGroupName: data['catGroupName'] ?? '');
   }
 
   Map<String, dynamic> toJson() => {
@@ -60,6 +63,7 @@ class JobRealCariModel {
         'isConfirmed': isConfirmed.toString(),
         'customerNama': customerNama,
         'taskDesc': taskDesc,
-        'rdPartyName': rdPartyName
+        'rdPartyName': rdPartyName,
+        'catGroupName': catGroupName
       };
 }
