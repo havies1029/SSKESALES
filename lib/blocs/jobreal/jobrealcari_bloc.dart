@@ -20,6 +20,7 @@ class JobRealCariBloc extends Bloc<JobRealCariEvents, JobRealCariState> {
     on<SetFilterDocRealCariEvent>(onSetFilterDoc);
     on<LihatJobRealCariEvent>(onLihatJobRealCari);
     on<JobRealDuplicateEvent>(onDuplicateJobReal);
+    on<JobRealMove2NextFlowEvent>(onMove2NextFlow);
   }
 
   JobRealCariRepository repo = JobRealCariRepository();
@@ -50,7 +51,10 @@ class JobRealCariBloc extends Bloc<JobRealCariEvents, JobRealCariState> {
     await Future.delayed(const Duration(seconds: 1));
 
     add(FetchJobRealCariEvent(
-        hal: 0, searchText: event.searchText, filterDoc: event.filterDoc));
+        hal: 0,
+        searchText: event.searchText,
+        filterDoc: event.filterDoc,
+        jobCatGroupId: event.jobCatGroupId));
   }
 
   Future<void> onFetchJobRealCari(
@@ -58,16 +62,16 @@ class JobRealCariBloc extends Bloc<JobRealCariEvents, JobRealCariState> {
     if (state.hasReachedMax) return;
 
     if (state.status == ListStatus.initial) {
-      List<JobRealCariModel> items =
-          await repo.getJobRealCari(state.personId, event.filterDoc, event.searchText, 0);
+      List<JobRealCariModel> items = await repo.getJobRealCari(state.personId,
+          event.jobCatGroupId, event.filterDoc, event.searchText, 0);
       return emit(state.copyWith(
           items: items,
           hasReachedMax: false,
           status: ListStatus.success,
           hal: 1));
     }
-    List<JobRealCariModel> items =
-        await repo.getJobRealCari(state.personId, event.filterDoc, event.searchText, state.hal);
+    List<JobRealCariModel> items = await repo.getJobRealCari(state.personId,
+        event.jobCatGroupId, event.filterDoc, event.searchText, state.hal);
     if (items.isEmpty) {
       return emit(state.copyWith(hasReachedMax: true));
     } else {
@@ -118,6 +122,21 @@ class JobRealCariBloc extends Bloc<JobRealCariEvents, JobRealCariState> {
     emit(state.copyWith(
         isDuplicating: false,
         isDuplicated: true,
+        hasFailure: result.success,
+        requestToRefresh: true));
+  }
+
+  Future<void> onMove2NextFlow(
+      JobRealMove2NextFlowEvent event, Emitter<JobRealCariState> emit) async {
+    emit(state.copyWith(
+        isMovingNextFlow: true,
+        isMovedNextFlow: false,
+        hasFailure: false,
+        requestToRefresh: false));
+    ReturnDataAPI result = await repo.jobRealMove2NextFlow(event.recordId);
+    emit(state.copyWith(
+        isMovingNextFlow: false,
+        isMovedNextFlow: true,
         hasFailure: result.success,
         requestToRefresh: true));
   }

@@ -88,11 +88,10 @@ class _OnBoardPageState extends State<OnBoardPage> {
             }
             */
 
-            if (listPages.isEmpty){
+            if (listPages.isEmpty) {
               BlocProvider.of<HomeBloc>(context)
-                .add(TimelinePolicyExpiredPageActiveEvent());
+                  .add(TimelinePolicyExpiredPageActiveEvent());
             }
-
           }
         },
       );
@@ -118,15 +117,15 @@ class _OnBoardPageState extends State<OnBoardPage> {
                 Text(
                   pageTitle,
                   style: const TextStyle(
-                      fontSize: 25.0,
-                      //color: Colors.white,
-                      color: Color(0xffff6101),
-                      fontWeight: FontWeight.bold,
-                      fontStyle: FontStyle.italic,              
-                      fontFamily: 'Hind',
-                      //decoration: TextDecoration.underline,              
-                      //decorationThickness: 2.0
-                    ),              
+                    fontSize: 25.0,
+                    //color: Colors.white,
+                    color: Color(0xffff6101),
+                    fontWeight: FontWeight.bold,
+                    fontStyle: FontStyle.italic,
+                    fontFamily: 'Hind',
+                    //decoration: TextDecoration.underline,
+                    //decorationThickness: 2.0
+                  ),
                 )
               ],
             ),
@@ -141,8 +140,10 @@ class _OnBoardPageState extends State<OnBoardPage> {
               ),
             )
           ],
-        ),        
-        const SizedBox(height: 1,),
+        ),
+        const SizedBox(
+          height: 1,
+        ),
         const Divider(thickness: 2, color: Color(0xffff6101)),
       ],
     );
@@ -170,4 +171,5 @@ class _OnBoardPageState extends State<OnBoardPage> {
                   fontFamily: 'Hind'),
             )));
   }
+  
 }

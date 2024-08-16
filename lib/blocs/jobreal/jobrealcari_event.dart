@@ -11,8 +11,13 @@ class FetchJobRealCariEvent extends JobRealCariEvents {
   final int hal;
   final String searchText;
   final String filterDoc;
+  final String jobCatGroupId;
 
-  const FetchJobRealCariEvent({required this.hal, required this.searchText, required this.filterDoc});
+  const FetchJobRealCariEvent(
+      {required this.hal,
+      required this.searchText,
+      required this.filterDoc,
+      required this.jobCatGroupId});
 
   @override
   List<Object> get props => [hal, searchText, filterDoc];
@@ -23,13 +28,18 @@ class RefreshJobRealCariEvent extends JobRealCariEvents {
   final int hal;
   final String searchText;
   final String filterDoc;
+  final String jobCatGroupId;
 
-  const RefreshJobRealCariEvent({required this.hal, 
-  required this.searchText, required this.filterDoc,
-  required this.personId});
+  const RefreshJobRealCariEvent(
+      {required this.hal,
+      required this.searchText,
+      required this.filterDoc,
+      required this.personId,
+      required this.jobCatGroupId});
 
   @override
-  List<Object> get props => [hal, searchText, filterDoc, personId];
+  List<Object> get props =>
+      [hal, searchText, filterDoc, personId, jobCatGroupId];
 }
 
 class UbahJobRealCariEvent extends JobRealCariEvents {
@@ -54,7 +64,7 @@ class TambahJobRealCariEvent extends JobRealCariEvents {}
 
 class CloseDialogJobRealCariEvent extends JobRealCariEvents {}
 
-class ResetStateJobRealCariEvent extends JobRealCariEvents {  
+class ResetStateJobRealCariEvent extends JobRealCariEvents {
   final String personId;
   const ResetStateJobRealCariEvent({required this.personId});
 
@@ -72,9 +82,18 @@ class SetFilterDocRealCariEvent extends JobRealCariEvents {
 }
 
 class JobRealDuplicateEvent extends JobRealCariEvents {
-	final String recordId;
-	const JobRealDuplicateEvent({required this.recordId});
+  final String recordId;
+  const JobRealDuplicateEvent({required this.recordId});
 
-	@override
-	List<Object> get props => [recordId];
+  @override
+  List<Object> get props => [recordId];
 }
+
+class JobRealMove2NextFlowEvent extends JobRealCariEvents {
+  final String recordId;
+  const JobRealMove2NextFlowEvent({required this.recordId});
+
+  @override
+  List<Object> get props => [recordId];
+}
+

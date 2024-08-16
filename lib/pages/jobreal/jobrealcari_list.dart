@@ -4,6 +4,7 @@ import 'package:esalesapp/blocs/jobreal/jobreal3cari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal3grid_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealfoto_bloc.dart';
 import 'package:esalesapp/common/app_data.dart';
+import 'package:esalesapp/models/combobox/combojobcatgroup_model.dart';
 import 'package:esalesapp/pages/jobreal/jobrealcrud_main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,10 +14,12 @@ import 'package:esalesapp/blocs/jobreal/jobrealcari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealcrud_bloc.dart';
 import 'package:esalesapp/pages/jobreal/jobrealcari_list_widget.dart';
 
-class JobRealCariPage extends StatefulWidget {  
+class JobRealCariPage extends StatefulWidget {
   final bool readOnly;
   final String personId;
-  const JobRealCariPage({super.key, required this.personId, required this.readOnly});
+  final ComboJobcatgroupModel selectedJobCatGroup;
+  const JobRealCariPage(
+      {super.key, required this.personId, required this.readOnly, required this.selectedJobCatGroup});
 
   @override
   JobRealCariPageState createState() => JobRealCariPageState();
@@ -38,6 +41,8 @@ class JobRealCariPageState extends State<JobRealCariPage> {
 
   @override
   Widget build(BuildContext context) {
+    //debugPrint("Tab Index : ${widget.tabIndex}");
+
     jobRealCariBloc = BlocProvider.of<JobRealCariBloc>(context);
     jobRealCrudBloc = BlocProvider.of<JobRealCrudBloc>(context);
 
@@ -62,6 +67,12 @@ class JobRealCariPageState extends State<JobRealCariPage> {
                   backgroundColor: Colors.green,
                 ));
               }
+              else if (state.isMovedNextFlow){
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                  content: Text("Task berikutnya sudah berhasil dibuat."),
+                  backgroundColor: Colors.green,
+                ));
+              }
             },
           ),
           BlocListener<JobRealCrudBloc, JobRealCrudState>(
@@ -74,8 +85,9 @@ class JobRealCariPageState extends State<JobRealCariPage> {
           }),
         ],
         child: Scaffold(
-          floatingActionButton: widget.readOnly?null:
-              FloatingMenuMasterWidget(onTambah: onTambahData),
+          floatingActionButton: widget.readOnly
+              ? null
+              : FloatingMenuMasterWidget(onTambah: onTambahData),
           body: Container(
             color: Colors.grey[200],
             child: Center(
@@ -95,8 +107,15 @@ class JobRealCariPageState extends State<JobRealCariPage> {
   }
 
   void refreshData() {
-    jobRealCariBloc.add(RefreshJobRealCariEvent(personId: widget.personId,
-        searchText: _searchController.text, hal: 0, filterDoc: filterList));
+
+    debugPrint("JobRealCariPage -> refreshData -> jobCatGroupId : ${widget.selectedJobCatGroup.mjobcatgroupId}");
+
+    jobRealCariBloc.add(RefreshJobRealCariEvent(
+        personId: widget.personId,
+        jobCatGroupId: widget.selectedJobCatGroup.mjobcatgroupId,
+        searchText: _searchController.text,
+        hal: 0,
+        filterDoc: filterList));
   }
 
   void onTambahData() {
@@ -112,6 +131,7 @@ class JobRealCariPageState extends State<JobRealCariPage> {
         onPressed: () {
           jobRealCariBloc.add(RefreshJobRealCariEvent(
               personId: widget.personId,
+              jobCatGroupId: widget.selectedJobCatGroup.mjobcatgroupId,
               searchText: _searchController.text,
               hal: 0,
               filterDoc: filterList));
@@ -123,7 +143,12 @@ class JobRealCariPageState extends State<JobRealCariPage> {
         child: Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        JobRealCariListWidget(personId: widget.personId, searchText: _searchController.text, readOnly: widget.readOnly,)
+        JobRealCariListWidget(
+          personId: widget.personId,          
+          searchText: _searchController.text,
+          readOnly: widget.readOnly, 
+          selectedJobCatGroup: widget.selectedJobCatGroup,
+        )
       ],
     ));
   }
@@ -153,7 +178,8 @@ class JobRealCariPageState extends State<JobRealCariPage> {
     BlocProvider.of<JobReal3CariBloc>(context)
         .add(ResetStateJobReal3CariEvent());
     BlocProvider.of<JobRealFotoBloc>(context).add(ResetStateJobRealFotoEvent());
-    BlocProvider.of<JobRealCariBloc>(context).add(ResetStateJobRealCariEvent(personId: widget.personId));
+    BlocProvider.of<JobRealCariBloc>(context)
+        .add(ResetStateJobRealCariEvent(personId: widget.personId));
     BlocProvider.of<JobReal2GridBloc>(context)
         .add(ResetStateJobReal2ListEvent());
     BlocProvider.of<JobReal3GridBloc>(context)

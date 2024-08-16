@@ -6,17 +6,19 @@ import 'package:http/http.dart' as http;
 import 'package:esalesapp/models/jobreal/jobrealcari_model.dart';
 
 class JobRealCariAPI {
-  String urlGetListEndPoint =
+  
+  Future<List<JobRealCariModel>> getJobRealCariAPI(String personId, String jobCatGroupId,
+    String filterDoc, String searchText, int hal) async {
+
+    String urlGetListEndPoint =
       "${AppData.prefixEndPoint}/api/jobreal/jobrealcari/getlist";
 
-  Future<List<JobRealCariModel>> getJobRealCariAPI(String personId, String filterDoc,
-      String searchText, int hal) async {
-
-    debugPrint("getJobRealCariAPI");    
-    debugPrint("urlGetListEndPoint : $urlGetListEndPoint");
+    //debugPrint("getJobRealCariAPI");    
+    //debugPrint("urlGetListEndPoint : $urlGetListEndPoint");
 
     Map<String, String> queryParams = {
       "personId": personId,
+      "jobCatGroupId": jobCatGroupId,
       "searchText": searchText,
       "filterDoc": filterDoc,
       "hal": hal.toString()
@@ -47,8 +49,30 @@ class JobRealCariAPI {
 		String duplicateEndpoint = "${AppData.prefixEndPoint}/api/jobreal/jobrealcrud/duplicate";
 		Map<String, String> queryParams = {
 			'jobreal1Id': jobreal1Id,
-			'modul_id': 'jobRealDuplicateAPI'};
+			'modul_id': 'RJDupliAPI'};
 		var uri = AppData.uriHtpp(AppData.httpAuthority, duplicateEndpoint, queryParams);
+		final http.Response response =
+			await http.get(uri, headers: <String, String>{
+			'Content-Type': 'application/json; odata=verbos',
+			'Accept': 'application/json; odata=verbos',
+			'Authorization': 'Bearer ${AppData.userToken}'
+		});
+
+		ReturnDataAPI returnData;
+		if (response.statusCode == 200) {
+			returnData = ReturnDataAPI.fromDatabaseJson(jsonDecode(response.body));
+		} else {
+			returnData = ReturnDataAPI(success: false, data: "", rowcount: 0);
+		}
+		return returnData;
+	}
+
+  Future<ReturnDataAPI> jobRealMove2NextFlowAPI(String jobreal1Id) async {
+		String move2NextFlowEndpoint = "${AppData.prefixEndPoint}/api/jobreal/jobrealcrud/move2nextjob";
+		Map<String, String> queryParams = {
+			'jobreal1Id': jobreal1Id,
+			'modul_id': 'RJNextFlowAPI'};
+		var uri = AppData.uriHtpp(AppData.httpAuthority, move2NextFlowEndpoint, queryParams);
 		final http.Response response =
 			await http.get(uri, headers: <String, String>{
 			'Content-Type': 'application/json; odata=verbos',

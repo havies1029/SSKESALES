@@ -60,6 +60,7 @@ dependencies:
   permission_handler: ^11.3.1
   timelines: ^0.1.0
   introduction_screen: ^3.1.14
+  tab_container: ^3.5.3
 
 dev_dependencies:
   flutter_test:

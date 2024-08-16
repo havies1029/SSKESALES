@@ -37,8 +37,8 @@ static String httpAuthority = "216.172.109.8";
   static String httpAuthority = "eplannerdevapi.smartsoft-id.com";
   */
 
-  /*  
-  static bool useSSL = false;
+  /*
+  static bool useSSL = true;
   static String apiDomain = "http${useSSL ? "s" : ""}://esalesapi.smartsoft-id.com/";
   static String prefixEndPoint = "";
   static String httpAuthority = "esalesapi.smartsoft-id.com";

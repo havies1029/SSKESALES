@@ -23,6 +23,7 @@ class JobRealCrudModel {
   String? taskDesc;
   String? rdpartyId;
   ComboInsurerModel? comboInsurer;
+  int jobIdx;
 
   JobRealCrudModel(
       {this.hasil,
@@ -42,7 +43,8 @@ class JobRealCrudModel {
       this.isConfirmed = false,
       this.taskDesc,
       this.rdpartyId,
-      this.comboInsurer});
+      this.comboInsurer,
+      this.jobIdx = 0});
 
   factory JobRealCrudModel.fromJson(Map<String, dynamic> data) {
     ComboJobModel? comboJob;
@@ -90,7 +92,8 @@ class JobRealCrudModel {
         taskDesc: data['taskDesc'] ?? '',
         comboCustomer: comboCustomer,
         rdpartyId: data['rdpartyId'] ?? '',
-        comboInsurer: comboInsurer);
+        comboInsurer: comboInsurer,
+        jobIdx: data['jobIdx'] ?? 0);
   }
 
   Map<String, dynamic> toJson() => {
@@ -111,6 +114,8 @@ class JobRealCrudModel {
         'isConfirmed': isConfirmed.toString(),
         'comboCustomer': comboCustomer?.toJson(),
         'comboInsurer': comboInsurer?.toJson(),
-        'rdpartyId': rdpartyId
+        'rdpartyId': rdpartyId,
+        'jobIdx': jobIdx.toString()
+
       };
 }

@@ -44,7 +44,7 @@ class JobRealCariTileWidget extends StatelessWidget {
         clipBehavior: Clip.antiAliasWithSaveLayer,
         child: Container(
           alignment: Alignment.topLeft,
-          padding: const EdgeInsets.all(15),
+          padding: const EdgeInsets.all(10),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Row(
@@ -90,8 +90,18 @@ class JobRealCariTileWidget extends StatelessWidget {
                     .copyWith(color: MyColors.grey_60)),
             Container(height: 5),
             Text(customerNama,
+            
                 style: MyText.titleLarge(context)!
-                    .copyWith(color: MyColors.grey_95),
+                    .copyWith(
+                    color: Colors.transparent,
+                    shadows: [
+                      const Shadow(
+                          color: Colors.black,
+                          offset: Offset(0, -5))
+                    ],
+                    decoration: TextDecoration.underline, 
+                    decorationColor: Colors.black,
+                    decorationThickness: 2.0 ),
                 maxLines: 2,),
             Container(height: 10),
             Text("Perihal",
@@ -113,11 +123,11 @@ class JobRealCariTileWidget extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                   color: Colors.green[600],
-                  borderRadius: BorderRadius.circular(40)),
+                  borderRadius: BorderRadius.circular(8)),
               child: Padding(
-                padding: const EdgeInsets.only(left: 10, right: 10.0),
-                child: Text(catGroupName,
-                    textAlign: TextAlign.right,                    
+                padding: const EdgeInsets.only(left: 5, right: 5.0),
+                child: Text(jobNama,
+                    textAlign: TextAlign.left,                    
                     style: MyText.bodyLarge(context)!
                     .copyWith(color: Colors.yellow),
                     

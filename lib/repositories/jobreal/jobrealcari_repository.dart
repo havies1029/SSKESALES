@@ -6,11 +6,17 @@ class JobRealCariRepository {
 
   JobRealCariAPI api = JobRealCariAPI();
 
-	Future<List<JobRealCariModel>> getJobRealCari(String personId, String filterDoc, String searchText, int hal) async {
-		return await api.getJobRealCariAPI(personId, filterDoc, searchText, hal);
+	Future<List<JobRealCariModel>> getJobRealCari(String personId, String jobCatGroupId,
+    String filterDoc, String searchText, int hal) async {
+		return await api.getJobRealCariAPI(personId, jobCatGroupId, 
+      filterDoc, searchText, hal);
 	}
 
   Future<ReturnDataAPI> jobRealDuplicate(String jobreal1Id) async {
 		return await api.jobRealDuplicateAPI(jobreal1Id);
+	}
+
+  Future<ReturnDataAPI> jobRealMove2NextFlow(String jobreal1Id) async {
+		return await api.jobRealMove2NextFlowAPI(jobreal1Id);
 	}
 }

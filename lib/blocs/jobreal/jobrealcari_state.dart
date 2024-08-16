@@ -11,6 +11,8 @@ class JobRealCariState extends Equatable {
   final bool requestToRefresh;
   final bool isDuplicating;
   final bool isDuplicated;
+  final bool isMovingNextFlow;
+  final bool isMovedNextFlow;
   final bool hasFailure;
   final String personId;
 
@@ -25,13 +27,17 @@ class JobRealCariState extends Equatable {
       this.requestToRefresh = false,
       this.isDuplicating = false,
       this.isDuplicated = false,
+      this.isMovingNextFlow = false,
+      this.isMovedNextFlow = false,
       this.hasFailure = false,
       this.personId = ""});
 
+  /*
   const JobRealCariState.success(List<JobRealCariModel> items)
       : this(status: ListStatus.success, items: items);
 
   const JobRealCariState.failure() : this(status: ListStatus.failure);
+  */
 
   JobRealCariState copyWith(
       {List<JobRealCariModel>? items,
@@ -44,8 +50,10 @@ class JobRealCariState extends Equatable {
       bool? requestToRefresh,
       bool? isDuplicating,
       bool? isDuplicated,
+      bool? isMovingNextFlow,
+      bool? isMovedNextFlow,
       bool? hasFailure,
-      String? personId}) {
+      String? personId,}) {
     return JobRealCariState(
         items: items ?? this.items,
         hasReachedMax: hasReachedMax ?? this.hasReachedMax,
@@ -57,12 +65,27 @@ class JobRealCariState extends Equatable {
         requestToRefresh: requestToRefresh ?? this.requestToRefresh,
         isDuplicating: isDuplicating ?? this.isDuplicating,
         isDuplicated: isDuplicated ?? this.isDuplicated,
+        isMovingNextFlow: isMovingNextFlow ?? this.isMovingNextFlow,
+        isMovedNextFlow: isMovedNextFlow ?? this.isMovedNextFlow,
         hasFailure: hasFailure ?? this.hasFailure,
-        personId: personId ?? this.personId);
+        personId: personId ?? this.personId,);
   }
 
   @override
-  List<Object> get props =>
-      [status, items, hasReachedMax, hal, viewMode, recordId, filterDoc, requestToRefresh,
-        isDuplicating, isDuplicated, hasFailure, personId];
+  List<Object> get props => [
+        status,
+        items,
+        hasReachedMax,
+        hal,
+        viewMode,
+        recordId,
+        filterDoc,
+        requestToRefresh,
+        isDuplicating,
+        isDuplicated,
+        isMovingNextFlow,
+        isMovedNextFlow,
+        hasFailure,
+        personId,
+      ];
 }
