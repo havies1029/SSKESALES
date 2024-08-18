@@ -104,10 +104,9 @@ class JobRealCariListWidgetState extends State<JobRealCariListWidget> {
                                     widget.readOnly
                                         ? Container()
                                         : ((selectedJobCatGroup?.hasIndex ??
-                                                    false) &&
-                                                ((selectedJobCatGroup
-                                                            ?.totalJob ??
-                                                        0) >
+                                                    false) && 
+                                            (state.items[index].jobIdx > 0) &&
+                                                (state.items[index].totalJob >
                                                     state.items[index].jobIdx))
                                             ? SlidableAction(
                                                 onPressed: (context) {

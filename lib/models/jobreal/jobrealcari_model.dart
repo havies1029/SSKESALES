@@ -14,6 +14,7 @@ class JobRealCariModel {
   String? rdPartyName;
   String? catGroupName;
   int jobIdx;
+  int totalJob;
 
   JobRealCariModel(
       {required this.hasil,
@@ -30,7 +31,8 @@ class JobRealCariModel {
       this.taskDesc,
       this.rdPartyName,
       this.catGroupName,
-      this.jobIdx = 0});
+      this.jobIdx = 0,
+      this.totalJob = 0});
 
   factory JobRealCariModel.fromJson(Map<String, dynamic> data) {
     return JobRealCariModel(
@@ -50,7 +52,8 @@ class JobRealCariModel {
         taskDesc: data['taskDesc'] ?? '',
         rdPartyName: data['rdPartyName'] ?? '',
         catGroupName: data['catGroupName'] ?? '',
-        jobIdx: data["jobIdx"] ?? 0);
+        jobIdx: data["jobIdx"] ?? 0,
+        totalJob: data["totalJob"] ?? 0);
   }
 
   Map<String, dynamic> toJson() => {
@@ -68,6 +71,7 @@ class JobRealCariModel {
         'taskDesc': taskDesc,
         'rdPartyName': rdPartyName,
         'catGroupName': catGroupName,
-        'jobIdx': jobIdx.toString()
+        'jobIdx': jobIdx.toString(),
+        'totalJob': totalJob.toString()
       };
 }
