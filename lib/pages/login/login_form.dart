@@ -138,7 +138,7 @@ class _LoginFormState extends State<LoginForm> {
       ],
       child: BlocBuilder<LoginBloc, LoginState>(
         builder: (context, state) {
-          return SingleChildScrollView(
+          return state is LoginInitial ? SingleChildScrollView(
             child: Form(
               child: Padding(
                 padding: const EdgeInsets.all(40.0),
@@ -210,7 +210,7 @@ class _LoginFormState extends State<LoginForm> {
                 ),
               ),
             ),
-          );
+          ) : const Center(child: CircularProgressIndicator());
         },
       ),
     );
