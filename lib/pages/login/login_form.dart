@@ -138,7 +138,8 @@ class _LoginFormState extends State<LoginForm> {
       ],
       child: BlocBuilder<LoginBloc, LoginState>(
         builder: (context, state) {
-          return state is LoginInitial ? SingleChildScrollView(
+          return ((state is LoginInitial) || (state is LoginFailure)) ? 
+            SingleChildScrollView(
             child: Form(
               child: Padding(
                 padding: const EdgeInsets.all(40.0),
