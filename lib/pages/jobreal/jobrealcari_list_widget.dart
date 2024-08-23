@@ -68,8 +68,7 @@ class JobRealCariListWidgetState extends State<JobRealCariListWidget> {
       child: BlocConsumer<JobRealCariBloc, JobRealCariState>(
           builder: (context, state) {
         if (state.status == ListStatus.success) {
-          debugPrint(
-              "selectedJobCatGroup?.hasIndex : ${selectedJobCatGroup?.hasIndex}");
+          //debugPrint("selectedJobCatGroup?.hasIndex : ${selectedJobCatGroup?.hasIndex}");
           return state.items.isNotEmpty
               ? Flexible(
                   child: ListView.builder(

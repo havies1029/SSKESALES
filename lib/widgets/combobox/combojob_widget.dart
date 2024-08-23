@@ -13,11 +13,10 @@ DropdownSearch<ComboJobModel> buildFieldComboJob(
     Function(ComboJobModel?)? onChangedCallback,
     required Function(ComboJobModel?) onSaveCallback,
     Function(ComboJobModel?)? validatorCallback}) {
-  
   return DropdownSearch<ComboJobModel>(
     enabled: enabled,
     key: comboKey,
-    selectedItem: initItem,    
+    selectedItem: initItem,
     dropdownDecoratorProps: DropDownDecoratorProps(
       dropdownSearchDecoration: InputDecoration(
         hintText: '...',
@@ -82,6 +81,7 @@ Widget itemBuilderComboJob(
           ),
     child: ListTile(
       selected: isSelected,
+      leading: item.urutan > 0 ? Text("${item.urutan}"):Container(),
       title: Text(item.jobNama),
     ),
   );

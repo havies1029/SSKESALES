@@ -117,13 +117,12 @@ class JobRealCariTabPageState extends State<JobRealCariTabPage>
               TabController(vsync: this, length: state.items.length);
 
           tabController.addListener(() {
-            debugPrint("Tab Change ${tabController.index}");
+            //debugPrint("Tab Change ${tabController.index}");
             selectedTabEvent(listJobCatGroup[tabController.index]);
-            debugPrint(
-                "listJobCatGroup[tabController.index].hasIndex : ${listJobCatGroup[tabController.index].hasIndex}");
+            //debugPrint("listJobCatGroup[tabController.index].hasIndex : ${listJobCatGroup[tabController.index].hasIndex}");
           });
           if (listJobCatGroup.isNotEmpty) {
-            debugPrint("listJobCatGroup.isNotEmpty : ${listJobCatGroup.isNotEmpty}");
+            //debugPrint("listJobCatGroup.isNotEmpty : ${listJobCatGroup.isNotEmpty}");
             selectedTabEvent(listJobCatGroup[0]);
           }
         }
