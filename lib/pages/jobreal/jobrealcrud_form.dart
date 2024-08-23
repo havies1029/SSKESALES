@@ -6,7 +6,6 @@ import 'package:esalesapp/blocs/jobreal/jobreal2grid_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal3cari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal3grid_bloc.dart';
 import 'package:esalesapp/common/app_data.dart';
-import 'package:esalesapp/common/constants.dart';
 import 'package:esalesapp/common/loading_indicator.dart';
 import 'package:esalesapp/models/combobox/combocustomer_model.dart';
 import 'package:esalesapp/models/combobox/comboinsurer_model.dart';
@@ -200,17 +199,9 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
                   (state.record?.realTgl ?? DateTime.now()).toIso8601String();
               fieldTaskDescController.text = state.record?.taskDesc ?? "";
 
-              /*
-              fieldComboJob = state.record?.comboJob;
-              fieldComboJobcat = state.record?.comboJobcat;
-              fieldComboMedia = state.record?.comboMedia;
-              fieldComboCustomer = state.record?.comboCustomer;
-              fieldComboInsurer = state.record?.comboInsurer;
-              */
-              debugPrint(jsonEncode(fieldComboCustomer?.toJson()));
+              //debugPrint(jsonEncode(fieldComboCustomer?.toJson()));
 
-              debugPrint(
-                  "fieldComboJobcat?.mjobcatdoctypeId : ${fieldComboJobcat?.mjobcatdoctypeId}");
+              //debugPrint("fieldComboJobcat?.mjobcatdoctypeId : ${fieldComboJobcat?.mjobcatdoctypeId}");
 
               if (fieldComboJobcat?.mjobcatdoctypeId == "sppa") {
                 loadGridPolis(state.record?.jobreal1Id ?? "");
@@ -219,19 +210,10 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
               }
             }
 
-            /*
-            fieldComboJob = state.comboJob;
-            fieldComboJobcat = state.comboJobCat;
-            fieldComboMedia = state.comboMedia;
-            fieldComboCustomer = state.comboCustomer;
-            fieldComboInsurer = state.comboInsurer;
-            */
-
-            debugPrint(
-                "listener -> fieldComboCustomer?.rekanNama : ${fieldComboCustomer?.rekanNama}");
+            //debugPrint("listener -> fieldComboCustomer?.rekanNama : ${fieldComboCustomer?.rekanNama}");
 
             if (state.forceChangeComboCustomer) {
-              debugPrint("listener -> state.forceChangeComboCustomer");
+              //debugPrint("listener -> state.forceChangeComboCustomer");
               //undo combo changed
               comboCustomerKey.currentState
                   ?.changeSelectedItem(fieldComboCustomer);
@@ -317,15 +299,19 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
         addError(error: "Field Media tidak boleh kosong.");
       }
       if (state.comboJobCat?.mjobcatdoctypeId == "sppa") {
-        if (jobReal2GridBloc.state.items.isEmpty) {
-          errorCount++;
-          addError(error: "Pilih salah satu SPPA.");
+        if (fieldComboJob?.isReqDetail ?? false) {
+          if (jobReal2GridBloc.state.items.isEmpty) {
+            errorCount++;
+            addError(error: "Pilih salah satu SPPA.");
+          }
         }
       }
       if (state.comboJobCat?.mjobcatdoctypeId == "cob") {
-        if (jobReal3GridBloc.state.items.isEmpty) {
-          errorCount++;
-          addError(error: "Pilih salah satu COB.");
+        if (fieldComboJob?.isReqDetail ?? false) {
+          if (jobReal3GridBloc.state.items.isEmpty) {
+            errorCount++;
+            addError(error: "Pilih salah satu COB.");
+          }
         }
       }
       if (state.requireComboInsurer) {
