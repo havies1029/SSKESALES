@@ -50,6 +50,11 @@ class UserDao {
     if (users.isNotEmpty) {
       token = users[0]["token"];
       AppData.userToken = token;
+      AppData.httpHeaders = <String, String>{
+        'Content-Type': 'application/json; odata=verbos',
+        'Accept': 'application/json; odata=verbos',
+        'Authorization': 'Bearer ${AppData.userToken}'
+      };
     }
 
     return token;
@@ -76,6 +81,11 @@ class UserDao {
         AppData.personName = users[0]["nama"] ?? "";
         AppData.userCabang = users[0]["userCabang"] ?? "";
         AppData.hasDownline = users[0]["hasDownline"] == 1;
+        AppData.httpHeaders = <String, String>{
+          'Content-Type': 'application/json; odata=verbos',
+          'Accept': 'application/json; odata=verbos',
+          'Authorization': 'Bearer ${AppData.userToken}'
+        };
 
         debugPrint("func checkUser -> has user #20");
 

@@ -50,7 +50,7 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
       builder: (context, state) {
         //debugPrint("Build #20 ${DateTime.now()}");
         //debugPrint('url : ${AppData.apiDomain}${AppData.endPointViewJobRealImage}${widget.jobReal1Id}/${DateTime.now().millisecondsSinceEpoch}');
-            
+
         //debugPrint("state.isPendingUpload : ${state.isPendingUpload}");
         //debugPrint("state.imageSource : ${state.imageSource}");
         //debugPrint("state.fotoPath : ${state.fotoPath}");
@@ -90,6 +90,10 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
                                         "assets/images/icon-user-default.png")
                                     as ImageProvider,
                         onError: (exception, stackTrace) {
+                          //debugPrint("errorMsg : $exception");
+                          
+                          //debugPrint("AppData.userToken #20 : ${AppData.userToken}");
+                          //debugPrint("AppData.httpHeaders : ${AppData.httpHeaders}");
                           jobRealFotoBloc.add(SetErrorJobRealFotoEvent(
                               errorMsg: exception.toString()));
                         },
