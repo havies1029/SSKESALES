@@ -3,9 +3,12 @@ import 'package:esalesapp/blocs/jobreal/jobreal2cari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal2grid_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal3cari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal3grid_bloc.dart';
+import 'package:esalesapp/blocs/jobreal/jobrealbtnfilter_cubit.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealcari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealcrud_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealfoto_bloc.dart';
+import 'package:esalesapp/blocs/jobreal/jobrealglobal_cubit.dart';
+import 'package:esalesapp/blocs/jobreal/jobrealtab_bloc.dart';
 import 'package:esalesapp/blocs/login/change_password_bloc.dart';
 import 'package:esalesapp/blocs/mstcob/cobcari_bloc.dart';
 import 'package:esalesapp/blocs/mstcob/cobcrud_bloc.dart';
@@ -102,6 +105,15 @@ class App extends StatelessWidget {
             create: (context) => ProgressIndicatorBloc()),
         BlocProvider<NetworkBloc>(
             create: (context) => NetworkBloc()..add(NetworkObserve())),
+        BlocProvider(
+          create: (context) => JobRealTabBloc(),          
+        ),        
+        BlocProvider(
+          create: (context)=>JobRealGlobalCubit()
+        ),
+        BlocProvider(
+          create: (context)=>JobRealBtnFilterCubit()
+        ),
         BlocProvider<JobRealCariBloc>(create: (context) => JobRealCariBloc()),
         BlocProvider<JobReal2CariBloc>(create: (context) => JobReal2CariBloc()),
         BlocProvider<JobReal2GridBloc>(

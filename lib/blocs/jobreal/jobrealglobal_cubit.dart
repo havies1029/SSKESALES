@@ -5,9 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 part 'jobrealglobal_state.dart';
 
 class JobRealGlobalCubit extends Cubit<JobRealGlobalState> {
-  JobRealGlobalCubit() : super(InitialState());
+  JobRealGlobalCubit() : super(const JobRealGlobalState());
 
   Future<void> setSelectedJobCatGroup(ComboJobcatgroupModel jobCatGroup) async {
-    emit(LoadedState(jobCatGroup));
+    emit(state.copyWith(selectedJobCatGroup: jobCatGroup));
   }
 }

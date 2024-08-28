@@ -32,13 +32,6 @@ class JobRealCariState extends Equatable {
       this.hasFailure = false,
       this.personId = ""});
 
-  /*
-  const JobRealCariState.success(List<JobRealCariModel> items)
-      : this(status: ListStatus.success, items: items);
-
-  const JobRealCariState.failure() : this(status: ListStatus.failure);
-  */
-
   JobRealCariState copyWith(
       {List<JobRealCariModel>? items,
       bool? hasReachedMax,

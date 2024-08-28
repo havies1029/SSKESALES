@@ -9,12 +9,14 @@ DropdownSearch<ComboJobcatModel> buildFieldComboJobcat({
 	required String labelText,
 	ComboJobcatModel? initItem,
   required String custCatId,
+  required String jobCatGroupId,
 	Function(ComboJobcatModel?)? onChangedCallback,
 	required Function(ComboJobcatModel?) onSaveCallback,
 	Function(ComboJobcatModel?)? validatorCallback
 	}) {
 
   debugPrint("buildFieldComboJobcat custCatId : $custCatId}");
+  debugPrint("buildFieldComboJobcat jobCatGroupId : $jobCatGroupId}");
 
 	return DropdownSearch<ComboJobcatModel>(
     enabled: enabled,
@@ -27,7 +29,7 @@ DropdownSearch<ComboJobcatModel> buildFieldComboJobcat({
 			),
 		),
 			asyncItems: (String filter) async {
-				return ComboJobcatRepository().getComboJobcat(custCatId);
+				return ComboJobcatRepository().getComboJobcat(custCatId, jobCatGroupId);
 			},
 			clearButtonProps: const ClearButtonProps(isVisible: true),
 			popupProps: const PopupPropsMultiSelection.modalBottomSheet(

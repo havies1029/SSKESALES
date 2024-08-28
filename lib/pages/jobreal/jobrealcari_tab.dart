@@ -1,3 +1,4 @@
+import 'package:esalesapp/blocs/jobreal/jobrealbtnfilter_cubit.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealcari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealglobal_cubit.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealtab_bloc.dart';
@@ -24,6 +25,7 @@ class JobRealCariTabPageState extends State<JobRealCariTabPage>
   late TabController tabController;
   late JobRealCariBloc jobRealCariBloc;
   late JobRealGlobalCubit jobRealGlobalCubit;
+  late JobRealBtnFilterCubit jobRealBtnFilterCubit;
   List<Widget> listTab = [];
   //List<Widget> listChild = <Widget>[];
   final List<Color> colorCollection = <Color>[];
@@ -43,6 +45,7 @@ class JobRealCariTabPageState extends State<JobRealCariTabPage>
     jobRealTabBloc = BlocProvider.of<JobRealTabBloc>(context);
     jobRealCariBloc = BlocProvider.of<JobRealCariBloc>(context);
     jobRealGlobalCubit = BlocProvider.of<JobRealGlobalCubit>(context);
+    jobRealBtnFilterCubit = BlocProvider.of<JobRealBtnFilterCubit>(context);
 
     return BlocConsumer<JobRealTabBloc, JobRealTabState>(
       builder: (context, state) {
@@ -71,7 +74,7 @@ class JobRealCariTabPageState extends State<JobRealCariTabPage>
             child: JobRealCariPage(
               personId: widget.personId,
               readOnly: widget.readOnly,
-              //jobCatGroupId:listJobCatGroup[tabController.index].mjobcatgroupId, 
+              //jobCatGroupId:listJobCatGroup[tabController.index].mjobcatgroupId,
               selectedJobCatGroup: listJobCatGroup[0],
             ),
           );
@@ -133,10 +136,13 @@ class JobRealCariTabPageState extends State<JobRealCariTabPage>
   void selectedTabEvent(ComboJobcatgroupModel selectedTab) {
     jobRealGlobalCubit.setSelectedJobCatGroup(selectedTab);
 
+    debugPrint(
+        "jobRealBtnFilterCubit.state.filterDoc : ${jobRealBtnFilterCubit.state.filterDoc}");
+
     jobRealCariBloc.add(RefreshJobRealCariEvent(
         hal: 0,
         searchText: "",
-        filterDoc: jobRealCariBloc.state.filterDoc,
+        filterDoc:  jobRealBtnFilterCubit.state.filterDoc,
         personId: widget.personId,
         jobCatGroupId: selectedTab.mjobcatgroupId));
   }

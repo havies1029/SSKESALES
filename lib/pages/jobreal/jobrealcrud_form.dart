@@ -1,10 +1,10 @@
-import 'dart:convert';
-
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal2cari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal2grid_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal3cari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal3grid_bloc.dart';
+import 'package:esalesapp/blocs/jobreal/jobrealcari_bloc.dart';
+import 'package:esalesapp/blocs/jobreal/jobrealglobal_cubit.dart';
 import 'package:esalesapp/common/app_data.dart';
 import 'package:esalesapp/common/loading_indicator.dart';
 import 'package:esalesapp/models/combobox/combocustomer_model.dart';
@@ -48,6 +48,8 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
   late JobRealCrudBloc jobRealCrudBloc;
   late JobReal2GridBloc jobReal2GridBloc;
   late JobReal3GridBloc jobReal3GridBloc;
+  late JobRealGlobalCubit jobRealGlobalCubit;
+  late JobRealCariBloc jobRealCariBloc;
   final _formKey = GlobalKey<FormState>();
   final List<String> errors = [];
   var fieldHasilController = TextEditingController();
@@ -96,10 +98,23 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {    
+    debugPrint("JobRealCrudFormPageFormState #10");
+
     jobRealCrudBloc = BlocProvider.of<JobRealCrudBloc>(context);
     jobReal2GridBloc = BlocProvider.of<JobReal2GridBloc>(context);
     jobReal3GridBloc = BlocProvider.of<JobReal3GridBloc>(context);
+    
+    
+    debugPrint("JobRealCrudFormPageFormState #15");
+
+    jobRealCariBloc = BlocProvider.of<JobRealCariBloc>(context);
+
+    debugPrint("JobRealCrudFormPageFormState #20");
+
+    jobRealGlobalCubit = BlocProvider.of<JobRealGlobalCubit>(context);
+
+    debugPrint("JobRealCrudFormPageFormState #30");
     return MultiBlocListener(
       listeners: [
         BlocListener<JobReal3CariBloc, JobReal3CariState>(
@@ -175,10 +190,8 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
         },
         listener: (context, state) {
           if (state.isLoaded) {
-            debugPrint("listener -> state.isLoaded : ${state.isLoaded}");
-
-            debugPrint("requireComboInsurer : ${state.requireComboInsurer}");
-
+            //debugPrint("listener -> state.isLoaded : ${state.isLoaded}");
+            //debugPrint("requireComboInsurer : ${state.requireComboInsurer}");
             fieldComboJob = state.comboJob;
             fieldComboJobcat = state.comboJobCat;
             fieldComboMedia = state.comboMedia;
@@ -327,41 +340,45 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
 
   void onSaveForm(bool isRequestConfirm, JobRealCrudState state,
       {bool dismissDialog = true}) {
-    debugPrint("onSaveForm #10");
+    //debugPrint("onSaveForm #10");
     removeErrValidation();
     if (validateForm(isRequestConfirm, state) == 0) {
       if (_formKey.currentState!.validate()) {
-        _formKey.currentState!.save();
+        //debugPrint("berhasil validasi form");
+        //debugPrint("errors.isEmpty : ${errors.isEmpty}");
 
-        JobRealCrudModel record = JobRealCrudModel(
-            hasil: fieldHasilController.text,
-            jobreal1Id: '',
-            materi: fieldMateriController.text,
-            mjobId: fieldComboJob?.mjobId,
-            mjobcatId: fieldComboJobcat?.mjobcatId,
-            mmediaId: fieldComboMedia?.mmediaId,
-            mrekanId: fieldComboCustomer?.mrekanId,
-            picName: fieldPicNameController.text,
-            realJam: DateTime.parse(fieldRealJamController.text),
-            realTgl: DateTime.parse(fieldRealTglController.text),
-            rdpartyId: fieldComboInsurer?.mrekanId,
-            taskDesc: fieldTaskDescController.text,
-            isConfirmed: isRequestConfirm);
+        if (errors.isEmpty) {
+          _formKey.currentState!.save();
 
-        debugPrint(
-            "fieldComboJobcat?.mjobcatId : ${fieldComboJobcat?.mjobcatId}");
+          JobRealCrudModel record = JobRealCrudModel(
+              hasil: fieldHasilController.text,
+              jobreal1Id: '',
+              materi: fieldMateriController.text,
+              mjobId: fieldComboJob?.mjobId,
+              mjobcatId: fieldComboJobcat?.mjobcatId,
+              mmediaId: fieldComboMedia?.mmediaId,
+              mrekanId: fieldComboCustomer?.mrekanId,
+              picName: fieldPicNameController.text,
+              realJam: DateTime.parse(fieldRealJamController.text),
+              realTgl: DateTime.parse(fieldRealTglController.text),
+              rdpartyId: fieldComboInsurer?.mrekanId,
+              taskDesc: fieldTaskDescController.text,
+              isConfirmed: isRequestConfirm);
 
-        if (widget.viewMode == "tambah") {
-          jobRealCrudBloc.add(JobRealCrudTambahEvent(record: record));
-        } else if (widget.viewMode == "ubah") {
-          debugPrint("onSaveForm #30");
-          record.jobreal1Id = jobRealCrudBloc.state.record!.jobreal1Id;
-          jobRealCrudBloc.add(JobRealCrudUbahEvent(record: record));
+          //debugPrint("fieldComboJobcat?.mjobcatId : ${fieldComboJobcat?.mjobcatId}");
+
+          if (widget.viewMode == "tambah") {
+            jobRealCrudBloc.add(JobRealCrudTambahEvent(record: record));
+          } else if (widget.viewMode == "ubah") {
+            //debugPrint("onSaveForm #30");
+            record.jobreal1Id = jobRealCrudBloc.state.record!.jobreal1Id;
+            jobRealCrudBloc.add(JobRealCrudUbahEvent(record: record));
+          }
+          if (dismissDialog) {
+            _dismissDialog();
+          }
         }
-        if (dismissDialog) {
-          _dismissDialog();
-        }
-      }
+      } 
     }
   }
 
@@ -625,15 +642,6 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
     //comboJobKey.currentState?.clear();
     jobRealCrudBloc
         .add(ComboCustomerJobRealCrudChangedEvent(comboCustomer: newValue));
-
-    /*
-    //reset sppa
-    if (isSudahAdaSPPA()) {
-      debugPrint("state.forceChangeComboCustomer -> reset sppa");
-      jobReal2GridBloc
-          .add(DeleteAllJobReal2ListEvent(jobreal1Id: widget.recordId));
-    }
-    */
   }
 
   void onComboCustomerChangeTaskB() {
@@ -744,6 +752,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       labelText: 'Task Category',
       initItem: fieldComboJobcat,
       custCatId: fieldComboCustomer?.custCatId ?? "",
+      jobCatGroupId: jobRealGlobalCubit.state.selectedJobCatGroup.mjobcatgroupId,
       onChangedCallback: (value) {
         if (value != null) {
           removeError(error: "Field 'Task Category' tidak boleh kosong.");
@@ -757,6 +766,15 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       onSaveCallback: (value) {
         if (value != null) {
           fieldComboJobcat = value;
+        }
+      },
+      validatorCallback: (value) {
+        //debugPrint("FieldComboJobCat =====>>>>>> validatorCallback");
+        //debugPrint("value?.mjobcatId.isEmpty : ${value?.mjobcatId.isEmpty}");
+        if ((value == null) || (value.mjobcatId.isEmpty)) {
+          //debugPrint("validasi -> error");
+          addError(error: "Field 'Task Category' tidak boleh kosong.");
+          return "";
         }
       },
     );

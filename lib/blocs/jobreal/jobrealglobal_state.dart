@@ -1,10 +1,10 @@
 part of 'jobrealglobal_cubit.dart';
 
-abstract class JobRealGlobalState extends Equatable {
-  /*
+class JobRealGlobalState extends Equatable {
   final ComboJobcatgroupModel selectedJobCatGroup;
 
-  const JobRealGlobalState({required this.selectedJobCatGroup});
+  const JobRealGlobalState(
+      {this.selectedJobCatGroup = const ComboJobcatgroupModel()});
 
   JobRealGlobalState copyWith({ComboJobcatgroupModel? selectedJobCatGroup}) {
     return JobRealGlobalState(
@@ -13,9 +13,9 @@ abstract class JobRealGlobalState extends Equatable {
 
   @override
   List<Object> get props => [selectedJobCatGroup];
-  */
 }
 
+/*
 class InitialState extends JobRealGlobalState {
   @override
   List<Object> get props => [];
@@ -24,11 +24,13 @@ class InitialState extends JobRealGlobalState {
 class LoadedState extends JobRealGlobalState {
   final ComboJobcatgroupModel selectedJobCatGroup;
   LoadedState(this.selectedJobCatGroup);
-  
+
   @override
   List<Object> get props => [selectedJobCatGroup];
 }
+
 class ErrorState extends JobRealGlobalState {
   @override
   List<Object> get props => [];
 }
+*/

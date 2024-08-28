@@ -103,6 +103,7 @@ class JobCrudFormPageFormState extends State<JobCrudFormPage> {
                           labelText: 'Job Category',
                           initItem: fieldComboJobcat,
                           custCatId: fieldComboCustCat?.mcustcatId ?? "",
+                          jobCatGroupId: "",
                           /*
                           custCatId: comboCustCatKey
                                   .currentState?.getSelectedItem?.mcustcatId ??

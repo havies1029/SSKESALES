@@ -1,6 +1,6 @@
+import 'package:esalesapp/blocs/jobreal/jobrealbtnfilter_cubit.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealglobal_cubit.dart';
 import 'package:esalesapp/common/constants.dart';
-import 'package:esalesapp/models/combobox/combojobcatgroup_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -13,15 +13,12 @@ class JobRealCariListWidget extends StatefulWidget {
   final bool readOnly;
   final String personId;
   final String searchText;
-  //final String jobCatGroupId;
-  final ComboJobcatgroupModel selectedJobCatGroup;
   const JobRealCariListWidget(
       {super.key,
       required this.searchText,
       required this.personId,
       required this.readOnly,
-      //required this.jobCatGroupId,
-      required this.selectedJobCatGroup});
+      });
 
   @override
   JobRealCariListWidgetState createState() => JobRealCariListWidgetState();
@@ -31,7 +28,8 @@ class JobRealCariListWidgetState extends State<JobRealCariListWidget> {
   late JobRealCariBloc jobRealCariBloc;
   late JobRealCrudBloc jobRealCrudBloc;
   late JobRealGlobalCubit jobRealGlobalCubit;
-  ComboJobcatgroupModel? selectedJobCatGroup;
+  late JobRealBtnFilterCubit jobRealBtnFilterCubit;
+  //ComboJobcatgroupModel? selectedJobCatGroup;
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -53,16 +51,15 @@ class JobRealCariListWidgetState extends State<JobRealCariListWidget> {
     jobRealCariBloc = BlocProvider.of<JobRealCariBloc>(context);
     jobRealCrudBloc = BlocProvider.of<JobRealCrudBloc>(context);
     jobRealGlobalCubit = BlocProvider.of<JobRealGlobalCubit>(context);
-    selectedJobCatGroup = widget.selectedJobCatGroup;
+    jobRealBtnFilterCubit = BlocProvider.of<JobRealBtnFilterCubit>(context);
+    //selectedJobCatGroup = widget.selectedJobCatGroup;
     return MultiBlocListener(
       listeners: [
         BlocListener<JobRealGlobalCubit, JobRealGlobalState>(
             listenWhen: (previous, current) {
-          return (current is LoadedState);
+          return (previous.selectedJobCatGroup != current.selectedJobCatGroup);
         }, listener: (context, state) {
-          if (state is LoadedState) {
-            selectedJobCatGroup = state.selectedJobCatGroup;
-          }
+          //selectedJobCatGroup = state.selectedJobCatGroup;
         }),
       ],
       child: BlocConsumer<JobRealCariBloc, JobRealCariState>(
@@ -102,9 +99,9 @@ class JobRealCariListWidgetState extends State<JobRealCariListWidget> {
                                           ),
                                     widget.readOnly
                                         ? Container()
-                                        : ((selectedJobCatGroup?.hasIndex ??
-                                                    false) && 
-                                            (state.items[index].jobIdx > 0) &&
+                                        : (jobRealGlobalCubit.state.selectedJobCatGroup.hasIndex &&
+                                                (state.items[index].jobIdx >
+                                                    0) &&
                                                 (state.items[index].totalJob >
                                                     state.items[index].jobIdx))
                                             ? SlidableAction(
@@ -211,10 +208,10 @@ class JobRealCariListWidgetState extends State<JobRealCariListWidget> {
         if (state.requestToRefresh) {
           jobRealCariBloc.add(RefreshJobRealCariEvent(
               personId: widget.personId,
-              jobCatGroupId: selectedJobCatGroup?.mjobcatgroupId??"",
+              jobCatGroupId: jobRealGlobalCubit.state.selectedJobCatGroup.mjobcatgroupId,
               hal: 0,
               searchText: widget.searchText,
-              filterDoc: jobRealCariBloc.state.filterDoc));
+              filterDoc: jobRealBtnFilterCubit.state.filterDoc));
         }
       }),
     );
@@ -226,9 +223,9 @@ class JobRealCariListWidgetState extends State<JobRealCariListWidget> {
         _scrollController.position.maxScrollExtent) {
       jobRealCariBloc.add(FetchJobRealCariEvent(
           searchText: widget.searchText,
-          jobCatGroupId: selectedJobCatGroup?.mjobcatgroupId??"",
+          jobCatGroupId: jobRealGlobalCubit.state.selectedJobCatGroup.mjobcatgroupId,
           hal: jobRealCariBloc.state.hal,
-          filterDoc: jobRealCariBloc.state.filterDoc));
+          filterDoc: jobRealBtnFilterCubit.state.filterDoc));
     }
   }
 
