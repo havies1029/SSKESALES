@@ -21,7 +21,7 @@ class PolisExpCariBloc extends Bloc<PolisExpCariEvents, PolisExpCariState> {
     debugPrint("onRefreshPolisExpCari");
     emit(const PolisExpCariState());
 
-    await Future.delayed(const Duration(seconds: 1));
+    //await Future.delayed(const Duration(seconds: 1));
 
     add(FetchPolisExpCariEvent(
         expgroupId: event.expgroupId,

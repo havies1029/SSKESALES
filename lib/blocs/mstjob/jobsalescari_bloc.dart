@@ -18,7 +18,7 @@ Future<void> onRefreshJobSalesCari(
 		RefreshJobSalesCariEvent event, Emitter<JobSalesCariState> emit) async {
 	emit(const JobSalesCariState());
 
-	await Future.delayed(const Duration(seconds: 1));
+	//await Future.delayed(const Duration(seconds: 1));
 
 	add(FetchJobSalesCariEvent(hal: 0, searchText: event.searchText));
 }

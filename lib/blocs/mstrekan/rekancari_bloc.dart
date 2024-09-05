@@ -24,7 +24,7 @@ class RekanCariBloc extends Bloc<RekanCariEvents, RekanCariState> {
       RefreshRekanCariEvent event, Emitter<RekanCariState> emit) async {
     emit(const RekanCariState());
 
-    await Future.delayed(const Duration(seconds: 1));
+    //await Future.delayed(const Duration(seconds: 1));
 
     add(FetchRekanCariEvent(
         rekanTypeId: event.rekanTypeId, hal: 0, searchText: event.searchText, filterBy: event.filterBy));

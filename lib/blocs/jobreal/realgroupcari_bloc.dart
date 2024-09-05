@@ -18,7 +18,7 @@ Future<void> onRefreshRealGroupCari(
 		RefreshRealGroupCariEvent event, Emitter<RealGroupCariState> emit) async {
 	emit(const RealGroupCariState());
 
-	await Future.delayed(const Duration(seconds: 1));
+	//await Future.delayed(const Duration(seconds: 1));
 
 	add(FetchRealGroupCariEvent(hal: 0, searchText: event.searchText));
 }

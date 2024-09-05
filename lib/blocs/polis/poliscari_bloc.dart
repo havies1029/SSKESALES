@@ -22,7 +22,7 @@ class PolisCariBloc extends Bloc<PolisCariEvents, PolisCariState> {
 			RefreshPolisCariEvent event, Emitter<PolisCariState> emit) async {
 		emit(const PolisCariState());
 
-		await Future.delayed(const Duration(seconds: 1));
+		//await Future.delayed(const Duration(seconds: 1));
 
 		add(FetchPolisCariEvent(hal: 0, searchText: event.searchText));
 	}

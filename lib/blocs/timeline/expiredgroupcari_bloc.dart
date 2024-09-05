@@ -18,7 +18,7 @@ Future<void> onRefreshExpiredGroupCari(
 		RefreshExpiredGroupCariEvent event, Emitter<ExpiredGroupCariState> emit) async {
 	emit(const ExpiredGroupCariState());
 
-	await Future.delayed(const Duration(seconds: 1));
+	//await Future.delayed(const Duration(seconds: 1));
 
 	add(FetchExpiredGroupCariEvent());
 }

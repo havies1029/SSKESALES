@@ -22,7 +22,7 @@ class TitleCariBloc extends Bloc<TitleCariEvents, TitleCariState> {
 			RefreshTitleCariEvent event, Emitter<TitleCariState> emit) async {
 		emit(const TitleCariState());
 
-		await Future.delayed(const Duration(seconds: 1));
+		//await Future.delayed(const Duration(seconds: 1));
 
 		add(FetchTitleCariEvent(hal: 0, searchText: event.searchText));
 	}

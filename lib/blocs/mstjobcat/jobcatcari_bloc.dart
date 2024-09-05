@@ -22,7 +22,7 @@ class JobCatCariBloc extends Bloc<JobCatCariEvents, JobCatCariState> {
 			RefreshJobCatCariEvent event, Emitter<JobCatCariState> emit) async {
 		emit(const JobCatCariState());
 
-		await Future.delayed(const Duration(seconds: 1));
+		//await Future.delayed(const Duration(seconds: 1));
 
 		add(FetchJobCatCariEvent(hal: 0, searchText: event.searchText));
 	}

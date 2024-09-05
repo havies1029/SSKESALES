@@ -22,7 +22,7 @@ class CobCariBloc extends Bloc<CobCariEvents, CobCariState> {
 			RefreshCobCariEvent event, Emitter<CobCariState> emit) async {
 		emit(const CobCariState());
 
-		await Future.delayed(const Duration(seconds: 1));
+		//await Future.delayed(const Duration(seconds: 1));
 
 		add(FetchCobCariEvent(hal: 0, searchText: event.searchText));
 	}

@@ -18,7 +18,7 @@ Future<void> onRefreshRoomCari(
 		RefreshRoomCariEvent event, Emitter<RoomCariState> emit) async {
 	emit(const RoomCariState());
 
-	await Future.delayed(const Duration(seconds: 1));
+	//await Future.delayed(const Duration(seconds: 1));
 
 	add(FetchRoomCariEvent(hal: 0, searchText: event.searchText));
 }

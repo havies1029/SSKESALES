@@ -23,7 +23,7 @@ class OnBoardMenuCariBloc
     OnBoardMenuCariRepository repo = OnBoardMenuCariRepository();
     OnBoardMenuCariModel item = await repo.getOnBoardMenuCari();
     
-    debugPrint("onLoadMenu item : ${item.toJson()}");
+    //debugPrint("onLoadMenu item : ${item.toJson()}");
 
     emit(state.copyWith(item: item, status: ListStatus.success));
   }

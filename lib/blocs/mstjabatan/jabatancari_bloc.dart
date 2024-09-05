@@ -22,7 +22,7 @@ class JabatanCariBloc extends Bloc<JabatanCariEvents, JabatanCariState> {
 			RefreshJabatanCariEvent event, Emitter<JabatanCariState> emit) async {
 		emit(const JabatanCariState());
 
-		await Future.delayed(const Duration(seconds: 1));
+		//await Future.delayed(const Duration(seconds: 1));
 
 		add(FetchJabatanCariEvent(hal: 0, searchText: event.searchText));
 	}

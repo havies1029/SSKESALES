@@ -19,7 +19,7 @@ Future<void> onRefreshClientAssignCari(
 		RefreshClientAssignCariEvent event, Emitter<ClientAssignCariState> emit) async {
 	emit(const ClientAssignCariState());
 
-	await Future.delayed(const Duration(seconds: 1));
+	//await Future.delayed(const Duration(seconds: 1));
 
 	add(FetchClientAssignCariEvent());
 }

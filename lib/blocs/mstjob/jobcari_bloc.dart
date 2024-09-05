@@ -24,7 +24,7 @@ class JobCariBloc extends Bloc<JobCariEvents, JobCariState> {
       RefreshJobCariEvent event, Emitter<JobCariState> emit) async {
     emit(const JobCariState());
     emit(state.copyWith(personId: event.personId));
-    await Future.delayed(const Duration(seconds: 1));
+    //await Future.delayed(const Duration(seconds: 1));
 
     add(FetchJobCariEvent(hal: 0, searchText: event.searchText));
   }

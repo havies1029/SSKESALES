@@ -22,7 +22,7 @@ class StaffCariBloc extends Bloc<StaffCariEvents, StaffCariState> {
 			RefreshStaffCariEvent event, Emitter<StaffCariState> emit) async {
 		emit(const StaffCariState());
 
-		await Future.delayed(const Duration(seconds: 1));
+		//await Future.delayed(const Duration(seconds: 1));
 
 		add(FetchStaffCariEvent(hal: 0, searchText: event.searchText));
 	}

@@ -67,27 +67,7 @@ class _OnBoardPageState extends State<OnBoardPage> {
                           child: const ClientAssignCariMainPage()),
                     ],
                   )));
-            }
-            /*
-            if (state.item?.policyoutstanding ?? false) {
-              listPages.add(PageViewModel(
-                  title: 'Page Two',
-                  bodyWidget: Column(
-                    children: [
-                      const Text("wait.."),
-                      ElevatedButton(
-                          onPressed: () {
-                            //Navigator.of(context).pop();
-                            HomeBloc homeBloc =
-                                BlocProvider.of<HomeBloc>(context);
-                            homeBloc.add(TimelinePolicyExpiredPageActiveEvent());
-                          },
-                          child: const Text('End'))
-                    ],
-                  )));
-            }
-            */
-
+            } else
             if (listPages.isEmpty) {
               BlocProvider.of<HomeBloc>(context)
                   .add(TimelinePolicyExpiredPageActiveEvent());

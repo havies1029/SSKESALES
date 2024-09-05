@@ -82,7 +82,6 @@ Future<void> main() async {
 
 class App extends StatelessWidget {
   final UserRepository userRepository;
-
   const App({required super.key, required this.userRepository});
 
   @override
@@ -106,7 +105,7 @@ class App extends StatelessWidget {
         BlocProvider<NetworkBloc>(
             create: (context) => NetworkBloc()..add(NetworkObserve())),
         BlocProvider(
-          create: (context) => JobRealTabBloc(),          
+          create: (context) => JobRealTabBloc()
         ),        
         BlocProvider(
           create: (context)=>JobRealGlobalCubit()
@@ -193,30 +192,30 @@ class App extends StatelessWidget {
           builder: (context, state) {
             if (state is AuthenticationUninitialized) {
               debugPrint("AuthenticationUninitialized #10");
-
+        
               return const SplashPage();
             }
-
+        
             if (state is AuthenticationAuthenticated) {
               debugPrint("AuthenticationAuthenticated #20");
-
+        
               return HomePage(
                 userRepository: userRepository,
                 userid: 0,
                 key: null,
               );
-
-
+        
+        
               //return const OnBoardPage();
             }
-
+        
             if (state is AuthenticationUnauthenticated) {
               debugPrint("AuthenticationUnauthenticated #30");
               return LoginPage(
                 userRepository: userRepository,
               );
             }
-
+        
             if (AppData.kIsWeb) {
               return LoginPage(
                 userRepository: userRepository,

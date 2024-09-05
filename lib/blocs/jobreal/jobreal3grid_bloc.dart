@@ -52,7 +52,7 @@ class JobReal3GridBloc extends Bloc<JobReal3GridEvents, JobReal3GridState> {
 
     debugPrint("onRefreshJobReal3Grid #10");
 
-    await Future.delayed(const Duration(seconds: 1));
+    //await Future.delayed(const Duration(seconds: 1));
 
     add(FetchJobReal3GridEvent(jobreal1Id: event.jobreal1Id));
   }

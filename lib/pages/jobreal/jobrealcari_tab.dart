@@ -2,12 +2,12 @@ import 'package:esalesapp/blocs/jobreal/jobrealbtnfilter_cubit.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealcari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealglobal_cubit.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealtab_bloc.dart';
+import 'package:esalesapp/common/common.dart';
 import 'package:esalesapp/common/constants.dart';
 import 'package:esalesapp/models/combobox/combojobcatgroup_model.dart';
-import 'package:esalesapp/pages/jobreal/jobrealcari_list.dart';
+import 'package:esalesapp/pages/jobreal/jobrealcari_tab_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:tab_container/tab_container.dart';
 
 class JobRealCariTabPage extends StatefulWidget {
   final bool readOnly;
@@ -19,121 +19,106 @@ class JobRealCariTabPage extends StatefulWidget {
   JobRealCariTabPageState createState() => JobRealCariTabPageState();
 }
 
-class JobRealCariTabPageState extends State<JobRealCariTabPage>
+class JobRealCariTabPageState extends State<JobRealCariTabPage> 
     with SingleTickerProviderStateMixin {
-  late JobRealTabBloc jobRealTabBloc;
-  late TabController tabController;
+  //late JobRealTabBloc jobRealTabBloc;
+  //late TabController tabController;
   late JobRealCariBloc jobRealCariBloc;
   late JobRealGlobalCubit jobRealGlobalCubit;
   late JobRealBtnFilterCubit jobRealBtnFilterCubit;
-  List<Widget> listTab = [];
+  //List<Widget> listTab = [];
   //List<Widget> listChild = <Widget>[];
-  final List<Color> colorCollection = <Color>[];
-  List<ComboJobcatgroupModel> listJobCatGroup = [];
+  //final List<Color> colorCollection = <Color>[];
+  //List<ComboJobcatgroupModel> listJobCatGroup = [];
 
   @override
   void initState() {
+    debugPrint("JobRealCariTabPageState -> initState #10");
+
     super.initState();
 
+    /*
     Future.delayed(const Duration(milliseconds: 500), () {
+      debugPrint("JobRealCariTabPageState -> initState -> Future.delayed");
       refreshData();
     });
+    */
+    
   }
 
   @override
   Widget build(BuildContext context) {
-    jobRealTabBloc = BlocProvider.of<JobRealTabBloc>(context);
+    debugPrint("JobRealCariTabPageState -> build");
+    //jobRealTabBloc = BlocProvider.of<JobRealTabBloc>(context);
     jobRealCariBloc = BlocProvider.of<JobRealCariBloc>(context);
     jobRealGlobalCubit = BlocProvider.of<JobRealGlobalCubit>(context);
     jobRealBtnFilterCubit = BlocProvider.of<JobRealBtnFilterCubit>(context);
 
     return BlocConsumer<JobRealTabBloc, JobRealTabState>(
-      builder: (context, state) {
-        if (state.status == ListStatus.success) {
-          return TabContainer(
-            controller: tabController,
-            tabEdge: TabEdge.bottom,
-            tabsStart: 0.1,
-            tabsEnd: 0.9,
-            tabMaxLength: 100,
-            borderRadius: BorderRadius.circular(10),
-            tabBorderRadius: BorderRadius.circular(10),
-            childPadding: const EdgeInsets.only(
-                bottom: 7.0, top: 1.0, left: 2.0, right: 2.0),
-            selectedTextStyle: const TextStyle(
-              color: Colors.white,
-              fontSize: 15.0,
-            ),
-            unselectedTextStyle: const TextStyle(
-              color: Colors.black,
-              fontSize: 13.0,
-            ),
-            colors: colorCollection,
-            tabs: listTab,
-            //children: listChild,
-            child: JobRealCariPage(
-              personId: widget.personId,
-              readOnly: widget.readOnly,
-              //jobCatGroupId:listJobCatGroup[tabController.index].mjobcatgroupId,
-              selectedJobCatGroup: listJobCatGroup[0],
-            ),
-          );
-        } else {
-          return const Center(
-            child: Text(
-              'No Data Available!!',
-              style: TextStyle(
-                  color: Colors.red,
-                  fontSize: 12.0,
-                  fontWeight: FontWeight.bold),
-            ),
-          );
+        listener: (context, state) {
+      if (state.status == ListStatus.success) {
+        debugPrint("JobRealTabState #10 => listeners ${state.status}");
+        //listChild = [];
+        //listJobCatGroupId = [];
+
+        /*
+        state.items.asMap().forEach((idx, item) {
+          debugPrint("item.groupNama : ${item.groupNama}");
+          debugPrint("item.hasIndex : ${item.hasIndex}");
+          debugPrint("idx : $idx");
+          //listJobCatGroupId[idx] = item.mjobcatgroupId;
+          listJobCatGroup.add(item);
+          listTab.add(Text(item.groupNama));
+          colorCollection.add(getTabColor(item.urutan));
+        });
+        */
+
+        //tabController = TabController(vsync: this, length: state.items.length);
+
+        /*
+        tabController.addListener(() {
+          //debugPrint("Tab Change ${tabController.index}");
+          selectedTabEvent(listJobCatGroup[tabController.index]);
+          //debugPrint("listJobCatGroup[tabController.index].hasIndex : ${listJobCatGroup[tabController.index].hasIndex}");
+        });
+        */
+
+        /*
+        if (state.listJobCatGroup!.isNotEmpty) {
+          debugPrint("listJobCatGroup.isNotEmpty xx");
+          selectedTabEvent(state.listJobCatGroup![0]);
         }
-      },
-      buildWhen: (previous, current) {
-        return (current.status == ListStatus.success);
-      },
-      listener: (context, state) {
-        if (state.status == ListStatus.success) {
-          //listChild = [];
-          //listJobCatGroupId = [];
+        */
+        
+      }
+    }, builder: (context, state) {
+      if (state.status == ListStatus.success) {
+        TabController tabController =
+            TabController(vsync: this, length: state.items.length);
+        tabController.addListener(() {
+          //debugPrint("Tab Change ${tabController.index}");
+          selectedTabEvent(state.listJobCatGroup![tabController.index]);
+          //debugPrint("listJobCatGroup[tabController.index].hasIndex : ${listJobCatGroup[tabController.index].hasIndex}");
+        });
 
-          state.items.asMap().forEach((idx, item) {
-            debugPrint("item.groupNama : ${item.groupNama}");
-            debugPrint("item.hasIndex : ${item.hasIndex}");
-            debugPrint("idx : $idx");
-            //listJobCatGroupId[idx] = item.mjobcatgroupId;
-            listJobCatGroup.add(item);
-            listTab.add(Text(item.groupNama));
-            colorCollection.add(getTabColor(item.urutan));
-            /*
-            listChild.add(JobRealCariPage(
-              personId: widget.personId,
-              readOnly: widget.readOnly,
-              //jobCatGroupId: item.mjobcatgroupId, 
-              selectedJobCatGroup: null,
-            ));
-            */
-          });
-
-          tabController =
-              TabController(vsync: this, length: state.items.length);
-
-          tabController.addListener(() {
-            //debugPrint("Tab Change ${tabController.index}");
-            selectedTabEvent(listJobCatGroup[tabController.index]);
-            //debugPrint("listJobCatGroup[tabController.index].hasIndex : ${listJobCatGroup[tabController.index].hasIndex}");
-          });
-          if (listJobCatGroup.isNotEmpty) {
-            //debugPrint("listJobCatGroup.isNotEmpty : ${listJobCatGroup.isNotEmpty}");
-            selectedTabEvent(listJobCatGroup[0]);
-          }
-        }
-      },
-    );
+        return JobRealCariTabWidget(
+            tabController: tabController,
+            readOnly: widget.readOnly,
+            personId: widget.personId,
+            listTab: state.listTab!,
+            listJobCatGroup: state.listJobCatGroup!,
+            colorCollection: state.colorCollection!);
+      } else {
+        return const Center(
+          child: LoadingIndicator(),
+        );
+      }
+    });
   }
 
   void selectedTabEvent(ComboJobcatgroupModel selectedTab) {
+    debugPrint("selectedTabEvent #10");
+
     jobRealGlobalCubit.setSelectedJobCatGroup(selectedTab);
 
     debugPrint(
@@ -142,16 +127,20 @@ class JobRealCariTabPageState extends State<JobRealCariTabPage>
     jobRealCariBloc.add(RefreshJobRealCariEvent(
         hal: 0,
         searchText: "",
-        filterDoc:  jobRealBtnFilterCubit.state.filterDoc,
+        filterDoc: jobRealBtnFilterCubit.state.filterDoc,
         personId: widget.personId,
         jobCatGroupId: selectedTab.mjobcatgroupId));
   }
 
-  void refreshData() {
-    //debugPrint("JobRealCariTabPage -> refreshData");
+  /*
+  Future<void> refreshData() async {
+    debugPrint("JobRealCariTabPage -> refreshData");
     jobRealTabBloc.add(RefreshJobRealTabEvent(personId: widget.personId));
   }
+  */
+  
 
+  /*
   Color getTabColor(int urutan) {
     Color color;
 
@@ -192,4 +181,5 @@ class JobRealCariTabPageState extends State<JobRealCariTabPage>
 
     return color;
   }
+  */
 }

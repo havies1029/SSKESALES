@@ -22,7 +22,7 @@ class MediaCariBloc extends Bloc<MediaCariEvents, MediaCariState> {
 			RefreshMediaCariEvent event, Emitter<MediaCariState> emit) async {
 		emit(const MediaCariState());
 
-		await Future.delayed(const Duration(seconds: 1));
+		//await Future.delayed(const Duration(seconds: 1));
 
 		add(FetchMediaCariEvent(hal: 0, searchText: event.searchText));
 	}

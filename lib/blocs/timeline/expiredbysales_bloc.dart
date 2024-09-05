@@ -19,7 +19,7 @@ Future<void> onRefreshExpiredBySales(
 		RefreshExpiredBySalesEvent event, Emitter<ExpiredBySalesState> emit) async {
 	emit(const ExpiredBySalesState());
 
-	await Future.delayed(const Duration(seconds: 1));
+	//await Future.delayed(const Duration(seconds: 1));
 
 	add(FetchExpiredBySalesEvent(expgroupId: event.expgroupId));
 }
