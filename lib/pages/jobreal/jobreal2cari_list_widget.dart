@@ -1,4 +1,3 @@
-import 'package:esalesapp/blocs/jobreal/jobreal2grid_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealcrud_bloc.dart';
 import 'package:esalesapp/common/constants.dart';
 import 'package:flutter/material.dart';

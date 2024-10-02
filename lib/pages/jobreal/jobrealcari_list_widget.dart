@@ -1,6 +1,9 @@
 import 'package:esalesapp/blocs/jobreal/jobrealbtnfilter_cubit.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealglobal_cubit.dart';
 import 'package:esalesapp/common/constants.dart';
+import 'package:esalesapp/pages/jobreal/jobtimelinenonsppa_main.dart';
+import 'package:esalesapp/pages/jobreal/sppacari_list_main.dart';
+import 'package:esalesapp/pages/polis/poliscari_main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -13,12 +16,12 @@ class JobRealCariListWidget extends StatefulWidget {
   final bool readOnly;
   final String personId;
   final String searchText;
-  const JobRealCariListWidget(
-      {super.key,
-      required this.searchText,
-      required this.personId,
-      required this.readOnly,
-      });
+  const JobRealCariListWidget({
+    super.key,
+    required this.searchText,
+    required this.personId,
+    required this.readOnly,
+  });
 
   @override
   JobRealCariListWidgetState createState() => JobRealCariListWidgetState();
@@ -29,7 +32,6 @@ class JobRealCariListWidgetState extends State<JobRealCariListWidget> {
   late JobRealCrudBloc jobRealCrudBloc;
   late JobRealGlobalCubit jobRealGlobalCubit;
   late JobRealBtnFilterCubit jobRealBtnFilterCubit;
-  //ComboJobcatgroupModel? selectedJobCatGroup;
   final ScrollController _scrollController = ScrollController();
 
   @override
@@ -81,6 +83,8 @@ class JobRealCariListWidgetState extends State<JobRealCariListWidget> {
                               borderRadius: BorderRadius.circular(15.0)),
                           child: Slidable(
                               startActionPane: ActionPane(
+                                  extentRatio: 0.8,
+                                  //openThreshold: 0.8,
                                   motion: const BehindMotion(),
                                   children: [
                                     widget.readOnly
@@ -99,7 +103,10 @@ class JobRealCariListWidgetState extends State<JobRealCariListWidget> {
                                           ),
                                     widget.readOnly
                                         ? Container()
-                                        : (jobRealGlobalCubit.state.selectedJobCatGroup.hasIndex &&
+                                        : (jobRealGlobalCubit
+                                                    .state
+                                                    .selectedJobCatGroup
+                                                    .hasIndex &&
                                                 (state.items[index].jobIdx >
                                                     0) &&
                                                 (state.items[index].totalJob >
@@ -116,7 +123,26 @@ class JobRealCariListWidgetState extends State<JobRealCariListWidget> {
                                                 icon: Icons.next_plan,
                                                 label: "Next",
                                               )
-                                            : Container()
+                                            : Container(),
+                                    SlidableAction(
+                                      onPressed: (context) {
+                                        state.items[index].jobCatDocTypeId == "sppa" ?
+                                        showDialogPickSPPA(
+                                            context,
+                                            state.items[index].jobreal1Id,
+                                            jobRealGlobalCubit.state
+                                                .selectedJobCatGroup.groupNama,
+                                            state.items[index].customerNama) :
+                                        showDialogJobCatTimeline(context, 
+                                          state.items[index].jobreal1Id, 
+                                          jobRealGlobalCubit.state
+                                                .selectedJobCatGroup.groupNama,
+                                          state.items[index].customerNama);
+                                      },
+                                      backgroundColor: Colors.yellow,
+                                      icon: Icons.copy,
+                                      label: "Timeline",
+                                    ),
                                   ]),
                               endActionPane: (state.items[index].isConfirmed ||
                                       widget.readOnly)
@@ -208,7 +234,8 @@ class JobRealCariListWidgetState extends State<JobRealCariListWidget> {
         if (state.requestToRefresh) {
           jobRealCariBloc.add(RefreshJobRealCariEvent(
               personId: widget.personId,
-              jobCatGroupId: jobRealGlobalCubit.state.selectedJobCatGroup.mjobcatgroupId,
+              jobCatGroupId:
+                  jobRealGlobalCubit.state.selectedJobCatGroup.mjobcatgroupId,
               hal: 0,
               searchText: widget.searchText,
               filterDoc: jobRealBtnFilterCubit.state.filterDoc));
@@ -223,7 +250,8 @@ class JobRealCariListWidgetState extends State<JobRealCariListWidget> {
         _scrollController.position.maxScrollExtent) {
       jobRealCariBloc.add(FetchJobRealCariEvent(
           searchText: widget.searchText,
-          jobCatGroupId: jobRealGlobalCubit.state.selectedJobCatGroup.mjobcatgroupId,
+          jobCatGroupId:
+              jobRealGlobalCubit.state.selectedJobCatGroup.mjobcatgroupId,
           hal: jobRealCariBloc.state.hal,
           filterDoc: jobRealBtnFilterCubit.state.filterDoc));
     }
@@ -243,5 +271,27 @@ class JobRealCariListWidgetState extends State<JobRealCariListWidget> {
         }).then((value) {
       jobRealCariBloc.add(CloseDialogJobRealCariEvent());
     });
+  }
+
+  void showDialogPickSPPA(BuildContext context, String jobRealId,
+      String titlePage, String custName) {
+    FocusScope.of(context).requestFocus(FocusNode());
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) {        
+        return SppaCariListMainPage(jobRealId: jobRealId, titlePage: titlePage, custName: custName);
+      }),
+    );
+  }
+
+  void showDialogJobCatTimeline(BuildContext context, String jobRealId,
+      String titlePage, String custName) {
+    FocusScope.of(context).requestFocus(FocusNode());
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) {        
+        return JobTimelineNonSppaMainPage(jobRealId: jobRealId, titlePage: titlePage, custName: custName);
+      }),
+    );
   }
 }

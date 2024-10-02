@@ -5,7 +5,6 @@ import 'package:esalesapp/blocs/jobreal/jobreal3grid_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealbtnfilter_cubit.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealfoto_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealglobal_cubit.dart';
-import 'package:esalesapp/common/app_data.dart';
 import 'package:esalesapp/models/combobox/combojobcatgroup_model.dart';
 import 'package:esalesapp/pages/jobreal/jobrealbtnfilter_widget.dart';
 import 'package:esalesapp/pages/jobreal/jobrealcrud_main.dart';

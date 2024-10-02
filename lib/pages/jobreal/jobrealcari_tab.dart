@@ -20,7 +20,7 @@ class JobRealCariTabPage extends StatefulWidget {
 }
 
 class JobRealCariTabPageState extends State<JobRealCariTabPage> 
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   //late JobRealTabBloc jobRealTabBloc;
   //late TabController tabController;
   late JobRealCariBloc jobRealCariBloc;

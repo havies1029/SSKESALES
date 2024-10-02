@@ -9,6 +9,8 @@ import 'package:esalesapp/blocs/jobreal/jobrealcrud_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealfoto_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealglobal_cubit.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealtab_bloc.dart';
+import 'package:esalesapp/blocs/jobreal/jobtimeline_bloc.dart';
+import 'package:esalesapp/blocs/jobreal/sppa4timelinecari_bloc.dart';
 import 'package:esalesapp/blocs/login/change_password_bloc.dart';
 import 'package:esalesapp/blocs/mstcob/cobcari_bloc.dart';
 import 'package:esalesapp/blocs/mstcob/cobcrud_bloc.dart';
@@ -125,13 +127,16 @@ class App extends StatelessWidget {
         BlocProvider<JobRealFotoBloc>(
             create: (context) =>
                 JobRealFotoBloc(repository: JobRealFotoRepository())),
+        BlocProvider<Sppa4TimelineCariBloc>(create: (context) => Sppa4TimelineCariBloc()),
+        BlocProvider<JobtimelineBloc>(create: (context) => JobtimelineBloc()),
         BlocProvider<JobRealCrudBloc>(
             create: (context) => JobRealCrudBloc(
                 repository: JobRealCrudRepository(),
                 jobReal2CariBloc: context.read<JobReal2CariBloc>(),
                 jobReal3CariBloc: context.read<JobReal3CariBloc>(),
                 jobRealFotoBloc: context.read<JobRealFotoBloc>(),
-                jobReal2GridBloc: context.read<JobReal2GridBloc>())),
+                jobReal2GridBloc: context.read<JobReal2GridBloc>())),      
+        BlocProvider<JobReal2CariBloc>(create: (context) => JobReal2CariBloc()),
         BlocProvider<MediaCariBloc>(create: (context) => MediaCariBloc()),
         BlocProvider<MediaCrudBloc>(
             create: (context) =>

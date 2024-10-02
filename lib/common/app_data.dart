@@ -14,13 +14,10 @@ class AppData {
   static var uriHtpp = useSSL ? Uri.https : Uri.http;
   static String version = "1.0.2";
 
-
-/*
   static bool useSSL = false;
   static String apiDomain = "http://10.0.2.2/eSalesAPI/";
   static String prefixEndPoint = "/eSalesAPI";
   static String httpAuthority = "10.0.2.2";
-*/
 
 /*
 static bool useSSL = false;
@@ -29,13 +26,13 @@ static String prefixEndPoint = "/esalesapi";
 static String httpAuthority = "216.172.109.8";
 */
 
-
+/*
   static bool useSSL = false;
   static String apiDomain =
       "http${useSSL ? "s" : ""}://eplannerdevapi.smartsoft-id.com/";
   static String prefixEndPoint = "";
   static String httpAuthority = "eplannerdevapi.smartsoft-id.com";
-
+*/
 
   /*
   static bool useSSL = true;

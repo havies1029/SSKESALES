@@ -97,3 +97,13 @@ class JobRealMove2NextFlowEvent extends JobRealCariEvents {
   List<Object> get props => [recordId];
 }
 
+/*
+class ShowSppaTimelinePageEvent extends JobRealCariEvents {
+  final String recordId;
+
+  const ShowSppaTimelinePageEvent({required this.recordId});
+
+  @override
+  List<Object> get props => [recordId];
+}
+*/
