@@ -163,9 +163,9 @@ class JobReal2CariListWidgetState extends State<JobReal2CariListWidget> {
       },
       listener: (context, state) {
         if (state.requestToUpdate) {
-          //debugPrint("state.requestToUpdate : ${state.requestToUpdate}");
+          debugPrint("state.requestToUpdate : ${state.requestToUpdate}");
           var viewMode = context.read<JobRealCrudBloc>().state.viewMode;
-          //debugPrint("viewMode : $viewMode");
+          debugPrint("JobReal2CariListWidget -> viewMode : $viewMode");
           if (viewMode == "ubah") {
             jobReal2CariBloc
                 .add(Update2ApiJobReal2Event(jobreal1Id: widget.jobReal1Id));

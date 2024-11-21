@@ -19,10 +19,12 @@ class JobRealCrudPreOpenEvent extends JobRealCrudEvents {
 
 class JobRealCrudTambahEvent extends JobRealCrudEvents {
   final JobRealCrudModel record;
-  const JobRealCrudTambahEvent({required this.record});
+  final List<JobReal2CariModel> selectedSppa;
+
+  const JobRealCrudTambahEvent({required this.record, required this.selectedSppa});
 
   @override
-  List<Object> get props => [record];
+  List<Object> get props => [record, selectedSppa];
 }
 
 class JobRealCrudUbahEvent extends JobRealCrudEvents {
@@ -104,5 +106,5 @@ class UndoComboCustomerJobRealCrudChangedEvent extends JobRealCrudEvents {
   const UndoComboCustomerJobRealCrudChangedEvent({this.comboCustomer});
 }
 
-
-class FinishedUndoComboCustomerJobRealCrudChangedEvent extends JobRealCrudEvents {}
+class FinishedUndoComboCustomerJobRealCrudChangedEvent
+    extends JobRealCrudEvents {}

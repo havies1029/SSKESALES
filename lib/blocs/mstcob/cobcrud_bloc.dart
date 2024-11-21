@@ -22,9 +22,12 @@ class CobCrudBloc extends Bloc<CobCrudEvents, CobCrudState> {
 
 		ReturnDataAPI returnData;
 		bool hasFailure = true;
+
 		emit(state.copyWith(isSaving: true, isSaved: false));
+    
 		returnData = await repository.cobCrudTambah(event.record);
 		hasFailure = !returnData.success;
+
 		emit(state.copyWith(
 			isSaving: false,
 			isSaved: true,

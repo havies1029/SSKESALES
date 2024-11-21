@@ -25,6 +25,8 @@ class SppaCariPageState extends State<SppaCariPage> {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("SppaCariPageState -> build #10");
+
     sppaCariBloc = BlocProvider.of<Sppa4TimelineCariBloc>(context);
     return Center(
       child: Column(
@@ -39,9 +41,10 @@ class SppaCariPageState extends State<SppaCariPage> {
     );
   }
 
-  void refreshData() {
-    sppaCariBloc
-        .add(RefreshSppaCariEvent(jobRealId: widget.jobRealId, searchText: _searchController.text));
+  void refreshData() {    
+    debugPrint("SppaCariPageState -> refreshData #10");
+    sppaCariBloc.add(RefreshSppaCariEvent(
+        jobRealId: widget.jobRealId, searchText: _searchController.text));
   }
 
   IconButton buildSearchButton() {
@@ -51,8 +54,8 @@ class SppaCariPageState extends State<SppaCariPage> {
           size: 35.0,
         ),
         onPressed: () {
-          sppaCariBloc.add(
-              RefreshSppaCariEvent(jobRealId: widget.jobRealId, searchText: _searchController.text));
+          sppaCariBloc.add(RefreshSppaCariEvent(
+              jobRealId: widget.jobRealId, searchText: _searchController.text));
         });
   }
 
@@ -61,7 +64,8 @@ class SppaCariPageState extends State<SppaCariPage> {
         child: Column(
       mainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
-        SppaCariListWidget(jobRealId: widget.jobRealId, searchText: _searchController.text)
+        SppaCariListWidget(
+            jobRealId: widget.jobRealId, searchText: _searchController.text)
       ],
     ));
   }

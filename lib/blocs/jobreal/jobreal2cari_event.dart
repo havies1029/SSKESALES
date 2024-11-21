@@ -81,3 +81,13 @@ class InitialSelectedSPPAJobReal2Event extends JobReal2CariEvents {
   @override
   List<Object> get props => [selectedSPPA];
 }
+
+class ReplaceSelectedSppaJobReal2CariEvent extends JobReal2CariEvents {
+  final List<JobReal2CariModel> selectedSPPA;
+
+  const ReplaceSelectedSppaJobReal2CariEvent(
+      {required this.selectedSPPA});
+
+  @override
+  List<Object> get props => [selectedSPPA];
+}

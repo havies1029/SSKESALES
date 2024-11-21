@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal2cari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal2grid_bloc.dart';
@@ -9,6 +11,7 @@ import 'package:esalesapp/common/app_data.dart';
 import 'package:esalesapp/common/loading_indicator.dart';
 import 'package:esalesapp/models/combobox/combocustomer_model.dart';
 import 'package:esalesapp/models/combobox/comboinsurer_model.dart';
+import 'package:esalesapp/models/jobreal/jobreal2cari_model.dart';
 import 'package:esalesapp/pages/jobreal/jobreal2cari_main.dart';
 import 'package:esalesapp/pages/jobreal/jobreal2grid_list_widget.dart';
 import 'package:esalesapp/pages/jobreal/jobreal3cari_main.dart';
@@ -98,14 +101,13 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
   }
 
   @override
-  Widget build(BuildContext context) {    
+  Widget build(BuildContext context) {
     debugPrint("JobRealCrudFormPageFormState #10");
 
     jobRealCrudBloc = BlocProvider.of<JobRealCrudBloc>(context);
     jobReal2GridBloc = BlocProvider.of<JobReal2GridBloc>(context);
     jobReal3GridBloc = BlocProvider.of<JobReal3GridBloc>(context);
-    
-    
+
     debugPrint("JobRealCrudFormPageFormState #15");
 
     jobRealCariBloc = BlocProvider.of<JobRealCariBloc>(context);
@@ -340,7 +342,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
 
   void onSaveForm(bool isRequestConfirm, JobRealCrudState state,
       {bool dismissDialog = true}) {
-    //debugPrint("onSaveForm #10");
+    debugPrint("onSaveForm #10");
     removeErrValidation();
     if (validateForm(isRequestConfirm, state) == 0) {
       if (_formKey.currentState!.validate()) {
@@ -367,8 +369,15 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
 
           //debugPrint("fieldComboJobcat?.mjobcatId : ${fieldComboJobcat?.mjobcatId}");
 
+          //debugPrint("widget.viewMode #103 : ${widget.viewMode}");
           if (widget.viewMode == "tambah") {
-            jobRealCrudBloc.add(JobRealCrudTambahEvent(record: record));
+            List<JobReal2CariModel> listSelectedPolis =
+                jobReal2GridBloc.state.items;
+            
+            //debugPrint("listSelectedPolis :${jsonEncode(listSelectedPolis)}");
+
+            jobRealCrudBloc.add(JobRealCrudTambahEvent(record: record, selectedSppa: listSelectedPolis));
+
           } else if (widget.viewMode == "ubah") {
             //debugPrint("onSaveForm #30");
             record.jobreal1Id = jobRealCrudBloc.state.record!.jobreal1Id;
@@ -378,7 +387,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
             _dismissDialog();
           }
         }
-      } 
+      }
     }
   }
 
@@ -752,7 +761,8 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       labelText: 'Task Category',
       initItem: fieldComboJobcat,
       custCatId: fieldComboCustomer?.custCatId ?? "",
-      jobCatGroupId: jobRealGlobalCubit.state.selectedJobCatGroup.mjobcatgroupId,
+      jobCatGroupId:
+          jobRealGlobalCubit.state.selectedJobCatGroup.mjobcatgroupId,
       onChangedCallback: (value) {
         if (value != null) {
           removeError(error: "Field 'Task Category' tidak boleh kosong.");

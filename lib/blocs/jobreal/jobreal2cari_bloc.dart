@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:equatable/equatable.dart';
 import 'package:esalesapp/models/responseAPI/returndataapi_model.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +13,7 @@ part 'jobreal2cari_state.dart';
 
 class JobReal2CariBloc extends Bloc<JobReal2CariEvents, JobReal2CariState> {
   JobReal2CariBloc() : super(const JobReal2CariState()) {
+    
     on<FetchJobReal2CariEvent>(onFetchJobReal2Cari);
     on<RefreshJobReal2CariEvent>(onRefreshJobReal2Cari);
     on<Update2ApiJobReal2Event>(onUpdate2ApiJobReal2);
@@ -23,6 +22,8 @@ class JobReal2CariBloc extends Bloc<JobReal2CariEvents, JobReal2CariState> {
     on<ResetStateJobReal2CariEvent>(onResetState);
     on<InitialSelectedSPPAJobReal2Event>(onInitialSelectedSPPA);
     on<ResetStateJobReal2ForLoadDataPurposeCariEvent>(onResetState4LoadData);
+    on<ReplaceSelectedSppaJobReal2CariEvent>(
+        onReplaceSelectedSppaJobReal2CariEvent);
   }
 
   Future<void> onResetState(ResetStateJobReal2CariEvent event,
@@ -85,10 +86,13 @@ class JobReal2CariBloc extends Bloc<JobReal2CariEvents, JobReal2CariState> {
       items = await updateSelectedItem2List(state.selectedItems, items);
 
       return emit(state.copyWith(
-          items: items, hasReachedMax: false, status: ListStatus.success, hal: 1));
+          items: items,
+          hasReachedMax: false,
+          status: ListStatus.success,
+          hal: 1));
     }
     List<JobReal2CariModel> items = await repo.getJobReal2Cari(
-        event.custId, event.jobreal1Id, event.searchText, state.hal );
+        event.custId, event.jobreal1Id, event.searchText, state.hal);
     if (items.isEmpty) {
       return emit(state.copyWith(hasReachedMax: true));
     } else {
@@ -108,8 +112,10 @@ class JobReal2CariBloc extends Bloc<JobReal2CariEvents, JobReal2CariState> {
       result = await updateSelectedItem2List(state.selectedItems, result);
 
       return emit(state.copyWith(
-          items: result, hasReachedMax: false, 
-          status: ListStatus.success, hal: state.hal + 1));
+          items: result,
+          hasReachedMax: false,
+          status: ListStatus.success,
+          hal: state.hal + 1));
     }
   }
 
@@ -125,11 +131,13 @@ class JobReal2CariBloc extends Bloc<JobReal2CariEvents, JobReal2CariState> {
     bool hasFailure = false;
 
     if (event.jobreal1Id.isNotEmpty) {
-      /*
       debugPrint("onUpdate2ApiJobReal2 #20");
+
+      /*
       debugPrint(
-        "state.selectedItems before save : ${jsonEncode(state.selectedItems)}");
+          "state.selectedItems before save : ${jsonEncode(state.selectedItems)}");
       */
+
       List<JobReal2CariModel> jobReal2List = state.selectedItems;
       List<JobReal2CariCheckboxModel> listCheckbox =
           List<JobReal2CariCheckboxModel>.generate(
@@ -139,11 +147,11 @@ class JobReal2CariBloc extends Bloc<JobReal2CariEvents, JobReal2CariState> {
                   isChecked: jobReal2List[index].isChecked));
 
       listCheckbox.removeWhere((element) => !element.isChecked);
-      
+
       //debugPrint("listCheckbox : ${jsonEncode(listCheckbox)}");
 
       if (listCheckbox.isNotEmpty) {
-        //debugPrint("onUpdate2ApiJobReal2 #30");
+        debugPrint("onUpdate2ApiJobReal2 #30");
         JobReal2CariRepository repo = JobReal2CariRepository();
         ReturnDataAPI returnApi =
             await repo.jobReal2UpdateList(event.jobreal1Id, listCheckbox);
@@ -161,14 +169,13 @@ class JobReal2CariBloc extends Bloc<JobReal2CariEvents, JobReal2CariState> {
     emit(state.copyWith(requestToUpdate: false));
     emit(state.copyWith(requestToUpdate: true));
     //debugPrint("onRequestToUpdate requestToUpdate : ${state.requestToUpdate}");
-    
   }
 
   Future<void> onUpdateCheckboxChanged(UpdateCheckboxJobReal2Event event,
       Emitter<JobReal2CariState> emit) async {
-    //debugPrint("onUpdateCheckboxChanged");
+    debugPrint("onUpdateCheckboxChanged");
 
-    //debugPrint("onUpdateCheckboxChanged #10");
+    debugPrint("onUpdateCheckboxChanged #10");
 
     JobReal2CariModel itemCheckbox = event.jobReal2Item;
     itemCheckbox.isChecked = event.isChecked;
@@ -180,9 +187,13 @@ class JobReal2CariBloc extends Bloc<JobReal2CariEvents, JobReal2CariState> {
     items[items.indexWhere(
         (element) => element.polis1Id == itemCheckbox.polis1Id)] = itemCheckbox;
 
-    //debugPrint("onUpdateCheckboxChanged #30");
+    debugPrint("onUpdateCheckboxChanged #30");
 
-    //debugPrint("state.selectedItems before add : ${jsonEncode(state.selectedItems)}");
+    /*
+    debugPrint(
+        "state.selectedItems before add : ${jsonEncode(state.selectedItems)}");
+    */
+
     List<JobReal2CariModel> checked = [itemCheckbox];
 
     //debugPrint("onUpdateCheckboxChanged #40");
@@ -196,12 +207,9 @@ class JobReal2CariBloc extends Bloc<JobReal2CariEvents, JobReal2CariState> {
 
     emit(state.copyWith(selectedItems: selectedItems));
 
-    /*
-    debugPrint("onUpdateCheckboxChanged #60");
+    //debugPrint("onUpdateCheckboxChanged #60");
 
-    debugPrint(
-        "state.selectedItems after add : ${jsonEncode(state.selectedItems)}");
-    */
+    //debugPrint("state.selectedItems after add : ${jsonEncode(state.selectedItems)}");
 
     emit(state.copyWith(items: items, status: ListStatus.success));
   }
@@ -270,7 +278,7 @@ class JobReal2CariBloc extends Bloc<JobReal2CariEvents, JobReal2CariState> {
       Emitter<JobReal2CariState> emit) async {
     debugPrint("initialSelectedSPPA");
 
-    debugPrint("event.selectedSPPA : ${jsonEncode(event.selectedSPPA)}");
+    //debugPrint("event.selectedSPPA : ${jsonEncode(event.selectedSPPA)}");
     //set item as checked
     for (int i = 0; i < event.selectedSPPA.length; i++) {
       event.selectedSPPA[i].isChecked = true;
@@ -278,6 +286,14 @@ class JobReal2CariBloc extends Bloc<JobReal2CariEvents, JobReal2CariState> {
 
     emit(state.copyWith(selectedItems: event.selectedSPPA));
 
-    debugPrint("state.selectedItems after initialing : ${jsonEncode(state.selectedItems)}");
+    //debugPrint("state.selectedItems after initialing : ${jsonEncode(state.selectedItems)}");
+  }
+
+  Future<void> onReplaceSelectedSppaJobReal2CariEvent(
+      ReplaceSelectedSppaJobReal2CariEvent event,
+      Emitter<JobReal2CariState> emit) async {
+    debugPrint("onReplaceSelectedSppaJobReal2CariEvent");
+
+    emit(state.copyWith(selectedItems: event.selectedSPPA));
   }
 }

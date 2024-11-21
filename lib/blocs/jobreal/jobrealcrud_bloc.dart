@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal2cari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal2grid_bloc.dart';
@@ -6,6 +8,7 @@ import 'package:esalesapp/blocs/jobreal/jobrealfoto_bloc.dart';
 import 'package:esalesapp/common/app_data.dart';
 import 'package:esalesapp/models/combobox/combocustomer_model.dart';
 import 'package:esalesapp/models/combobox/comboinsurer_model.dart';
+import 'package:esalesapp/models/jobreal/jobreal2cari_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:esalesapp/models/responseAPI/returndataapi_model.dart';
@@ -46,7 +49,7 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
     on<Request2RefreshJobRealCrudEvent>(onRequest2Refresh);
     on<UndoComboCustomerJobRealCrudChangedEvent>(onUndoComboCustomerChanged);
     on<FinishedUndoComboCustomerJobRealCrudChangedEvent>(
-        onFinishedUndoComboCustomerChanged);
+        onFinishedUndoComboCustomerChanged);    
   }
 
   Future<void> onPreOpen(
@@ -73,7 +76,7 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
 
   Future<void> onTambahJobRealCrud(
       JobRealCrudTambahEvent event, Emitter<JobRealCrudState> emit) async {
-    debugPrint("onTambahJobRealCrud #10");
+    //debugPrint("onTambahJobRealCrud #10");
 
     ReturnDataAPI returnData;
     bool hasFailure = true;
@@ -82,8 +85,16 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
     hasFailure = !returnData.success;
 
     if (!hasFailure) {
-      debugPrint("onTambahJobRealCrud #20");
+      //debugPrint("onTambahJobRealCrud #20");
       String jobReal1Id = returnData.data;
+
+      jobReal2CariBloc.add(ReplaceSelectedSppaJobReal2CariEvent(
+          selectedSPPA: event.selectedSppa));
+
+      /*
+      debugPrint(
+          "jobReal2CariBloc.state.selectedItems #101 : ${jsonEncode(jobReal2CariBloc.state.selectedItems)}");
+      */
       jobReal2CariBloc.add(Update2ApiJobReal2Event(jobreal1Id: jobReal1Id));
       jobReal3CariBloc.add(Update2ApiJobReal3Event(jobreal1Id: jobReal1Id));
 
@@ -193,8 +204,8 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
     String rekanType = comboCustomer.rekanType;
     bool requireComboInsurer = false;
 
-    debugPrint("AppData.userCabang : ${AppData.userCabang}");
-    debugPrint("comboCustomer.rekanType : ${comboCustomer.rekanType}");
+    //debugPrint("AppData.userCabang : ${AppData.userCabang}");
+    //debugPrint("comboCustomer.rekanType : ${comboCustomer.rekanType}");
 
     if (AppData.userCabang == "teknik") {
       if (rekanType == "customer") {
@@ -233,7 +244,7 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
 
   Future<void> onFinishedUndoComboCustomerChanged(
       FinishedUndoComboCustomerJobRealCrudChangedEvent event,
-      Emitter<JobRealCrudState> emit) async {    
+      Emitter<JobRealCrudState> emit) async {
     debugPrint("onFinishedUndoComboCustomerChanged");
     emit(state.copyWith(forceChangeComboCustomer: false));
   }

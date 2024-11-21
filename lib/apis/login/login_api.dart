@@ -17,7 +17,8 @@ Future<User> validateUserLogin(UserLogin userLogin) async {
 
   debugPrint("validateUserLogin #10");
 
-  //debugPrint(_tokenURL);
+  debugPrint(_tokenURL);
+  debugPrint(jsonEncode(userinfo.toJson()));
 
   try {
     await http.post(Uri.parse(_tokenURL),
@@ -44,9 +45,7 @@ Future<User> validateUserLogin(UserLogin userLogin) async {
 
   //debugPrint("validateUserLogin #12");
 
-  //debugPrint(jsonEncode(userinfo.toJson()));
-
-  //debugPrint("response.statusCode : ${response.statusCode}");
+  debugPrint("response.statusCode : ${response.statusCode}");
 
   //debugPrint("validateUserLogin #20");
 

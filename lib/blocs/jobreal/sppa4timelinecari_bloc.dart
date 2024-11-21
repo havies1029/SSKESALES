@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:esalesapp/widgets/list_extension.dart';
 import 'package:esalesapp/models/jobreal/sppacari_model.dart';
@@ -18,21 +19,21 @@ class Sppa4TimelineCariBloc extends Bloc<SppaCariEvents, SppaCariState> {
     emit(const SppaCariState());
 
     emit(state.copyWith(
-      jobRealId: event.jobRealId,
-      searchText: event.searchText,
-      hal: 0
-    ));
+        jobRealId: event.jobRealId, searchText: event.searchText, hal: 0));
 
     add(const FetchSppaCariEvent());
   }
 
   Future<void> onFetchSppaCari(
       FetchSppaCariEvent event, Emitter<SppaCariState> emit) async {
+    debugPrint("onFetchSppaCari #10");
+
     if (state.hasReachedMax) return;
 
     SppaCariRepository repo = SppaCariRepository();
     if (state.status == ListStatus.initial) {
-      List<SppaCariModel> items = await repo.getSppaCari(state.jobRealId, state.searchText, state.hal);
+      List<SppaCariModel> items =
+          await repo.getSppaCari(state.jobRealId, state.searchText, state.hal);
       return emit(state.copyWith(
           items: items,
           hasReachedMax: false,
