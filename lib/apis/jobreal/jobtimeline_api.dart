@@ -15,7 +15,7 @@ class JobtimelineAPI {
       "polisId": polisId,
       "hal": hal.toString()
     };
-    var uri = Uri.http(AppData.httpAuthority, urlGetListEndPoint, queryParams);
+    var uri = AppData.uriHtpp(AppData.httpAuthority, urlGetListEndPoint, queryParams);
     final http.Response response =
         await http.get(uri, headers: <String, String>{
       'Content-Type': 'application/json; odata=verbos',
@@ -49,7 +49,7 @@ class JobtimelineAPI {
     debugPrint("AppData.userToken : ${AppData.userToken}");  
     debugPrint("urlGetListEndPoint : $urlGetListEndPoint");   
 
-    var uri = Uri.http(AppData.httpAuthority, urlGetListEndPoint, queryParams);
+    var uri = AppData.uriHtpp(AppData.httpAuthority, urlGetListEndPoint, queryParams);
     final http.Response response =
         await http.get(uri, headers: <String, String>{
       'Content-Type': 'application/json; odata=verbos',
