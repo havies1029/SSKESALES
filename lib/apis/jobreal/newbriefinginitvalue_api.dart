@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:esalesapp/common/app_data.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:esalesapp/models/jobreal/newbriefinginitvalue_model.dart';
 
@@ -17,7 +16,7 @@ class NewbriefinginitvalueAPI {
       "jobCatId": jobCatId
     };
 
-    var uri = Uri.http(AppData.httpAuthority, urlGetListEndPoint, queryParams);
+    var uri = AppData.uriHtpp(AppData.httpAuthority, urlGetListEndPoint, queryParams);
     final http.Response response =
         await http.get(uri, headers: <String, String>{
       'Content-Type': 'application/json; odata=verbos',

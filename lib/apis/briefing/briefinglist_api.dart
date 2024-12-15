@@ -11,7 +11,7 @@ class BriefinglistAPI {
     String urlGetListEndPoint =
         "${AppData.prefixEndPoint}/api/briefing/briefinglist/getlist";
 
-    var uri = Uri.http(AppData.httpAuthority, urlGetListEndPoint);
+    var uri = AppData.uriHtpp(AppData.httpAuthority, urlGetListEndPoint);
 
     final http.Response response =
         await http.get(uri, headers: <String, String>{
@@ -36,7 +36,7 @@ class BriefinglistAPI {
       String urlGetEndPoint =
           "${AppData.prefixEndPoint}/api/briefing/checkhaspassedbriefing";
 
-      var uri = Uri.http(AppData.httpAuthority, urlGetEndPoint);
+      var uri = AppData.uriHtpp(AppData.httpAuthority, urlGetEndPoint);
 
       final http.Response response =
           await http.get(uri, headers: <String, String>{
