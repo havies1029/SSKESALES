@@ -9,6 +9,7 @@ import 'package:esalesapp/common/app_data.dart';
 import 'package:esalesapp/models/combobox/combocustomer_model.dart';
 import 'package:esalesapp/models/combobox/comboinsurer_model.dart';
 import 'package:esalesapp/models/jobreal/jobreal2cari_model.dart';
+import 'package:esalesapp/models/jobreal/newbriefinginitvalue_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:esalesapp/models/responseAPI/returndataapi_model.dart';
@@ -49,12 +50,37 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
     on<Request2RefreshJobRealCrudEvent>(onRequest2Refresh);
     on<UndoComboCustomerJobRealCrudChangedEvent>(onUndoComboCustomerChanged);
     on<FinishedUndoComboCustomerJobRealCrudChangedEvent>(
-        onFinishedUndoComboCustomerChanged);    
+        onFinishedUndoComboCustomerChanged);
+    on<GetInitValueNewBriefingHarianModeEvent>(
+        onGetInitValueNewBriefingHarianMode);
   }
 
   Future<void> onPreOpen(
       JobRealCrudPreOpenEvent event, Emitter<JobRealCrudState> emit) async {
     emit(state.copyWith(viewMode: event.viewmode));
+  }
+
+  Future<void> onGetInitValueNewBriefingHarianMode(
+      GetInitValueNewBriefingHarianModeEvent event,
+      Emitter<JobRealCrudState> emit) async {
+    emit(state.copyWith(isLoading: true, isLoaded: false));
+
+    NewBriefingInitValueModel initValue = await repository
+        .jobRealGetNewBriefingInitValue(event.jobId, event.jobCatId);
+
+    JobRealCrudModel record = JobRealCrudModel(
+        picName: initValue.pic,
+        taskDesc: initValue.taskDesc,
+        materi: initValue.perihal);
+
+    emit(state.copyWith(
+        comboCustomer: initValue.comboCustomer,
+        comboJob: initValue.comboJob,
+        comboJobCat: initValue.comboJobcat,
+        comboMedia: initValue.comboMedia,
+        isLoaded: true,
+        isLoading: false,
+        record: record));
   }
 
   Future<void> onResetState(
@@ -138,6 +164,7 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
   Future<void> onLihatJobRealCrud(
       JobRealCrudLihatEvent event, Emitter<JobRealCrudState> emit) async {
     emit(state.copyWith(isLoading: true, isLoaded: false));
+
     JobRealCrudModel record = await repository.jobRealCrudLihat(event.recordId);
 
     ComboJobcatModel? comboJobcat = record.comboJobcat;

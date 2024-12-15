@@ -13,18 +13,25 @@ class OnBoardMenuCariBloc
     extends Bloc<OnBoardMenuCariEvents, OnBoardMenuCariState> {
   OnBoardMenuCariBloc() : super(const OnBoardMenuCariState()) {
     on<LoadOnBoardMenuCariEvent>(onLoadMenu);
+    on<SetHasPassedBriefingPageEvent>(onSetHasPassBriefing);
   }
 
   Future<void> onLoadMenu(LoadOnBoardMenuCariEvent event,
       Emitter<OnBoardMenuCariState> emit) async {
-
     debugPrint("onLoadMenu #10");
+    
+    emit(state.copyWith(status: ListStatus.initial));
 
     OnBoardMenuCariRepository repo = OnBoardMenuCariRepository();
     OnBoardMenuCariModel item = await repo.getOnBoardMenuCari();
-    
-    //debugPrint("onLoadMenu item : ${item.toJson()}");
+
+    debugPrint("onLoadMenu item : ${item.toJson()}");
 
     emit(state.copyWith(item: item, status: ListStatus.success));
+  }
+
+  Future<void> onSetHasPassBriefing(SetHasPassedBriefingPageEvent event,
+      Emitter<OnBoardMenuCariState> emit) async {
+    emit(state.copyWith(hasPassedBriefing: event.hasPassedBriefing));
   }
 }

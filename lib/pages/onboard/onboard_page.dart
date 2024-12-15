@@ -7,17 +7,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
-class OnBoardPage extends StatefulWidget {
+class OnBoardPage extends StatefulWidget {  
   const OnBoardPage({super.key});
 
   @override
   State<OnBoardPage> createState() => _OnBoardPageState();
 }
 
-class _OnBoardPageState extends State<OnBoardPage> {
+class _OnBoardPageState extends State<OnBoardPage> {  
   final _introKey = GlobalKey<IntroductionScreenState>();
   List<PageViewModel> listPages = [];
   late OnBoardMenuCariBloc onboardMenuCariBloc;
+  late HomeBloc homeBloc;
   late double maxWidth;
   late double maxHeight;
 
@@ -25,18 +26,22 @@ class _OnBoardPageState extends State<OnBoardPage> {
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 500), () {
+      //debugPrint("_OnBoardPageState initState #01");
       loadMenu();
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    //debugPrint("_OnBoardPageState build #01");
     onboardMenuCariBloc = BlocProvider.of<OnBoardMenuCariBloc>(context);
+    homeBloc = BlocProvider.of<HomeBloc>(context);
     return LayoutBuilder(builder: (context, constraints) {
       maxWidth = constraints.maxWidth;
       maxHeight = constraints.maxHeight;
       return BlocConsumer<OnBoardMenuCariBloc, OnBoardMenuCariState>(
         builder: (context, state) {
+          //debugPrint("listPages.isNotEmpty : ${listPages.isNotEmpty}");
           return listPages.isNotEmpty
               ? IntroductionScreen(
                   key: _introKey,
@@ -46,17 +51,22 @@ class _OnBoardPageState extends State<OnBoardPage> {
                   onDone: () {
                     BlocProvider.of<HomeBloc>(context)
                         .add(TimelinePolicyExpiredPageActiveEvent());
+
+                    //const ExpiredPolisBasePage();
                   },
                   done: const Text("Done"),
                 )
               : const Center(child: LoadingIndicator());
         },
         buildWhen: (previous, current) {
+          //debugPrint("_OnBoardPageState buildWhen #10");
           return (current.status == ListStatus.success);
         },
         listener: (BuildContext context, OnBoardMenuCariState state) {
           if (state.status == ListStatus.success) {
+            //debugPrint("_OnBoardPageState listener #10");
             if (state.item?.clientassignment ?? false) {
+              //debugPrint("_OnBoardPageState listener #20");
               listPages.add(PageViewModel(
                   //title: 'Client Assignment',
                   titleWidget: buildTitleWidget(context, "Client Assignment"),
@@ -67,8 +77,30 @@ class _OnBoardPageState extends State<OnBoardPage> {
                           child: const ClientAssignCariMainPage()),
                     ],
                   )));
-            } else
+            }
+            if (state.item?.briefing ?? false) {
+              //debugPrint("_OnBoardPageState listener #30");
+              //debugPrint("state.item?.briefing ?? false : ${state.item?.briefing ?? false}");
+              onboardMenuCariBloc.add(const SetHasPassedBriefingPageEvent(
+                  hasPassedBriefing: false));
+            }
+            /*
+            if (state.item?.briefing ?? false) {
+              listPages.add(PageViewModel(
+                  //title: 'Briefing',
+                  titleWidget: buildTitleWidget(context, "Briefing"),
+                  bodyWidget: Column(
+                    children: [
+                      SizedBox(
+                          height: maxHeight,
+                          child: const BriefingListMainPage()),
+                    ],
+                  )));
+            } 
+            */
+
             if (listPages.isEmpty) {
+              //debugPrint("_OnBoardPageState listener #40");
               BlocProvider.of<HomeBloc>(context)
                   .add(TimelinePolicyExpiredPageActiveEvent());
             }
@@ -151,5 +183,4 @@ class _OnBoardPageState extends State<OnBoardPage> {
                   fontFamily: 'Hind'),
             )));
   }
-  
 }

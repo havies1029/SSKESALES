@@ -1,11 +1,14 @@
 import 'dart:convert';
 
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:esalesapp/blocs/briefing/briefinginfo_bloc.dart';
+import 'package:esalesapp/blocs/briefing/briefinglist_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal2cari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal2grid_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal3cari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal3grid_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealcari_bloc.dart';
+import 'package:esalesapp/blocs/jobreal/jobrealfoto_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealglobal_cubit.dart';
 import 'package:esalesapp/common/app_data.dart';
 import 'package:esalesapp/common/loading_indicator.dart';
@@ -39,9 +42,13 @@ import 'package:date_field/date_field.dart';
 class JobRealCrudFormPage extends StatefulWidget {
   final String viewMode;
   final String recordId;
+  final bool isBriefingHarianMode;
 
   const JobRealCrudFormPage(
-      {super.key, required this.viewMode, required this.recordId});
+      {super.key,
+      required this.viewMode,
+      required this.recordId,
+      required this.isBriefingHarianMode});
 
   @override
   JobRealCrudFormPageFormState createState() => JobRealCrudFormPageFormState();
@@ -53,6 +60,10 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
   late JobReal3GridBloc jobReal3GridBloc;
   late JobRealGlobalCubit jobRealGlobalCubit;
   late JobRealCariBloc jobRealCariBloc;
+  late BriefingInfoBloc briefingInfoBloc;
+  late JobRealFotoBloc jobRealFotoBloc;
+  late JobReal2CariBloc jobReal2CariBloc;
+  late JobReal3CariBloc jobReal3CariBloc;
   final _formKey = GlobalKey<FormState>();
   final List<String> errors = [];
   var fieldHasilController = TextEditingController();
@@ -102,21 +113,24 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
 
   @override
   Widget build(BuildContext context) {
-    debugPrint("JobRealCrudFormPageFormState #10");
+    //debugPrint("JobRealCrudFormPageFormState #10");
 
     jobRealCrudBloc = BlocProvider.of<JobRealCrudBloc>(context);
     jobReal2GridBloc = BlocProvider.of<JobReal2GridBloc>(context);
     jobReal3GridBloc = BlocProvider.of<JobReal3GridBloc>(context);
+    jobRealFotoBloc = BlocProvider.of<JobRealFotoBloc>(context);
+    jobReal2CariBloc = BlocProvider.of<JobReal2CariBloc>(context);
+    jobReal3CariBloc = BlocProvider.of<JobReal3CariBloc>(context);
 
-    debugPrint("JobRealCrudFormPageFormState #15");
+    //debugPrint("JobRealCrudFormPageFormState #15");
 
     jobRealCariBloc = BlocProvider.of<JobRealCariBloc>(context);
 
-    debugPrint("JobRealCrudFormPageFormState #20");
+    //debugPrint("JobRealCrudFormPageFormState #20");
 
     jobRealGlobalCubit = BlocProvider.of<JobRealGlobalCubit>(context);
 
-    debugPrint("JobRealCrudFormPageFormState #30");
+    //debugPrint("JobRealCrudFormPageFormState #30");
     return MultiBlocListener(
       listeners: [
         BlocListener<JobReal3CariBloc, JobReal3CariState>(
@@ -136,7 +150,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       ],
       child: BlocConsumer<JobRealCrudBloc, JobRealCrudState>(
         builder: (context, state) {
-          debugPrint("BlocConsumer -> state.isLoaded : ${state.isLoaded}");
+          //debugPrint("BlocConsumer -> state.isLoaded : ${state.isLoaded}");
           return (state.isLoaded || widget.viewMode == "tambah")
               ? SingleChildScrollView(
                   child: Padding(
@@ -223,7 +237,18 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
               } else if (fieldComboJobcat?.mjobcatdoctypeId == "cob") {
                 loadGridCob(state.record?.jobreal1Id ?? "");
               }
+            } else if (widget.isBriefingHarianMode) {
+              //debugPrint("widget.isBriefingHarianMode");
+              //debugPrint("state.record?.picName : ${state.record?.picName}");
+              fieldPicNameController.text = state.record?.picName ?? "";
+              fieldTaskDescController.text = state.record?.taskDesc ?? "";
+              fieldMateriController.text = state.record?.materi ?? "";
             }
+
+            /*
+            debugPrint(
+                "widget.isBriefingHarianMode : ${widget.isBriefingHarianMode}");
+            */
 
             //debugPrint("listener -> fieldComboCustomer?.rekanNama : ${fieldComboCustomer?.rekanNama}");
 
@@ -256,9 +281,19 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
   }
 
   void loadData() {
-    debugPrint("JobRealCrudFormPage -> loadData #10");
+    //debugPrint("JobRealCrudFormPage -> loadData #10");
+    
     if (widget.viewMode != "tambah") {
       jobRealCrudBloc.add(JobRealCrudLihatEvent(recordId: widget.recordId));
+    } else if (widget.isBriefingHarianMode) {
+      briefingInfoBloc = BlocProvider.of<BriefingInfoBloc>(context);
+      BriefingInfoState briefingState = briefingInfoBloc.state;
+
+      debugPrint("briefingState.selectedItem : ${jsonEncode(briefingState.selectedItem)}");
+
+      jobRealCrudBloc.add(GetInitValueNewBriefingHarianModeEvent(
+          jobId: briefingState.selectedItem?.jobId ?? "",
+          jobCatId: briefingState.selectedItem?.jobCatId ?? ""));
     }
   }
 
@@ -335,6 +370,37 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
           addError(error: "Field Insurer tidak boleh kosong.");
         }
       }
+
+      //cek foto
+      debugPrint("Check foto for a validation");
+      bool hasPhoto = false;
+      if (state.record!.hasFoto) {
+        debugPrint("state.record!.hasFoto : ${state.record!.hasFoto}");
+        hasPhoto = true;
+      }
+
+      if (!hasPhoto) {
+        JobRealFotoState fotoState = jobRealFotoBloc.state;
+        if (fotoState.fotoBytes?.isNotEmpty ?? false) {
+          debugPrint(
+              "fotoState.fotoBytes?.isNotEmpty : ${fotoState.fotoBytes?.isNotEmpty}");
+          hasPhoto = true;
+        }
+
+        if (!hasPhoto) {
+          if (fotoState.fotoPath.isNotEmpty) {
+            debugPrint(
+                "fotoState.fotoPath.isNotEmpty :${fotoState.fotoPath.isNotEmpty}");
+            debugPrint("fotoState.fotoPath :${fotoState.fotoPath}");
+            hasPhoto = true;
+          }
+        }
+      }
+
+      if (!hasPhoto) {
+        errorCount++;
+        addError(error: "Dokumentasi foto tidak boleh kosong.");
+      }
     }
 
     return errorCount;
@@ -373,11 +439,11 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
           if (widget.viewMode == "tambah") {
             List<JobReal2CariModel> listSelectedPolis =
                 jobReal2GridBloc.state.items;
-            
+
             //debugPrint("listSelectedPolis :${jsonEncode(listSelectedPolis)}");
 
-            jobRealCrudBloc.add(JobRealCrudTambahEvent(record: record, selectedSppa: listSelectedPolis));
-
+            jobRealCrudBloc.add(JobRealCrudTambahEvent(
+                record: record, selectedSppa: listSelectedPolis));
           } else if (widget.viewMode == "ubah") {
             //debugPrint("onSaveForm #30");
             record.jobreal1Id = jobRealCrudBloc.state.record!.jobreal1Id;
@@ -792,7 +858,8 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
 
   Widget cmdBuildFieldComboJob(JobRealCrudState state) {
     return Visibility(
-      visible: state.comboJobCat?.mjobcatdoctypeId != "others",
+      //visible: state.comboJobCat?.mjobcatdoctypeId != "others",
+      visible: true,
       child: buildFieldComboJob(
         enabled: widget.viewMode != "lihat",
         comboKey: comboJobKey,
@@ -1114,4 +1181,17 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       ),
     );
   }
+
+/*
+  void resetFormState() {
+    debugPrint("resetFormState #10");
+
+    jobRealCrudBloc.add(JobRealCrudResetStateEvent());
+    jobReal2CariBloc.add(ResetStateJobReal2CariEvent());
+    jobReal3CariBloc.add(ResetStateJobReal3CariEvent());
+    jobRealFotoBloc.add(ResetStateJobRealFotoEvent());
+    jobReal2GridBloc.add(ResetStateJobReal2ListEvent());
+    jobReal3GridBloc.add(ResetStateJobReal3ListEvent());
+  }
+  */
 }

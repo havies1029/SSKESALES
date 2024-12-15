@@ -24,4 +24,3 @@ class SelectedJobRealTabEvent extends JobRealTabEvents {
 	@override
 	List<Object> get props => [jobCatGroupId];
 }
-

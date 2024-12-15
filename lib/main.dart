@@ -1,3 +1,5 @@
+import 'package:esalesapp/blocs/briefing/briefinginfo_bloc.dart';
+import 'package:esalesapp/blocs/briefing/briefinglist_bloc.dart';
 import 'package:esalesapp/blocs/calendar/eventrenewalcari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal2cari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal2grid_bloc.dart';
@@ -32,6 +34,7 @@ import 'package:esalesapp/blocs/mststaff/staffcari_bloc.dart';
 import 'package:esalesapp/blocs/mststaff/staffcrud_bloc.dart';
 import 'package:esalesapp/blocs/msttitle/titlecari_bloc.dart';
 import 'package:esalesapp/blocs/msttitle/titlecrud_bloc.dart';
+import 'package:esalesapp/blocs/onboardmenu/onboardmenucari_bloc.dart';
 import 'package:esalesapp/blocs/polis/poliscari_bloc.dart';
 import 'package:esalesapp/blocs/polis/poliscrud_bloc.dart';
 import 'package:esalesapp/common/app_data.dart';
@@ -181,6 +184,14 @@ class App extends StatelessWidget {
         BlocProvider<JobGroupCrudBloc>(
             create: (context) =>
                 JobGroupCrudBloc(repository: JobGroupCrudRepository())),
+        BlocProvider<BriefinglistBloc>(
+            create: (context) => BriefinglistBloc()),
+        BlocProvider<OnBoardMenuCariBloc>(
+            create: (context) => OnBoardMenuCariBloc()),
+        BlocProvider<BriefingInfoBloc>(
+            create: (context) => BriefingInfoBloc()),
+        BlocProvider<BriefinglistBloc>(
+            create: (context) => BriefinglistBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

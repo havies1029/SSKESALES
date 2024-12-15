@@ -1,4 +1,6 @@
 import 'package:esalesapp/common/app_data.dart';
+import 'package:esalesapp/pages/briefing/briefinglist_list.dart';
+import 'package:esalesapp/pages/briefing/briefinglist_main.dart';
 import 'package:esalesapp/pages/chatting/roomcari_list.dart';
 import 'package:esalesapp/pages/groupchat/groupchat_page.dart';
 import 'package:esalesapp/pages/home/home_page.dart';
@@ -38,14 +40,16 @@ class PageContainerWithUserRepository extends PageContainerBase {
       required this.pageType});
 
   @override
-  Widget get menuDrawer => const AppMenu();
+  Widget get menuDrawer {   
+    return const AppMenu();    
+  }
 
   @override
   String get pageTitle {
     //debugPrint("PageContainerWithUserRepository -> pageTitle");
     switch (pageType) {
       case PageType.profile:
-        return "Profile";      
+        return "Profile";
       default:
         return "Login Page";
     }
@@ -62,13 +66,13 @@ class PageContainerWithUserRepository extends PageContainerBase {
           userRepository: userRepository,
           key: null,
         );
-        break;      
+        break;
       case PageType.profile:
         page = ProfileMainPage(
           userid: userid,
           userRepository: userRepository,
         );
-        break;      
+        break;
       default:
         page = null;
     }
@@ -95,13 +99,16 @@ class PageContainer extends PageContainerBase {
   const PageContainer({super.key, required this.pageType, this.recId});
 
   @override
-  Widget get menuDrawer => const AppMenu();
+  Widget get menuDrawer {
+    return const AppMenu();
+    
+  }
 
   @override
   String get pageTitle {
     switch (pageType) {
       case PageType.profile:
-        return "Profile";      
+        return "Profile";
       case PageType.roomchat:
         return "Chat Support";
       case PageType.action:
@@ -129,7 +136,7 @@ class PageContainer extends PageContainerBase {
       case PageType.cob:
         return "Class of Business";
       case PageType.calendar:
-        return "Calendar Policy Exp";      
+        return "Calendar Policy Exp";
       case PageType.timeline:
         return "Timeline Policy Exp";
       case PageType.jobgroup:
@@ -140,6 +147,8 @@ class PageContainer extends PageContainerBase {
         return "Subordinate Tasks";
       case PageType.realgroup:
         return "Subordinate Finished Tasks";
+      case PageType.briefing:
+        return "Briefing";
       default:
         return "Login Page";
     }
@@ -150,28 +159,28 @@ class PageContainer extends PageContainerBase {
     Widget? page;
 
     switch (pageType) {
-      
       case PageType.groupchat:
         page = const ChatPage(roomId: "support");
         break;
       case PageType.roomchat:
         page = const RoomCariPage();
-        break;      
+        break;
       case PageType.action:
         page = JobRealCariMainPage(personId: AppData.personId, readOnly: false);
-        break;      
+        break;
       case PageType.media:
         page = const MediaCariMainPage();
-        break;      
+        break;
       case PageType.jobcat:
         page = const JobCatCariMainPage();
-        break;      
+        break;
       case PageType.job:
-        page = JobCariMainPage(personId: AppData.personId, personName: AppData.personName);
-        break;      
+        page = JobCariMainPage(
+            personId: AppData.personId, personName: AppData.personName);
+        break;
       case PageType.customer:
         page = const RekanCariMainPage(rekanTypeId: "00010");
-        break;      
+        break;
       case PageType.insurer:
         page = const RekanCariMainPage(rekanTypeId: "00030");
         break;
@@ -211,6 +220,9 @@ class PageContainer extends PageContainerBase {
       case PageType.realgroup:
         page = const RealGroupCariMainPage();
         break;
+      case PageType.briefing:
+        page = const BriefingListMainPage();
+        break;
       default:
         page = null;
     }
@@ -229,5 +241,3 @@ class PageContainer extends PageContainerBase {
   @override
   PageType? get parentModal => null;
 }
-
-

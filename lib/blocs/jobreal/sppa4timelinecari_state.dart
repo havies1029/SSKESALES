@@ -1,7 +1,5 @@
 part of 'sppa4timelinecari_bloc.dart';
 
-enum ListStatus { initial, success, failure }
-
 class SppaCariState extends Equatable {
   final String jobRealId;
   final String searchText;

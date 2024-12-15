@@ -12,4 +12,9 @@ class ComboJobcatgroupRepository {
 		ComboJobcatgroupAPI api = ComboJobcatgroupAPI();
 		return await api.getComboJobcatgroupByPersonIdAPI(personId);
 	}
+
+  Future<ComboJobcatgroupModel> getComboJobcatgroupOtherAPI() async {
+		ComboJobcatgroupAPI api = ComboJobcatgroupAPI();
+		return await api.getComboJobcatgroupOtherAPI();
+	}
 }

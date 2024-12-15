@@ -224,12 +224,14 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
           displayMessage += "fotoPath : ${state.fotoPath}";
         }
         */
-        if (displayMessage.isNotEmpty) {
+        /*
+        if (displayMessage.isNotEmpty) {          
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
             content: Text(displayMessage),
             backgroundColor: Colors.orange,
-          ));
+          ));        
         }
+        */
       },
       buildWhen: (before, current) {
         //debugPrint("current.isUploaded : ${current.isUploaded}");
@@ -339,18 +341,22 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
       var viewMode = jobRealCrudBloc.state.viewMode;
       if (viewMode == "tambah") {
         //debugPrint("saveFotoCamera -> viewMode : $viewMode");
+        /*
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content:
               Text("saveFotoCamera -> Save2StateFotoLocalPathJobRealEvent"),
           backgroundColor: Colors.orange,
         ));
+        */
         jobRealFotoBloc.add(Save2StateFotoLocalPathJobRealEvent(
             filePath: filePath, imageSource: imageSource));
       } else if (viewMode == "ubah") {
+        /*
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content: Text("saveFotoCamera -> UploadFotoJobRealEvent"),
           backgroundColor: Colors.orange,
         ));
+        */
         jobRealFotoBloc.add(UploadFotoJobRealEvent(
             jobReal1Id: widget.jobReal1Id,
             filePath: filePath,

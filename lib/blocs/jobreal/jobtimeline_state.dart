@@ -1,7 +1,5 @@
 part of 'jobtimeline_bloc.dart';
 
-enum ListStatus { initial, success, failure }
-
 class JobtimelineState extends Equatable {
   final ListStatus status;
   final List<JobtimelineModel> items;

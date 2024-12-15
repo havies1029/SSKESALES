@@ -45,7 +45,7 @@ class JobRealCrudState extends Equatable {
       ComboCustomerModel? comboCustomer,
       ComboInsurerModel? comboInsurer,
       bool? requireComboInsurer,
-      bool? forceChangeComboCustomer}) {
+      bool? forceChangeComboCustomer,}) {
     return JobRealCrudState(
         record: record ?? this.record,
         isLoading: isLoading ?? this.isLoading,
@@ -60,7 +60,8 @@ class JobRealCrudState extends Equatable {
         comboCustomer: comboCustomer ?? this.comboCustomer,
         comboInsurer: comboInsurer ?? this.comboInsurer,
         requireComboInsurer: requireComboInsurer ?? this.requireComboInsurer,
-        forceChangeComboCustomer: forceChangeComboCustomer ?? this.forceChangeComboCustomer);
+        forceChangeComboCustomer:
+            forceChangeComboCustomer ?? this.forceChangeComboCustomer);
   }
 
   @override
@@ -72,6 +73,6 @@ class JobRealCrudState extends Equatable {
         hasFailure,
         viewMode,
         requireComboInsurer,
-        forceChangeComboCustomer
+        forceChangeComboCustomer,
       ];
 }

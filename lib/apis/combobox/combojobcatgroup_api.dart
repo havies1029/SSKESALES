@@ -30,7 +30,8 @@ class ComboJobcatgroupAPI {
     }
   }
 
-  Future<List<ComboJobcatgroupModel>> getComboJobcatgroupByPersonIdAPI(String personId) async {
+  Future<List<ComboJobcatgroupModel>> getComboJobcatgroupByPersonIdAPI(
+      String personId) async {
     debugPrint("getComboJobcatgroupByPersonIdAPI");
 
     Map<String, String> queryParams = {
@@ -40,7 +41,8 @@ class ComboJobcatgroupAPI {
     String urlGetComboEndPoint =
         "${AppData.prefixEndPoint}/api/mjobcatgroupcombobox/getlist/bypersonid";
 
-    var uri = AppData.uriHtpp(AppData.httpAuthority, urlGetComboEndPoint, queryParams);
+    var uri = AppData.uriHtpp(
+        AppData.httpAuthority, urlGetComboEndPoint, queryParams);
     final http.Response response =
         await http.get(uri, headers: <String, String>{
       'Content-Type': 'application/json; odata=verbos',
@@ -54,6 +56,31 @@ class ComboJobcatgroupAPI {
           .map<ComboJobcatgroupModel>(
               (json) => ComboJobcatgroupModel.fromJson(json))
           .toList();
+    } else {
+      throw Exception("Failed to load data");
+    }
+  }
+
+  Future<ComboJobcatgroupModel> getComboJobcatgroupOtherAPI() async {
+    debugPrint("getComboJobcatgroupOtherAPI");
+
+    String urlGetComboEndPoint =
+        "${AppData.prefixEndPoint}/api/mjobcatgroupcombobox/getmjobcatgroupother";
+
+    var uri = AppData.uriHtpp(AppData.httpAuthority, urlGetComboEndPoint);
+    final http.Response response =
+        await http.get(uri, headers: <String, String>{
+      'Content-Type': 'application/json; odata=verbos',
+      'Accept': 'application/json; odata=verbos',
+      'Authorization': 'Bearer ${AppData.userToken}'
+    });
+
+    debugPrint("urlGetComboEndPoint : $urlGetComboEndPoint");
+    debugPrint("response.statusCode : ${response.statusCode}");
+    debugPrint("response.body : ${response.body}");
+
+    if (response.statusCode == 200) {
+      return ComboJobcatgroupModel.fromJson(jsonDecode(response.body));
     } else {
       throw Exception("Failed to load data");
     }

@@ -46,8 +46,8 @@ class JobtimelineAPI {
     };
 
 
-    debugPrint("AppData.userToken : ${AppData.userToken}");  
-    debugPrint("urlGetListEndPoint : $urlGetListEndPoint");   
+    //debugPrint("AppData.userToken : ${AppData.userToken}");  
+    //debugPrint("urlGetListEndPoint : $urlGetListEndPoint");   
 
     var uri = Uri.http(AppData.httpAuthority, urlGetListEndPoint, queryParams);
     final http.Response response =

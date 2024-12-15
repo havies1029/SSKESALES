@@ -165,13 +165,14 @@ class JobRealCariPageState extends State<JobRealCariPage> {
       context,
       MaterialPageRoute(builder: (context) {
         jobRealCrudBloc.add(JobRealCrudPreOpenEvent(viewmode: viewMode));
-        return JobRealCrudMainPage(viewMode: viewMode, recordId: recordId);
+        return JobRealCrudMainPage(viewMode: viewMode, recordId: recordId, isBriefingHarianMode: false);
       }),
     ).then((value) {
       return jobRealCariBloc.add(CloseDialogJobRealCariEvent());
     });
   }
 
+  
   void resetFormState(BuildContext context) {
     debugPrint("JobRealCariPage -> resetFormState #10");
 
@@ -188,6 +189,6 @@ class JobRealCariPageState extends State<JobRealCariPage> {
         .add(ResetStateJobReal2ListEvent());
     BlocProvider.of<JobReal3GridBloc>(context)
         .add(ResetStateJobReal3ListEvent());
-  }
+  }  
   
 }

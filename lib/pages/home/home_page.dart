@@ -134,6 +134,9 @@ class _HomePageState extends State<HomePage> {
             } else if (state is RealGroupPageActive) {
               debugPrint("RealGroupPageActive");
               return const PageContainer(pageType: PageType.realgroup);
+            } else if (state is BriefingPageActive) {
+              debugPrint("BriefingPageActive");
+              return const PageContainer(pageType: PageType.briefing);
             } else if (state is ProfilePageActive) {
               return PageContainerWithUserRepository(
                 pageType: PageType.profile,

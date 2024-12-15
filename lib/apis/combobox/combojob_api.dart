@@ -9,6 +9,8 @@ class ComboJobAPI {
     String urlGetComboEndPoint =
         "${AppData.prefixEndPoint}/api/mjobcombobox/getlist";
 
+    debugPrint("ComboJobAPI");
+    
     Map<String, String> queryParams = {"mjobcatId": mjobcatId};
 
     var uri = AppData.uriHtpp(
@@ -20,6 +22,7 @@ class ComboJobAPI {
       'Authorization': 'Bearer ${AppData.userToken}'
     });
 
+    debugPrint("urlGetComboEndPoint : $urlGetComboEndPoint");
     debugPrint("mjobcatId : $mjobcatId");
     debugPrint("response.statusCode : ${response.statusCode}");
     debugPrint("response.body : ${response.body}");

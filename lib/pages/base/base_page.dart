@@ -2,6 +2,7 @@
  * Copyright 2018 Eric Windmill. All rights reserved.
  * Use of this source code is governed by the MIT license that can be found in the LICENSE file.
  */
+import 'package:esalesapp/blocs/onboardmenu/onboardmenucari_bloc.dart';
 import 'package:esalesapp/widgets/mobiledesign_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -31,53 +32,46 @@ enum PageType {
   changepswd,
   jobsales,
   realgroup,
-  timeline
+  timeline,
+  briefing
 }
 
-abstract class PageContainerBase extends StatelessWidget {
+abstract class PageContainerBase extends StatefulWidget {
   Widget get body;
-
   String get pageTitle;
-
   Widget? get menuDrawer;
-
   Widget get background;
-
   Color get backgroundColor;
-
   PageType? get parentModal;
 
   const PageContainerBase({required super.key});
 
   @override
+  PageContainerBaseState createState() => PageContainerBaseState();
+}
+
+class PageContainerBaseState extends State<PageContainerBase> {  
+  late OnBoardMenuCariBloc onBoardMenuCariBloc;
+
+  @override
   Widget build(BuildContext context) {
+    
+    onBoardMenuCariBloc = BlocProvider.of<OnBoardMenuCariBloc>(context);
+
     return MobileDesignWidget(
       child: Container(
         color: Colors.grey[200],
-        child: pageContainerType(context, body, pageTitle, menuDrawer, background,
-            backgroundColor, parentModal),
+        child: pageContainerType(
+            context,
+            widget.body,
+            widget.pageTitle,
+            widget.menuDrawer,
+            widget.background,
+            widget.backgroundColor,
+            widget.parentModal),
       ),
     );
 
-/*
-    return BlocListener<NetworkBloc, NetworkState>(
-      listener: (context, state) {
-        if (state is NetworkFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text("You're not connected to Internet"),
-            backgroundColor: Colors.red,
-          ));
-        } else if (state is NetworkSuccess) {
-          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-            content: Text("You're Connected to Internet"),
-            backgroundColor: Colors.green,
-          ));
-        }
-      },
-      child: pageContainerType(context, body, pageTitle, menuDrawer, background,
-          backgroundColor, parentModal),
-    );
-    */
   }
 
   Widget pageContainerType(
@@ -91,8 +85,6 @@ abstract class PageContainerBase extends StatelessWidget {
     Widget baseWidget;
 
     if (pageTitle != "Login Page") {
-      var isDialOpen = ValueNotifier<bool>(false);
-
       Widget titlePage(BuildContext context) {
         Paint paint = Paint();
         //paint.color = Color(0xffff6101);
@@ -122,49 +114,40 @@ abstract class PageContainerBase extends StatelessWidget {
             color: Theme.of(context).colorScheme.background,
           ),
           background,
-          WillPopScope(
-            onWillPop: () async {
-              if (isDialOpen.value) {
-                isDialOpen.value = false;
-                return false;
-              }
-              return true;
-            },
-            child: Scaffold(
-              backgroundColor: backgroundColor,
-              appBar: AppBar(
-                leading: menuDrawer == null
-                    ? IconButton(
-                        icon: const Icon(
-                          Icons.arrow_back,
-                        ),
-                        onPressed: () {},
-                      )
-                    : null,
-                backgroundColor: Colors.transparent,
-                iconTheme: const IconThemeData(color: Colors.black),
-                elevation: 0.0,
-                title: titlePage(context),
-                actions: <Widget>[
-                  InkWell(
-                    onTap: () {
-                      BlocProvider.of<HomeBloc>(context)
-                          .add(HomePageActiveEvent());
-                    },
-                    child: SizedBox(
-                      width: 100,
-                      height: 100,
-                      child: Image.asset(Img.get('login_logo.png')),
-                    ),
-                  )
-                ],
-                systemOverlayStyle: SystemUiOverlayStyle.dark,
-                toolbarTextStyle: Theme.of(context).primaryTextTheme.bodyMedium,
-                titleTextStyle: Theme.of(context).primaryTextTheme.titleLarge,
-              ),
-              drawer: menuDrawer,
-              body: body,
+          Scaffold(
+            backgroundColor: backgroundColor,
+            appBar: AppBar(
+              leading: menuDrawer == null
+                  ? IconButton(
+                      icon: const Icon(
+                        Icons.arrow_back,
+                      ),
+                      onPressed: () {},
+                    )
+                  : null,
+              backgroundColor: Colors.transparent,
+              iconTheme: const IconThemeData(color: Colors.black),
+              elevation: 0.0,
+              title: titlePage(context),
+              actions: <Widget>[
+                InkWell(
+                  onTap: () {
+                    BlocProvider.of<HomeBloc>(context)
+                        .add(HomePageActiveEvent());
+                  },
+                  child: SizedBox(
+                    width: 100,
+                    height: 100,
+                    child: Image.asset(Img.get('login_logo.png')),
+                  ),
+                )
+              ],
+              systemOverlayStyle: SystemUiOverlayStyle.dark,
+              toolbarTextStyle: Theme.of(context).primaryTextTheme.bodyMedium,
+              titleTextStyle: Theme.of(context).primaryTextTheme.titleLarge,
             ),
+            drawer: menuDrawer,
+            body: body,
           ),
         ],
       );

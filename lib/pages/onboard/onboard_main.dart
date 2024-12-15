@@ -1,8 +1,6 @@
-import 'package:esalesapp/blocs/onboardmenu/onboardmenucari_bloc.dart';
 import 'package:esalesapp/pages/onboard/onboard_page.dart';
 import 'package:esalesapp/widgets/mobiledesign_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class OnboardMainPage extends StatefulWidget {
   const OnboardMainPage({super.key});
@@ -18,13 +16,10 @@ class OnboardMainPageState extends State<OnboardMainPage> {
     debugPrint("OnboardMainPage -> build");    
 
     return MobileDesignWidget(
-      child: BlocProvider(
-        create: (context) => OnBoardMenuCariBloc(),
-        child: Scaffold(
-            backgroundColor: Colors.grey[200],
-            body: const OnBoardPage(),
-          ),
-      ),
+      child: Scaffold(
+          backgroundColor: Colors.grey[200],          
+          body: const OnBoardPage(),
+        ),
     );
   }
 

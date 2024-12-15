@@ -15,8 +15,8 @@ DropdownSearch<ComboJobcatModel> buildFieldComboJobcat({
 	Function(ComboJobcatModel?)? validatorCallback
 	}) {
 
-  debugPrint("buildFieldComboJobcat custCatId : $custCatId}");
-  debugPrint("buildFieldComboJobcat jobCatGroupId : $jobCatGroupId}");
+  //debugPrint("buildFieldComboJobcat custCatId : $custCatId}");
+  //debugPrint("buildFieldComboJobcat jobCatGroupId : $jobCatGroupId}");
 
 	return DropdownSearch<ComboJobcatModel>(
     enabled: enabled,

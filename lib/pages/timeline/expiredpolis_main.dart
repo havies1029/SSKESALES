@@ -1,4 +1,5 @@
 import 'package:esalesapp/blocs/home/home_bloc.dart';
+import 'package:esalesapp/blocs/onboardmenu/onboardmenucari_bloc.dart';
 import 'package:esalesapp/blocs/timeline/expiredgroupcari_bloc.dart';
 import 'package:esalesapp/pages/timeline/expiredpolis_timeline.dart';
 import 'package:flutter/material.dart';
@@ -11,12 +12,12 @@ class ExpiredPolicyMainPage extends StatefulWidget {
   State<ExpiredPolicyMainPage> createState() => ExpiredPolicyMainPageState();
 }
 
-class ExpiredPolicyMainPageState extends State<ExpiredPolicyMainPage> {
-  
+class ExpiredPolicyMainPageState extends State<ExpiredPolicyMainPage> {  
+  late OnBoardMenuCariBloc onBoardMenuCariBloc;
 
   @override
   Widget build(BuildContext context) {
-
+    onBoardMenuCariBloc = BlocProvider.of<OnBoardMenuCariBloc>(context);
     return BlocProvider(
       create: (context) => ExpiredGroupCariBloc(),
       child: Scaffold(
@@ -26,24 +27,24 @@ class ExpiredPolicyMainPageState extends State<ExpiredPolicyMainPage> {
           height: 60,
           color: Colors.black12,
           child: InkWell(
-            // ignore: avoid_print
             onTap: () {
-
-                BlocProvider.of<HomeBloc>(context).add(JobRealCariPageActiveEvent());
-              //});
+                BlocProvider.of<HomeBloc>(context).add(
+                  onBoardMenuCariBloc.state.hasPassedBriefing?                  
+                  JobRealCariPageActiveEvent():
+                  BriefingPageActiveEvent());            
             },
-            child: const Padding(
-              padding: EdgeInsets.only(top: 8.0),
+            child: Padding(
+              padding: const EdgeInsets.only(top: 8.0),
               child: Column(
                 children: <Widget>[
                   Icon(
-                    Icons.home,
+                    onBoardMenuCariBloc.state.hasPassedBriefing?Icons.home:Icons.people_alt,
                     size: 35,
                     color: Colors.black,
                   ),
                   Text(
-                    'Finished Tasks',
-                    style: TextStyle(color: Colors.black),
+                    onBoardMenuCariBloc.state.hasPassedBriefing?"Finished Tasks":"Briefing",
+                    style: const TextStyle(color: Colors.black),
                   ),
                 ],
               ),

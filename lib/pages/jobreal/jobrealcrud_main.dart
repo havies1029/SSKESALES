@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 class JobRealCrudMainPage extends StatelessWidget {
   final String viewMode;
   final String recordId;
+  final bool isBriefingHarianMode;
 
   const JobRealCrudMainPage(
-      {super.key, required this.viewMode, required this.recordId});
+      {super.key, required this.viewMode, required this.recordId, required this.isBriefingHarianMode});
 
   @override
   Widget build(BuildContext context) {   
@@ -18,6 +19,6 @@ class JobRealCrudMainPage extends StatelessWidget {
               title: Text('${viewMode == "tambah"?"Tambah": viewMode == "ubah"?"Ubah":"Lihat"} Task'),
             ),
             //backgroundColor: Colors.grey[200],
-            body: JobRealCrudFormPage(viewMode: viewMode, recordId: recordId)));
+            body: JobRealCrudFormPage(viewMode: viewMode, recordId: recordId, isBriefingHarianMode: isBriefingHarianMode,)));
   }
 }

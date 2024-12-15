@@ -4,9 +4,10 @@ import 'package:string_validator/string_validator.dart';
 class OnBoardMenuCariModel {
   bool clientassignment = false;
   bool policyoutstanding = false;
+  bool briefing = false;
 
   OnBoardMenuCariModel(
-      {required this.clientassignment, required this.policyoutstanding});
+      {required this.clientassignment, required this.policyoutstanding, required this.briefing});
 
   factory OnBoardMenuCariModel.fromJson(Map<String, dynamic> data) {
     debugPrint(
@@ -14,11 +15,13 @@ class OnBoardMenuCariModel {
 
     return OnBoardMenuCariModel(
         clientassignment: toBoolean(data['clientassignment'].toString()),
-        policyoutstanding: toBoolean(data['policyoutstanding'].toString()));
+        policyoutstanding: toBoolean(data['policyoutstanding'].toString()),
+        briefing: toBoolean(data['briefing'].toString()));
   }
 
   Map<String, dynamic> toJson() => {
         'clientassignment': clientassignment.toString(),
-        'policyoutstanding': policyoutstanding.toString()
+        'policyoutstanding': policyoutstanding.toString(),
+        'briefing': briefing.toString()
       };
 }

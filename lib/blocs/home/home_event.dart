@@ -30,3 +30,4 @@ class JobSalesPageActiveEvent extends HomeEvent {}
 class RealGroupPageActiveEvent extends HomeEvent {}
 class TimelinePolicyExpiredPageActiveEvent extends HomeEvent {}
 class OnBoardPageActiveEvent extends HomeEvent {}
+class BriefingPageActiveEvent extends HomeEvent {}

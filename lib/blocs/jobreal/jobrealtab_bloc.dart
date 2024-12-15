@@ -29,7 +29,7 @@ class JobRealTabBloc extends Bloc<JobRealTabEvents, JobRealTabState> {
       List<Widget> listTab = [];
       List<Color> colorCollection = <Color>[];
 
-      if (items.isNotEmpty) {        
+      if (items.isNotEmpty) {
         items.add(const ComboJobcatgroupModel(
             mjobcatgroupId: "ALL",
             groupNama: "ALL",
