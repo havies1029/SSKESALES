@@ -2,7 +2,7 @@ import 'package:esalesapp/pages/timeline/expiredgroupcari_tile_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:esalesapp/blocs/timeline/expiredgroupcari_bloc.dart';
-import 'package:timelines/timelines.dart';
+import 'package:timelines_plus/timelines_plus.dart';
 
 class ExpiredPolisTimelinePage extends StatefulWidget {
 	const ExpiredPolisTimelinePage({super.key});

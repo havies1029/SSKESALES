@@ -16,18 +16,18 @@ DropdownSearch<ComboInsurerModel> buildFieldComboInsurer(
     enabled: enabled,
     key: comboKey,
     selectedItem: initItem,
-    dropdownDecoratorProps: DropDownDecoratorProps(
-      dropdownSearchDecoration: InputDecoration(
+    decoratorProps: DropDownDecoratorProps(
+      decoration: InputDecoration(
         hintText: '...',
         labelText: labelText,
       ),
     ),
-    asyncItems: (String filter) async {
+    items: (filter, infiniteScrollProps) async {
       return ComboInsurerRepository().getComboInsurer(filter);
     },
-    clearButtonProps: const ClearButtonProps(isVisible: true),
+    suffixProps: const DropdownSuffixProps(clearButtonProps: ClearButtonProps(isVisible: true)),
     popupProps: const PopupPropsMultiSelection.modalBottomSheet(
-      isFilterOnline: true,
+      disableFilter: false,
       showSelectedItems: true,
       showSearchBox: true,
       itemBuilder: itemBuilderComboInsurer,
@@ -57,7 +57,7 @@ DropdownSearch<ComboInsurerModel> buildFieldComboInsurer(
 }
 
 Widget itemBuilderComboInsurer(
-    BuildContext context, ComboInsurerModel item, bool isSelected) {
+    BuildContext context, ComboInsurerModel item, bool isSelected, bool isDisabled) {
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 8),
     decoration: !isSelected

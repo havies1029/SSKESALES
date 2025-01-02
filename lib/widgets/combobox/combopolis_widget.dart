@@ -12,18 +12,18 @@ DropdownSearch<ComboPolisModel> buildFieldComboPolis({
 	}) {
 	return DropdownSearch<ComboPolisModel>(
 		selectedItem: initItem,
-		dropdownDecoratorProps: DropDownDecoratorProps(
-			dropdownSearchDecoration: InputDecoration(
+		decoratorProps: DropDownDecoratorProps(
+			decoration: InputDecoration(
 				hintText: '...',
 				labelText: labelText,
 			),
 		),
-			asyncItems: (String filter) async {
+			items: (filter, infiniteScrollProps) async {
 				return ComboPolisRepository().getComboPolis(filter);
 			},
-			clearButtonProps: const ClearButtonProps(isVisible: true),
+			suffixProps: const DropdownSuffixProps(clearButtonProps: ClearButtonProps(isVisible: true)),
 			popupProps: const PopupPropsMultiSelection.modalBottomSheet(
-				isFilterOnline: true,
+				disableFilter: false,
 				showSelectedItems: true,
 				showSearchBox: true,
 				itemBuilder: itemBuilderComboPolis,
@@ -53,7 +53,7 @@ DropdownSearch<ComboPolisModel> buildFieldComboPolis({
 }
 
 Widget itemBuilderComboPolis(
-	BuildContext context, ComboPolisModel item, bool isSelected) {
+	BuildContext context, ComboPolisModel item, bool isSelected, bool isDisabled) {
 	return Container(
 		margin: const EdgeInsets.symmetric(horizontal: 8),
 		decoration: !isSelected

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:esalesapp/models/responseAPI/returndataapi_model.dart';
 import 'package:flutter/material.dart';
@@ -122,9 +124,9 @@ class JobReal3CariBloc extends Bloc<JobReal3CariEvents, JobReal3CariState> {
 
     List<JobReal3CariModel> items = state.items;
 
-    //debugPrint("before : items : ${jsonEncode(items)}");
+    debugPrint("before : items : ${jsonEncode(items)}");
 
-    debugPrint("itemCheckbox.polis1Id : ${itemCheckbox.cobNama}");
+    debugPrint("itemCheckbox.cobNama : ${itemCheckbox.cobNama}");
 
     items[items.indexWhere(
       (element) => element.mcobId == itemCheckbox.mcobId)] = itemCheckbox;
@@ -136,7 +138,7 @@ class JobReal3CariBloc extends Bloc<JobReal3CariEvents, JobReal3CariState> {
     
     emit(state.copyWith(selectedItems: selectedItems));
 
-    //debugPrint("after : state.items : ${jsonEncode(items)}");
+    debugPrint("after : state.items : ${jsonEncode(items)}");
 
     debugPrint("onUpdateCheckboxChanged #20");
 

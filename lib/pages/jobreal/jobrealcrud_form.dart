@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:esalesapp/blocs/briefing/briefinginfo_bloc.dart';
-import 'package:esalesapp/blocs/briefing/briefinglist_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal2cari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal2grid_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal3cari_bloc.dart';
@@ -10,6 +9,7 @@ import 'package:esalesapp/blocs/jobreal/jobreal3grid_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealcari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealfoto_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealglobal_cubit.dart';
+import 'package:esalesapp/blocs/soaclient/dnlist_bloc.dart';
 import 'package:esalesapp/common/app_data.dart';
 import 'package:esalesapp/common/loading_indicator.dart';
 import 'package:esalesapp/models/combobox/combocustomer_model.dart';
@@ -43,12 +43,14 @@ class JobRealCrudFormPage extends StatefulWidget {
   final String viewMode;
   final String recordId;
   final bool isBriefingHarianMode;
+  final bool isSOAClientMode;
 
   const JobRealCrudFormPage(
       {super.key,
       required this.viewMode,
       required this.recordId,
-      required this.isBriefingHarianMode});
+      required this.isBriefingHarianMode,
+      required this.isSOAClientMode});
 
   @override
   JobRealCrudFormPageFormState createState() => JobRealCrudFormPageFormState();
@@ -64,6 +66,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
   late JobRealFotoBloc jobRealFotoBloc;
   late JobReal2CariBloc jobReal2CariBloc;
   late JobReal3CariBloc jobReal3CariBloc;
+  late DnlistBloc dnlistBloc;
   final _formKey = GlobalKey<FormState>();
   final List<String> errors = [];
   var fieldHasilController = TextEditingController();
@@ -121,6 +124,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
     jobRealFotoBloc = BlocProvider.of<JobRealFotoBloc>(context);
     jobReal2CariBloc = BlocProvider.of<JobReal2CariBloc>(context);
     jobReal3CariBloc = BlocProvider.of<JobReal3CariBloc>(context);
+    dnlistBloc = BlocProvider.of<DnlistBloc>(context);
 
     //debugPrint("JobRealCrudFormPageFormState #15");
 
@@ -244,6 +248,9 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
               fieldTaskDescController.text = state.record?.taskDesc ?? "";
               fieldMateriController.text = state.record?.materi ?? "";
             }
+            else if (widget.isSOAClientMode){
+              fieldMateriController.text = state.record?.materi ?? "";              
+            }
 
             /*
             debugPrint(
@@ -282,18 +289,22 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
 
   void loadData() {
     //debugPrint("JobRealCrudFormPage -> loadData #10");
-    
+
     if (widget.viewMode != "tambah") {
       jobRealCrudBloc.add(JobRealCrudLihatEvent(recordId: widget.recordId));
     } else if (widget.isBriefingHarianMode) {
       briefingInfoBloc = BlocProvider.of<BriefingInfoBloc>(context);
       BriefingInfoState briefingState = briefingInfoBloc.state;
 
-      debugPrint("briefingState.selectedItem : ${jsonEncode(briefingState.selectedItem)}");
+      debugPrint(
+          "briefingState.selectedItem : ${jsonEncode(briefingState.selectedItem)}");
 
       jobRealCrudBloc.add(GetInitValueNewBriefingHarianModeEvent(
-          jobId: briefingState.selectedItem?.jobId ?? "",
-          jobCatId: briefingState.selectedItem?.jobCatId ?? ""));
+          jobId: briefingState.selectedItem.jobId,
+          jobCatId: briefingState.selectedItem.jobCatId));
+    } else if (widget.isSOAClientMode) {
+      DnlistState dnState = dnlistBloc.state;
+      jobRealCrudBloc.add(GetInitValueNewSOAClientModeEvent(dn1Id: dnState.selectedDNId));
     }
   }
 
@@ -513,8 +524,10 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       //jobReal3GridBloc.add(ReloadGridJobReal3ListEvent());
 
       if (widget.viewMode == "tambah") {
+        /*
         JobReal3CariBloc jobReal3CariBloc =
-            BlocProvider.of<JobReal3CariBloc>(context);
+            BlocProvider.of<JobReal3CariBloc>(context);            
+            */
         jobReal3GridBloc.add(GetPickedCobJobReal3ListEvent(
             pickedCob: jobReal3CariBloc.state.selectedItems));
       }

@@ -1,15 +1,16 @@
-import 'dart:convert';
-
 import 'package:equatable/equatable.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal2cari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal2grid_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal3cari_bloc.dart';
+import 'package:esalesapp/blocs/jobreal/jobreal3grid_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealfoto_bloc.dart';
 import 'package:esalesapp/common/app_data.dart';
 import 'package:esalesapp/models/combobox/combocustomer_model.dart';
 import 'package:esalesapp/models/combobox/comboinsurer_model.dart';
 import 'package:esalesapp/models/jobreal/jobreal2cari_model.dart';
+import 'package:esalesapp/models/jobreal/jobreal3cari_model.dart';
 import 'package:esalesapp/models/jobreal/newbriefinginitvalue_model.dart';
+import 'package:esalesapp/models/soaclient/tasksoainit_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:esalesapp/models/responseAPI/returndataapi_model.dart';
@@ -28,12 +29,14 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
   final JobReal3CariBloc jobReal3CariBloc;
   final JobRealFotoBloc jobRealFotoBloc;
   final JobReal2GridBloc jobReal2GridBloc;
+  final JobReal3GridBloc jobReal3GridBloc;
   JobRealCrudBloc(
       {required this.repository,
       required this.jobReal2CariBloc,
       required this.jobReal3CariBloc,
       required this.jobRealFotoBloc,
-      required this.jobReal2GridBloc})
+      required this.jobReal2GridBloc,
+      required this.jobReal3GridBloc})
       : super(const JobRealCrudState()) {
     on<JobRealCrudUbahEvent>(onUbahJobRealCrud);
     on<JobRealCrudTambahEvent>(onTambahJobRealCrud);
@@ -53,6 +56,7 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
         onFinishedUndoComboCustomerChanged);
     on<GetInitValueNewBriefingHarianModeEvent>(
         onGetInitValueNewBriefingHarianMode);
+    on<GetInitValueNewSOAClientModeEvent>(onGetInitValueSOAClientMode);
   }
 
   Future<void> onPreOpen(
@@ -81,6 +85,40 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
         isLoaded: true,
         isLoading: false,
         record: record));
+  }
+
+  Future<void> onGetInitValueSOAClientMode(
+      GetInitValueNewSOAClientModeEvent event,
+      Emitter<JobRealCrudState> emit) async {
+    emit(state.copyWith(isLoading: true, isLoaded: false));
+
+    TasksoainitModel initValue =
+        await repository.jobRealGetNewSoaClientInitValue(event.dn1Id);
+
+    JobRealCrudModel record = JobRealCrudModel(
+        mrekanId: initValue.mrekanId,
+        materi: initValue.materi,
+        mjobcatId: initValue.mjobcatId,
+        comboJobcat: initValue.comboJobcat,
+        comboCustomer: initValue.comboCustomer);
+
+    emit(state.copyWith(
+        comboCustomer: initValue.comboCustomer,
+        comboJobCat: initValue.comboJobcat,
+        record: record,
+        isLoaded: true,
+        isLoading: false));
+
+    //set grid cob
+    JobReal3CariModel dnCOB = JobReal3CariModel(
+        mcobId: initValue.comboCob.mcobId,
+        cobNama: initValue.comboCob.cobNama,
+        isChecked: true,
+        jobreal3Id: "");
+    List<JobReal3CariModel> pickedCob = [];
+    pickedCob.add(dnCOB);
+
+    jobReal3GridBloc.add(GetPickedCobJobReal3ListEvent(pickedCob: pickedCob));
   }
 
   Future<void> onResetState(

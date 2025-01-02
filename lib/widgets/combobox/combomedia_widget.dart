@@ -14,18 +14,18 @@ DropdownSearch<ComboMediaModel> buildFieldComboMedia({
 	return DropdownSearch<ComboMediaModel>(
     enabled: enabled,
 		selectedItem: initItem,
-		dropdownDecoratorProps: DropDownDecoratorProps(
-			dropdownSearchDecoration: InputDecoration(
+		decoratorProps: DropDownDecoratorProps(
+			decoration: InputDecoration(
 				hintText: '...',
 				labelText: labelText,
 			),
 		),
-			asyncItems: (String filter) async {
+			items: (filter, infiniteScrollProps) async {
 				return ComboMediaRepository().getComboMedia();
 			},
-			clearButtonProps: const ClearButtonProps(isVisible: true),
+			suffixProps: const DropdownSuffixProps(clearButtonProps: ClearButtonProps(isVisible: true)),
 			popupProps: const PopupPropsMultiSelection.modalBottomSheet(
-				isFilterOnline: false,
+				disableFilter: false,
 				showSelectedItems: true,
 				showSearchBox: false,
 				itemBuilder: itemBuilderComboMedia,
@@ -55,7 +55,7 @@ DropdownSearch<ComboMediaModel> buildFieldComboMedia({
 }
 
 Widget itemBuilderComboMedia(
-	BuildContext context, ComboMediaModel item, bool isSelected) {
+	BuildContext context, ComboMediaModel item, bool isSelected, bool isDisabled) {
 	return Container(
 		margin: const EdgeInsets.symmetric(horizontal: 8),
 		decoration: !isSelected

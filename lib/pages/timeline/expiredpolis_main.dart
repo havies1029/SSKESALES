@@ -24,7 +24,7 @@ class ExpiredPolicyMainPageState extends State<ExpiredPolicyMainPage> {
         backgroundColor: Colors.grey[100],
         body: const ExpiredPolisTimelinePage(),
         bottomNavigationBar: Container(
-          height: 60,
+          height: 70,
           color: Colors.black12,
           child: InkWell(
             onTap: () {

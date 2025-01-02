@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:bloc/bloc.dart';
 import 'package:esalesapp/common/app_data.dart';
 import 'package:equatable/equatable.dart';
 
 import 'package:esalesapp/repositories/user/user_repository.dart';
 import 'package:esalesapp/models/user/user_model.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'authentication_event.dart';
 part 'authentication_state.dart';
@@ -30,14 +30,14 @@ class AuthenticationBloc
     bool hasToken = AppData.kIsWeb ? false : await userRepository.hasToken();
     emit(AuthenticationPostCheckHasToken());
 
-    debugPrint("hasToken ?");
+    //debugPrint("hasToken ?");
     if (hasToken) {
       emit(AuthenticationAuthenticated());
-      debugPrint("hasToken ? yes -> ${AppData.userToken}");
+      //debugPrint("hasToken ? yes -> ${AppData.userToken}");
     } else {
-      debugPrint("hasToken ? no");
+      //debugPrint("hasToken ? no");
       emit(AuthenticationUnauthenticated());
-      debugPrint("hasToken ? no -> proceed");
+      //debugPrint("hasToken ? no -> proceed");
     }
   }
 

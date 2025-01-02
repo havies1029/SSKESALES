@@ -12,18 +12,18 @@ DropdownSearch<ComboJabatanModel> buildFieldComboJabatan(
   }) {
   return DropdownSearch<ComboJabatanModel>(
     selectedItem: initItem,
-    dropdownDecoratorProps: DropDownDecoratorProps(
-      dropdownSearchDecoration: InputDecoration(
+    decoratorProps: DropDownDecoratorProps(
+      decoration: InputDecoration(
         hintText: '...',
         labelText: labelText,
       ),
     ),
-    asyncItems: (String filter) async {
+    items: (filter, infiniteScrollProps) async {
       return ComboJabatanRepository().getComboJabatan(filter);
     },
-    clearButtonProps: const ClearButtonProps(isVisible: true),
+		suffixProps: const DropdownSuffixProps(clearButtonProps: ClearButtonProps(isVisible: true)),
     popupProps: const PopupPropsMultiSelection.modalBottomSheet(
-      isFilterOnline: false,
+      disableFilter: false,
       showSelectedItems: true,
       showSearchBox: false,
       itemBuilder: itemBuilderComboJabatan,
@@ -53,7 +53,7 @@ DropdownSearch<ComboJabatanModel> buildFieldComboJabatan(
 }
 
 Widget itemBuilderComboJabatan(
-    BuildContext context, ComboJabatanModel item, bool isSelected) {
+    BuildContext context, ComboJabatanModel item, bool isSelected, bool isDisabled) {
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 8),
     decoration: !isSelected

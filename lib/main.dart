@@ -37,6 +37,8 @@ import 'package:esalesapp/blocs/msttitle/titlecrud_bloc.dart';
 import 'package:esalesapp/blocs/onboardmenu/onboardmenucari_bloc.dart';
 import 'package:esalesapp/blocs/polis/poliscari_bloc.dart';
 import 'package:esalesapp/blocs/polis/poliscrud_bloc.dart';
+import 'package:esalesapp/blocs/soaclient/aginglist_bloc.dart';
+import 'package:esalesapp/blocs/soaclient/dnlist_bloc.dart';
 import 'package:esalesapp/common/app_data.dart';
 import 'package:esalesapp/repositories/jobreal/jobrealcrud_repository.dart';
 import 'package:esalesapp/repositories/jobreal/jobrealfoto_repository.dart';
@@ -71,6 +73,7 @@ import 'package:esalesapp/common/loading_indicator.dart';
 import 'blocs/takeimage/takeimage_cubit.dart';
 
 Future<void> main() async {
+  
   final userRepository = UserRepository();
   AppData.kIsWeb = kIsWeb;
   runApp(BlocProvider<AuthenticationBloc>(
@@ -138,7 +141,8 @@ class App extends StatelessWidget {
                 jobReal2CariBloc: context.read<JobReal2CariBloc>(),
                 jobReal3CariBloc: context.read<JobReal3CariBloc>(),
                 jobRealFotoBloc: context.read<JobRealFotoBloc>(),
-                jobReal2GridBloc: context.read<JobReal2GridBloc>())),      
+                jobReal2GridBloc: context.read<JobReal2GridBloc>(),
+                jobReal3GridBloc: context.read<JobReal3GridBloc>())),      
         BlocProvider<JobReal2CariBloc>(create: (context) => JobReal2CariBloc()),
         BlocProvider<MediaCariBloc>(create: (context) => MediaCariBloc()),
         BlocProvider<MediaCrudBloc>(
@@ -191,7 +195,11 @@ class App extends StatelessWidget {
         BlocProvider<BriefingInfoBloc>(
             create: (context) => BriefingInfoBloc()),
         BlocProvider<BriefinglistBloc>(
-            create: (context) => BriefinglistBloc()),
+            create: (context) => BriefinglistBloc()),            
+        BlocProvider<AginglistBloc>(
+            create: (context) => AginglistBloc()),                 
+        BlocProvider<DnlistBloc>(
+            create: (context) => DnlistBloc()),            
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

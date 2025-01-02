@@ -87,3 +87,49 @@ class PolisExpColor {
     return textColor;
   }
 }
+
+class SoaAgingColor {
+  static Color backgroundColor(int severity) {
+    Color backColor = (severity == 1
+        ? Colors.red[900]
+        : severity == 2
+            ? Colors.red[400]
+            : severity == 3
+                ? Colors.red[200]
+                : severity == 4
+                    ? Colors.amber[200]
+                    : severity == 5
+                      ? Colors.amber[600]
+                      : severity == 6
+                        ? Colors.green
+                        : Colors.blue) as Color;
+
+    return backColor;
+  }
+
+  static Color labelColor(int severity) {
+    Color textColor = (severity == 1
+        ? Colors.white
+        : severity == 2
+            ? Colors.amber[50]
+            : severity == 3
+                ? MyColors.grey_80
+                : severity == 4
+                  ? MyColors.grey_80
+                  : Colors.white) as Color;
+
+    return textColor;
+  }
+
+  static Color textColor(int severity) {
+    Color textColor = (severity == 1
+        ? Colors.white
+        : severity == 2
+            ? Colors.amber[50]
+            : severity == 3
+                ? Colors.white
+                : MyColors.grey_80) as Color;
+
+    return textColor;
+  }
+}

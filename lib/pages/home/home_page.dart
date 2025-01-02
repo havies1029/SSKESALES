@@ -137,6 +137,9 @@ class _HomePageState extends State<HomePage> {
             } else if (state is BriefingPageActive) {
               debugPrint("BriefingPageActive");
               return const PageContainer(pageType: PageType.briefing);
+            } else if (state is SOAClientPageActive) {
+              debugPrint("SOAClientPageActive");
+              return const PageContainer(pageType: PageType.soaclient);
             } else if (state is ProfilePageActive) {
               return PageContainerWithUserRepository(
                 pageType: PageType.profile,

@@ -14,18 +14,18 @@ DropdownSearch<ComboMarketingModel> buildFieldComboMarketing({
 	return DropdownSearch<ComboMarketingModel>(
 		key: comboKey,
 		selectedItem: initItem,
-		dropdownDecoratorProps: DropDownDecoratorProps(
-			dropdownSearchDecoration: InputDecoration(
+		decoratorProps: DropDownDecoratorProps(
+			decoration: InputDecoration(
 				hintText: '...',
 				labelText: labelText,
 			),
 		),
-			asyncItems: (String filter) async {
+			items: (filter, infiniteScrollProps) async {
 				return ComboMarketingRepository().getComboMarketing();
 			},
-			clearButtonProps: const ClearButtonProps(isVisible: true),
+			suffixProps: const DropdownSuffixProps(clearButtonProps: ClearButtonProps(isVisible: true)),
 			popupProps: const PopupPropsMultiSelection.modalBottomSheet(
-				isFilterOnline: false,
+				disableFilter: false,
 				showSelectedItems: true,
 				showSearchBox: false,
 				itemBuilder: itemBuilderComboMarketing,
@@ -55,7 +55,7 @@ DropdownSearch<ComboMarketingModel> buildFieldComboMarketing({
 }
 
 Widget itemBuilderComboMarketing(
-	BuildContext context, ComboMarketingModel item, bool isSelected) {
+	BuildContext context, ComboMarketingModel item, bool isSelected, bool isDisabled) {
 	return Container(
 		margin: const EdgeInsets.symmetric(horizontal: 8),
 		decoration: !isSelected

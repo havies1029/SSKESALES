@@ -23,6 +23,7 @@ import 'package:esalesapp/pages/mststaff/staffcari_main.dart';
 import 'package:esalesapp/pages/msttitle/titlecari_main.dart';
 import 'package:esalesapp/pages/polis/poliscari_main.dart';
 import 'package:esalesapp/pages/calendar/sfcalendar_page.dart';
+import 'package:esalesapp/pages/soaclient/agingsoa_main.dart';
 import 'package:esalesapp/pages/timeline/expiredpolis_main.dart';
 import 'package:flutter/material.dart';
 import 'package:esalesapp/pages/profile/profile_main_page.dart';
@@ -112,7 +113,7 @@ class PageContainer extends PageContainerBase {
       case PageType.roomchat:
         return "Chat Support";
       case PageType.action:
-        return "Finished Tasks";
+        return "Tasks";
       case PageType.media:
         return "Master Media";
       case PageType.jobcat:
@@ -149,6 +150,8 @@ class PageContainer extends PageContainerBase {
         return "Subordinate Finished Tasks";
       case PageType.briefing:
         return "Briefing";
+      case PageType.soaclient:
+        return "SOA Client";
       default:
         return "Login Page";
     }
@@ -222,6 +225,9 @@ class PageContainer extends PageContainerBase {
         break;
       case PageType.briefing:
         page = const BriefingListMainPage();
+        break;
+      case PageType.soaclient:
+        page = const AgingSOAMainPage();
         break;
       default:
         page = null;

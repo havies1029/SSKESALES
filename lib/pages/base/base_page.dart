@@ -33,7 +33,8 @@ enum PageType {
   jobsales,
   realgroup,
   timeline,
-  briefing
+  briefing,
+  soaclient
 }
 
 abstract class PageContainerBase extends StatefulWidget {

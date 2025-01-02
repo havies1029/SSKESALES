@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobtimeline_bloc.dart';
 import 'package:esalesapp/models/jobreal/jobtimeline_model.dart';
 import 'package:intl/intl.dart';
-import 'package:timelines/timelines.dart';
+import 'package:timelines_plus/timelines_plus.dart';
 
 class JobtimelineListWidget extends StatefulWidget {
 	final String jobRealId;  

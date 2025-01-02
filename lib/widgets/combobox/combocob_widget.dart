@@ -12,18 +12,18 @@ DropdownSearch<ComboCobModel> buildFieldComboCob({
 	}) {
 	return DropdownSearch<ComboCobModel>(
 		selectedItem: initItem,
-		dropdownDecoratorProps: DropDownDecoratorProps(
-			dropdownSearchDecoration: InputDecoration(
+		decoratorProps: DropDownDecoratorProps(
+			decoration: InputDecoration(
 				hintText: '...',
 				labelText: labelText,
 			),
 		),
-			asyncItems: (String filter) async {
+			items: (filter, infiniteScrollProps) async {
 				return ComboCobRepository().getComboCob();
 			},
-			clearButtonProps: const ClearButtonProps(isVisible: true),
+			suffixProps: const DropdownSuffixProps(clearButtonProps: ClearButtonProps(isVisible: false)),
 			popupProps: const PopupPropsMultiSelection.modalBottomSheet(
-				isFilterOnline: false,
+        disableFilter: true,
 				showSelectedItems: true,
 				showSearchBox: false,
 				itemBuilder: itemBuilderComboCob,
@@ -53,7 +53,7 @@ DropdownSearch<ComboCobModel> buildFieldComboCob({
 }
 
 Widget itemBuilderComboCob(
-	BuildContext context, ComboCobModel item, bool isSelected) {
+	BuildContext context, ComboCobModel item, bool isSelected, bool isDisabled) {
 	return Container(
 		margin: const EdgeInsets.symmetric(horizontal: 8),
 		decoration: !isSelected

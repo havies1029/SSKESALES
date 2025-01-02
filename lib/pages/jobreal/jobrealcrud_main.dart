@@ -6,9 +6,12 @@ class JobRealCrudMainPage extends StatelessWidget {
   final String viewMode;
   final String recordId;
   final bool isBriefingHarianMode;
+  final bool isSOAClientMode;
 
   const JobRealCrudMainPage(
-      {super.key, required this.viewMode, required this.recordId, required this.isBriefingHarianMode});
+      {super.key, required this.viewMode, required this.recordId, 
+        required this.isBriefingHarianMode,
+        required this.isSOAClientMode });
 
   @override
   Widget build(BuildContext context) {   
@@ -19,6 +22,8 @@ class JobRealCrudMainPage extends StatelessWidget {
               title: Text('${viewMode == "tambah"?"Tambah": viewMode == "ubah"?"Ubah":"Lihat"} Task'),
             ),
             //backgroundColor: Colors.grey[200],
-            body: JobRealCrudFormPage(viewMode: viewMode, recordId: recordId, isBriefingHarianMode: isBriefingHarianMode,)));
+            body: JobRealCrudFormPage(viewMode: viewMode, recordId: recordId, 
+              isBriefingHarianMode: isBriefingHarianMode,
+              isSOAClientMode: isSOAClientMode)));
   }
 }

@@ -14,18 +14,18 @@ DropdownSearch<ComboJobGroupModel> buildFieldComboJobGroup({
 	return DropdownSearch<ComboJobGroupModel>(
 		key: comboKey,
 		selectedItem: initItem,
-		dropdownDecoratorProps: DropDownDecoratorProps(
-			dropdownSearchDecoration: InputDecoration(
+		decoratorProps: DropDownDecoratorProps(
+			decoration: InputDecoration(
 				hintText: '...',
 				labelText: labelText,
 			),
 		),
-			asyncItems: (String filter) async {
+			items: (filter, infiniteScrollProps) async {
 				return ComboJobGroupRepository().getComboJobGroup();
 			},
-			clearButtonProps: const ClearButtonProps(isVisible: true),
+			suffixProps: const DropdownSuffixProps(clearButtonProps: ClearButtonProps(isVisible: false)),
 			popupProps: const PopupPropsMultiSelection.modalBottomSheet(
-				isFilterOnline: false,
+				disableFilter: true,
 				showSelectedItems: true,
 				showSearchBox: false,
 				itemBuilder: itemBuilderComboJobGroup,
@@ -55,7 +55,7 @@ DropdownSearch<ComboJobGroupModel> buildFieldComboJobGroup({
 }
 
 Widget itemBuilderComboJobGroup(
-	BuildContext context, ComboJobGroupModel item, bool isSelected) {
+	BuildContext context, ComboJobGroupModel item, bool isSelected, bool isDisabled) {
 	return Container(
 		margin: const EdgeInsets.symmetric(horizontal: 8),
 		decoration: !isSelected

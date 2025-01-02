@@ -68,7 +68,7 @@ class BriefinglistListWidgetState extends State<BriefinglistListWidget> {
                                         backgroundColor: Colors.green,
                                         icon: Icons.edit,
                                         label:
-                                            "${state.items[index].jobreal1Id?.isEmpty ?? true ? "Add" : state.items[index].confirmed ? "View" : "Edit"} Task}",
+                                            "${state.items[index].jobreal1Id.isEmpty ? "Add" : state.items[index].confirmed ? "View" : "Edit"} Task}",
                                       ),
                                     ]),
                                 child: Card(
@@ -155,6 +155,7 @@ class BriefinglistListWidgetState extends State<BriefinglistListWidget> {
           viewMode: viewMode,
           recordId: item.jobreal1Id,
           isBriefingHarianMode: true,
+          isSOAClientMode: false,
         );
       }),
     ).then((value) {

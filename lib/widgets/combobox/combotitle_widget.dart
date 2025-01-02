@@ -11,18 +11,18 @@ DropdownSearch<ComboTitleModel> buildFieldComboTitle({
     Function(ComboTitleModel?)? validatorCallback}) {
   return DropdownSearch<ComboTitleModel>(
     selectedItem: initItem,
-    dropdownDecoratorProps: DropDownDecoratorProps(
-      dropdownSearchDecoration: InputDecoration(
+    decoratorProps: DropDownDecoratorProps(
+      decoration: InputDecoration(
         hintText: '...',
         labelText: labelText,
       ),
     ),
-    asyncItems: (String filter) async {
+    items: (filter, infiniteScrollProps) async {
       return ComboTitleRepository().getComboTitle(filter);
     },
-    clearButtonProps: const ClearButtonProps(isVisible: true),
+    suffixProps: const DropdownSuffixProps(clearButtonProps: ClearButtonProps(isVisible: true)),
     popupProps: const PopupPropsMultiSelection.modalBottomSheet(
-      isFilterOnline: false,
+      disableFilter: false,
       showSelectedItems: true,
       showSearchBox: false,
       itemBuilder: itemBuilderComboTitle,
@@ -52,7 +52,7 @@ DropdownSearch<ComboTitleModel> buildFieldComboTitle({
 }
 
 Widget itemBuilderComboTitle(
-    BuildContext context, ComboTitleModel item, bool isSelected) {
+    BuildContext context, ComboTitleModel item, bool isSelected, bool isDisabled) {
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 8),
     decoration: !isSelected

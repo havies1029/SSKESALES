@@ -1,4 +1,3 @@
-import 'package:esalesapp/blocs/briefing/briefinginfo_bloc.dart';
 import 'package:esalesapp/blocs/onboardmenu/onboardmenucari_bloc.dart';
 import 'package:esalesapp/common/app_data.dart';
 import 'package:esalesapp/pages/home/home.dart';
@@ -43,6 +42,84 @@ class AppMenuState extends State<AppMenu> with RouteAware {
                         });
                       },
                     ),
+
+                    ExpansionTile(
+                      leading: const Icon(
+                        Icons.settings,
+                      ),
+                      trailing: const Icon(
+                        Icons.local_activity,
+                        size: 10.0,
+                      ),
+                      title: const Text(
+                        "Daily Activity",
+                        style: TextStyle(),
+                      ),
+                      children: <Widget>[                        
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15.0),
+                          child: ListTile(
+                            leading: const Icon(Icons.person),
+                            title: const Text("Briefing"),
+                            //selected: _activeRoute == AppRoutes.homePage,
+                            onTap: () {
+                              SchedulerBinding.instance
+                                  .addPostFrameCallback((timeStamp) {
+                                Navigator.of(context).pop();
+                                homeBloc.add(BriefingPageActiveEvent());
+                              });
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15.0),
+                          child: ListTile(
+                            leading: const Icon(Icons.person),
+                            title: const Text("Tasks"),
+                            //selected: _activeRoute == AppRoutes.homePage,
+                            onTap: () {
+                              SchedulerBinding.instance
+                                  .addPostFrameCallback((timeStamp) {
+                                Navigator.of(context).pop();
+                                homeBloc.add(JobRealCariPageActiveEvent());
+                              });
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15.0),
+                          child: ListTile(
+                            leading: const Icon(Icons.person),
+                            title: const Text("Subordinate Finished Tasks"),
+                            //selected: _activeRoute == AppRoutes.homePage,
+                            onTap: () {
+                              SchedulerBinding.instance
+                                  .addPostFrameCallback((timeStamp) {
+                                Navigator.of(context).pop();
+                                homeBloc.add(RealGroupPageActiveEvent());
+                              });
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15.0),
+                          child: ListTile(
+                            leading: const Icon(Icons.person),
+                            title: const Text("SOA Client"),
+                            //selected: _activeRoute == AppRoutes.homePage,
+                            onTap: () {
+                              SchedulerBinding.instance
+                                  .addPostFrameCallback((timeStamp) {
+                                Navigator.of(context).pop();
+                                homeBloc.add(SOAClientPageActiveEvent());
+                              });
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+
+
                     ExpansionTile(
                       leading: const Icon(
                         Icons.settings,
@@ -122,51 +199,6 @@ class AppMenuState extends State<AppMenu> with RouteAware {
                                   .addPostFrameCallback((timeStamp) {
                                 Navigator.of(context).pop();
                                 homeBloc.add(JobSalesPageActiveEvent());
-                              });
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
-                          child: ListTile(
-                            leading: const Icon(Icons.person),
-                            title: const Text("Briefing"),
-                            //selected: _activeRoute == AppRoutes.homePage,
-                            onTap: () {
-                              SchedulerBinding.instance
-                                  .addPostFrameCallback((timeStamp) {
-                                Navigator.of(context).pop();
-                                homeBloc.add(BriefingPageActiveEvent());
-                              });
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
-                          child: ListTile(
-                            leading: const Icon(Icons.person),
-                            title: const Text("Finished Tasks"),
-                            //selected: _activeRoute == AppRoutes.homePage,
-                            onTap: () {
-                              SchedulerBinding.instance
-                                  .addPostFrameCallback((timeStamp) {
-                                Navigator.of(context).pop();
-                                homeBloc.add(JobRealCariPageActiveEvent());
-                              });
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
-                          child: ListTile(
-                            leading: const Icon(Icons.person),
-                            title: const Text("Subordinate Finished Tasks"),
-                            //selected: _activeRoute == AppRoutes.homePage,
-                            onTap: () {
-                              SchedulerBinding.instance
-                                  .addPostFrameCallback((timeStamp) {
-                                Navigator.of(context).pop();
-                                homeBloc.add(RealGroupPageActiveEvent());
                               });
                             },
                           ),

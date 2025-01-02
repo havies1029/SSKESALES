@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:esalesapp/models/combobox/combocustomer_model.dart';
@@ -22,18 +20,18 @@ DropdownSearch<ComboCustomerModel> buildFieldComboCustomer(
     enabled: enabled,
     key: comboKey,
     selectedItem: initItem,
-    dropdownDecoratorProps: DropDownDecoratorProps(
-      dropdownSearchDecoration: InputDecoration(
+    decoratorProps: DropDownDecoratorProps(
+      decoration: InputDecoration(
         hintText: '...',
         labelText: labelText,
       ),
     ),
-    asyncItems: (String filter) async {
+    items: (filter, infiniteScrollProps) async {
       return ComboCustomerRepository().getComboCustomer(filter);
     },
-    clearButtonProps: const ClearButtonProps(isVisible: false),
+    suffixProps: const DropdownSuffixProps(clearButtonProps: ClearButtonProps(isVisible: true)),
     popupProps: const PopupPropsMultiSelection.modalBottomSheet(
-      isFilterOnline: true,
+      disableFilter: false,
       showSelectedItems: true,
       showSearchBox: true,
       itemBuilder: itemBuilderComboCustomer,
@@ -63,7 +61,7 @@ DropdownSearch<ComboCustomerModel> buildFieldComboCustomer(
 }
 
 Widget itemBuilderComboCustomer(
-    BuildContext context, ComboCustomerModel item, bool isSelected) {
+    BuildContext context, ComboCustomerModel item, bool isSelected, bool isDisabled) {
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 8),
     decoration: !isSelected

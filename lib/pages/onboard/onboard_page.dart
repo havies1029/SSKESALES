@@ -7,14 +7,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 
-class OnBoardPage extends StatefulWidget {  
+class OnBoardPage extends StatefulWidget {
   const OnBoardPage({super.key});
 
   @override
   State<OnBoardPage> createState() => _OnBoardPageState();
 }
 
-class _OnBoardPageState extends State<OnBoardPage> {  
+class _OnBoardPageState extends State<OnBoardPage> {
   final _introKey = GlobalKey<IntroductionScreenState>();
   List<PageViewModel> listPages = [];
   late OnBoardMenuCariBloc onboardMenuCariBloc;
@@ -66,41 +66,29 @@ class _OnBoardPageState extends State<OnBoardPage> {
           if (state.status == ListStatus.success) {
             //debugPrint("_OnBoardPageState listener #10");
             if (state.item?.clientassignment ?? false) {
-              //debugPrint("_OnBoardPageState listener #20");
-              listPages.add(PageViewModel(
-                  //title: 'Client Assignment',
-                  titleWidget: buildTitleWidget(context, "Client Assignment"),
-                  bodyWidget: Column(
-                    children: [
-                      SizedBox(
-                          height: maxHeight,
-                          child: const ClientAssignCariMainPage()),
-                    ],
-                  )));
+              debugPrint("_OnBoardPageState listener #20");
+
+                if (listPages.isEmpty){
+
+                  listPages.add(PageViewModel(
+                    //title: 'Client Assignment',
+                    titleWidget: buildTitleWidget(context, "Client Assignment"),
+                    bodyWidget: Column(
+                      children: [
+                        SizedBox(
+                            height: maxHeight,
+                            child: const ClientAssignCariMainPage()),
+                      ],
+                    )));
+                }                               
             }
             if (state.item?.briefing ?? false) {
-              //debugPrint("_OnBoardPageState listener #30");
-              //debugPrint("state.item?.briefing ?? false : ${state.item?.briefing ?? false}");
               onboardMenuCariBloc.add(const SetHasPassedBriefingPageEvent(
                   hasPassedBriefing: false));
             }
-            /*
-            if (state.item?.briefing ?? false) {
-              listPages.add(PageViewModel(
-                  //title: 'Briefing',
-                  titleWidget: buildTitleWidget(context, "Briefing"),
-                  bodyWidget: Column(
-                    children: [
-                      SizedBox(
-                          height: maxHeight,
-                          child: const BriefingListMainPage()),
-                    ],
-                  )));
-            } 
-            */
+
 
             if (listPages.isEmpty) {
-              //debugPrint("_OnBoardPageState listener #40");
               BlocProvider.of<HomeBloc>(context)
                   .add(TimelinePolicyExpiredPageActiveEvent());
             }

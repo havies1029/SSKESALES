@@ -165,7 +165,8 @@ class JobRealCariPageState extends State<JobRealCariPage> {
       context,
       MaterialPageRoute(builder: (context) {
         jobRealCrudBloc.add(JobRealCrudPreOpenEvent(viewmode: viewMode));
-        return JobRealCrudMainPage(viewMode: viewMode, recordId: recordId, isBriefingHarianMode: false);
+        return JobRealCrudMainPage(viewMode: viewMode, recordId: recordId, 
+        isBriefingHarianMode: false, isSOAClientMode: false,);
       }),
     ).then((value) {
       return jobRealCariBloc.add(CloseDialogJobRealCariEvent());

@@ -119,3 +119,11 @@ class GetInitValueNewBriefingHarianModeEvent extends JobRealCrudEvents {
   @override
   List<Object> get props => [jobId, jobCatId];
 }
+
+class GetInitValueNewSOAClientModeEvent extends JobRealCrudEvents {
+  final String dn1Id;  
+  const GetInitValueNewSOAClientModeEvent({required this.dn1Id});
+
+  @override
+  List<Object> get props => [dn1Id];
+}
