@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:esalesapp/blocs/mstrekan/rekancari_bloc.dart';
 import 'package:esalesapp/pages/mstrekan/rekancari_list.dart';
 
 class RekanCariMainPage extends StatelessWidget {

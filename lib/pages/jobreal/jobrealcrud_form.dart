@@ -217,11 +217,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
             fieldComboMedia = state.comboMedia;
             fieldComboCustomer = state.comboCustomer;
             fieldComboInsurer = state.comboInsurer;
-
-            //debugPrint("fieldComboCustomer : ${jsonEncode(fieldComboCustomer?.toJson())}");
-            //debugPrint("fieldComboJobcat : ${jsonEncode(fieldComboJobcat?.toJson())}");
-            //debugPrint("state.comboJobCat?.mjobcatdoctypeId : ${state.comboJobCat?.mjobcatdoctypeId}");
-
+            
             if (state.viewMode != "tambah") {
               fieldHasilController.text = state.record?.hasil ?? "";
               fieldMateriController.text = state.record?.materi ?? "";
@@ -232,32 +228,18 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
                   (state.record?.realTgl ?? DateTime.now()).toIso8601String();
               fieldTaskDescController.text = state.record?.taskDesc ?? "";
 
-              //debugPrint(jsonEncode(fieldComboCustomer?.toJson()));
-
-              //debugPrint("fieldComboJobcat?.mjobcatdoctypeId : ${fieldComboJobcat?.mjobcatdoctypeId}");
-
               if (fieldComboJobcat?.mjobcatdoctypeId == "sppa") {
                 loadGridPolis(state.record?.jobreal1Id ?? "");
               } else if (fieldComboJobcat?.mjobcatdoctypeId == "cob") {
                 loadGridCob(state.record?.jobreal1Id ?? "");
               }
             } else if (widget.isBriefingHarianMode) {
-              //debugPrint("widget.isBriefingHarianMode");
-              //debugPrint("state.record?.picName : ${state.record?.picName}");
               fieldPicNameController.text = state.record?.picName ?? "";
               fieldTaskDescController.text = state.record?.taskDesc ?? "";
               fieldMateriController.text = state.record?.materi ?? "";
+            } else if (widget.isSOAClientMode) {
+              fieldMateriController.text = state.record?.materi ?? "";
             }
-            else if (widget.isSOAClientMode){
-              fieldMateriController.text = state.record?.materi ?? "";              
-            }
-
-            /*
-            debugPrint(
-                "widget.isBriefingHarianMode : ${widget.isBriefingHarianMode}");
-            */
-
-            //debugPrint("listener -> fieldComboCustomer?.rekanNama : ${fieldComboCustomer?.rekanNama}");
 
             if (state.forceChangeComboCustomer) {
               //debugPrint("listener -> state.forceChangeComboCustomer");
@@ -304,7 +286,8 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
           jobCatId: briefingState.selectedItem.jobCatId));
     } else if (widget.isSOAClientMode) {
       DnlistState dnState = dnlistBloc.state;
-      jobRealCrudBloc.add(GetInitValueNewSOAClientModeEvent(dn1Id: dnState.selectedDNId));
+      jobRealCrudBloc
+          .add(GetInitValueNewSOAClientModeEvent(dn1Id: dnState.selectedDNId));
     }
   }
 
@@ -392,18 +375,23 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
 
       if (!hasPhoto) {
         JobRealFotoState fotoState = jobRealFotoBloc.state;
-        if (fotoState.fotoBytes?.isNotEmpty ?? false) {
-          debugPrint(
-              "fotoState.fotoBytes?.isNotEmpty : ${fotoState.fotoBytes?.isNotEmpty}");
-          hasPhoto = true;
-        }
 
-        if (!hasPhoto) {
-          if (fotoState.fotoPath.isNotEmpty) {
+        if (AppData.kIsWeb) {
+          debugPrint("fotoState.fotoBytes?.length : ${fotoState.fotoBytes?.length}");
+          if (fotoState.fotoBytes?.isNotEmpty ?? false) {
             debugPrint(
-                "fotoState.fotoPath.isNotEmpty :${fotoState.fotoPath.isNotEmpty}");
-            debugPrint("fotoState.fotoPath :${fotoState.fotoPath}");
+                "fotoState.fotoBytes?.isNotEmpty : ${fotoState.fotoBytes?.isNotEmpty}");
             hasPhoto = true;
+          }
+        } else {
+          if (!hasPhoto) {
+            debugPrint("fotoState.fotoPath : ${fotoState.fotoPath}");
+            if (fotoState.fotoPath.isNotEmpty) {
+              debugPrint(
+                  "fotoState.fotoPath.isNotEmpty :${fotoState.fotoPath.isNotEmpty}");
+              debugPrint("fotoState.fotoPath :${fotoState.fotoPath}");
+              hasPhoto = true;
+            }
           }
         }
       }

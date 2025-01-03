@@ -53,8 +53,7 @@ dependencies:
   path: ^1.9.0
   permission_handler: ^11.3.1
   path_provider: ^2.0.11
-  sqflite: ^2.3.1
-  share_it: ^0.7.0
+  sqflite: ^2.3.1  
   string_validator: ^1.0.2
   syncfusion_flutter_calendar: ^28.1.35
   syncfusion_flutter_datagrid: ^28.1.35

@@ -42,6 +42,8 @@ class JobRealFotoBloc extends Bloc<JobRealFotoEvents, JobRealFotoState> {
         fotoPath: "",
         isPendingUpload: false,
         imageSource: ""));
+
+    emit(JobRealFotoState.reset());
   }
 
   Future<void> onSetError(
@@ -82,9 +84,11 @@ class JobRealFotoBloc extends Bloc<JobRealFotoEvents, JobRealFotoState> {
   Future<void> onUploadFile(
       UploadFotoJobRealEvent event, Emitter<JobRealFotoState> emit) async {
     debugPrint("JobRealFotoBloc -> onUploadFile");
-    emit(state.copyWith(isUploading: true, isUploaded: false, hasFailure: false));
+    emit(state.copyWith(
+        isUploading: true, isUploaded: false, hasFailure: false));
 
-    ReturnDataAPI returnData = await repository.uploadFotoJobReal(event.jobReal1Id, event.filePath);
+    ReturnDataAPI returnData =
+        await repository.uploadFotoJobReal(event.jobReal1Id, event.filePath);
     debugPrint("event.filePath : ${event.filePath}");
     emit(state.copyWith(
         isUploading: false,

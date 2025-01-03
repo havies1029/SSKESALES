@@ -31,6 +31,9 @@ class JobRealFotoState extends Equatable {
     this.fileName = "",
   });
 
+  const JobRealFotoState.reset()
+      : this(fotoPath: "", fotoBytes: null, fileName: "", imageSource: "");
+
   JobRealFotoState copyWith({
     bool? isUploading,
     bool? isUploaded,
