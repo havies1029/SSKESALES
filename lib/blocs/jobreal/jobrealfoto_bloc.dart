@@ -110,7 +110,7 @@ class JobRealFotoBloc extends Bloc<JobRealFotoEvents, JobRealFotoState> {
     emit(state.copyWith(
         isUploading: false,
         isUploaded: true,
-        hasFailure: !result.success,
+        hasFailure: !result.success,        
         isPendingUpload: false,
         imageSource: event.imageSource));
   }

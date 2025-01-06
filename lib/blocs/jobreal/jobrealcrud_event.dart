@@ -127,3 +127,5 @@ class GetInitValueNewSOAClientModeEvent extends JobRealCrudEvents {
   @override
   List<Object> get props => [dn1Id];
 }
+
+class SetFotoUploadedEvent extends JobRealCrudEvents{}

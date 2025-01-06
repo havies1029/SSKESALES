@@ -91,7 +91,7 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
                                     as ImageProvider,
                         onError: (exception, stackTrace) {
                           //debugPrint("errorMsg : $exception");
-                          
+
                           //debugPrint("AppData.userToken #20 : ${AppData.userToken}");
                           //debugPrint("AppData.httpHeaders : ${AppData.httpHeaders}");
                           jobRealFotoBloc.add(SetErrorJobRealFotoEvent(
@@ -196,6 +196,7 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
         if (state.isUploaded) {
           if (displayMessage.isNotEmpty) displayMessage += '\r';
           displayMessage += "Photo has been uploaded";
+          //jobRealCrudBloc.add(SetFotoUploadedEvent());
         }
         /*
         if (state.isDeleting) {

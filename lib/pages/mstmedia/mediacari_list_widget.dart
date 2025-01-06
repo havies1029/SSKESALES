@@ -68,7 +68,7 @@ class MediaCariListWidgetState extends State<MediaCariListWidget> {
 														},
 														backgroundColor: Colors.green,
 														icon: Icons.edit,
-														label: "Edit",
+														label: "Edit x",
 													),
 													SlidableAction(
 														onPressed: (context) {

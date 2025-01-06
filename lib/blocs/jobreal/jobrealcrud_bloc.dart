@@ -57,6 +57,7 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
     on<GetInitValueNewBriefingHarianModeEvent>(
         onGetInitValueNewBriefingHarianMode);
     on<GetInitValueNewSOAClientModeEvent>(onGetInitValueSOAClientMode);
+    on<SetFotoUploadedEvent>(onSetFotoUploadedEvent);
   }
 
   Future<void> onPreOpen(
@@ -337,5 +338,17 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
   Future<void> onRequest2Refresh(Request2RefreshJobRealCrudEvent event,
       Emitter<JobRealCrudState> emit) async {
     emit(state.copyWith(isLoading: false, isLoaded: true));
+  }
+
+  Future<void> onSetFotoUploadedEvent(
+      SetFotoUploadedEvent event, Emitter<JobRealCrudState> emit) async {
+    //debugPrint("onSetFotoUploadedEvent");
+    //emit(state.copyWith(isSaving: true, isSaved: false));
+
+    JobRealCrudModel rec = state.record!;
+    rec.hasFoto = true;
+
+    //emit(state.copyWith(isSaving: false, isSaved: true, record: rec));
+    emit(state.copyWith(record: rec));
   }
 }

@@ -150,7 +150,21 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
             jobReal2GridBloc
                 .add(RefreshJobReal2ListEvent(jobreal1Id: widget.recordId));
           }
-        })
+        }),
+        BlocListener<JobRealFotoBloc, JobRealFotoState>(
+          listener: (context, state) {
+
+            //debugPrint("JobRealFotoBloc state.isUploaded ");
+
+            if (state.isUploaded) {
+              //debugPrint("JobRealFotoBloc state.isUploaded ");
+              jobRealCrudBloc.add(SetFotoUploadedEvent());
+            }
+          },
+          listenWhen: (previous, current) {
+            return current.isUploaded;
+          },
+        ),
       ],
       child: BlocConsumer<JobRealCrudBloc, JobRealCrudState>(
         builder: (context, state) {
@@ -217,7 +231,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
             fieldComboMedia = state.comboMedia;
             fieldComboCustomer = state.comboCustomer;
             fieldComboInsurer = state.comboInsurer;
-            
+
             if (state.viewMode != "tambah") {
               fieldHasilController.text = state.record?.hasil ?? "";
               fieldMateriController.text = state.record?.materi ?? "";
@@ -368,6 +382,8 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       //cek foto
       debugPrint("Check foto for a validation");
       bool hasPhoto = false;
+
+      debugPrint("state.record!.hasFoto : ${state.record!.hasFoto}");
       if (state.record!.hasFoto) {
         debugPrint("state.record!.hasFoto : ${state.record!.hasFoto}");
         hasPhoto = true;
@@ -377,7 +393,8 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
         JobRealFotoState fotoState = jobRealFotoBloc.state;
 
         if (AppData.kIsWeb) {
-          debugPrint("fotoState.fotoBytes?.length : ${fotoState.fotoBytes?.length}");
+          debugPrint(
+              "fotoState.fotoBytes?.length : ${fotoState.fotoBytes?.length}");
           if (fotoState.fotoBytes?.isNotEmpty ?? false) {
             debugPrint(
                 "fotoState.fotoBytes?.isNotEmpty : ${fotoState.fotoBytes?.isNotEmpty}");
