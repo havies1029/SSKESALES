@@ -17,8 +17,8 @@ Future<User> validateUserLogin(UserLogin userLogin) async {
 
   debugPrint("validateUserLogin #10");
 
-  debugPrint(_tokenURL);
-  debugPrint(jsonEncode(userinfo.toJson()));
+  //debugPrint(_tokenURL);
+  //debugPrint(jsonEncode(userinfo.toJson()));
 
   /*
   try {
@@ -47,7 +47,7 @@ Future<User> validateUserLogin(UserLogin userLogin) async {
 
   //debugPrint("validateUserLogin #12");
 
-  debugPrint("response.statusCode : ${response.statusCode}");
+  //debugPrint("response.statusCode : ${response.statusCode}");
 
   //debugPrint("validateUserLogin #20");
 
@@ -74,7 +74,7 @@ Future<User> validateUserLogin(UserLogin userLogin) async {
       );
       return user;
     } on Exception catch (e) {
-      debugPrint("Error : ${e.toString()}");
+     //debugPrint("Error : ${e.toString()}");
       rethrow;
     }
   } else {

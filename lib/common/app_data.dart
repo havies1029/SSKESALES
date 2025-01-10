@@ -24,9 +24,9 @@ class AppData {
 
 
 static bool useSSL = false;
-  static String apiDomain = "http://localhost/eSalesAPI/";
-  static String prefixEndPoint = "/eSalesAPI";
-  static String httpAuthority = "localhost";
+static String apiDomain = "http://localhost/eSalesAPI/";
+static String prefixEndPoint = "/eSalesAPI";
+static String httpAuthority = "localhost";
 
 /*
 static bool useSSL = false;

@@ -220,7 +220,8 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
         comboJob: comboJob,
         comboJobCat: comboJobcat,
         comboMedia: comboMedia,
-        comboInsurer: comboInsurer));
+        comboInsurer: comboInsurer,
+        requireComboInsurer: (comboInsurer == null?false:true)));
   }
 
   Future<void> onComboJobcatChanged(
