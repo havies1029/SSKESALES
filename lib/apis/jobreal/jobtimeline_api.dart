@@ -35,7 +35,7 @@ class JobtimelineAPI {
 
   Future<List<JobtimelineModel>> getJobtimelineNonSppaAPI(
       String jobRealId, int hal) async {
-    debugPrint("JobtimelineAPI -> getJobtimelineNonSppaAPI");
+    //debugPrint("JobtimelineAPI -> getJobtimelineNonSppaAPI");
 
     String urlGetListEndPoint =
         "${AppData.prefixEndPoint}/api/jobreal/joblist/getlist/nonsppa";
@@ -57,10 +57,10 @@ class JobtimelineAPI {
       'Authorization': 'Bearer ${AppData.userToken}'
     });
     
-    debugPrint("response.statusCode : ${response.statusCode}");    
+    //debugPrint("response.statusCode : ${response.statusCode}");    
 
     if (response.statusCode == 200) {
-      debugPrint("response.body : ${response.body}");
+      //debugPrint("response.body : ${response.body}");
 
       final parsed = json.decode(response.body).cast<Map<String, dynamic>>();
       return parsed
