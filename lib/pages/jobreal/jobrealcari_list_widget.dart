@@ -201,6 +201,7 @@ class JobRealCariListWidgetState extends State<JobRealCariListWidget> {
                                 isConfirmed: state.items[index].isConfirmed,
                                 catGroupName:
                                     state.items[index].catGroupName ?? "",
+                                rdPartyName: state.items[index].rdPartyName??"",
                               )),
                         );
                       }),

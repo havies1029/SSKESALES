@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:esalesapp/common/app_data.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:esalesapp/models/mstrekan/rekancari_model.dart';
 
@@ -26,7 +25,7 @@ class RekanCariAPI {
       'Authorization': 'Bearer ${AppData.userToken}'
     });
 
-    debugPrint("response.body : ${response.body}");
+    //debugPrint("response.body : ${response.body}");
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body).cast<Map<String, dynamic>>();

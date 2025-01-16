@@ -98,6 +98,7 @@ class RekanCariListWidgetState extends State<RekanCariListWidget> {
                                             state.items[index].catName ?? '',
                                         marketingNama:
                                             state.items[index].marketingNama,
+                                        referralName: state.items[index].referralName
                                       )),
                                 ],
                               ),

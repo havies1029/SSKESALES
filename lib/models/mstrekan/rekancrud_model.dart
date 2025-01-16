@@ -1,4 +1,5 @@
 import 'package:esalesapp/models/combobox/combocustcat_model.dart';
+import 'package:esalesapp/models/combobox/combocustomer_model.dart';
 import 'package:esalesapp/models/combobox/combojob_model.dart';
 import 'package:esalesapp/models/combobox/combomarketing_model.dart';
 import 'package:esalesapp/models/combobox/combomedia_model.dart';
@@ -15,11 +16,13 @@ class RekanCrudModel {
   String? telp2;
   String? mcustcatId;
   String? msalesId;
+  String? referralFrom;
   ComboTitleModel? comboTitle;
   ComboCustCatModel? comboCustCat;
   ComboJobModel? comboJob;
   ComboMediaModel? comboMedia;
   ComboMarketingModel? comboMarketing;
+  ComboCustomerModel? comboReferral;
 
   RekanCrudModel(
       {this.alamat1,
@@ -36,7 +39,9 @@ class RekanCrudModel {
       this.comboCustCat,
       this.comboJob,
       this.comboMedia,
-      this.comboMarketing});
+      this.comboMarketing,
+      this.referralFrom,
+      this.comboReferral});
 
   factory RekanCrudModel.fromJson(Map<String, dynamic> data) {
     ComboTitleModel? comboTitle;
@@ -64,6 +69,11 @@ class RekanCrudModel {
       comboMarketing = ComboMarketingModel.fromJson(data['comboMarketing']);
     }
 
+    ComboCustomerModel? comboReferral;
+    if (data['comboReferral'] != null) {
+      comboReferral = ComboCustomerModel.fromJson(data['comboReferral']);
+    }
+
     return RekanCrudModel(
         alamat1: data['alamat1'] ?? "",
         alamat2: data['alamat2'] ?? "",
@@ -75,11 +85,13 @@ class RekanCrudModel {
         telp2: data['telp2'] ?? "",
         mcustcatId: data['mcustcatId'] ?? "",
         msalesId: data['msalesId'] ?? "",
+        referralFrom: data['referralFrom'] ?? "",
         comboTitle: comboTitle,
         comboCustCat: comboCustCat,
         comboJob: comboJob,
         comboMedia: comboMedia,
-        comboMarketing: comboMarketing);
+        comboMarketing: comboMarketing,
+        comboReferral: comboReferral);
   }
 
   Map<String, dynamic> toJson() => {
@@ -93,10 +105,12 @@ class RekanCrudModel {
         'telp2': telp2,
         'mcustcatId': mcustcatId,
         'msalesId': msalesId,
+        'referralFrom': referralFrom,
         'comboTitle': comboTitle?.toJson(),
         'comboCustCat': comboCustCat?.toJson(),
         'comboJob': comboJob?.toJson(),
         'comboMedia': comboMedia?.toJson(),
-        'comboMarketing': comboMarketing?.toJson()
+        'comboMarketing': comboMarketing?.toJson(),
+        'comboReferral': comboReferral?.toJson()
       };
 }

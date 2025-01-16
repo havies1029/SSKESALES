@@ -1,6 +1,11 @@
+import 'dart:convert';
+
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:esalesapp/models/combobox/combocustcat_model.dart';
+import 'package:esalesapp/models/combobox/combocustomer_model.dart';
 import 'package:esalesapp/models/combobox/combomarketing_model.dart';
 import 'package:esalesapp/widgets/combobox/combocustcat_widget.dart';
+import 'package:esalesapp/widgets/combobox/combocustomer_widget.dart';
 import 'package:esalesapp/widgets/combobox/combomarketing_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -34,6 +39,8 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
   var fieldRekanNamaController = TextEditingController();
   ComboCustCatModel? fieldComboCustCat = const ComboCustCatModel();
   ComboMarketingModel? fieldComboMarketing = const ComboMarketingModel();
+  ComboCustomerModel? fieldComboReferral = const ComboCustomerModel();
+  final comboReferralKey = GlobalKey<DropdownSearchState<ComboCustomerModel>>();
 
   @override
   void initState() {
@@ -148,6 +155,7 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
                             return null;
                           },
                         ),
+                        cmdBuildComboReferral(),
                         const SizedBox(height: 25),
                         FormError(
                           errors: errors,
@@ -202,6 +210,8 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
           fieldRekanNamaController.text = state.record!.rekanNama;
           fieldComboCustCat = state.record!.comboCustCat;
           fieldComboMarketing = state.record!.comboMarketing;
+          fieldComboReferral = state.record!.comboReferral;
+          //debugPrint("fieldComboReferral #20 : ${jsonEncode(fieldComboReferral?.toJson())}");
         }
       },
     );
@@ -221,13 +231,17 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
     if (_formKey.currentState!.validate()) {
       debugPrint("onSaveForm #10");
       _formKey.currentState!.save();
+
+      //debugPrint("fieldComboReferral #10 : ${fieldComboReferral?.toJson()}");
+
       RekanCrudModel record = RekanCrudModel(
           mrekanId: '',
           mtiperekanId: widget.rekanTypeId,
           mtitleId: fieldComboTitle?.mtitleId,
           rekanNama: fieldRekanNamaController.text,
           mcustcatId: fieldComboCustCat?.mcustcatId,
-          msalesId: fieldComboMarketing?.msalesId);
+          msalesId: fieldComboMarketing?.msalesId,
+          referralFrom: fieldComboReferral?.mrekanId);
 
       if (widget.viewMode == "tambah") {
         rekanCrudBloc.add(RekanCrudTambahEvent(record: record));
@@ -253,5 +267,19 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
         errors.remove(error);
       });
     }
+  }
+
+  Widget cmdBuildComboReferral() {
+    return buildFieldComboCustomer(
+      enabled: widget.viewMode != "lihat",
+      comboKey: comboReferralKey,
+      labelText: 'Referral from',
+      initItem: fieldComboReferral,
+      onSaveCallback: (value) {
+        //if (value != null) {
+        fieldComboReferral = value;
+        //}
+      },
+    );
   }
 }

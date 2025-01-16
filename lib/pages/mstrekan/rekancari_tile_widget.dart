@@ -14,6 +14,7 @@ class RekanCariTileWidget extends StatelessWidget {
 	final String titleDesc;
 	final String catName;
 	final String marketingNama;
+	final String? referralName;
 
 	const RekanCariTileWidget(
 		{super.key,
@@ -27,7 +28,8 @@ class RekanCariTileWidget extends StatelessWidget {
 		required this.telp2, 
 		required this.titleDesc, 
 		required this.catName, 
-		required this.marketingNama});
+		required this.marketingNama,
+    this.referralName});
 
 	@override
 	Widget build(BuildContext context) {
@@ -78,6 +80,16 @@ class RekanCariTileWidget extends StatelessWidget {
 						Container(height: 5),
 						Text(
 							marketingNama,
+							style: MyText.bodyLarge(context)!
+								.copyWith(color: MyColors.grey_80)),
+						Container(height: 10),
+            Container(height: 10),
+            Text("Referral from",
+							style: MyText.bodyLarge(context)!
+								.copyWith(color: MyColors.grey_40)),
+						Container(height: 5),
+						Text(
+							referralName??"",
 							style: MyText.bodyLarge(context)!
 								.copyWith(color: MyColors.grey_80)),
 						Container(height: 10),

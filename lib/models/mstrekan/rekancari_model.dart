@@ -10,12 +10,12 @@ class RekanCariModel {
 	String telp2;
 	String? catName;
 	String marketingNama;
+	String? referralName;
 
 	RekanCariModel({required this.alamat1, required this.alamat2, 
-		required this.mrekanId, 
-		required this.mtiperekanId, required this.mtitleId, this.titleDesc, 
-		required this.rekanNama, required this.telp1, 
-		required this.telp2, this.catName, required this.marketingNama});
+		required this.mrekanId, required this.mtiperekanId, required this.mtitleId, this.titleDesc, 
+		required this.rekanNama, required this.telp1, required this.telp2, this.catName, 
+    required this.marketingNama, this.referralName});
 
 	factory RekanCariModel.fromJson(Map<String, dynamic> data) =>
 		RekanCariModel(
@@ -29,7 +29,8 @@ class RekanCariModel {
 			telp1: data['telp1']??"",
 			telp2: data['telp2']??"",
 			catName: data['catName']??"",
-			marketingNama: data['marketingNama']??""
+			marketingNama: data['marketingNama']??"",
+			referralName: data['referralName']??""
 		);
 
 	Map<String, dynamic> toJson() =>
@@ -43,6 +44,7 @@ class RekanCariModel {
 		'telp1': telp1,
 		'telp2': telp2,
 		'catName': catName,
-		'marketingNama': marketingNama};
+		'marketingNama': marketingNama,
+		'referralName': referralName};
 
 }

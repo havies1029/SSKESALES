@@ -27,7 +27,7 @@ DropdownSearch<ComboMarketingModel> buildFieldComboMarketing({
 			popupProps: const PopupPropsMultiSelection.modalBottomSheet(
 				disableFilter: false,
 				showSelectedItems: true,
-				showSearchBox: false,
+				showSearchBox: true,
 				itemBuilder: itemBuilderComboMarketing,
 			),
 			compareFn: (item, sItem) => item.msalesId == sItem.msalesId,

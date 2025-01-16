@@ -16,21 +16,24 @@ class JobRealCariTileWidget extends StatelessWidget {
   final String customerNama;
   final bool isConfirmed;
   final String catGroupName;
+  final String rdPartyName;
 
-  const JobRealCariTileWidget(
-      {super.key,
-      required this.hasil,
-      required this.jobreal1Id,
-      required this.materi,
-      required this.picName,
-      required this.realJam,
-      required this.realTgl,
-      required this.catName,
-      required this.jobNama,
-      required this.mediaNama,
-      required this.customerNama,
-      this.isConfirmed = false,
-      required this.catGroupName,});
+  const JobRealCariTileWidget({
+    super.key,
+    required this.hasil,
+    required this.jobreal1Id,
+    required this.materi,
+    required this.picName,
+    required this.realJam,
+    required this.realTgl,
+    required this.catName,
+    required this.jobNama,
+    required this.mediaNama,
+    required this.customerNama,
+    this.isConfirmed = false,
+    required this.catGroupName,
+    required this.rdPartyName
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +41,7 @@ class JobRealCariTileWidget extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
         ),
-        color: isConfirmed?Colors.blueGrey[200]:Colors.orange[200],
+        color: isConfirmed ? Colors.blueGrey[200] : Colors.orange[200],
         margin: const EdgeInsets.symmetric(horizontal: 10),
         elevation: 2,
         clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -89,21 +92,49 @@ class JobRealCariTileWidget extends StatelessWidget {
                 style: MyText.bodyLarge(context)!
                     .copyWith(color: MyColors.grey_60)),
             Container(height: 5),
-            Text(customerNama,
-            
-                style: MyText.titleLarge(context)!
-                    .copyWith(
-                    color: Colors.transparent,
-                    shadows: [
-                      const Shadow(
-                          color: Colors.black,
-                          offset: Offset(0, -5))
-                    ],
-                    decoration: TextDecoration.underline, 
-                    decorationColor: Colors.black,
-                    decorationThickness: 2.0 ),
-                maxLines: 2,),
+            Text(
+              customerNama,
+              style: MyText.titleLarge(context)!.copyWith(
+                  color: Colors.transparent,
+                  shadows: [
+                    const Shadow(color: Colors.black, offset: Offset(0, -5))
+                  ],
+                  decoration: TextDecoration.underline,
+                  decorationColor: Colors.black,
+                  decorationThickness: 2.0),
+              maxLines: 2,
+            ),
             Container(height: 10),
+            
+
+            Visibility(
+              visible: ((rdPartyName.isNotEmpty)?true:false),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Insurer",
+                      style: MyText.bodyLarge(context)!
+                          .copyWith(color: MyColors.grey_60)),
+              
+                  Container(height: 5),
+                  Text(
+                    rdPartyName??"",
+                    style: MyText.bodyLarge(context)!.copyWith(
+                        color: Colors.transparent,
+                        shadows: [
+                          const Shadow(color: Colors.black, offset: Offset(0, -5))
+                        ],
+                        decoration: TextDecoration.underline,
+                        decorationColor: Colors.black,
+                        decorationThickness: 2.0),
+                    maxLines: 2,
+                  ),
+                  Container(height: 10),
+                ],
+              ),
+            ),
+            
+
             Text("Perihal",
                 style: MyText.bodyLarge(context)!
                     .copyWith(color: MyColors.grey_60)),
@@ -126,12 +157,12 @@ class JobRealCariTileWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8)),
               child: Padding(
                 padding: const EdgeInsets.only(left: 5, right: 5.0),
-                child: Text(jobNama,
-                    textAlign: TextAlign.left,                    
-                    style: MyText.bodyLarge(context)!
-                    .copyWith(color: Colors.yellow),
-                    
-                  ),
+                child: Text(
+                  jobNama,
+                  textAlign: TextAlign.left,
+                  style:
+                      MyText.bodyLarge(context)!.copyWith(color: Colors.yellow),
+                ),
               ),
             ),
             //Container(height: 5),
