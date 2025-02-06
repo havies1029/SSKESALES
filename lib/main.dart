@@ -29,6 +29,8 @@ import 'package:esalesapp/blocs/mstjobgroup/jobgroupcrud_bloc.dart';
 import 'package:esalesapp/blocs/mstmedia/mediacari_bloc.dart';
 import 'package:esalesapp/blocs/mstmedia/mediacrud_bloc.dart';
 import 'package:esalesapp/blocs/mstrekan/rekancari_bloc.dart';
+import 'package:esalesapp/blocs/mstrekan/rekancontactcrud_bloc.dart';
+import 'package:esalesapp/blocs/mstrekan/rekancontactlist_bloc.dart';
 import 'package:esalesapp/blocs/mstrekan/rekancrud_bloc.dart';
 import 'package:esalesapp/blocs/mststaff/staffcari_bloc.dart';
 import 'package:esalesapp/blocs/mststaff/staffcrud_bloc.dart';
@@ -50,6 +52,7 @@ import 'package:esalesapp/repositories/mstjob/jobcrud_repository.dart';
 import 'package:esalesapp/repositories/mstjobcat/jobcatcrud_repository.dart';
 import 'package:esalesapp/repositories/mstjobgroup/jobgroupcrud_repository.dart';
 import 'package:esalesapp/repositories/mstmedia/mediacrud_repository.dart';
+import 'package:esalesapp/repositories/mstrekan/rekancontactcrud_repository.dart';
 import 'package:esalesapp/repositories/mstrekan/rekancrud_repository.dart';
 import 'package:esalesapp/repositories/mststaff/staffcrud_repository.dart';
 import 'package:esalesapp/repositories/msttitle/titlecrud_repository.dart';
@@ -199,7 +202,11 @@ class App extends StatelessWidget {
         BlocProvider<AginglistBloc>(
             create: (context) => AginglistBloc()),                 
         BlocProvider<DnlistBloc>(
-            create: (context) => DnlistBloc()),            
+            create: (context) => DnlistBloc()),                    
+        BlocProvider<RekanContactListBloc>(
+            create: (context) => RekanContactListBloc()),              
+        BlocProvider<RekanContactCrudBloc>(
+            create: (context) => RekanContactCrudBloc(repository: RekanContactCrudRepository())),            
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

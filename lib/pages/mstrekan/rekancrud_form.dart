@@ -55,153 +55,138 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
     rekanCrudBloc = BlocProvider.of<RekanCrudBloc>(context);
     return BlocConsumer<RekanCrudBloc, RekanCrudState>(
       builder: (context, state) {
-        return Dialog(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            child: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Form(
-                    key: _formKey,
-                    child: Column(
+        return SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    const SizedBox(height: 10),                    
+                    buildFieldComboTitle(
+                      labelText: 'Title',
+                      initItem: fieldComboTitle,
+                      onSaveCallback: (value) {
+                        fieldComboTitle = value;
+                      },
+                    ),
+                    TextFormField(
+                      controller: fieldRekanNamaController,
+                      decoration: const InputDecoration(
+                        labelText: "Nama Lengkap",
+                        floatingLabelBehavior: FloatingLabelBehavior.always,
+                      ),
+                      onChanged: (value) {
+                        if (value.isNotEmpty) {
+                          removeError(error: 'Nama tidak boleh kosong.');
+                        }
+                      },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          addError(error: 'Nama tidak boleh kosong.');
+                          return "";
+                        }
+                        return null;
+                      },
+                    ),
+                    buildFieldComboCustCat(
+                      usage: "mcst",
+                      labelText: 'Category',
+                      initItem: fieldComboCustCat,
+                      onChangedCallback: (value) {
+                        if ((value != null) &&
+                            (value.mcustcatId.isNotEmpty)) {
+                          removeError(
+                              error: "Field Category tidak boleh kosong.");
+                          fieldComboCustCat = value;
+                        }
+                      },
+                      onSaveCallback: (value) {
+                        if (value != null) {
+                          fieldComboCustCat = value;
+                        }
+                      },
+                      validatorCallback: (value) {
+                        if ((value == null) || (value.mcustcatId.isEmpty)) {
+                          addError(
+                              error: "Field Category tidak boleh kosong.");
+                          return "";
+                        }
+                        return null;
+                      },
+                    ),
+                    buildFieldComboMarketing(
+                      labelText: 'Marketing',
+                      initItem: fieldComboMarketing,
+                      onChangedCallback: (value) {
+                        if ((value != null) &&
+                            (value.msalesId.isNotEmpty)) {
+                          removeError(
+                              error: "Field Marketing tidak boleh kosong.");
+                          fieldComboMarketing = value;
+                        }
+                      },
+                      onSaveCallback: (value) {
+                        if (value != null) {
+                          fieldComboMarketing = value;
+                        }
+                      },
+                      validatorCallback: (value) {
+                        if ((value == null) || (value.msalesId.isEmpty)) {
+                          addError(
+                              error: "Field Marketing tidak boleh kosong.");
+                          return "";
+                        }
+                        return null;
+                      },
+                    ),
+                    cmdBuildComboReferral(),
+                    const SizedBox(height: 25),
+                    FormError(
+                      errors: errors,
+                      key: null,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        const SizedBox(height: 10),
-                        Text(
-                          "${widget.viewMode == "tambah" ? "Tambah" : "Ubah"} Customer",
-                          style: const TextStyle(
-                            fontSize: 20.0,
-                            color: Color(0xffff6101),
-                            fontWeight: FontWeight.w600,
-                            fontFamily: 'Hind',
-                            fontStyle: FontStyle.italic,
-                            decoration: TextDecoration.underline,
-                          ),
-                        ),
-                        const SizedBox(height: 25),
-                        buildFieldComboTitle(
-                          labelText: 'Title',
-                          initItem: fieldComboTitle,
-                          onSaveCallback: (value) {
-                            fieldComboTitle = value;
-                          },
-                        ),
-                        TextFormField(
-                          controller: fieldRekanNamaController,
-                          decoration: const InputDecoration(
-                            labelText: "Nama Lengkap",
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                          ),
-                          onChanged: (value) {
-                            if (value.isNotEmpty) {
-                              removeError(error: 'Nama tidak boleh kosong.');
-                            }
-                          },
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              addError(error: 'Nama tidak boleh kosong.');
-                              return "";
-                            }
-                            return null;
-                          },
-                        ),
-                        buildFieldComboCustCat(
-                          usage: "mcst",
-                          labelText: 'Category',
-                          initItem: fieldComboCustCat,
-                          onChangedCallback: (value) {
-                            if ((value != null) &&
-                                (value.mcustcatId.isNotEmpty)) {
-                              removeError(
-                                  error: "Field Category tidak boleh kosong.");
-                              fieldComboCustCat = value;
-                            }
-                          },
-                          onSaveCallback: (value) {
-                            if (value != null) {
-                              fieldComboCustCat = value;
-                            }
-                          },
-                          validatorCallback: (value) {
-                            if ((value == null) || (value.mcustcatId.isEmpty)) {
-                              addError(
-                                  error: "Field Category tidak boleh kosong.");
-                              return "";
-                            }
-                            return null;
-                          },
-                        ),
-                        buildFieldComboMarketing(
-                          labelText: 'Marketing',
-                          initItem: fieldComboMarketing,
-                          onChangedCallback: (value) {
-                            if ((value != null) &&
-                                (value.msalesId.isNotEmpty)) {
-                              removeError(
-                                  error: "Field Marketing tidak boleh kosong.");
-                              fieldComboMarketing = value;
-                            }
-                          },
-                          onSaveCallback: (value) {
-                            if (value != null) {
-                              fieldComboMarketing = value;
-                            }
-                          },
-                          validatorCallback: (value) {
-                            if ((value == null) || (value.msalesId.isEmpty)) {
-                              addError(
-                                  error: "Field Marketing tidak boleh kosong.");
-                              return "";
-                            }
-                            return null;
-                          },
-                        ),
-                        cmdBuildComboReferral(),
-                        const SizedBox(height: 25),
-                        FormError(
-                          errors: errors,
-                          key: null,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.3,
-                              height: 60,
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 30.0),
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    _dismissDialog();
-                                  },
-                                  child: const Text(
-                                    'Close',
-                                    style: TextStyle(fontSize: 13.0),
-                                  ),
-                                ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.3,
+                          height: 60,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 30.0),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                _dismissDialog();
+                              },
+                              child: const Text(
+                                'Close',
+                                style: TextStyle(fontSize: 13.0),
                               ),
                             ),
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.3,
-                              height: 60,
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 30.0),
-                                child: ElevatedButton(
-                                  onPressed: () {
-                                    onSaveForm();
-                                  },
-                                  child: const Text(
-                                    'Save',
-                                    style: TextStyle(fontSize: 13.0),
-                                  ),
-                                ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.3,
+                          height: 60,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 30.0),
+                            child: ElevatedButton(
+                              onPressed: () {
+                                onSaveForm();
+                              },
+                              child: const Text(
+                                'Save',
+                                style: TextStyle(fontSize: 13.0),
                               ),
                             ),
-                          ],
+                          ),
                         ),
                       ],
-                    )),
-              ),
-            ));
+                    ),
+                  ],
+                )),
+          ),
+        );
       },
       listener: (context, state) {
         if (state.isLoaded) {

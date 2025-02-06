@@ -159,4 +159,6 @@ class RekanCariListWidgetState extends State<RekanCariListWidget> {
       rekanCariBloc.add(CloseDialogRekanCariEvent());
     });
   }
+
+  
 }

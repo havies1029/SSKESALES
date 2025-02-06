@@ -1,11 +1,11 @@
 import 'package:esalesapp/common/app_data.dart';
+import 'package:esalesapp/pages/mstrekan/rekancrud_main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:esalesapp/widgets/listpage_filter_bar_ui.dart';
 import 'package:esalesapp/widgets/floatingmenumaster_widget.dart';
 import 'package:esalesapp/blocs/mstrekan/rekancari_bloc.dart';
 import 'package:esalesapp/blocs/mstrekan/rekancrud_bloc.dart';
-import 'package:esalesapp/pages/mstrekan/rekancrud_form.dart';
 import 'package:esalesapp/pages/mstrekan/rekancari_list_widget.dart';
 
 class RekanCariPage extends StatefulWidget {
@@ -40,7 +40,7 @@ class RekanCariPageState extends State<RekanCariPage> {
     rekanCrudBloc = BlocProvider.of<RekanCrudBloc>(context);
 
     return MultiBlocListener(
-        listeners: [
+        listeners: [          
           BlocListener<RekanCariBloc, RekanCariState>(
               listener: (context, state) {
             if (state.viewMode == "tambah") {
@@ -117,22 +117,21 @@ class RekanCariPageState extends State<RekanCariPage> {
     ));
   }
 
+
   void showDialogViewData(
       BuildContext context, String viewMode, String recordId) {
     FocusScope.of(context).requestFocus(FocusNode());
-    showDialog(
-            context: context,
-            barrierDismissible: false,
-            builder: (BuildContext context) {
-              return RekanCrudFormPage(
-                  rekanTypeId: widget.rekanTypeId,
-                  viewMode: viewMode,
-                  recordId: recordId);
-            },
-            useSafeArea: true)
-        .then((value) {
-      rekanCariBloc.add(CloseDialogRekanCariEvent());
-    });
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) {
+        return RekanCrudMainPage(
+          rekanTypeId: widget.rekanTypeId,
+          viewMode: viewMode,
+          recordId: recordId);
+      }),
+    );
+
   }
 
   Widget buildBtnFilter() {
@@ -163,15 +162,6 @@ class RekanCariPageState extends State<RekanCariPage> {
                             searchText: "",
                             hal: 0,
                             filterBy: "all"));
-                        /*
-                          setState(() {
-                            filterBy = "all";
-                          });
-                          */
-                        /*
-                          jobRealCariBloc.add(
-                              const SetFilterDocRealCariEvent(filterDoc: "all"));
-                          */
                       },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,
@@ -198,22 +188,11 @@ class RekanCariPageState extends State<RekanCariPage> {
                       onPressed: () {
                         debugPrint("Press Btn Filter Unassigned");
 
-                        //_searchController.text = "";
-
                         rekanCariBloc.add(RefreshRekanCariEvent(
                             rekanTypeId: widget.rekanTypeId,
                             searchText: "",
                             hal: 0,
                             filterBy: "unassigned"));
-                        /*             
-                          setState(() {
-                            filterBy = "unassigned";
-                          });
-                          */
-                        /*
-                          jobRealCariBloc.add(
-                              const SetFilterDocRealCariEvent(filterDoc: "draft"));
-                          */
                       },
                       style: ElevatedButton.styleFrom(
                         foregroundColor: Colors.white,

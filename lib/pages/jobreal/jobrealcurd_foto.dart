@@ -249,6 +249,7 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
     final result = await ImagePicker().pickImage(
       imageQuality: 70,
       maxWidth: 1440,
+      maxHeight: 1080,
       source: ImageSource.camera,
     );
 
@@ -284,7 +285,7 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
     if (result != null) {
       if (result.files.first.bytes != null) {
         Uint8List fileBytes = compressAndResizeImage(result.files.first.bytes!);
-        //Uint8List? fileBytes = result.files.first.bytes;
+        //Uint8List fileBytes = result.files.first.bytes!;
         String fileName = result.files.first.name;
         //debugPrint("fileName : $fileName");
 
@@ -319,11 +320,11 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
     int height;
 
     if (image!.width > image.height) {
-      width = 800;
-      height = (image.height / image.width * 800).round();
+      width = 1440;
+      height = (image.height / image.width * 1440).round();
     } else {
-      height = 800;
-      width = (image.width / image.height * 800).round();
+      height = 1080;
+      width = (image.width / image.height * 1080).round();
     }
 
     img.Image resizedImage =

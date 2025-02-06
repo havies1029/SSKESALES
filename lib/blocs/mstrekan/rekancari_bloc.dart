@@ -75,7 +75,8 @@ class RekanCariBloc extends Bloc<RekanCariEvents, RekanCariState> {
 
   Future<void> onHapusRekanCari(
       HapusRekanCariEvent event, Emitter<RekanCariState> emit) async {
-    return emit(state.copyWith(viewMode: "hapus"));
+    emit(state.copyWith(viewMode: ""));
+    emit(state.copyWith(viewMode: "hapus"));
   }
 
   Future<void> onCloseDialogRekanCari(
@@ -85,12 +86,14 @@ class RekanCariBloc extends Bloc<RekanCariEvents, RekanCariState> {
 
   Future<void> onTambahRekanCari(
       TambahRekanCariEvent event, Emitter<RekanCariState> emit) async {
-    return emit(state.copyWith(viewMode: "tambah"));
+    emit(state.copyWith(viewMode: ""));
+    emit(state.copyWith(viewMode: "tambah"));
   }
 
   Future<void> onUbahRekanCari(
       UbahRekanCariEvent event, Emitter<RekanCariState> emit) async {
-    return emit(state.copyWith(viewMode: "ubah", recordId: event.recordId));
+    emit(state.copyWith(viewMode: ""));
+    emit(state.copyWith(viewMode: "ubah", recordId: event.recordId));
   }
 
   /*
