@@ -298,6 +298,12 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
               imageSource: "gallery",
               fileName: fileName));
         } else {
+
+          jobRealFotoBloc.add(Save2StateFotoBinaryJobRealEvent(
+              fotoBytes: fileBytes,
+              imageSource: "gallery",
+              fileName: fileName));
+
           jobRealFotoBloc.add(UploadFotoBytesJobRealEvent(
               jobReal1Id: widget.jobReal1Id,
               fileName: fileName,
@@ -359,6 +365,10 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
           backgroundColor: Colors.orange,
         ));
         */
+
+        jobRealFotoBloc.add(Save2StateFotoLocalPathJobRealEvent(
+            filePath: filePath, imageSource: imageSource));
+
         jobRealFotoBloc.add(UploadFotoJobRealEvent(
             jobReal1Id: widget.jobReal1Id,
             filePath: filePath,
