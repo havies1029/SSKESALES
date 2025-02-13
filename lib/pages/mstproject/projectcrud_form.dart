@@ -105,12 +105,12 @@ class ProjectCrudFormPageFormState extends State<ProjectCrudFormPage> {
                           ),
                           onChanged: (value) {
                             if (value.isNotEmpty) {
-                              removeError(error: kStringNullError);
+                              removeError(error: "Field 'Project Name' harus diinput");
                             }
                           },
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              addError(error: kStringNullError);
+                              addError(error: "Field 'Project Name' harus diinput");
                               return "";
                             }
                             return null;
@@ -128,14 +128,14 @@ class ProjectCrudFormPageFormState extends State<ProjectCrudFormPage> {
                           ),
                           onChanged: (value) {
                             if (value != null) {
-                              removeError(error: kStringNullError);
+                              removeError(error: "Field 'Dateline' harus diinput");
                               fieldDatelineController.text =
                                   value.toIso8601String();
                             }
                           },
                           validator: (value) {
                             if (value == null) {
-                              addError(error: kStringNullError);
+                              addError(error: "Field 'Dateline' harus diinput");
                               return "";
                             }
                             return null;

@@ -150,7 +150,7 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.3,
+                          width: 120,
                           height: 60,
                           child: Padding(
                             padding: const EdgeInsets.only(top: 30.0),
@@ -166,7 +166,7 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
                           ),
                         ),
                         SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.3,
+                          width: 120,
                           height: 60,
                           child: Padding(
                             padding: const EdgeInsets.only(top: 30.0),
