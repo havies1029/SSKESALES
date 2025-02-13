@@ -9,7 +9,6 @@ import 'package:esalesapp/blocs/jobreal/jobreal3grid_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealcari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealfoto_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealglobal_cubit.dart';
-import 'package:esalesapp/blocs/jobreal/jobrealtab_bloc.dart';
 import 'package:esalesapp/blocs/soaclient/dnlist_bloc.dart';
 import 'package:esalesapp/common/app_data.dart';
 import 'package:esalesapp/common/loading_indicator.dart';
@@ -97,7 +96,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 500), () {
+    Future.delayed(const Duration(milliseconds: 500), () {      
       loadData();
     });
   }

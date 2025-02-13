@@ -206,20 +206,21 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
   Future<void> onLihatJobRealCrud(
       JobRealCrudLihatEvent event, Emitter<JobRealCrudState> emit) async {
     emit(state.copyWith(isLoading: true, isLoaded: false));
-    emit(state.resetDataProject());
-
+    
     //debugPrint("onLihatJobRealCrud #10");
 
-    //debugPrint("state.comboProject : ${state.comboProject.toString()}");
+    debugPrint("state.comboProject : ${state.comboProject.toString()}");
 
     JobRealCrudModel record = await repository.jobRealCrudLihat(event.recordId);
 
-    ComboJobcatModel? comboJobcat = record.comboJobcat;
-    ComboJobModel? comboJob = record.comboJob;
-    ComboCustomerModel? comboCustomer = record.comboCustomer;
-    ComboMediaModel? comboMedia = record.comboMedia;
-    ComboInsurerModel? comboInsurer = record.comboInsurer;
-    ComboMProjectModel? comboProject = record.comboProject;
+    ComboJobcatModel? comboJobcat = record.comboJobcat??ComboJobcatModel();
+    ComboJobModel? comboJob = record.comboJob??ComboJobModel();
+    ComboCustomerModel? comboCustomer = record.comboCustomer??ComboCustomerModel();
+    ComboMediaModel? comboMedia = record.comboMedia??ComboMediaModel();
+    ComboInsurerModel? comboInsurer = record.comboInsurer??ComboInsurerModel();
+    ComboMProjectModel? comboProject = record.comboProject??ComboMProjectModel();
+    
+    debugPrint("comboProject : ${comboProject.toString()}");
 
     emit(state.copyWith(
         isLoading: false,

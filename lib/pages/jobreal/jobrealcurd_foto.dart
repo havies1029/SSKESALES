@@ -347,8 +347,8 @@ class JobRealCrudFotoWidgetState extends State<JobRealCrudFotoWidget> {
     //debugPrint("saveFotoCamera -> filePath $filePath");
     if (filePath.isNotEmpty) {
       var viewMode = jobRealCrudBloc.state.viewMode;
-      if (viewMode == "tambah") {
-        //debugPrint("saveFotoCamera -> viewMode : $viewMode");
+      debugPrint("saveFotoCamera -> viewMode : $viewMode");
+      if (viewMode == "tambah") {        
         /*
         ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
           content:

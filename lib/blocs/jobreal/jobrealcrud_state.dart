@@ -33,12 +33,6 @@ class JobRealCrudState extends Equatable {
       this.requireComboInsurer = false,
       this.forceChangeComboCustomer = false});
 
-  JobRealCrudState resetDataProject() {    
-    return JobRealCrudState(
-      comboProject: null
-    );
-  }
-
   JobRealCrudState copyWith({
     JobRealCrudModel? record,
     bool? isLoading,
