@@ -9,11 +9,13 @@ import 'package:esalesapp/blocs/jobreal/jobreal3grid_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealcari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealfoto_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealglobal_cubit.dart';
+import 'package:esalesapp/blocs/jobreal/jobrealtab_bloc.dart';
 import 'package:esalesapp/blocs/soaclient/dnlist_bloc.dart';
 import 'package:esalesapp/common/app_data.dart';
 import 'package:esalesapp/common/loading_indicator.dart';
 import 'package:esalesapp/models/combobox/combocustomer_model.dart';
 import 'package:esalesapp/models/combobox/comboinsurer_model.dart';
+import 'package:esalesapp/models/combobox/combomproject_model.dart';
 import 'package:esalesapp/models/jobreal/jobreal2cari_model.dart';
 import 'package:esalesapp/pages/jobreal/jobreal2cari_main.dart';
 import 'package:esalesapp/pages/jobreal/jobreal2grid_list_widget.dart';
@@ -22,6 +24,7 @@ import 'package:esalesapp/pages/jobreal/jobreal3grid_list_widget.dart';
 import 'package:esalesapp/pages/jobreal/jobrealcurd_foto.dart';
 import 'package:esalesapp/widgets/combobox/combocustomer_widget.dart';
 import 'package:esalesapp/widgets/combobox/comboinsurer_widget.dart';
+import 'package:esalesapp/widgets/combobox/combomproject_widget.dart';
 import 'package:esalesapp/widgets/my_colors.dart';
 import 'package:esalesapp/widgets/my_text.dart';
 import 'package:esalesapp/widgets/speechtotext_widget.dart';
@@ -76,6 +79,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
   ComboMediaModel? fieldComboMedia;
   ComboCustomerModel? fieldComboCustomer;
   ComboInsurerModel? fieldComboInsurer;
+  ComboMProjectModel? fieldComboProject;
   var fieldComboJobController = TextEditingController();
   var fieldPicNameController = TextEditingController();
   var fieldRealJamController =
@@ -87,6 +91,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
   final comboJobCatKey = GlobalKey<DropdownSearchState<ComboJobcatModel>>();
   final comboCustomerKey = GlobalKey<DropdownSearchState<ComboCustomerModel>>();
   final comboInsurerKey = GlobalKey<DropdownSearchState<ComboInsurerModel>>();
+  final comboProjectKey = GlobalKey<DropdownSearchState<ComboMProjectModel>>();
   final jobKey = GlobalKey<DropdownSearchState<ComboJobModel>>();
 
   @override
@@ -124,6 +129,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
     jobRealFotoBloc = BlocProvider.of<JobRealFotoBloc>(context);
     jobReal2CariBloc = BlocProvider.of<JobReal2CariBloc>(context);
     jobReal3CariBloc = BlocProvider.of<JobReal3CariBloc>(context);
+
     dnlistBloc = BlocProvider.of<DnlistBloc>(context);
 
     //debugPrint("JobRealCrudFormPageFormState #15");
@@ -153,7 +159,6 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
         }),
         BlocListener<JobRealFotoBloc, JobRealFotoState>(
           listener: (context, state) {
-
             //debugPrint("JobRealFotoBloc state.isUploaded ");
 
             if (state.isUploaded) {
@@ -197,6 +202,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
                             ),
                             cmdBuildComboCustomer(),
                             cmdBuildComboInsurer(state),
+                            cmdBuildComboProject(),
                             buildFieldCustomerPIC(),
                             cmdBuildFieldComboJobCat(),
                             cmdBuildFieldComboJob(state),
@@ -231,6 +237,9 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
             fieldComboMedia = state.comboMedia;
             fieldComboCustomer = state.comboCustomer;
             fieldComboInsurer = state.comboInsurer;
+            fieldComboProject = state.comboProject;
+
+            debugPrint("listener fieldComboProject : ${fieldComboProject.toString()}");
 
             if (state.viewMode != "tambah") {
               fieldHasilController.text = state.record?.hasil ?? "";
@@ -447,7 +456,8 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
               realTgl: DateTime.parse(fieldRealTglController.text),
               rdpartyId: fieldComboInsurer?.mrekanId,
               taskDesc: fieldTaskDescController.text,
-              isConfirmed: isRequestConfirm);
+              isConfirmed: isRequestConfirm,
+              projectId: fieldComboProject?.mprojectId ?? "");
 
           //debugPrint("fieldComboJobcat?.mjobcatId : ${fieldComboJobcat?.mjobcatId}");
 
@@ -700,6 +710,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       labelText: 'Customer',
       initItem: fieldComboCustomer,
       onChangedCallback: (value) {
+        comboProjectKey.currentState?.clear();
         if (value != null) {
           if ((fieldComboCustomer?.mrekanId == "") ||
               (jobRealCrudBloc.state.forceChangeComboCustomer)) {
@@ -885,7 +896,6 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
         labelText: 'Task',
         initItem: fieldComboJob,
         jobCatId: fieldComboJobcat?.mjobcatId ?? "",
-        //jobCatId: comboJobCatKey.currentState?.getSelectedItem?.mjobcatId ?? "",
         onChangedCallback: (value) {
           if (value != null) {
             removeError(error: "Field Task tidak boleh kosong.");
@@ -1200,16 +1210,32 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
     );
   }
 
-/*
-  void resetFormState() {
-    debugPrint("resetFormState #10");
-
-    jobRealCrudBloc.add(JobRealCrudResetStateEvent());
-    jobReal2CariBloc.add(ResetStateJobReal2CariEvent());
-    jobReal3CariBloc.add(ResetStateJobReal3CariEvent());
-    jobRealFotoBloc.add(ResetStateJobRealFotoEvent());
-    jobReal2GridBloc.add(ResetStateJobReal2ListEvent());
-    jobReal3GridBloc.add(ResetStateJobReal3ListEvent());
+  Widget cmdBuildComboProject() {
+    return Visibility(
+      visible: ((jobRealGlobalCubit.state.selectedJobCatGroup.mjobcatgroupId ==
+                  "10010" ||
+              jobRealGlobalCubit.state.selectedJobCatGroup.mjobcatgroupId ==
+                  "10030")
+          ? true
+          : false),
+      child: buildFieldComboMProject(
+        enabled: widget.viewMode != "lihat",
+        labelText: 'Project',
+        initItem: fieldComboProject,
+        rekanId: fieldComboCustomer?.mrekanId ?? "",
+        comboKey: comboProjectKey,
+        onChangedCallback: (value) {
+          if (value != null) {
+            jobRealCrudBloc
+                .add(ComboProjectJobRealCrudChangedEvent(comboProject: value));
+          }
+        },
+        onSaveCallback: (value) {
+          if (value != null) {
+            fieldComboProject = value;
+          }
+        },
+      ),
+    );
   }
-  */
 }

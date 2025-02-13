@@ -32,3 +32,4 @@ class TimelinePolicyExpiredPageActiveEvent extends HomeEvent {}
 class OnBoardPageActiveEvent extends HomeEvent {}
 class BriefingPageActiveEvent extends HomeEvent {}
 class SOAClientPageActiveEvent extends HomeEvent {}
+class ProjectPageActiveEvent extends HomeEvent {}

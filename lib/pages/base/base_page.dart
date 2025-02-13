@@ -34,7 +34,8 @@ enum PageType {
   realgroup,
   timeline,
   briefing,
-  soaclient
+  soaclient,
+  project
 }
 
 abstract class PageContainerBase extends StatefulWidget {

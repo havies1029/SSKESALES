@@ -17,6 +17,8 @@ class JobRealCariTileWidget extends StatelessWidget {
   final bool isConfirmed;
   final String catGroupName;
   final String rdPartyName;
+  final String projectNama;
+  final String jobCatGroupCode;
 
   const JobRealCariTileWidget({
     super.key,
@@ -32,7 +34,9 @@ class JobRealCariTileWidget extends StatelessWidget {
     required this.customerNama,
     this.isConfirmed = false,
     required this.catGroupName,
-    required this.rdPartyName
+    required this.rdPartyName,
+    required this.projectNama,
+    required this.jobCatGroupCode
   });
 
   @override
@@ -118,7 +122,7 @@ class JobRealCariTileWidget extends StatelessWidget {
               
                   Container(height: 5),
                   Text(
-                    rdPartyName??"",
+                    rdPartyName,
                     style: MyText.bodyLarge(context)!.copyWith(
                         color: Colors.transparent,
                         shadows: [
@@ -134,6 +138,30 @@ class JobRealCariTileWidget extends StatelessWidget {
               ),
             ),
             
+            Visibility(
+              visible: ((jobCatGroupCode == "NB" || jobCatGroupCode == "IN")?true:false),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Project",
+                      style: MyText.bodyLarge(context)!
+                          .copyWith(color: MyColors.grey_60)),
+              
+                  Container(height: 5),
+                  Text(projectNama,
+                    style: MyText.bodyLarge(context)!.copyWith(
+                        color: Colors.transparent,
+                        shadows: [
+                          const Shadow(color: Colors.black, offset: Offset(0, -5))
+                        ],
+                        decorationColor: Colors.black,
+                        decorationThickness: 2.0),
+                    maxLines: 2,
+                  ),
+                  Container(height: 10),
+                ],
+              ),
+            ),            
 
             Text("Perihal",
                 style: MyText.bodyLarge(context)!

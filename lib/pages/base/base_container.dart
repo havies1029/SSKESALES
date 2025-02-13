@@ -18,6 +18,7 @@ import 'package:esalesapp/pages/mstjob/jobsalescari_main.dart';
 import 'package:esalesapp/pages/mstjobcat/jobcatcari_main.dart';
 import 'package:esalesapp/pages/mstjobgroup/jobgroupcari_main.dart';
 import 'package:esalesapp/pages/mstmedia/mediacari_main.dart';
+import 'package:esalesapp/pages/mstproject/projectlist_main.dart';
 import 'package:esalesapp/pages/mstrekan/rekancari_main.dart';
 import 'package:esalesapp/pages/mststaff/staffcari_main.dart';
 import 'package:esalesapp/pages/msttitle/titlecari_main.dart';
@@ -152,6 +153,8 @@ class PageContainer extends PageContainerBase {
         return "Briefing";
       case PageType.soaclient:
         return "SOA Client";
+      case PageType.project:
+        return "Master Project";
       default:
         return "Login Page";
     }
@@ -228,6 +231,9 @@ class PageContainer extends PageContainerBase {
         break;
       case PageType.soaclient:
         page = const AgingSOAMainPage();
+        break;
+      case PageType.project:
+        page = const ProjectListMainPage();
         break;
       default:
         page = null;

@@ -34,8 +34,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    super.initState();   
-    
+    super.initState();
+
     Future.delayed(const Duration(milliseconds: 500), () {
       refreshDataTabJobReal();
     });
@@ -53,16 +53,16 @@ class _HomePageState extends State<HomePage> {
         BlocProvider<ProfileBloc>(
           create: (content) => ProfileBloc(
               userRepository: widget.userRepository, id: widget.userid),
-        )  
+        )
       ],
       child: MultiBlocListener(
-      listeners: [
+        listeners: [
           BlocListener<JobRealTabBloc, JobRealTabState>(
               listenWhen: (previous, current) {
             return (current.status == ListStatus.success);
           }, listener: (context, state) {
             //debugPrint("_HomePageState => JobRealTabState #00 => listeners ${state.status}");
-            if (state.status == ListStatus.success){
+            if (state.status == ListStatus.success) {
               selectedTabEvent(state.listJobCatGroup![0]);
             }
           }),
@@ -70,6 +70,7 @@ class _HomePageState extends State<HomePage> {
         child: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
             SizeConfig().init(context);
+            debugPrint("state : $state");
             if (state is HomePageActive) {
               debugPrint("HomePageActive");
               //return const PageContainer(pageType: PageType.timeline);
@@ -140,6 +141,9 @@ class _HomePageState extends State<HomePage> {
             } else if (state is SOAClientPageActive) {
               debugPrint("SOAClientPageActive");
               return const PageContainer(pageType: PageType.soaclient);
+            } else if (state is ProjectPageActive) {
+              debugPrint("ProjectPageActive");
+              return const PageContainer(pageType: PageType.project);
             } else if (state is ProfilePageActive) {
               return PageContainerWithUserRepository(
                 pageType: PageType.profile,
@@ -159,7 +163,7 @@ class _HomePageState extends State<HomePage> {
     debugPrint("JobRealCariTabPage #00 -> refreshData");
     jobRealTabBloc.add(RefreshJobRealTabEvent(personId: AppData.personId));
   }
-  
+
   void selectedTabEvent(ComboJobcatgroupModel selectedTab) {
     debugPrint("selectedTabEvent #00");
 
@@ -174,5 +178,4 @@ class _HomePageState extends State<HomePage> {
         personId: AppData.personId,
         jobCatGroupId: selectedTab.mjobcatgroupId));
   }
-
 }

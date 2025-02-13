@@ -129,3 +129,11 @@ class GetInitValueNewSOAClientModeEvent extends JobRealCrudEvents {
 }
 
 class SetFotoUploadedEvent extends JobRealCrudEvents{}
+
+class ComboProjectJobRealCrudChangedEvent extends JobRealCrudEvents {
+  final ComboMProjectModel comboProject;
+  const ComboProjectJobRealCrudChangedEvent({required this.comboProject});
+
+  @override
+  List<Object> get props => [comboProject];
+}

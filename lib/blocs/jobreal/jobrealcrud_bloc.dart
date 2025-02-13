@@ -7,6 +7,7 @@ import 'package:esalesapp/blocs/jobreal/jobrealfoto_bloc.dart';
 import 'package:esalesapp/common/app_data.dart';
 import 'package:esalesapp/models/combobox/combocustomer_model.dart';
 import 'package:esalesapp/models/combobox/comboinsurer_model.dart';
+import 'package:esalesapp/models/combobox/combomproject_model.dart';
 import 'package:esalesapp/models/jobreal/jobreal2cari_model.dart';
 import 'package:esalesapp/models/jobreal/jobreal3cari_model.dart';
 import 'package:esalesapp/models/jobreal/newbriefinginitvalue_model.dart';
@@ -58,6 +59,8 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
         onGetInitValueNewBriefingHarianMode);
     on<GetInitValueNewSOAClientModeEvent>(onGetInitValueSOAClientMode);
     on<SetFotoUploadedEvent>(onSetFotoUploadedEvent);
+    on<ComboProjectJobRealCrudChangedEvent>(
+        onComboProjectJobRealCrudChangedEvent);
   }
 
   Future<void> onPreOpen(
@@ -203,6 +206,11 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
   Future<void> onLihatJobRealCrud(
       JobRealCrudLihatEvent event, Emitter<JobRealCrudState> emit) async {
     emit(state.copyWith(isLoading: true, isLoaded: false));
+    emit(state.resetDataProject());
+
+    //debugPrint("onLihatJobRealCrud #10");
+
+    //debugPrint("state.comboProject : ${state.comboProject.toString()}");
 
     JobRealCrudModel record = await repository.jobRealCrudLihat(event.recordId);
 
@@ -211,6 +219,7 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
     ComboCustomerModel? comboCustomer = record.comboCustomer;
     ComboMediaModel? comboMedia = record.comboMedia;
     ComboInsurerModel? comboInsurer = record.comboInsurer;
+    ComboMProjectModel? comboProject = record.comboProject;
 
     emit(state.copyWith(
         isLoading: false,
@@ -221,7 +230,8 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
         comboJobCat: comboJobcat,
         comboMedia: comboMedia,
         comboInsurer: comboInsurer,
-        requireComboInsurer: (comboInsurer == null?false:true)));
+        comboProject: comboProject,
+        requireComboInsurer: (comboInsurer == null ? false : true)));
   }
 
   Future<void> onComboJobcatChanged(
@@ -232,6 +242,17 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
 
     emit(state.copyWith(
         isLoading: false, isLoaded: true, comboJobCat: comboJobcat));
+  }
+
+  Future<void> onComboProjectJobRealCrudChangedEvent(
+      ComboProjectJobRealCrudChangedEvent event,
+      Emitter<JobRealCrudState> emit) async {
+    emit(state.copyWith(isLoading: true, isLoaded: false));
+
+    ComboMProjectModel comboProject = event.comboProject;
+
+    emit(state.copyWith(
+        isLoading: false, isLoaded: true, comboProject: comboProject));
   }
 
   Future<void> onComboJobChanged(

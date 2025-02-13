@@ -21,7 +21,8 @@ class AppMenuState extends State<AppMenu> with RouteAware {
 
     return BlocConsumer<OnBoardMenuCariBloc, OnBoardMenuCariState>(
       builder: (context, state) {
-        debugPrint("AppMenuState -> state.hasPassedBriefing : ${state.hasPassedBriefing}");
+        debugPrint(
+            "AppMenuState -> state.hasPassedBriefing : ${state.hasPassedBriefing}");
         return state.hasPassedBriefing
             ? Drawer(
                 child: ListView(
@@ -42,20 +43,19 @@ class AppMenuState extends State<AppMenu> with RouteAware {
                         });
                       },
                     ),
-
                     ExpansionTile(
                       leading: const Icon(
                         Icons.settings,
                       ),
                       trailing: const Icon(
-                        Icons.local_activity,
+                        Icons.arrow_forward_ios_rounded,
                         size: 10.0,
                       ),
                       title: const Text(
                         "Daily Activity",
                         style: TextStyle(),
                       ),
-                      children: <Widget>[                        
+                      children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.only(left: 15.0),
                           child: ListTile(
@@ -118,8 +118,6 @@ class AppMenuState extends State<AppMenu> with RouteAware {
                         ),
                       ],
                     ),
-
-
                     ExpansionTile(
                       leading: const Icon(
                         Icons.settings,
@@ -358,6 +356,21 @@ class AppMenuState extends State<AppMenu> with RouteAware {
                                   .addPostFrameCallback((timeStamp) {
                                 Navigator.of(context).pop();
                                 homeBloc.add(CustomerCariPageActiveEvent());
+                              });
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15.0),
+                          child: ListTile(
+                            leading: const Icon(Icons.timer),
+                            title: const Text("Project"),
+                            onTap: () {
+                              SchedulerBinding.instance
+                                  .addPostFrameCallback((timeStamp) {
+                                Navigator.of(context).pop();
+                                debugPrint("drawer -> ProjectPageActiveEvent");
+                                homeBloc.add(ProjectPageActiveEvent());
                               });
                             },
                           ),

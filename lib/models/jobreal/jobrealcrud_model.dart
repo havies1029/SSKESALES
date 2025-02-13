@@ -3,6 +3,7 @@ import 'package:esalesapp/models/combobox/comboinsurer_model.dart';
 import 'package:esalesapp/models/combobox/combojob_model.dart';
 import 'package:esalesapp/models/combobox/combojobcat_model.dart';
 import 'package:esalesapp/models/combobox/combomedia_model.dart';
+import 'package:esalesapp/models/combobox/combomproject_model.dart';
 
 class JobRealCrudModel {
   String? hasil;
@@ -25,6 +26,9 @@ class JobRealCrudModel {
   ComboInsurerModel? comboInsurer;
   int jobIdx;
   bool hasFoto;
+  String projectId;
+  ComboMProjectModel? comboProject;
+  String jobCatGroupCode;
 
   JobRealCrudModel(
       {this.hasil,
@@ -46,7 +50,10 @@ class JobRealCrudModel {
       this.rdpartyId,
       this.comboInsurer,
       this.jobIdx = 0,
-      this.hasFoto = false});
+      this.hasFoto = false,
+      this.projectId = "",
+      this.comboProject,
+      this.jobCatGroupCode = ""});
 
   factory JobRealCrudModel.fromJson(Map<String, dynamic> data) {
     ComboJobModel? comboJob;
@@ -74,6 +81,11 @@ class JobRealCrudModel {
       comboInsurer = ComboInsurerModel.fromJson(data['comboInsurer']);
     }
 
+    ComboMProjectModel? comboProject;
+    if (data['comboProject'] != null) {
+      comboProject = ComboMProjectModel.fromJson(data['comboProject']);
+    }
+
     return JobRealCrudModel(
         hasil: data['hasil'] ?? '',
         jobreal1Id: data['jobreal1Id'] ?? '',
@@ -95,8 +107,11 @@ class JobRealCrudModel {
         comboCustomer: comboCustomer,
         rdpartyId: data['rdpartyId'] ?? '',
         comboInsurer: comboInsurer,
-        jobIdx: data['jobIdx'] ?? 0,        
-        hasFoto: data['hasFoto'] ?? false,);
+        jobIdx: data['jobIdx'] ?? 0,
+        hasFoto: data['hasFoto'] ?? false,
+        projectId: data["projectId"] ?? "",
+        jobCatGroupCode: data["jobCatGroupCode"]??"",
+        comboProject: comboProject);
   }
 
   Map<String, dynamic> toJson() => {
@@ -118,8 +133,10 @@ class JobRealCrudModel {
         'comboCustomer': comboCustomer?.toJson(),
         'comboInsurer': comboInsurer?.toJson(),
         'rdpartyId': rdpartyId,
-        'jobIdx': jobIdx.toString(),        
+        'jobIdx': jobIdx.toString(),
         'hasFoto': hasFoto.toString(),
-
+        'projectId': projectId,
+        'comboProject': comboProject?.toJson(),
+        "jobCatGroupCode": jobCatGroupCode
       };
 }

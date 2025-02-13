@@ -73,9 +73,9 @@ class JobReal3CariAPI{
       'Authorization': 'Bearer ${AppData.userToken}'
     });
 
-    debugPrint("getJobReal3GridAPI");
-    debugPrint("response.statusCode : ${response.statusCode}");
-    debugPrint("response.body : ${response.body}");
+    //debugPrint("getJobReal3GridAPI");
+    //debugPrint("response.statusCode : ${response.statusCode}");
+    //debugPrint("response.body : ${response.body}");
 
     if (response.statusCode == 200) {
       final parsed = json.decode(response.body).cast<Map<String, dynamic>>();

@@ -13,6 +13,7 @@ class JobRealCrudState extends Equatable {
   final ComboMediaModel? comboMedia;
   final ComboCustomerModel? comboCustomer;
   final ComboInsurerModel? comboInsurer;
+  final ComboMProjectModel? comboProject;
   final bool requireComboInsurer;
   final bool forceChangeComboCustomer;
   const JobRealCrudState(
@@ -28,24 +29,33 @@ class JobRealCrudState extends Equatable {
       this.comboMedia,
       this.comboCustomer,
       this.comboInsurer,
+      this.comboProject,
       this.requireComboInsurer = false,
       this.forceChangeComboCustomer = false});
 
-  JobRealCrudState copyWith(
-      {JobRealCrudModel? record,
-      bool? isLoading,
-      bool? isLoaded,
-      bool? isSaving,
-      bool? isSaved,
-      bool? hasFailure,
-      String? viewMode,
-      ComboJobcatModel? comboJobCat,
-      ComboJobModel? comboJob,
-      ComboMediaModel? comboMedia,
-      ComboCustomerModel? comboCustomer,
-      ComboInsurerModel? comboInsurer,
-      bool? requireComboInsurer,
-      bool? forceChangeComboCustomer,}) {
+  JobRealCrudState resetDataProject() {    
+    return JobRealCrudState(
+      comboProject: null
+    );
+  }
+
+  JobRealCrudState copyWith({
+    JobRealCrudModel? record,
+    bool? isLoading,
+    bool? isLoaded,
+    bool? isSaving,
+    bool? isSaved,
+    bool? hasFailure,
+    String? viewMode,
+    ComboJobcatModel? comboJobCat,
+    ComboJobModel? comboJob,
+    ComboMediaModel? comboMedia,
+    ComboCustomerModel? comboCustomer,
+    ComboInsurerModel? comboInsurer,
+    ComboMProjectModel? comboProject,
+    bool? requireComboInsurer,
+    bool? forceChangeComboCustomer,
+  }) {
     return JobRealCrudState(
         record: record ?? this.record,
         isLoading: isLoading ?? this.isLoading,
@@ -59,6 +69,7 @@ class JobRealCrudState extends Equatable {
         comboMedia: comboMedia ?? this.comboMedia,
         comboCustomer: comboCustomer ?? this.comboCustomer,
         comboInsurer: comboInsurer ?? this.comboInsurer,
+        comboProject: comboProject ?? this.comboProject,
         requireComboInsurer: requireComboInsurer ?? this.requireComboInsurer,
         forceChangeComboCustomer:
             forceChangeComboCustomer ?? this.forceChangeComboCustomer);
