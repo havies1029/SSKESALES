@@ -96,7 +96,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(milliseconds: 500), () {      
+    Future.delayed(const Duration(milliseconds: 500), () {
       loadData();
     });
   }
@@ -238,7 +238,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
             fieldComboInsurer = state.comboInsurer;
             fieldComboProject = state.comboProject;
 
-            debugPrint("listener fieldComboProject : ${fieldComboProject.toString()}");
+            //debugPrint("listener fieldComboProject : ${fieldComboProject.toString()}");
 
             if (state.viewMode != "tambah") {
               fieldHasilController.text = state.record?.hasil ?? "";
@@ -709,6 +709,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       labelText: 'Customer',
       initItem: fieldComboCustomer,
       onChangedCallback: (value) {
+        //debugPrint("cmdBuildComboCustomer -> onChangedCallback ");
         comboProjectKey.currentState?.clear();
         if (value != null) {
           if ((fieldComboCustomer?.mrekanId == "") ||

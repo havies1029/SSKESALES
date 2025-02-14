@@ -209,7 +209,9 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
     
     //debugPrint("onLihatJobRealCrud #10");
 
-    debugPrint("state.comboProject : ${state.comboProject.toString()}");
+    //debugPrint("state.comboProject : ${state.comboProject.toString()}");
+
+    ComboMProjectModel? comboProject = ComboMProjectModel();
 
     JobRealCrudModel record = await repository.jobRealCrudLihat(event.recordId);
 
@@ -218,7 +220,7 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
     ComboCustomerModel? comboCustomer = record.comboCustomer??ComboCustomerModel();
     ComboMediaModel? comboMedia = record.comboMedia??ComboMediaModel();
     ComboInsurerModel? comboInsurer = record.comboInsurer??ComboInsurerModel();
-    ComboMProjectModel? comboProject = record.comboProject??ComboMProjectModel();
+   comboProject = record.comboProject??ComboMProjectModel();
     
     //debugPrint("comboProject : ${comboProject.toString()}");
 
@@ -312,6 +314,7 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
         //comboJobCat: comboJobcat,
         //comboJob: comboJob,
         comboCustomer: comboCustomer,
+        comboProject: ComboMProjectModel(),
         requireComboInsurer: requireComboInsurer));
   }
 
