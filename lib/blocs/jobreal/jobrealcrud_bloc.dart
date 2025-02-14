@@ -220,7 +220,7 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
     ComboInsurerModel? comboInsurer = record.comboInsurer??ComboInsurerModel();
     ComboMProjectModel? comboProject = record.comboProject??ComboMProjectModel();
     
-    debugPrint("comboProject : ${comboProject.toString()}");
+    //debugPrint("comboProject : ${comboProject.toString()}");
 
     emit(state.copyWith(
         isLoading: false,
@@ -232,7 +232,7 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
         comboMedia: comboMedia,
         comboInsurer: comboInsurer,
         comboProject: comboProject,
-        requireComboInsurer: (comboInsurer == null ? false : true)));
+        requireComboInsurer: comboInsurer.mrekanId.isNotEmpty));
   }
 
   Future<void> onComboJobcatChanged(
