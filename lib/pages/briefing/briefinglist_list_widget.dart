@@ -156,6 +156,7 @@ class BriefinglistListWidgetState extends State<BriefinglistListWidget> {
           recordId: item.jobreal1Id,
           isBriefingHarianMode: true,
           isSOAClientMode: false,
+          isProjectMode: false,
         );
       }),
     ).then((value) {

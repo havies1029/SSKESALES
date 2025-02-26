@@ -19,13 +19,13 @@ DropdownSearch<ComboCobModel> buildFieldComboCob({
 			),
 		),
 			items: (filter, infiniteScrollProps) async {
-				return ComboCobRepository().getComboCob();
+				return ComboCobRepository().getComboCob(filter);
 			},
 			suffixProps: const DropdownSuffixProps(clearButtonProps: ClearButtonProps(isVisible: false)),
 			popupProps: const PopupPropsMultiSelection.modalBottomSheet(
         disableFilter: true,
 				showSelectedItems: true,
-				showSearchBox: false,
+				showSearchBox: true,
 				itemBuilder: itemBuilderComboCob,
 			),
 			compareFn: (item, sItem) => item.mcobId == sItem.mcobId,

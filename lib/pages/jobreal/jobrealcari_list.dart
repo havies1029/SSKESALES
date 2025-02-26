@@ -160,13 +160,16 @@ class JobRealCariPageState extends State<JobRealCariPage> {
   void showDialogViewData(
       BuildContext context, String viewMode, String recordId) {
     FocusScope.of(context).requestFocus(FocusNode());
-    resetFormState(context);
+    resetFormState();
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) {
         jobRealCrudBloc.add(JobRealCrudPreOpenEvent(viewmode: viewMode));
-        return JobRealCrudMainPage(viewMode: viewMode, recordId: recordId, 
-        isBriefingHarianMode: false, isSOAClientMode: false,);
+        return JobRealCrudMainPage(viewMode: viewMode, 
+          recordId: recordId, 
+          isBriefingHarianMode: false, 
+          isSOAClientMode: false,
+          isProjectMode: false,);
       }),
     ).then((value) {
       return jobRealCariBloc.add(CloseDialogJobRealCariEvent());
@@ -174,7 +177,7 @@ class JobRealCariPageState extends State<JobRealCariPage> {
   }
 
   
-  void resetFormState(BuildContext context) {
+  void resetFormState() {
     debugPrint("JobRealCariPage -> resetFormState #10");
 
     jobRealCrudBloc.add(JobRealCrudResetStateEvent());

@@ -43,5 +43,20 @@ class ComboCustomerChangedEvent extends ProjectCrudEvents{
 	final ComboCustomerModel comboCustomer;
 	const ComboCustomerChangedEvent({required this.comboCustomer});
 
-	@override	List<Object> get props => [comboCustomer];}
+	@override	List<Object> get props => [comboCustomer];
+}
+
+class ComboCobChangedEvent extends ProjectCrudEvents{
+	final ComboCobModel comboCob;
+	const ComboCobChangedEvent({required this.comboCob});
+
+	@override	List<Object> get props => [comboCob];
+}
+
+class ComboMstJobCatChangedEvent extends ProjectCrudEvents{
+	final ComboMMstJobcatModel comboMstJobCat;
+	const ComboMstJobCatChangedEvent({required this.comboMstJobCat});
+
+	@override	List<Object> get props => [comboMstJobCat];
+}
 

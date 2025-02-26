@@ -13,7 +13,8 @@ class RefreshProjectListEvent extends ProjectListEvents {
   final String rekanId;
   final String searchText;
 
-  const RefreshProjectListEvent({required this.rekanId, required this.searchText});
+  const RefreshProjectListEvent(
+      {required this.rekanId, required this.searchText});
 
   @override
   List<Object> get props => [rekanId, searchText];
@@ -33,3 +34,11 @@ class TambahProjectListEvent extends ProjectListEvents {}
 class HapusProjectListEvent extends ProjectListEvents {}
 
 class CloseDialogProjectListEvent extends ProjectListEvents {}
+
+class StartProjectListEvent extends ProjectListEvents {
+  final String projectId;
+  const StartProjectListEvent({required this.projectId});
+
+  @override
+  List<Object> get props => [projectId];
+}

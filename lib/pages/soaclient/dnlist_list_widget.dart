@@ -147,6 +147,7 @@ class DnlistListWidgetState extends State<DnlistListWidget> {
           recordId: "",
           isBriefingHarianMode: false,
           isSOAClientMode: true,
+          isProjectMode: false,
         );
       }),
     ).then((value) {

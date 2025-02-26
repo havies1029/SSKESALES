@@ -26,7 +26,7 @@ class JobRealCrudModel {
   ComboInsurerModel? comboInsurer;
   int jobIdx;
   bool hasFoto;
-  String projectId;
+  String? projectId;
   ComboMProjectModel? comboProject;
   String jobCatGroupCode;
 
@@ -51,7 +51,7 @@ class JobRealCrudModel {
       this.comboInsurer,
       this.jobIdx = 0,
       this.hasFoto = false,
-      this.projectId = "",
+      this.projectId,
       this.comboProject,
       this.jobCatGroupCode = ""});
 

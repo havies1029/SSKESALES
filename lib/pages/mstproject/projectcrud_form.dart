@@ -1,3 +1,7 @@
+import 'package:esalesapp/models/combobox/combocob_model.dart';
+import 'package:esalesapp/models/combobox/combommstjobcat_model.dart';
+import 'package:esalesapp/widgets/combobox/combocob_widget.dart';
+import 'package:esalesapp/widgets/combobox/combommstjobcat_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:esalesapp/widgets/form_error.dart';
@@ -27,14 +31,18 @@ class ProjectCrudFormPageFormState extends State<ProjectCrudFormPage> {
   var fieldDatelineController =
       TextEditingController(text: DateTime.now().toIso8601String());
   ComboCustomerModel? fieldComboCustomer;
+  ComboCobModel? fieldComboCob;
+  ComboMMstJobcatModel? fieldComboMstJobCat;
   final comboCustomerKey = GlobalKey<DropdownSearchState<ComboCustomerModel>>();
+  final comboCobKey = GlobalKey<DropdownSearchState<ComboCobModel>>();
+  final comboMstJobCatKey =
+      GlobalKey<DropdownSearchState<ComboMMstJobcatModel>>();
   var fieldProjectNamaController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
     Future.delayed(const Duration(milliseconds: 500), () {
-      
       loadData();
     });
   }
@@ -67,82 +75,11 @@ class ProjectCrudFormPageFormState extends State<ProjectCrudFormPage> {
                           ),
                         ),
                         const SizedBox(height: 25),
-                        buildFieldComboCustomer(
-                          comboKey: comboCustomerKey,
-                          labelText: 'Client',
-                          initItem: fieldComboCustomer,
-                          onChangedCallback: (value) {
-                            if (value != null) {
-                              removeError(
-                                  error:
-                                      "Field 'Client' tidak boleh kosong.");
-                              projectCrudBloc.add(ComboCustomerChangedEvent(
-                                  comboCustomer: value));
-                            }
-                          },
-                          onSaveCallback: (value) {
-                            if (value != null) {
-                              fieldComboCustomer = value;
-                            }
-                          },
-                          validatorCallback: (value) {
-                            if (value == null) {
-                              addError(
-                                  error:
-                                      "Field 'Client' tidak boleh kosong.");
-                            }
-                          },
-                        ),
-
-                        TextFormField(
-                          keyboardType: TextInputType.multiline,
-                          minLines: 1,
-                          maxLines: 3,
-                          controller: fieldProjectNamaController,
-                          decoration: const InputDecoration(
-                            labelText: "Project Name",
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                          ),
-                          onChanged: (value) {
-                            if (value.isNotEmpty) {
-                              removeError(error: "Field 'Project Name' harus diinput");
-                            }
-                          },
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              addError(error: "Field 'Project Name' harus diinput");
-                              return "";
-                            }
-                            return null;
-                          },
-                        ),
-
-                        DateTimeFormField(
-                          mode: DateTimeFieldPickerMode.date,
-                          dateFormat: DateFormat('dd/MM/yyyy'),
-                          initialValue:
-                              DateTime.tryParse(fieldDatelineController.text),
-                          decoration: const InputDecoration(
-                            labelText: "Dateline",
-                            floatingLabelBehavior: FloatingLabelBehavior.always,
-                          ),
-                          onChanged: (value) {
-                            if (value != null) {
-                              removeError(error: "Field 'Dateline' harus diinput");
-                              fieldDatelineController.text =
-                                  value.toIso8601String();
-                            }
-                          },
-                          validator: (value) {
-                            if (value == null) {
-                              addError(error: "Field 'Dateline' harus diinput");
-                              return "";
-                            }
-                            return null;
-                          },
-                        ),
-                        
-                        
+                        cmdBuildComboCustomer(),
+                        cmdBuildFieldProjectName(),
+                        cmdBuildComboCOB(),
+                        cmdBuildComboMstJobCat(),
+                        cmdBuildFieldDateline(),
                         const SizedBox(height: 25),
                         FormError(
                           errors: errors,
@@ -198,7 +135,9 @@ class ProjectCrudFormPageFormState extends State<ProjectCrudFormPage> {
             fieldProjectNamaController.text = state.record!.projectNama;
           }
           fieldComboCustomer = state.comboCustomer;
-          debugPrint("state.comboCustomer : ${state.comboCustomer.toString()}");
+          fieldComboCob = state.comboCob;
+          fieldComboMstJobCat = state.comboMstJobCat;
+          debugPrint("state.comboCob : ${state.comboCob.toString()}");
         }
       },
       buildWhen: (previous, current) {
@@ -208,6 +147,7 @@ class ProjectCrudFormPageFormState extends State<ProjectCrudFormPage> {
   }
 
   void loadData() {
+    debugPrint("loadData -> widget.viewMode : ${widget.viewMode}");
     if (widget.viewMode == "ubah") {
       projectCrudBloc.add(ProjectCrudLihatEvent(recordId: widget.recordId));
     }
@@ -219,20 +159,27 @@ class ProjectCrudFormPageFormState extends State<ProjectCrudFormPage> {
 
   void onSaveForm() {
     if (_formKey.currentState!.validate()) {
-      _formKey.currentState!.save();
-      ProjectCrudModel record = ProjectCrudModel(
-        dateline: DateTime.parse(fieldDatelineController.text),
-        mprojectId: '',
-        mrekanId: fieldComboCustomer?.mrekanId,
-        projectNama: fieldProjectNamaController.text,
-      );
-      if (widget.viewMode == "tambah") {
-        projectCrudBloc.add(ProjectCrudTambahEvent(record: record));
-      } else if (widget.viewMode == "ubah") {
-        record.mprojectId = projectCrudBloc.state.record!.mprojectId;
-        projectCrudBloc.add(ProjectCrudUbahEvent(record: record));
+      debugPrint("onSaveForm -> errors :${errors.toString()}");
+      if (errors.isEmpty) {
+        _formKey.currentState!.save();
+        ProjectCrudModel record = ProjectCrudModel(
+          dateline: DateTime.parse(fieldDatelineController.text),
+          mprojectId: '',
+          mrekanId: fieldComboCustomer!.mrekanId,
+          projectNama: fieldProjectNamaController.text,
+          mcobId: fieldComboCob!.mcobId,
+          mmstjobcatId: fieldComboMstJobCat!.mmstjobcatId,
+        );
+        debugPrint("onSaveForm -> fieldComboCob!.mcobId : ${fieldComboCob!.mcobId}");
+        if (widget.viewMode == "tambah") {
+          projectCrudBloc.add(ProjectCrudTambahEvent(record: record));
+        } else if (widget.viewMode == "ubah") {
+          record.mprojectId = projectCrudBloc.state.record!.mprojectId;
+          projectCrudBloc.add(ProjectCrudUbahEvent(record: record));
+        }
+
+        _dismissDialog();
       }
-      _dismissDialog();
     }
   }
 
@@ -250,5 +197,134 @@ class ProjectCrudFormPageFormState extends State<ProjectCrudFormPage> {
         errors.remove(error);
       });
     }
+  }
+
+  DropdownSearch<ComboCustomerModel> cmdBuildComboCustomer() {
+    return buildFieldComboCustomer(
+      comboKey: comboCustomerKey,
+      labelText: 'Client',
+      initItem: fieldComboCustomer,
+      onChangedCallback: (value) {
+        if (value != null) {
+          if (value.mrekanId == "") {
+            removeError(error: "Field 'Client' tidak boleh kosong.");
+          }
+          projectCrudBloc.add(ComboCustomerChangedEvent(comboCustomer: value));
+        }
+      },
+      onSaveCallback: (value) {
+        if (value != null) {
+          fieldComboCustomer = value;
+        }
+      },
+      validatorCallback: (value) {
+        if (value?.mrekanId == "") {
+          addError(error: "Field 'Client' tidak boleh kosong.");
+        }
+      },
+    );
+  }
+
+  DropdownSearch<ComboCobModel> cmdBuildComboCOB() {
+    return buildFieldComboCob(
+      labelText: 'COB',
+      initItem: fieldComboCob,
+      onChangedCallback: (value) {
+        if (value != null) {
+          if (value.mcobId != "") {
+            removeError(error: "Field 'COB' tidak boleh kosong.");
+          }
+          projectCrudBloc.add(ComboCobChangedEvent(comboCob: value));
+        }
+      },
+      onSaveCallback: (value) {
+        if (value != null) {
+          fieldComboCob = value;
+        }
+      },
+      validatorCallback: (value) {
+        if (value?.mcobId == "") {
+          addError(error: "Field 'COB' tidak boleh kosong.");
+        }
+      },
+    );
+  }
+
+  DropdownSearch<ComboMMstJobcatModel> cmdBuildComboMstJobCat() {
+    return buildFieldComboMMstJobcat(
+      labelText: 'Task Category',
+      initItem: fieldComboMstJobCat,
+      comboKey: comboMstJobCatKey,
+      rekanId: fieldComboCustomer?.mrekanId ?? "",
+      onChangedCallback: (value) {
+        if (value != null) {
+          if (value.mmstjobcatId != "") {
+            removeError(error: "Field 'Task Category' tidak boleh kosong.");
+          }
+          projectCrudBloc
+              .add(ComboMstJobCatChangedEvent(comboMstJobCat: value));
+        }
+      },
+      onSaveCallback: (value) {
+        if (value != null) {
+          fieldComboMstJobCat = value;
+        }
+      },
+      validatorCallback: (value) {
+        if (value?.mmstjobcatId == "") {
+          addError(error: "Field 'Task Category' tidak boleh kosong.");
+        }
+      },
+    );
+  }
+
+  TextFormField cmdBuildFieldProjectName() {
+    return TextFormField(
+      keyboardType: TextInputType.multiline,
+      minLines: 1,
+      maxLines: 3,
+      controller: fieldProjectNamaController,
+      decoration: const InputDecoration(
+        labelText: "Project Name",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+      ),
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: "Field 'Project Name' harus diinput");
+        }
+      },
+      validator: (value) {
+        if (value == null || value.isEmpty) {
+          addError(error: "Field 'Project Name' harus diinput");
+          return "";
+        }
+        return null;
+      },
+    );
+  }
+
+  DateTimeFormField cmdBuildFieldDateline() {
+    return DateTimeFormField(
+      mode: DateTimeFieldPickerMode.date,
+      dateFormat: DateFormat('dd/MM/yyyy'),
+      initialValue: DateTime.tryParse(fieldDatelineController.text),
+      decoration: const InputDecoration(
+        labelText: "Dateline",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+      ),
+      onChanged: (value) {
+        if (value != null) {
+          removeError(error: "Field 'Dateline' harus diinput");
+          fieldDatelineController.text = value.toIso8601String();
+        }
+      },
+      validator: (value) {
+        if (value == null) {
+          addError(error: "Field 'Dateline' harus diinput");
+          return "";
+        }
+        return null;
+      },
+    );
   }
 }

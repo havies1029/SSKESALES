@@ -1,3 +1,4 @@
+import 'package:esalesapp/pages/projectplan/planlist_main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -55,6 +56,28 @@ class ProjectListListWidgetState extends State<ProjectListListWidget> {
 							child: Column(
 								children: <Widget>[
 									Slidable(
+                    startActionPane: ActionPane(
+                      motion: BehindMotion(), 
+                      children: [
+                        state.items[index].startedDate == null ? 
+                        Container():
+                        SlidableAction(
+                          onPressed: (context) {    
+                            FocusScope.of(context).requestFocus(FocusNode());
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) {                                
+                                return PlanListMainPage( clientName: state.items[index].rekanNama,
+                                  projectName: state.items[index].projectNama, 
+                                  projectId: state.items[index].mprojectId);
+                              }),
+                            );                        
+                          },
+                          backgroundColor: Colors.orangeAccent,
+                          icon: Icons.copy,
+                          label: "View Progress",
+                        ),
+                      ]),
 										endActionPane: ActionPane(
 											motion: const BehindMotion(),
 												children: [
@@ -85,6 +108,10 @@ class ProjectListListWidgetState extends State<ProjectListListWidget> {
 												mprojectId: state.items[index].mprojectId,
 												projectNama: state.items[index].projectNama,
                         clientName: state.items[index].rekanNama,
+                        cobNama: state.items[index].cobNama,
+                        catName: state.items[index].catName,
+                        startedDate: state.items[index].startedDate,
+
 											)),
 							],
 						),
@@ -118,6 +145,7 @@ class ProjectListListWidgetState extends State<ProjectListListWidget> {
 			}, listener: (context, state) {}
 		);
 	}
+  
 	void _onScroll() {
 		if (!_scrollController.hasClients) return;
 		if (_scrollController.position.pixels ==

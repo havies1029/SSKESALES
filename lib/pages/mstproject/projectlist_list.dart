@@ -41,9 +41,11 @@ class ProjectListPageState extends State<ProjectListPage> {
               showDialogViewData(context, state.viewMode, "");
             } else if (state.viewMode == "ubah") {
               showDialogViewData(context, state.viewMode, state.recordId);
+            } else if (state.started) {
+              refreshData();
             }
           }, listenWhen: (previous, current) {
-            return previous.viewMode != current.viewMode;
+            return ((previous.viewMode != current.viewMode) || (current.started));
           }),
           BlocListener<ProjectCrudBloc, ProjectCrudState>(
               listener: (context, state) {

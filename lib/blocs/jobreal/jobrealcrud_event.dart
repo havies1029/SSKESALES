@@ -128,6 +128,14 @@ class GetInitValueNewSOAClientModeEvent extends JobRealCrudEvents {
   List<Object> get props => [dn1Id];
 }
 
+class GetInitValueNewProjectTaskModeEvent extends JobRealCrudEvents {
+  final String plan1Id;
+  const GetInitValueNewProjectTaskModeEvent({required this.plan1Id});
+
+  @override
+  List<Object> get props => [plan1Id];
+}
+
 class SetFotoUploadedEvent extends JobRealCrudEvents{}
 
 class ComboProjectJobRealCrudChangedEvent extends JobRealCrudEvents {

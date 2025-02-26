@@ -9,6 +9,7 @@ class ProjectListState extends Equatable {
   final String rekanId;
   final String recordId;
   final int hal;
+  final bool started;
 
   const ProjectListState(
       {this.status = ListStatus.initial,
@@ -18,7 +19,8 @@ class ProjectListState extends Equatable {
       this.searchText = "",
       this.rekanId = "",
       this.recordId = "",
-      this.hal = 0});
+      this.hal = 0,
+      this.started = false});
 
   ProjectListState copyWith(
       {List<ProjectListModel>? items,
@@ -28,7 +30,8 @@ class ProjectListState extends Equatable {
       String? viewMode,
       String? searchText,
       String? rekanId,
-      String? recordId}) {
+      String? recordId,
+      bool? started}) {
     return ProjectListState(
         items: items ?? this.items,
         hasReachedMax: hasReachedMax ?? this.hasReachedMax,
@@ -37,10 +40,20 @@ class ProjectListState extends Equatable {
         searchText: searchText ?? this.searchText,
         rekanId: rekanId ?? this.rekanId,
         recordId: recordId ?? this.recordId,
-        hal: hal ?? this.hal);
+        hal: hal ?? this.hal,
+        started: started ?? this.started);
   }
 
   @override
-  List<Object> get props =>
-      [status, items, hasReachedMax, viewMode, rekanId, searchText, recordId, hal];
+  List<Object> get props => [
+        status,
+        items,
+        hasReachedMax,
+        viewMode,
+        rekanId,
+        searchText,
+        recordId,
+        hal,
+        started
+      ];
 }

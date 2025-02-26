@@ -11,7 +11,9 @@ import 'package:esalesapp/models/combobox/combomproject_model.dart';
 import 'package:esalesapp/models/jobreal/jobreal2cari_model.dart';
 import 'package:esalesapp/models/jobreal/jobreal3cari_model.dart';
 import 'package:esalesapp/models/jobreal/newbriefinginitvalue_model.dart';
+import 'package:esalesapp/models/jobreal/newprojecttaskinitvalue_model.dart';
 import 'package:esalesapp/models/soaclient/tasksoainit_model.dart';
+import 'package:esalesapp/repositories/jobreal/newprojecttask_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:esalesapp/models/responseAPI/returndataapi_model.dart';
@@ -61,6 +63,8 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
     on<SetFotoUploadedEvent>(onSetFotoUploadedEvent);
     on<ComboProjectJobRealCrudChangedEvent>(
         onComboProjectJobRealCrudChangedEvent);
+    on<GetInitValueNewProjectTaskModeEvent>(
+        onGetInitValueNewProjectReleaseTaskMode);
   }
 
   Future<void> onPreOpen(
@@ -86,6 +90,35 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
         comboJob: initValue.comboJob,
         comboJobCat: initValue.comboJobcat,
         comboMedia: initValue.comboMedia,
+        isLoaded: true,
+        isLoading: false,
+        record: record));
+  }
+
+  Future<void> onGetInitValueNewProjectReleaseTaskMode(
+      GetInitValueNewProjectTaskModeEvent event,
+      Emitter<JobRealCrudState> emit) async {
+    emit(state.copyWith(isLoading: true, isLoaded: false));
+
+    NewProjectTaskRepository repository = NewProjectTaskRepository();
+    NewProjectTaskInitValueModel initValue =
+        await repository.getNewProjectReleaseTaskInitValue(event.plan1Id);
+
+    JobRealCrudModel record = JobRealCrudModel(
+        mrekanId: initValue.mrekanId,
+        mjobcatId: initValue.mjobcatId,
+        mjobId: initValue.mjobId,
+        projectId: initValue.projectId,
+        comboCustomer: initValue.comboCustomer,
+        comboJobcat: initValue.comboJobcat,
+        comboJob: initValue.comboJob,
+        comboProject: initValue.comboProject);
+
+    emit(state.copyWith(
+        comboCustomer: initValue.comboCustomer,
+        comboJob: initValue.comboJob,
+        comboJobCat: initValue.comboJobcat,
+        comboProject: initValue.comboProject,
         isLoaded: true,
         isLoading: false,
         record: record));
@@ -155,6 +188,8 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
     if (!hasFailure) {
       //debugPrint("onTambahJobRealCrud #20");
       String jobReal1Id = returnData.data;
+      
+      //debugPrint("jobReal1Id : $jobReal1Id");
 
       jobReal2CariBloc.add(ReplaceSelectedSppaJobReal2CariEvent(
           selectedSPPA: event.selectedSppa));
@@ -167,6 +202,9 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
       jobReal3CariBloc.add(Update2ApiJobReal3Event(jobreal1Id: jobReal1Id));
 
       var fotoState = jobRealFotoBloc.state;
+
+      //debugPrint("fotoState.isPendingUpload : ${fotoState.isPendingUpload}");
+
       if (fotoState.isPendingUpload) {
         if (fotoState.imageSource == "camera") {
           jobRealFotoBloc.add(UploadFotoJobRealEvent(
@@ -197,16 +235,19 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
 
   Future<void> onHapusJobRealCrud(
       JobRealCrudHapusEvent event, Emitter<JobRealCrudState> emit) async {
+    //debugPrint("onHapusJobRealCrud #10");
     emit(state.copyWith(isSaving: true, isSaved: false, hasFailure: false));
     bool hasFailure = !await repository.jobRealCrudHapus(event.recordId);
+    //debugPrint("onHapusJobRealCrud hasFailure : $hasFailure");
     emit(
         state.copyWith(isSaving: false, isSaved: true, hasFailure: hasFailure));
+    //debugPrint("onHapusJobRealCrud #20");
   }
 
   Future<void> onLihatJobRealCrud(
       JobRealCrudLihatEvent event, Emitter<JobRealCrudState> emit) async {
     emit(state.copyWith(isLoading: true, isLoaded: false));
-    
+
     //debugPrint("onLihatJobRealCrud #10");
 
     //debugPrint("state.comboProject : ${state.comboProject.toString()}");
@@ -215,13 +256,15 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
 
     JobRealCrudModel record = await repository.jobRealCrudLihat(event.recordId);
 
-    ComboJobcatModel? comboJobcat = record.comboJobcat??ComboJobcatModel();
-    ComboJobModel? comboJob = record.comboJob??ComboJobModel();
-    ComboCustomerModel? comboCustomer = record.comboCustomer??ComboCustomerModel();
-    ComboMediaModel? comboMedia = record.comboMedia??ComboMediaModel();
-    ComboInsurerModel? comboInsurer = record.comboInsurer??ComboInsurerModel();
-   comboProject = record.comboProject??ComboMProjectModel();
-    
+    ComboJobcatModel? comboJobcat = record.comboJobcat ?? ComboJobcatModel();
+    ComboJobModel? comboJob = record.comboJob ?? ComboJobModel();
+    ComboCustomerModel? comboCustomer =
+        record.comboCustomer ?? ComboCustomerModel();
+    ComboMediaModel? comboMedia = record.comboMedia ?? ComboMediaModel();
+    ComboInsurerModel? comboInsurer =
+        record.comboInsurer ?? ComboInsurerModel();
+    comboProject = record.comboProject ?? ComboMProjectModel();
+
     //debugPrint("comboProject : ${comboProject.toString()}");
 
     emit(state.copyWith(

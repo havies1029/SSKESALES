@@ -9,6 +9,7 @@ import 'package:esalesapp/blocs/jobreal/jobreal3grid_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealcari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealfoto_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobrealglobal_cubit.dart';
+import 'package:esalesapp/blocs/projectplan/planinfo_bloc.dart';
 import 'package:esalesapp/blocs/soaclient/dnlist_bloc.dart';
 import 'package:esalesapp/common/app_data.dart';
 import 'package:esalesapp/common/loading_indicator.dart';
@@ -46,13 +47,15 @@ class JobRealCrudFormPage extends StatefulWidget {
   final String recordId;
   final bool isBriefingHarianMode;
   final bool isSOAClientMode;
+  final bool isProjectMode;
 
   const JobRealCrudFormPage(
       {super.key,
       required this.viewMode,
       required this.recordId,
       required this.isBriefingHarianMode,
-      required this.isSOAClientMode});
+      required this.isSOAClientMode,
+      required this.isProjectMode});
 
   @override
   JobRealCrudFormPageFormState createState() => JobRealCrudFormPageFormState();
@@ -69,6 +72,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
   late JobReal2CariBloc jobReal2CariBloc;
   late JobReal3CariBloc jobReal3CariBloc;
   late DnlistBloc dnlistBloc;
+  late PlanInfoBloc planInfoBloc;
   final _formKey = GlobalKey<FormState>();
   final List<String> errors = [];
   var fieldHasilController = TextEditingController();
@@ -300,8 +304,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       briefingInfoBloc = BlocProvider.of<BriefingInfoBloc>(context);
       BriefingInfoState briefingState = briefingInfoBloc.state;
 
-      debugPrint(
-          "briefingState.selectedItem : ${jsonEncode(briefingState.selectedItem)}");
+      //debugPrint("briefingState.selectedItem : ${jsonEncode(briefingState.selectedItem)}");
 
       jobRealCrudBloc.add(GetInitValueNewBriefingHarianModeEvent(
           jobId: briefingState.selectedItem.jobId,
@@ -310,6 +313,11 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       DnlistState dnState = dnlistBloc.state;
       jobRealCrudBloc
           .add(GetInitValueNewSOAClientModeEvent(dn1Id: dnState.selectedDNId));
+    } else if (widget.isProjectMode) {
+      planInfoBloc = BlocProvider.of<PlanInfoBloc>(context);
+      PlanInfoState planState = planInfoBloc.state;
+      jobRealCrudBloc.add(GetInitValueNewProjectTaskModeEvent(
+          plan1Id: planState.selectedItem.plan1Id));
     }
   }
 
@@ -704,7 +712,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
 
   Widget cmdBuildComboCustomer() {
     return buildFieldComboCustomer(
-      enabled: widget.viewMode != "lihat",
+      enabled: (widget.viewMode != "lihat" && (!widget.isProjectMode)),
       comboKey: comboCustomerKey,
       labelText: 'Customer',
       initItem: fieldComboCustomer,
@@ -851,7 +859,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
 
   Widget cmdBuildFieldComboJobCat() {
     return buildFieldComboJobcat(
-      enabled: widget.viewMode != "lihat",
+      enabled: (widget.viewMode != "lihat" && (!widget.isProjectMode)),
       comboKey: comboJobCatKey,
       labelText: 'Task Category',
       initItem: fieldComboJobcat,
@@ -890,7 +898,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       //visible: state.comboJobCat?.mjobcatdoctypeId != "others",
       visible: true,
       child: buildFieldComboJob(
-        enabled: widget.viewMode != "lihat",
+        enabled: (widget.viewMode != "lihat" && (!widget.isProjectMode)),
         comboKey: comboJobKey,
         userEditTextController: fieldComboJobController,
         labelText: 'Task',
@@ -1039,12 +1047,11 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
   }
 
   Visibility buildGridSPPA(JobRealCrudState state) {
+    //debugPrint("buildGridSPPA");
+    //debugPrint("state.comboJobCat : ${state.comboJobCat?.toJson()}");
+    //debugPrint("state.comboJobCat?.mjobcatdoctypeId : ${state.comboJobCat?.mjobcatdoctypeId}");
     return Visibility(
       visible: (state.comboJobCat?.mjobcatdoctypeId == "sppa"),
-      /*
-      visible: ((state.comboJobCat?.mjobcatdoctypeId == "sppa") &&
-          !(widget.viewMode == "tambah" && AppData.kIsWeb)),
-      */
       child: Column(
         children: [
           Container(
@@ -1143,7 +1150,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
                     //child: Container(),
                     child: const JobReal3GridListWidget(),
                   ),
-                  widget.viewMode != "lihat"
+                  (widget.viewMode != "lihat" && (! widget.isProjectMode))
                       ? Align(
                           alignment: Alignment.topRight,
                           child: GestureDetector(
@@ -1215,11 +1222,12 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       visible: ((jobRealGlobalCubit.state.selectedJobCatGroup.mjobcatgroupId ==
                   "10010" ||
               jobRealGlobalCubit.state.selectedJobCatGroup.mjobcatgroupId ==
-                  "10030")
+                  "10030" ||
+              widget.isProjectMode)
           ? true
           : false),
       child: buildFieldComboMProject(
-        enabled: widget.viewMode != "lihat",
+        enabled: (widget.viewMode != "lihat" && (!widget.isProjectMode)),
         labelText: 'Project',
         initItem: fieldComboProject,
         rekanId: fieldComboCustomer?.mrekanId ?? "",

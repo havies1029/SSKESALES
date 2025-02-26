@@ -11,7 +11,7 @@ class ComboCobModel extends Equatable {
 		ComboCobModel(
 			mcobId: data['mcobId'],
 			cobNama: data['cobNama'],
-			shortName: data['shortName']
+			shortName: data['shortName']??''
 		);
 
 	Map<String, dynamic> toJson() =>

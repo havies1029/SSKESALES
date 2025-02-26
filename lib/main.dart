@@ -42,6 +42,9 @@ import 'package:esalesapp/blocs/msttitle/titlecrud_bloc.dart';
 import 'package:esalesapp/blocs/onboardmenu/onboardmenucari_bloc.dart';
 import 'package:esalesapp/blocs/polis/poliscari_bloc.dart';
 import 'package:esalesapp/blocs/polis/poliscrud_bloc.dart';
+import 'package:esalesapp/blocs/projectplan/plancrud_bloc.dart';
+import 'package:esalesapp/blocs/projectplan/planinfo_bloc.dart';
+import 'package:esalesapp/blocs/projectplan/planlist_bloc.dart';
 import 'package:esalesapp/blocs/soaclient/aginglist_bloc.dart';
 import 'package:esalesapp/blocs/soaclient/dnlist_bloc.dart';
 import 'package:esalesapp/common/app_data.dart';
@@ -61,6 +64,7 @@ import 'package:esalesapp/repositories/mstrekan/rekancrud_repository.dart';
 import 'package:esalesapp/repositories/mststaff/staffcrud_repository.dart';
 import 'package:esalesapp/repositories/msttitle/titlecrud_repository.dart';
 import 'package:esalesapp/repositories/polis/poliscrud_repository.dart';
+import 'package:esalesapp/repositories/projectplan/plancrud_repository.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:esalesapp/blocs/chatting/chatgroupcari_bloc.dart';
 import 'package:esalesapp/blocs/chatting/chatgroupcrud_bloc.dart';
@@ -212,12 +216,18 @@ class App extends StatelessWidget {
         BlocProvider<RekanContactCrudBloc>(
             create: (context) => RekanContactCrudBloc(repository: RekanContactCrudRepository())),                            
         BlocProvider<ProjectlistFilterCubit>(
-            create: (context) => ProjectlistFilterCubit()), 
+          create: (context) => ProjectlistFilterCubit()), 
         BlocProvider<ProjectListBloc>(
-            create: (context) => ProjectListBloc()),              
+          create: (context) => ProjectListBloc()),              
         BlocProvider<ProjectCrudBloc>(
-            create: (context) => ProjectCrudBloc(repository: ProjectCrudRepository())),             
-             
+          create: (context) => ProjectCrudBloc(repository: ProjectCrudRepository())),
+        
+        BlocProvider<PlanListBloc>(
+          create: (context) => PlanListBloc()),              
+        BlocProvider<PlanCrudBloc>(
+          create: (context) => PlanCrudBloc(repository: PlanCrudRepository())),                      
+        BlocProvider<PlanInfoBloc>(
+          create: (context) => PlanInfoBloc()),    
 
       ],
       child: MaterialApp(
