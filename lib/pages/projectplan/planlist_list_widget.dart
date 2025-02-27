@@ -83,6 +83,7 @@ class PlanListListWidgetState extends State<PlanListListWidget> {
             if (state.status == ListStatus.success) {
               return state.items.isNotEmpty
                   ? Timeline.tileBuilder(
+                      controller: _scrollController,
                       padding: const EdgeInsets.all(8.0),
                       theme: TimelineThemeData(
                         nodePosition: 0,

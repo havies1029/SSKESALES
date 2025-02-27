@@ -159,7 +159,7 @@ class _LoginFormState extends State<LoginForm> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 10,),
+                    const SizedBox(height: 30,),
                     TextFormField(
                       decoration: const InputDecoration(
                           labelText: 'username', icon: Icon(Icons.person)),
@@ -182,31 +182,29 @@ class _LoginFormState extends State<LoginForm> {
                       controller: _passwordController,
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.85,
-                      height: AppData.kIsWeb? 80 : MediaQuery.of(context).size.width * 0.22,
+                      width: 300,
+                      height: 80,
                       child: Padding(
                         padding: const EdgeInsets.only(top: 30.0),
                         child: ElevatedButton(
+
+                          style: ElevatedButton.styleFrom(
+                            foregroundColor: Colors.amber[900], 
+                            backgroundColor: Colors.blueGrey, 
+                            textStyle: TextStyle(
+                              fontSize: 24.0
+                            )
+                          ),
                           onPressed: state is! LoginLoading
                               ? onLoginButtonPressed
                               : null,
+                          
                           child: const Text(
-                            'Login',
-                            style: TextStyle(
-                              fontSize: 24.0,
-                            ),
+                            'Login'
                           ),
                         ),
                       ),
                     ),
-    
-    /*
-                    Container(
-                      child: state is LoginLoading
-                          ? const CircularProgressIndicator()
-                          : null,
-                    ),
-    */
                   ],
                 ),
               ),

@@ -895,8 +895,8 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
 
   Widget cmdBuildFieldComboJob(JobRealCrudState state) {
     return Visibility(
-      //visible: state.comboJobCat?.mjobcatdoctypeId != "others",
-      visible: true,
+      visible: state.comboJobCat?.mjobcatdoctypeId != "others",
+      //visible: true,
       child: buildFieldComboJob(
         enabled: (widget.viewMode != "lihat" && (!widget.isProjectMode)),
         comboKey: comboJobKey,

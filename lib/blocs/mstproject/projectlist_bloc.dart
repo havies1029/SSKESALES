@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:esalesapp/models/responseAPI/returndataapi_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:esalesapp/common/constants.dart';
@@ -88,14 +89,16 @@ class ProjectListBloc extends Bloc<ProjectListEvents, ProjectListState> {
 
   Future<void> onStartProject(
       StartProjectListEvent event, Emitter<ProjectListState> emit) async {
-    debugPrint("onStartProject");
-    emit(state.copyWith(started: false));
+    //debugPrint("onStartProject");
+    emit(state.copyWith(started: false, hasFailure: false));
 
     ProjectListRepository repository = ProjectListRepository();
-    bool started = await repository.projectStart(event.projectId);
-    emit(state.copyWith(started: started));
+    ReturnDataAPI returnData = await repository.projectStart(event.projectId);
+    bool started = returnData.success;
 
-    debugPrint("onStartProject -> started : $started");
-    debugPrint("onStartProject -> state.started : ${state.started}");
+    emit(state.copyWith(started: started, hasFailure: !started, errorMsg: returnData.data));
+
+    //debugPrint("onStartProject -> started : $started");
+    //debugPrint("onStartProject -> state.started : ${state.started}");
   }
 }

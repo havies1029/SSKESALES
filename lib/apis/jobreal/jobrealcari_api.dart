@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:esalesapp/common/app_data.dart';
 import 'package:esalesapp/models/responseAPI/returndataapi_model.dart';
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:esalesapp/models/jobreal/jobrealcari_model.dart';
 
@@ -31,7 +30,7 @@ class JobRealCariAPI {
       'Authorization': 'Bearer ${AppData.userToken}'
     });
 
-    debugPrint("getJobRealCariAPI");
+    //debugPrint("getJobRealCariAPI");
     //debugPrint("response.statusCode : ${response.statusCode}");
     //debugPrint("response.body : ${response.body}");
 

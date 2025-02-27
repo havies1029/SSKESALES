@@ -57,6 +57,7 @@ class ProjectListPageState extends State<ProjectListPage> {
           }),
         ],
         child: Scaffold(
+          backgroundColor: Colors.grey[200],
           floatingActionButton:
               FloatingMenuMasterWidget(onTambah: onTambahData),
           body: Center(

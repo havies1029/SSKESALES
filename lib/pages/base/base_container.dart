@@ -24,7 +24,6 @@ import 'package:esalesapp/pages/mststaff/staffcari_main.dart';
 import 'package:esalesapp/pages/msttitle/titlecari_main.dart';
 import 'package:esalesapp/pages/polis/poliscari_main.dart';
 import 'package:esalesapp/pages/calendar/sfcalendar_page.dart';
-import 'package:esalesapp/pages/projectplan/planlist_main.dart';
 import 'package:esalesapp/pages/soaclient/agingsoa_main.dart';
 import 'package:esalesapp/pages/timeline/expiredpolis_main.dart';
 import 'package:flutter/material.dart';

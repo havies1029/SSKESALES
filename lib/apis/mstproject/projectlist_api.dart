@@ -40,7 +40,7 @@ class ProjectListAPI {
     }
   }
 
-  Future<bool> projectListStartAPI(String mprojectId) async {
+  Future<ReturnDataAPI> projectListStartAPI(String mprojectId) async {
     debugPrint("projectListStartAPI");
 
     String hapusEndpoint =
@@ -66,6 +66,6 @@ class ProjectListAPI {
     } else {
       returnData = ReturnDataAPI(success: false, data: "", rowcount: 0);
     }
-    return returnData.success;
+    return returnData;
   }
 }
