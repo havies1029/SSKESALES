@@ -6,7 +6,7 @@ import 'package:esalesapp/models/combobox/combommstjobcat_model.dart';
 class ComboMMstJobcatAPI {
 
 	Future<List<ComboMMstJobcatModel>> getComboMMstJobcatAPI(String mrekanId, String filter) async {
-		String urlGetComboEndPoint = "${AppData.prefixEndPoint}/api/mmstjobcatcombobox/getlist";
+		String urlGetComboEndPoint = "${AppData.prefixEndPoint}/api/mmstjobcatcombobox/formproject/getlist";
 
 		Map<String, String> queryParams = {"mrekanId":mrekanId, "filter": filter};
 		var uri = AppData.uriHtpp(AppData.httpAuthority, urlGetComboEndPoint, queryParams);

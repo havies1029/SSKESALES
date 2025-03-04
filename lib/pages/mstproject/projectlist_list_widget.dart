@@ -78,7 +78,7 @@ class ProjectListListWidgetState extends State<ProjectListListWidget> {
                           label: "View Progress",
                         ),
                       ]),
-										endActionPane: ActionPane(
+										endActionPane: (state.items[index].startedDate != null) ? null : ActionPane(
 											motion: const BehindMotion(),
 												children: [
 													SlidableAction(

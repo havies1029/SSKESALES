@@ -189,7 +189,7 @@ class _LoginFormState extends State<LoginForm> {
                         child: ElevatedButton(
 
                           style: ElevatedButton.styleFrom(
-                            foregroundColor: Colors.amber[900], 
+                            foregroundColor: Colors.orange[300], 
                             backgroundColor: Colors.blueGrey, 
                             textStyle: TextStyle(
                               fontSize: 24.0
