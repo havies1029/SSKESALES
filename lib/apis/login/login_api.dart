@@ -15,10 +15,12 @@ final _tokenURL = _base + _tokenEndpoint;
 Future<User> validateUserLogin(UserLogin userLogin) async {
   UserInfo userinfo = UserInfo(userLogin: userLogin);
 
+/*
   debugPrint("validateUserLogin #10");
 
-  //debugPrint(_tokenURL);
-  //debugPrint(jsonEncode(userinfo.toJson()));
+  debugPrint(_tokenURL);
+  debugPrint(jsonEncode(userinfo.toJson()));
+  */
 
   /*
   try {

@@ -84,9 +84,10 @@ import 'package:esalesapp/common/loading_indicator.dart';
 import 'blocs/takeimage/takeimage_cubit.dart';
 
 Future<void> main() async {
-  
   final userRepository = UserRepository();
   AppData.kIsWeb = kIsWeb;
+  //runApp(MyApp(key: null,));
+  
   runApp(BlocProvider<AuthenticationBloc>(
     create: (context) {
       return AuthenticationBloc(userRepository: userRepository)
@@ -97,7 +98,24 @@ Future<void> main() async {
       key: null,
     ),
   ));
+  
 }
+
+/*
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: Text("My App")),
+        body: Center(child: Text("Hello, Flutter!")),
+      ),
+    );
+  }
+}
+*/
 
 class App extends StatelessWidget {
   final UserRepository userRepository;
@@ -123,15 +141,9 @@ class App extends StatelessWidget {
             create: (context) => ProgressIndicatorBloc()),
         BlocProvider<NetworkBloc>(
             create: (context) => NetworkBloc()..add(NetworkObserve())),
-        BlocProvider(
-          create: (context) => JobRealTabBloc()
-        ),        
-        BlocProvider(
-          create: (context)=>JobRealGlobalCubit()
-        ),
-        BlocProvider(
-          create: (context)=>JobRealBtnFilterCubit()
-        ),
+        BlocProvider(create: (context) => JobRealTabBloc()),
+        BlocProvider(create: (context) => JobRealGlobalCubit()),
+        BlocProvider(create: (context) => JobRealBtnFilterCubit()),
         BlocProvider<JobRealCariBloc>(create: (context) => JobRealCariBloc()),
         BlocProvider<JobReal2CariBloc>(create: (context) => JobReal2CariBloc()),
         BlocProvider<JobReal2GridBloc>(
@@ -144,7 +156,8 @@ class App extends StatelessWidget {
         BlocProvider<JobRealFotoBloc>(
             create: (context) =>
                 JobRealFotoBloc(repository: JobRealFotoRepository())),
-        BlocProvider<Sppa4TimelineCariBloc>(create: (context) => Sppa4TimelineCariBloc()),
+        BlocProvider<Sppa4TimelineCariBloc>(
+            create: (context) => Sppa4TimelineCariBloc()),
         BlocProvider<JobtimelineBloc>(create: (context) => JobtimelineBloc()),
         BlocProvider<JobRealCrudBloc>(
             create: (context) => JobRealCrudBloc(
@@ -153,7 +166,7 @@ class App extends StatelessWidget {
                 jobReal3CariBloc: context.read<JobReal3CariBloc>(),
                 jobRealFotoBloc: context.read<JobRealFotoBloc>(),
                 jobReal2GridBloc: context.read<JobReal2GridBloc>(),
-                jobReal3GridBloc: context.read<JobReal3GridBloc>())),      
+                jobReal3GridBloc: context.read<JobReal3GridBloc>())),
         BlocProvider<JobReal2CariBloc>(create: (context) => JobReal2CariBloc()),
         BlocProvider<MediaCariBloc>(create: (context) => MediaCariBloc()),
         BlocProvider<MediaCrudBloc>(
@@ -199,36 +212,29 @@ class App extends StatelessWidget {
         BlocProvider<JobGroupCrudBloc>(
             create: (context) =>
                 JobGroupCrudBloc(repository: JobGroupCrudRepository())),
-        BlocProvider<BriefinglistBloc>(
-            create: (context) => BriefinglistBloc()),
+        BlocProvider<BriefinglistBloc>(create: (context) => BriefinglistBloc()),
         BlocProvider<OnBoardMenuCariBloc>(
             create: (context) => OnBoardMenuCariBloc()),
-        BlocProvider<BriefingInfoBloc>(
-            create: (context) => BriefingInfoBloc()),
-        BlocProvider<BriefinglistBloc>(
-            create: (context) => BriefinglistBloc()),            
-        BlocProvider<AginglistBloc>(
-            create: (context) => AginglistBloc()),                 
-        BlocProvider<DnlistBloc>(
-            create: (context) => DnlistBloc()),                    
+        BlocProvider<BriefingInfoBloc>(create: (context) => BriefingInfoBloc()),
+        BlocProvider<BriefinglistBloc>(create: (context) => BriefinglistBloc()),
+        BlocProvider<AginglistBloc>(create: (context) => AginglistBloc()),
+        BlocProvider<DnlistBloc>(create: (context) => DnlistBloc()),
         BlocProvider<RekanContactListBloc>(
-            create: (context) => RekanContactListBloc()),              
+            create: (context) => RekanContactListBloc()),
         BlocProvider<RekanContactCrudBloc>(
-            create: (context) => RekanContactCrudBloc(repository: RekanContactCrudRepository())),                            
+            create: (context) =>
+                RekanContactCrudBloc(repository: RekanContactCrudRepository())),
         BlocProvider<ProjectlistFilterCubit>(
-          create: (context) => ProjectlistFilterCubit()), 
-        BlocProvider<ProjectListBloc>(
-          create: (context) => ProjectListBloc()),              
+            create: (context) => ProjectlistFilterCubit()),
+        BlocProvider<ProjectListBloc>(create: (context) => ProjectListBloc()),
         BlocProvider<ProjectCrudBloc>(
-          create: (context) => ProjectCrudBloc(repository: ProjectCrudRepository())),
-        
-        BlocProvider<PlanListBloc>(
-          create: (context) => PlanListBloc()),              
+            create: (context) =>
+                ProjectCrudBloc(repository: ProjectCrudRepository())),
+        BlocProvider<PlanListBloc>(create: (context) => PlanListBloc()),
         BlocProvider<PlanCrudBloc>(
-          create: (context) => PlanCrudBloc(repository: PlanCrudRepository())),                      
-        BlocProvider<PlanInfoBloc>(
-          create: (context) => PlanInfoBloc()),    
-
+            create: (context) =>
+                PlanCrudBloc(repository: PlanCrudRepository())),
+        BlocProvider<PlanInfoBloc>(create: (context) => PlanInfoBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -245,28 +251,27 @@ class App extends StatelessWidget {
           builder: (context, state) {
             if (state is AuthenticationUninitialized) {
               debugPrint("AuthenticationUninitialized #10");
-        
+
               return const SplashPage();
             }
-        
+
             if (state is AuthenticationAuthenticated) {
               debugPrint("AuthenticationAuthenticated #20");
-        
+
               return HomePage(
                 userRepository: userRepository,
                 userid: 0,
                 key: null,
               );
-               
             }
-        
+
             if (state is AuthenticationUnauthenticated) {
               debugPrint("AuthenticationUnauthenticated #30");
               return LoginPage(
                 userRepository: userRepository,
               );
             }
-        
+
             if (AppData.kIsWeb) {
               return LoginPage(
                 userRepository: userRepository,
