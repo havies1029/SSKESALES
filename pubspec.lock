@@ -318,6 +318,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_animate:
+    dependency: "direct main"
+    description:
+      name: flutter_animate
+      sha256: "3cb5eb80827abb48e362a9f29f7ba4e1b0edba6b2e2f35b1d350b6ef069bb547"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.0"
   flutter_bloc:
     dependency: "direct main"
     description:
@@ -462,6 +470,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "7.0.0"
+  flutter_staggered_animations:
+    dependency: "direct main"
+    description:
+      name: flutter_staggered_animations
+      sha256: "81d3c816c9bb0dca9e8a5d5454610e21ffb068aedb2bde49d2f8d04f75538351"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.1"
   flutter_svg:
     dependency: "direct main"
     description:
@@ -497,7 +513,7 @@ packages:
     source: hosted
     version: "4.7.2"
   google_fonts:
-    dependency: "direct dev"
+    dependency: "direct main"
     description:
       name: google_fonts
       sha256: b1ac0fe2832c9cc95e5e88b57d627c5e68c223b9657f4b96e1487aa9098c7b82
@@ -516,10 +532,10 @@ packages:
     dependency: transitive
     description:
       name: html
-      sha256: "1fc58edeaec4307368c60d59b7e15b9d658b57d7f3125098b6294153c75337ec"
+      sha256: "9475be233c437f0e3637af55e7702cbbe5c23a68bd56e8a5fa2d426297b7c6c8"
       url: "https://pub.dev"
     source: hosted
-    version: "0.15.5"
+    version: "0.15.5+1"
   http:
     dependency: "direct main"
     description:
@@ -812,10 +828,10 @@ packages:
     dependency: "direct main"
     description:
       name: percent_indicator
-      sha256: "0d77d5c6fa9b7f60202cedf748b568ba9ba38d3f30405d6ceae4da76f5185462"
+      sha256: "157d29133bbc6ecb11f923d36e7960a96a3f28837549a20b65e5135729f0f9fd"
       url: "https://pub.dev"
     source: hosted
-    version: "4.2.4"
+    version: "4.2.5"
   permission_handler:
     dependency: "direct main"
     description:
@@ -1033,34 +1049,34 @@ packages:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_calendar
-      sha256: "82ad0395251871adc09f3a4346de7fcf9f7f8a261bd93ed060042e1183d2aa34"
+      sha256: f5558e6bcb980ad55dfad0ea35dd93ab312e69fedadbe83048dd88922ef8b2a5
       url: "https://pub.dev"
     source: hosted
-    version: "29.1.35"
+    version: "29.1.37"
   syncfusion_flutter_core:
     dependency: transitive
     description:
       name: syncfusion_flutter_core
-      sha256: be5eff439bb6c16eb2f297aa3dde779cc5352485f2df1825557d14f09d5b26b6
+      sha256: a9b203c3b4ad5c3bfed3e82c3f43f6861c4f2e8a12dca43b8abb8f128ffe42b5
       url: "https://pub.dev"
     source: hosted
-    version: "29.1.35"
+    version: "29.1.37"
   syncfusion_flutter_datagrid:
     dependency: "direct main"
     description:
       name: syncfusion_flutter_datagrid
-      sha256: "243be39ed3f831f38760be94b7752947a650380585a549a8350be0f0ce81e67e"
+      sha256: a45a6b1c27f9319eb86595c918626787e7d8693b12642db649e37f73a275f295
       url: "https://pub.dev"
     source: hosted
-    version: "29.1.35"
+    version: "29.1.37"
   syncfusion_flutter_datepicker:
     dependency: transitive
     description:
       name: syncfusion_flutter_datepicker
-      sha256: c468419c8dde651cfd85e539495f145689377253de346f6fc745d2ab0d3c8d6a
+      sha256: f2ed7874c9afa1a1ec052174f1e094ca28d2260daa8d725c24f7c4c56f13ea6b
       url: "https://pub.dev"
     source: hosted
-    version: "29.1.35"
+    version: "29.1.37"
   synchronized:
     dependency: transitive
     description:

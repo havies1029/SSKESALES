@@ -12,6 +12,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_animate: ^3.0.0 #baru
+  google_fonts: ^6.1.0 #baru
+  flutter_staggered_animations: ^1.1.1 #baru
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -75,8 +78,26 @@ flutter:
   assets:  
     - assets/images/
     - assets/images/month/
-    - assets/icons/ 
+    - assets/icons/
     - packages/timezone/data/latest.tzf
+    - assets/images/jps-image.png
+    - assets/images/vector-1.png
+    - assets/images/vector-2.png
+    - assets/images/vector-3.png
+    - assets/images/vector-4.png
+    - assets/images/vector-5.png
+    - assets/images/vector-6.png
+    - assets/images/vector-7.png
+    - assets/images/vector-8.png
+    - assets/images/vector-9.png
+    - assets/images/vector-10.png
+    - assets/images/vector-11.png
+    - assets/images/shape-bottom.svg
+    - assets/images/vector-home.png
+    - assets/images/vector-12.png
+    - assets/images/vector-13.png
+    - assets/images/vector-14.png
+    - assets/images/vector-15.png
   fonts:
     - family: HeeboBold
       fonts:
