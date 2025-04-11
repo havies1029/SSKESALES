@@ -143,7 +143,10 @@ class _HomePageState extends State<HomePage> {
               return const PageContainer(pageType: PageType.soaclient);
             } else if (state is ProjectPageActive) {
               debugPrint("ProjectPageActive");
-              return const PageContainer(pageType: PageType.project);            
+              return const PageContainer(pageType: PageType.project);
+            } else if (state is DashboardPageActive) {
+              debugPrint("DashboardPageActive");
+              return const PageContainer(pageType: PageType.dashboard);
             } else if (state is ProfilePageActive) {
               return PageContainerWithUserRepository(
                 pageType: PageType.profile,

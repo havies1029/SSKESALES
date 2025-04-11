@@ -117,7 +117,7 @@ class _SplashScreenState extends State<SplashScreen>
                             ),
                           ),
                           GradientText(
-                            'Planner',
+                            'Planner ',
                             gradient: const LinearGradient(
                               begin: Alignment.topCenter,
                               end: Alignment.bottomCenter,
