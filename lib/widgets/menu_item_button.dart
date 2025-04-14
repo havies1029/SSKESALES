@@ -47,8 +47,8 @@ class MenuItemButton extends StatelessWidget {
           label,
           style: const TextStyle(fontSize: 12, color: Colors.black87),
           textAlign: TextAlign.center,
-          maxLines: hasNewLine ? 2 : 1,
-          overflow: TextOverflow.ellipsis,
+          maxLines: hasNewLine ? 2 : 1, // Menyesuaikan jumlah baris
+          overflow: TextOverflow.ellipsis, // Menghindari overflow dengan elipsis
         ),
       ],
     );

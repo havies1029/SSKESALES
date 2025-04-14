@@ -145,39 +145,43 @@ class MenuGridState extends State<MenuGrid> {
   }
 
   Widget _buildMenuGrid(List<Map<String, String>> items, HomeBloc homeBloc) {
-    return GridView.builder(
-      physics: const NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      itemCount: items.length,
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: MediaQuery.of(context).size.width > 600 ? 4 : 3,
-        crossAxisSpacing: 12,
-        mainAxisSpacing: 16,
-        childAspectRatio: 0.8,
-      ),
-      itemBuilder: (context, index) {
-        final menuid = items[index]["menuid"]!;
-        String label = items[index]["label"]!;
+    return Expanded(  // Gunakan Expanded untuk memastikan GridView menyesuaikan ruang yang tersedia
+      child: GridView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        itemCount: items.length,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: MediaQuery.of(context).size.width > 600 ? 4 : 3,
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 16,
+          childAspectRatio: 0.8, // Menyesuaikan rasio ukuran agar lebih cocok
+        ),
+        itemBuilder: (context, index) {
+          final menuid = items[index]["menuid"]!;
+          String label = items[index]["label"]!;
 
-        const int threshold = 20;
-        if (label.length > threshold) {
-          int lastSpace = label.lastIndexOf(" ");
-          if (lastSpace != -1) {
-            label = label.substring(0, lastSpace) +
-                "\n" +
-                label.substring(lastSpace + 1);
+          const int threshold = 20;
+          // Pembagian baris untuk label yang panjang
+          if (label.length > threshold) {
+            int lastSpace = label.lastIndexOf(" ");
+            if (lastSpace != -1) {
+              label = label.substring(0, lastSpace) +
+                  "\n" +
+                  label.substring(lastSpace + 1);
+            }
           }
-        }
 
-        final imagePath = items[index]["icon"]!;
-        return InkWell(
-          onTap: () => _handleMenuTap(menuid, homeBloc),
-          child: customWidgets.MenuItemButton(
-            imagePath: imagePath,
-            label: label,
-          ),
-        );
-      },
+          final imagePath = items[index]["icon"]!;
+
+          return InkWell(
+            onTap: () => _handleMenuTap(menuid, homeBloc),
+            child: customWidgets.MenuItemButton(
+              imagePath: imagePath,
+              label: label,
+            ),
+          );
+        },
+      ),
     );
   }
 
