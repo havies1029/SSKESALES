@@ -2,6 +2,7 @@ import 'package:esalesapp/common/app_data.dart';
 import 'package:esalesapp/pages/briefing/briefinglist_list.dart';
 import 'package:esalesapp/pages/briefing/briefinglist_main.dart';
 import 'package:esalesapp/pages/chatting/roomcari_list.dart';
+import 'package:esalesapp/pages/dashboard/dashboard_main.dart';
 import 'package:esalesapp/pages/groupchat/groupchat_page.dart';
 import 'package:esalesapp/pages/home/home_page.dart';
 import 'package:esalesapp/menu/app_menu_drawer.dart';
@@ -155,6 +156,8 @@ class PageContainer extends PageContainerBase {
         return "SOA Client";
       case PageType.project:
         return "Master Project";
+      case PageType.dashboard:
+        return "Dashboard Main";
       default:
         return "Login Page";
     }
@@ -234,6 +237,9 @@ class PageContainer extends PageContainerBase {
         break;
       case PageType.project:
         page = const ProjectListMainPage();
+        break;
+      case PageType.dashboard:
+        page = const DashboardMain();
         break;
       default:
         page = null;

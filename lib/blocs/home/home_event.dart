@@ -33,3 +33,4 @@ class OnBoardPageActiveEvent extends HomeEvent {}
 class BriefingPageActiveEvent extends HomeEvent {}
 class SOAClientPageActiveEvent extends HomeEvent {}
 class ProjectPageActiveEvent extends HomeEvent {}
+class DashboardPageActiveEvent extends HomeEvent{}

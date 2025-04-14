@@ -35,7 +35,8 @@ enum PageType {
   timeline,
   briefing,
   soaclient,
-  project
+  project,
+  dashboard
 }
 
 abstract class PageContainerBase extends StatefulWidget {
@@ -135,7 +136,7 @@ class PageContainerBaseState extends State<PageContainerBase> {
                 InkWell(
                   onTap: () {
                     BlocProvider.of<HomeBloc>(context)
-                        .add(HomePageActiveEvent());
+                        .add(DashboardPageActiveEvent());
                   },
                   child: SizedBox(
                     width: 100,
