@@ -144,40 +144,49 @@ class MenuGridState extends State<MenuGrid> {
     );
   }
 
-  Widget _buildMenuGrid(List<Map<String, String>> items, HomeBloc homeBloc) {
-    return Expanded(  // Gunakan Expanded untuk memastikan GridView menyesuaikan ruang yang tersedia
+  Widget _buildMenuGrid(
+      List<Map<String, String>> items, HomeBloc homeBloc) {
+    // ─── HELPERS ────────────────────────────────────────────────────────────
+    String _wrapLongWords(String text, {int every = 12}) =>
+        text.replaceAllMapped(
+            RegExp(r'(\S{' + every.toString() + r'})'), (m) => '${m[1]}\u200B');
+
+    String _formatLabel(String raw) {
+      // 1️⃣ Selalu patah di spasi pertama → kata kedua pasti turun ke baris 2
+      final firstSpace = raw.indexOf(' ');
+      String formatted = (firstSpace == -1)
+          ? raw                                   // satu kata saja
+          : '${raw.substring(0, firstSpace)}\n'   // kata 1
+          '${raw.substring(firstSpace + 1)}';   // sisanya di bawah
+
+      // 2️⃣ Tambahkan zero‑width space agar kata super‑panjang ikut wrap
+      return _wrapLongWords(formatted);
+    }
+    // ────────────────────────────────────────────────────────────────────────
+
+    return Expanded(
       child: GridView.builder(
         physics: const NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         itemCount: items.length,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: MediaQuery.of(context).size.width > 600 ? 4 : 3,
+          crossAxisCount:
+          MediaQuery.of(context).size.width > 600 ? 4 : 3,
           crossAxisSpacing: 12,
           mainAxisSpacing: 16,
-          childAspectRatio: 0.8, // Menyesuaikan rasio ukuran agar lebih cocok
+          childAspectRatio: 0.8,
         ),
         itemBuilder: (context, index) {
-          final menuid = items[index]["menuid"]!;
-          String label = items[index]["label"]!;
-
-          const int threshold = 20;
-          // Pembagian baris untuk label yang panjang
-          if (label.length > threshold) {
-            int lastSpace = label.lastIndexOf(" ");
-            if (lastSpace != -1) {
-              label = label.substring(0, lastSpace) +
-                  "\n" +
-                  label.substring(lastSpace + 1);
-            }
-          }
-
-          final imagePath = items[index]["icon"]!;
+          final data      = items[index];
+          final menuid    = data['menuid']!;
+          final imagePath = data['icon']!;
+          final label     = _formatLabel(data['label']!);
 
           return InkWell(
             onTap: () => _handleMenuTap(menuid, homeBloc),
             child: customWidgets.MenuItemButton(
               imagePath: imagePath,
-              label: label,
+              label    : label,
             ),
           );
         },
