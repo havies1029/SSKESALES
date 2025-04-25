@@ -100,10 +100,10 @@ const List<Map<String, dynamic>> menuSections = [
   //     {"label": "Change Password", "menuid": "changepassword", "icon": "assets/images/vector-8.png"},
   //   ]
   // },
-  // {
-  //   "title": "Support",
-  //   "menus": [
-  //     {"label": "Chat Support", "menuid": "chatsupport", "icon": "assets/images/vector-9.png"},
-  //   ]
-  // },
+  {
+    "title": "Support",
+    "menus": [
+      {"label": "Chat Support", "menuid": "chatsupport", "icon": "assets/images/vector-9.png"},
+    ]
+  },
 ];
