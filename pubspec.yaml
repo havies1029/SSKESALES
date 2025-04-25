@@ -98,6 +98,26 @@ flutter:
     - assets/images/vector-13.png
     - assets/images/vector-14.png
     - assets/images/vector-15.png
+    - assets/images/logo-briefing.png
+    - assets/images/logo-business.png
+    - assets/images/logo-category.png
+    - assets/images/logo-insurer.png
+    - assets/images/logo-job.png
+    - assets/images/logo-list.png
+    - assets/images/logo-media.png
+    - assets/images/logo-policy.png
+    - assets/images/logo-project.png
+    - assets/images/logo-soa.png
+    - assets/images/logo-subordinate.png
+    - assets/images/logo-tasks.png
+    - assets/images/list-subordinate-task.png
+    - assets/images/logo-calender.png
+    - assets/images/logo-timeline.png
+    - assets/images/logo-title.png
+    - assets/images/logo-client.png
+    - assets/images/logo-jabatan.png
+    - assets/images/logo-customer.png
+    - assets/images/logo-karyawan.png
   fonts:
     - family: HeeboBold
       fonts:

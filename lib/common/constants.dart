@@ -56,41 +56,41 @@ const List<Map<String, dynamic>> menuSections = [
   {
     "title": "Daily Activity",
     "menus": [
-      {"label": "Briefing", "menuid": "briefing", "icon": "assets/images/vector-1.png"},
-      {"label": "Tasks", "menuid": "jobrealcari", "icon": "assets/images/vector-2.png"},
-      {"label": "Project", "menuid": "project", "icon": "assets/images/vector-3.png"},
-      {"label": "Subordinate Finished Tasks", "menuid": "realgroup", "icon": "assets/images/vector-4.png"},
-      {"label": "SOA Client", "menuid": "soaclient", "icon": "assets/images/vector-5.png"},
+      {"label": "Briefing", "menuid": "briefing", "icon": "assets/images/logo-briefing.png"},
+      {"label": "Tasks", "menuid": "jobrealcari", "icon": "assets/images/logo-tasks.png"},
+      {"label": "Project", "menuid": "project", "icon": "assets/images/logo-project.png"},
+      {"label": "Subordinate Finished Tasks", "menuid": "realgroup", "icon": "assets/images/logo-subordinate.png"},
+      {"label": "SOA Client", "menuid": "soaclient", "icon": "assets/images/logo-soa.png"},
     ]
   },
   {
     "title": "Data Action Plan",
     "menus": [
-      {"label": "Media", "menuid": "mediacari", "icon": "assets/images/vector-6.png"},
-      {"label": "Job Function", "menuid": "jobgroup", "icon": "assets/images/vector-7.png"},
-      {"label": "Task Category", "menuid": "jobcatcari", "icon": "assets/images/vector-8.png"},
-      {"label": "List of Tasks", "menuid": "jobcari", "icon": "assets/images/vector-9.png"},
-      {"label": "Subordinate Tasks", "menuid": "jobsales", "icon": "assets/images/vector-10.png"},
+      {"label": "Media", "menuid": "mediacari", "icon": "assets/images/logo-media.png"},
+      {"label": "Job Function", "menuid": "jobgroup", "icon": "assets/images/logo-job.png"},
+      {"label": "Task Category", "menuid": "jobcatcari", "icon": "assets/images/logo-category.png"},
+      {"label": "List of Tasks", "menuid": "jobcari", "icon": "assets/images/logo-list.png"},
+      {"label": "Subordinate Tasks", "menuid": "jobsales", "icon": "assets/images/list-subordinate-task.png"},
     ]
   },
   {
     "title": "Data Insurance",
     "menus": [
-      {"label": "Class of Business", "menuid": "cobcari", "icon": "assets/images/vector-11.png"},
-      {"label": "Insurer", "menuid": "asuransicari", "icon": "assets/images/vector-12.png"},
-      {"label": "Policy", "menuid": "poliscari", "icon": "assets/images/vector-13.png"},
-      {"label": "Calendar Policy Exp", "menuid": "calendar", "icon": "assets/images/vector-14.png"},
-      {"label": "Timeline Policy Exp", "menuid": "timelineexpired", "icon": "assets/images/vector-1.png"},
+      {"label": "Class of Business", "menuid": "cobcari", "icon": "assets/images/logo-business.png"},
+      {"label": "Insurer", "menuid": "asuransicari", "icon": "assets/images/logo-insurer.png"},
+      {"label": "Policy", "menuid": "poliscari", "icon": "assets/images/logo-policy.png"},
+      {"label": "Calendar Policy Exp", "menuid": "calendar", "icon": "assets/images/logo-calender.png"},
+      {"label": "Timeline Policy Exp", "menuid": "timelineexpired", "icon": "assets/images/logo-timeline.png"},
     ]
   },
   {
     "title": "Data Umum",
     "menus": [
-      {"label": "Title", "menuid": "titlecari", "icon": "assets/images/vector-2.png"},
-      {"label": "Client Category", "menuid": "custcatcari", "icon": "assets/images/vector-3.png"},
-      {"label": "Jabatan", "menuid": "jabatancari", "icon": "assets/images/vector-4.png"},
-      {"label": "Customer", "menuid": "customercari", "icon": "assets/images/vector-5.png"},
-      {"label": "Karyawan", "menuid": "staffcari", "icon": "assets/images/vector-6.png"},
+      {"label": "Title", "menuid": "titlecari", "icon": "assets/images/logo-title.png"},
+      {"label": "Client Category", "menuid": "custcatcari", "icon": "assets/images/logo-client.png"},
+      {"label": "Jabatan", "menuid": "jabatancari", "icon": "assets/images/logo-jabatan.png"},
+      {"label": "Customer", "menuid": "customercari", "icon": "assets/images/logo-customer.png"},
+      {"label": "Karyawan", "menuid": "staffcari", "icon": "assets/images/logo-karyawan.png"},
     ]
   },
   // {
