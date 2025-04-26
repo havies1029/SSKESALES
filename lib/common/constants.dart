@@ -93,13 +93,13 @@ const List<Map<String, dynamic>> menuSections = [
       {"label": "Karyawan", "menuid": "staffcari", "icon": "assets/images/logo-karyawan.png"},
     ]
   },
-  // {
-  //   "title": "User Security",
-  //   "menus": [
-  //     {"label": "Profile", "menuid": "profile", "icon": "assets/images/vector-7.png"},
-  //     {"label": "Change Password", "menuid": "changepassword", "icon": "assets/images/vector-8.png"},
-  //   ]
-  // },
+  {
+    "title": "User Security",
+    "menus": [
+      {"label": "Profile", "menuid": "profile", "icon": "assets/images/vector-7.png"},
+      {"label": "Change Password", "menuid": "changepassword", "icon": "assets/images/vector-8.png"},
+    ]
+  },
   {
     "title": "Support",
     "menus": [

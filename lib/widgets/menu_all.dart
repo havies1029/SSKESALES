@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:esalesapp/blocs/home/home_bloc.dart';
 import '../common/constants.dart';
-import 'header_section.dart';
+// import 'header_section.dart';
 import 'my_colors.dart';
 import 'menu_item_button.dart' as customWidgets;
 
@@ -50,9 +50,9 @@ class MenuGridState extends State<MenuGrid> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const HeaderSection(),
-          const SizedBox(height: 24),
-          const Divider(thickness: 1, color: MyColors.grey_10),
+          // const HeaderSection(),
+          // const SizedBox(height: 24),
+          // const Divider(thickness: 1, color: MyColors.grey_10),
           const SizedBox(height: 32),
           ...menuSections.asMap().entries.map((entry) {
             int index = entry.key;

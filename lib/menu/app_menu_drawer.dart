@@ -43,6 +43,356 @@ class AppMenuState extends State<AppMenu> with RouteAware {
                         });
                       },
                     ),
+                    // ExpansionTile(
+                    //   leading: const Icon(
+                    //     Icons.settings,
+                    //   ),
+                    //   trailing: const Icon(
+                    //     Icons.arrow_forward_ios_rounded,
+                    //     size: 10.0,
+                    //   ),
+                    //   title: const Text(
+                    //     "Daily Activity",
+                    //     style: TextStyle(),
+                    //   ),
+                    //   children: <Widget>[
+                    //     Padding(
+                    //       padding: const EdgeInsets.only(left: 15.0),
+                    //       child: ListTile(
+                    //         leading: const Icon(Icons.person),
+                    //         title: const Text("Briefing"),
+                    //         //selected: _activeRoute == AppRoutes.homePage,
+                    //         onTap: () {
+                    //           SchedulerBinding.instance
+                    //               .addPostFrameCallback((timeStamp) {
+                    //             Navigator.of(context).pop();
+                    //             homeBloc.add(BriefingPageActiveEvent());
+                    //           });
+                    //         },
+                    //       ),
+                    //     ),
+                    //     Padding(
+                    //       padding: const EdgeInsets.only(left: 15.0),
+                    //       child: ListTile(
+                    //         leading: const Icon(Icons.person),
+                    //         title: const Text("Tasks"),
+                    //         //selected: _activeRoute == AppRoutes.homePage,
+                    //         onTap: () {
+                    //           SchedulerBinding.instance
+                    //               .addPostFrameCallback((timeStamp) {
+                    //             Navigator.of(context).pop();
+                    //             homeBloc.add(JobRealCariPageActiveEvent());
+                    //           });
+                    //         },
+                    //       ),
+                    //     ),
+                    //     Padding(
+                    //       padding: const EdgeInsets.only(left: 15.0),
+                    //       child: ListTile(
+                    //         leading: const Icon(Icons.timer),
+                    //         title: const Text("Project"),
+                    //         onTap: () {
+                    //           SchedulerBinding.instance
+                    //               .addPostFrameCallback((timeStamp) {
+                    //             Navigator.of(context).pop();
+                    //             debugPrint("drawer -> ProjectPageActiveEvent");
+                    //             homeBloc.add(ProjectPageActiveEvent());
+                    //           });
+                    //         },
+                    //       ),
+                    //     ),
+                    //     Padding(
+                    //       padding: const EdgeInsets.only(left: 15.0),
+                    //       child: ListTile(
+                    //         leading: const Icon(Icons.person),
+                    //         title: const Text("Subordinate Finished Tasks"),
+                    //         //selected: _activeRoute == AppRoutes.homePage,
+                    //         onTap: () {
+                    //           SchedulerBinding.instance
+                    //               .addPostFrameCallback((timeStamp) {
+                    //             Navigator.of(context).pop();
+                    //             homeBloc.add(RealGroupPageActiveEvent());
+                    //           });
+                    //         },
+                    //       ),
+                    //     ),
+                    //     Padding(
+                    //       padding: const EdgeInsets.only(left: 15.0),
+                    //       child: ListTile(
+                    //         leading: const Icon(Icons.person),
+                    //         title: const Text("SOA Client"),
+                    //         //selected: _activeRoute == AppRoutes.homePage,
+                    //         onTap: () {
+                    //           SchedulerBinding.instance
+                    //               .addPostFrameCallback((timeStamp) {
+                    //             Navigator.of(context).pop();
+                    //             homeBloc.add(SOAClientPageActiveEvent());
+                    //           });
+                    //         },
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                    // ExpansionTile(
+                    //   leading: const Icon(
+                    //     Icons.settings,
+                    //   ),
+                    //   trailing: const Icon(
+                    //     Icons.arrow_forward_ios_rounded,
+                    //     size: 10.0,
+                    //   ),
+                    //   title: const Text(
+                    //     "Data Action Plan",
+                    //     style: TextStyle(),
+                    //   ),
+                    //   children: <Widget>[
+                    //     Padding(
+                    //       padding: const EdgeInsets.only(left: 15.0),
+                    //       child: ListTile(
+                    //         leading: const Icon(Icons.timer),
+                    //         title: const Text("Media"),
+                    //         onTap: () {
+                    //           SchedulerBinding.instance
+                    //               .addPostFrameCallback((timeStamp) {
+                    //             Navigator.of(context).pop();
+                    //             homeBloc.add(MediaCariPageActiveEvent());
+                    //           });
+                    //         },
+                    //       ),
+                    //     ),
+                    //     Padding(
+                    //       padding: const EdgeInsets.only(left: 15.0),
+                    //       child: ListTile(
+                    //         leading: const Icon(Icons.timer),
+                    //         title: const Text("Job Function"),
+                    //         onTap: () {
+                    //           SchedulerBinding.instance
+                    //               .addPostFrameCallback((timeStamp) {
+                    //             Navigator.of(context).pop();
+                    //             homeBloc.add(JobGroupPageActiveEvent());
+                    //           });
+                    //         },
+                    //       ),
+                    //     ),
+                    //     Padding(
+                    //       padding: const EdgeInsets.only(left: 15.0),
+                    //       child: ListTile(
+                    //         leading: const Icon(Icons.timer),
+                    //         title: const Text("Task Category"),
+                    //         onTap: () {
+                    //           SchedulerBinding.instance
+                    //               .addPostFrameCallback((timeStamp) {
+                    //             Navigator.of(context).pop();
+                    //             homeBloc.add(JobCatCariPageActiveEvent());
+                    //           });
+                    //         },
+                    //       ),
+                    //     ),
+                    //     Padding(
+                    //       padding: const EdgeInsets.only(left: 15.0),
+                    //       child: ListTile(
+                    //         leading: const Icon(Icons.timer),
+                    //         title: const Text("List of Tasks"),
+                    //         onTap: () {
+                    //           SchedulerBinding.instance
+                    //               .addPostFrameCallback((timeStamp) {
+                    //             Navigator.of(context).pop();
+                    //             homeBloc.add(JobCariPageActiveEvent());
+                    //           });
+                    //         },
+                    //       ),
+                    //     ),
+                    //     Padding(
+                    //       padding: const EdgeInsets.only(left: 15.0),
+                    //       child: ListTile(
+                    //         leading: const Icon(Icons.timer),
+                    //         title: const Text("Subordinate Tasks"),
+                    //         onTap: () {
+                    //           SchedulerBinding.instance
+                    //               .addPostFrameCallback((timeStamp) {
+                    //             Navigator.of(context).pop();
+                    //             homeBloc.add(JobSalesPageActiveEvent());
+                    //           });
+                    //         },
+                    //       ),
+                    //     ),
+                    //
+                    //   ],
+                    // ),
+                    // ExpansionTile(
+                    //   leading: const Icon(
+                    //     Icons.settings,
+                    //   ),
+                    //   trailing: const Icon(
+                    //     Icons.arrow_forward_ios_rounded,
+                    //     size: 10.0,
+                    //   ),
+                    //   title: const Text(
+                    //     "Data Insurance",
+                    //     style: TextStyle(),
+                    //   ),
+                    //   children: <Widget>[
+                    //     Padding(
+                    //       padding: const EdgeInsets.only(left: 15.0),
+                    //       child: ListTile(
+                    //         leading: const Icon(Icons.timer),
+                    //         title: const Text("Class of Business"),
+                    //         onTap: () {
+                    //           SchedulerBinding.instance
+                    //               .addPostFrameCallback((timeStamp) {
+                    //             Navigator.of(context).pop();
+                    //             homeBloc.add(CobCariPageActiveEvent());
+                    //           });
+                    //         },
+                    //       ),
+                    //     ),
+                    //     Padding(
+                    //       padding: const EdgeInsets.only(left: 15.0),
+                    //       child: ListTile(
+                    //         leading: const Icon(Icons.timer),
+                    //         title: const Text("Insurer"),
+                    //         onTap: () {
+                    //           SchedulerBinding.instance
+                    //               .addPostFrameCallback((timeStamp) {
+                    //             Navigator.of(context).pop();
+                    //             homeBloc.add(AsuransiCariPageActiveEvent());
+                    //           });
+                    //         },
+                    //       ),
+                    //     ),
+                    //     Padding(
+                    //       padding: const EdgeInsets.only(left: 15.0),
+                    //       child: ListTile(
+                    //         leading: const Icon(Icons.timer),
+                    //         title: const Text("Policy"),
+                    //         onTap: () {
+                    //           SchedulerBinding.instance
+                    //               .addPostFrameCallback((timeStamp) {
+                    //             Navigator.of(context).pop();
+                    //             homeBloc.add(PolisCariPageActiveEvent());
+                    //           });
+                    //         },
+                    //       ),
+                    //     ),
+                    //     Padding(
+                    //       padding: const EdgeInsets.only(left: 15.0),
+                    //       child: ListTile(
+                    //         leading: const Icon(Icons.person),
+                    //         title: const Text("Calendar Policy Exp"),
+                    //         //selected: _activeRoute == AppRoutes.homePage,
+                    //         onTap: () {
+                    //           SchedulerBinding.instance
+                    //               .addPostFrameCallback((timeStamp) {
+                    //             Navigator.of(context).pop();
+                    //             homeBloc.add(CalendarPageActiveEvent());
+                    //           });
+                    //         },
+                    //       ),
+                    //     ),
+                    //     Padding(
+                    //       padding: const EdgeInsets.only(left: 15.0),
+                    //       child: ListTile(
+                    //         leading: const Icon(Icons.person),
+                    //         title: const Text("Timeline Policy Exp"),
+                    //         //selected: _activeRoute == AppRoutes.homePage,
+                    //         onTap: () {
+                    //           SchedulerBinding.instance
+                    //               .addPostFrameCallback((timeStamp) {
+                    //             Navigator.of(context).pop();
+                    //             homeBloc.add(
+                    //                 TimelinePolicyExpiredPageActiveEvent());
+                    //           });
+                    //         },
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+                    // ExpansionTile(
+                    //   leading: const Icon(
+                    //     Icons.settings,
+                    //   ),
+                    //   trailing: const Icon(
+                    //     Icons.arrow_forward_ios_rounded,
+                    //     size: 10.0,
+                    //   ),
+                    //   title: const Text(
+                    //     "Data Umum",
+                    //     style: TextStyle(),
+                    //   ),
+                    //   children: <Widget>[
+                    //     Padding(
+                    //       padding: const EdgeInsets.only(left: 15.0),
+                    //       child: ListTile(
+                    //         leading: const Icon(Icons.timer),
+                    //         title: const Text("Title"),
+                    //         onTap: () {
+                    //           SchedulerBinding.instance
+                    //               .addPostFrameCallback((timeStamp) {
+                    //             Navigator.of(context).pop();
+                    //             homeBloc.add(TitleCariPageActiveEvent());
+                    //           });
+                    //         },
+                    //       ),
+                    //     ),
+                    //     Padding(
+                    //       padding: const EdgeInsets.only(left: 15.0),
+                    //       child: ListTile(
+                    //         leading: const Icon(Icons.timer),
+                    //         title: const Text("Client Category"),
+                    //         onTap: () {
+                    //           SchedulerBinding.instance
+                    //               .addPostFrameCallback((timeStamp) {
+                    //             Navigator.of(context).pop();
+                    //             homeBloc.add(CustCatCariPageActiveEvent());
+                    //           });
+                    //         },
+                    //       ),
+                    //     ),
+                    //     Padding(
+                    //       padding: const EdgeInsets.only(left: 15.0),
+                    //       child: ListTile(
+                    //         leading: const Icon(Icons.timer),
+                    //         title: const Text("Jabatan"),
+                    //         onTap: () {
+                    //           SchedulerBinding.instance
+                    //               .addPostFrameCallback((timeStamp) {
+                    //             Navigator.of(context).pop();
+                    //             homeBloc.add(JabatanCariPageActiveEvent());
+                    //           });
+                    //         },
+                    //       ),
+                    //     ),
+                    //     Padding(
+                    //       padding: const EdgeInsets.only(left: 15.0),
+                    //       child: ListTile(
+                    //         leading: const Icon(Icons.timer),
+                    //         title: const Text("Customer"),
+                    //         onTap: () {
+                    //           SchedulerBinding.instance
+                    //               .addPostFrameCallback((timeStamp) {
+                    //             Navigator.of(context).pop();
+                    //             homeBloc.add(CustomerCariPageActiveEvent());
+                    //           });
+                    //         },
+                    //       ),
+                    //     ),
+                    //
+                    //     Padding(
+                    //       padding: const EdgeInsets.only(left: 15.0),
+                    //       child: ListTile(
+                    //         leading: const Icon(Icons.timer),
+                    //         title: const Text("Karyawan"),
+                    //         onTap: () {
+                    //           SchedulerBinding.instance
+                    //               .addPostFrameCallback((timeStamp) {
+                    //             Navigator.of(context).pop();
+                    //             homeBloc.add(StaffCariPageActiveEvent());
+                    //           });
+                    //         },
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                     ExpansionTile(
                       leading: const Icon(
                         Icons.settings,
@@ -52,7 +402,7 @@ class AppMenuState extends State<AppMenu> with RouteAware {
                         size: 10.0,
                       ),
                       title: const Text(
-                        "Daily Activity",
+                        "Menu Dashboard",
                         style: TextStyle(),
                       ),
                       children: <Widget>[
@@ -60,333 +410,13 @@ class AppMenuState extends State<AppMenu> with RouteAware {
                           padding: const EdgeInsets.only(left: 15.0),
                           child: ListTile(
                             leading: const Icon(Icons.person),
-                            title: const Text("Briefing"),
+                            title: const Text("Dashboard"),
                             //selected: _activeRoute == AppRoutes.homePage,
                             onTap: () {
                               SchedulerBinding.instance
                                   .addPostFrameCallback((timeStamp) {
                                 Navigator.of(context).pop();
-                                homeBloc.add(BriefingPageActiveEvent());
-                              });
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
-                          child: ListTile(
-                            leading: const Icon(Icons.person),
-                            title: const Text("Tasks"),
-                            //selected: _activeRoute == AppRoutes.homePage,
-                            onTap: () {
-                              SchedulerBinding.instance
-                                  .addPostFrameCallback((timeStamp) {
-                                Navigator.of(context).pop();
-                                homeBloc.add(JobRealCariPageActiveEvent());
-                              });
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
-                          child: ListTile(
-                            leading: const Icon(Icons.timer),
-                            title: const Text("Project"),
-                            onTap: () {
-                              SchedulerBinding.instance
-                                  .addPostFrameCallback((timeStamp) {
-                                Navigator.of(context).pop();
-                                debugPrint("drawer -> ProjectPageActiveEvent");
-                                homeBloc.add(ProjectPageActiveEvent());
-                              });
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
-                          child: ListTile(
-                            leading: const Icon(Icons.person),
-                            title: const Text("Subordinate Finished Tasks"),
-                            //selected: _activeRoute == AppRoutes.homePage,
-                            onTap: () {
-                              SchedulerBinding.instance
-                                  .addPostFrameCallback((timeStamp) {
-                                Navigator.of(context).pop();
-                                homeBloc.add(RealGroupPageActiveEvent());
-                              });
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
-                          child: ListTile(
-                            leading: const Icon(Icons.person),
-                            title: const Text("SOA Client"),
-                            //selected: _activeRoute == AppRoutes.homePage,
-                            onTap: () {
-                              SchedulerBinding.instance
-                                  .addPostFrameCallback((timeStamp) {
-                                Navigator.of(context).pop();
-                                homeBloc.add(SOAClientPageActiveEvent());
-                              });
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    ExpansionTile(
-                      leading: const Icon(
-                        Icons.settings,
-                      ),
-                      trailing: const Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        size: 10.0,
-                      ),
-                      title: const Text(
-                        "Data Action Plan",
-                        style: TextStyle(),
-                      ),
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
-                          child: ListTile(
-                            leading: const Icon(Icons.timer),
-                            title: const Text("Media"),
-                            onTap: () {
-                              SchedulerBinding.instance
-                                  .addPostFrameCallback((timeStamp) {
-                                Navigator.of(context).pop();
-                                homeBloc.add(MediaCariPageActiveEvent());
-                              });
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
-                          child: ListTile(
-                            leading: const Icon(Icons.timer),
-                            title: const Text("Job Function"),
-                            onTap: () {
-                              SchedulerBinding.instance
-                                  .addPostFrameCallback((timeStamp) {
-                                Navigator.of(context).pop();
-                                homeBloc.add(JobGroupPageActiveEvent());
-                              });
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
-                          child: ListTile(
-                            leading: const Icon(Icons.timer),
-                            title: const Text("Task Category"),
-                            onTap: () {
-                              SchedulerBinding.instance
-                                  .addPostFrameCallback((timeStamp) {
-                                Navigator.of(context).pop();
-                                homeBloc.add(JobCatCariPageActiveEvent());
-                              });
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
-                          child: ListTile(
-                            leading: const Icon(Icons.timer),
-                            title: const Text("List of Tasks"),
-                            onTap: () {
-                              SchedulerBinding.instance
-                                  .addPostFrameCallback((timeStamp) {
-                                Navigator.of(context).pop();
-                                homeBloc.add(JobCariPageActiveEvent());
-                              });
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
-                          child: ListTile(
-                            leading: const Icon(Icons.timer),
-                            title: const Text("Subordinate Tasks"),
-                            onTap: () {
-                              SchedulerBinding.instance
-                                  .addPostFrameCallback((timeStamp) {
-                                Navigator.of(context).pop();
-                                homeBloc.add(JobSalesPageActiveEvent());
-                              });
-                            },
-                          ),
-                        ),
-                        
-                      ],
-                    ),
-                    ExpansionTile(
-                      leading: const Icon(
-                        Icons.settings,
-                      ),
-                      trailing: const Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        size: 10.0,
-                      ),
-                      title: const Text(
-                        "Data Insurance",
-                        style: TextStyle(),
-                      ),
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
-                          child: ListTile(
-                            leading: const Icon(Icons.timer),
-                            title: const Text("Class of Business"),
-                            onTap: () {
-                              SchedulerBinding.instance
-                                  .addPostFrameCallback((timeStamp) {
-                                Navigator.of(context).pop();
-                                homeBloc.add(CobCariPageActiveEvent());
-                              });
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
-                          child: ListTile(
-                            leading: const Icon(Icons.timer),
-                            title: const Text("Insurer"),
-                            onTap: () {
-                              SchedulerBinding.instance
-                                  .addPostFrameCallback((timeStamp) {
-                                Navigator.of(context).pop();
-                                homeBloc.add(AsuransiCariPageActiveEvent());
-                              });
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
-                          child: ListTile(
-                            leading: const Icon(Icons.timer),
-                            title: const Text("Policy"),
-                            onTap: () {
-                              SchedulerBinding.instance
-                                  .addPostFrameCallback((timeStamp) {
-                                Navigator.of(context).pop();
-                                homeBloc.add(PolisCariPageActiveEvent());
-                              });
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
-                          child: ListTile(
-                            leading: const Icon(Icons.person),
-                            title: const Text("Calendar Policy Exp"),
-                            //selected: _activeRoute == AppRoutes.homePage,
-                            onTap: () {
-                              SchedulerBinding.instance
-                                  .addPostFrameCallback((timeStamp) {
-                                Navigator.of(context).pop();
-                                homeBloc.add(CalendarPageActiveEvent());
-                              });
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
-                          child: ListTile(
-                            leading: const Icon(Icons.person),
-                            title: const Text("Timeline Policy Exp"),
-                            //selected: _activeRoute == AppRoutes.homePage,
-                            onTap: () {
-                              SchedulerBinding.instance
-                                  .addPostFrameCallback((timeStamp) {
-                                Navigator.of(context).pop();
-                                homeBloc.add(
-                                    TimelinePolicyExpiredPageActiveEvent());
-                              });
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    ExpansionTile(
-                      leading: const Icon(
-                        Icons.settings,
-                      ),
-                      trailing: const Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        size: 10.0,
-                      ),
-                      title: const Text(
-                        "Data Umum",
-                        style: TextStyle(),
-                      ),
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
-                          child: ListTile(
-                            leading: const Icon(Icons.timer),
-                            title: const Text("Title"),
-                            onTap: () {
-                              SchedulerBinding.instance
-                                  .addPostFrameCallback((timeStamp) {
-                                Navigator.of(context).pop();
-                                homeBloc.add(TitleCariPageActiveEvent());
-                              });
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
-                          child: ListTile(
-                            leading: const Icon(Icons.timer),
-                            title: const Text("Client Category"),
-                            onTap: () {
-                              SchedulerBinding.instance
-                                  .addPostFrameCallback((timeStamp) {
-                                Navigator.of(context).pop();
-                                homeBloc.add(CustCatCariPageActiveEvent());
-                              });
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
-                          child: ListTile(
-                            leading: const Icon(Icons.timer),
-                            title: const Text("Jabatan"),
-                            onTap: () {
-                              SchedulerBinding.instance
-                                  .addPostFrameCallback((timeStamp) {
-                                Navigator.of(context).pop();
-                                homeBloc.add(JabatanCariPageActiveEvent());
-                              });
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
-                          child: ListTile(
-                            leading: const Icon(Icons.timer),
-                            title: const Text("Customer"),
-                            onTap: () {
-                              SchedulerBinding.instance
-                                  .addPostFrameCallback((timeStamp) {
-                                Navigator.of(context).pop();
-                                homeBloc.add(CustomerCariPageActiveEvent());
-                              });
-                            },
-                          ),
-                        ),
-                        
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
-                          child: ListTile(
-                            leading: const Icon(Icons.timer),
-                            title: const Text("Karyawan"),
-                            onTap: () {
-                              SchedulerBinding.instance
-                                  .addPostFrameCallback((timeStamp) {
-                                Navigator.of(context).pop();
-                                homeBloc.add(StaffCariPageActiveEvent());
+                                homeBloc.add(DashboardPageActiveEvent());
                               });
                             },
                           ),
