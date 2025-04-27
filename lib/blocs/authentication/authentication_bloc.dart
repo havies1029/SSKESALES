@@ -45,7 +45,9 @@ class AuthenticationBloc
       LoggedIn event, Emitter<AuthenticationState> emit) async {
     emit(AuthenticationLoading());
     if (!AppData.kIsWeb) {
-      await userRepository.persistToken(user: event.user);
+      if (event.remember) {
+        await userRepository.persistToken(user: event.user);
+      }
     }
 
     AppData.user = event.user;

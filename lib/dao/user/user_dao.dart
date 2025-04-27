@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:esalesapp/common/app_data.dart';
 import 'package:esalesapp/database/user/user_database.dart';
@@ -62,19 +63,19 @@ class UserDao {
   }
 
   Future<bool> checkUser(int id) async {
-    //debugPrint("func checkUser");
+    debugPrint("func checkUser");
     final db = await dbProvider.database;
 
-    //debugPrint("func checkUser -> get db");
+    debugPrint("func checkUser -> get db");
 
     try {
-      //debugPrint("func checkUser -> start -> cek users id : $id");
+      debugPrint("func checkUser -> start -> cek users id : $id");
 
       List<Map> users =
           await db!.query(userTable, where: 'id = ?', whereArgs: [id]);
 
       if (users.isNotEmpty) {
-        //debugPrint("func checkUser -> has user #10");
+        debugPrint("func checkUser -> has user #10");
 
         AppData.userToken = users[0]["token"];
         AppData.userid = users[0]["username"];
@@ -88,11 +89,11 @@ class UserDao {
           'Authorization': 'Bearer ${AppData.userToken}'
         };
 
-        //debugPrint("func checkUser -> has user #20");
+        debugPrint("func checkUser -> has user #20");
 
         return true;
       } else {
-        //debugPrint("func checkUser -> no user");
+        debugPrint("func checkUser -> no user");
 
         return false;
       }

@@ -15,29 +15,6 @@ final _tokenURL = _base + _tokenEndpoint;
 Future<User> validateUserLogin(UserLogin userLogin) async {
   UserInfo userinfo = UserInfo(userLogin: userLogin);
 
-/*
-  debugPrint("validateUserLogin #10");
-
-  debugPrint(_tokenURL);
-  debugPrint(jsonEncode(userinfo.toJson()));
-  */
-
-  /*
-  try {
-    await http.post(Uri.parse(_tokenURL),
-        headers: <String, String>{
-          'Access-Control-Allow-Origin': '*',
-          'Content-Type': 'application/json; odata=verbos',
-          'Accept': 'application/json; odata=verbos'
-        },
-        //body: jsonEncode(userLogin.toDatabaseJson()),
-
-        body: jsonEncode(userinfo.toJson()));
-  } catch (e) {
-    debugPrint("error : ${e.toString()}");
-  }
-  */
-
   final http.Response response = await http.post(Uri.parse(_tokenURL),
       headers: <String, String>{
         'Content-Type': 'application/json; odata=verbos',
