@@ -86,14 +86,19 @@ class _ProfileFormState extends State<ProfileForm> {
       //debugPrint("ProfileForm -> builder");
 
       if (state.user != null) {
-        fullnameController.text = state.user!.nama!;
-        nohpController.text = state.user!.hp!;
-        emailController.text = state.user!.email!;
+      //   fullnameController.text = state.user!.nama!;
+      //   nohpController.text = state.user!.hp!;
+      //   emailController.text = state.user!.email!;
         //alamat1Controller.text = state.user!.alamat1!;
         //alamat2Controller.text = state.user!.alamat2!;
         //jnskelController.text = state.user!.jnskel!;
         //jnskel = state.user!.jnskel!;
-        foto = state.user!.foto;
+      //   foto = state.user!.foto;
+
+          fullnameController.text = state.user!.nama ?? '';
+          nohpController.text = state.user!.hp ?? '';
+          emailController.text = state.user!.email ?? '';
+          foto = state.user!.foto;
         /*
         comboPropinsiSelected = ComboPropinsi(
             propinsiId: state.user!.propinsiId!,
