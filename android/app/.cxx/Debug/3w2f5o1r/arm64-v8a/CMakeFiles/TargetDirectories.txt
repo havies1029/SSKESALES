@@ -1,0 +1,2 @@
+C:/Users/Ardi Okdianto/for_Android/SSKESALES/android/app/.cxx/Debug/3w2f5o1r/arm64-v8a/CMakeFiles/edit_cache.dir
+C:/Users/Ardi Okdianto/for_Android/SSKESALES/android/app/.cxx/Debug/3w2f5o1r/arm64-v8a/CMakeFiles/rebuild_cache.dir
