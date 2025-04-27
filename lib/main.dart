@@ -66,6 +66,7 @@ import 'package:esalesapp/repositories/mststaff/staffcrud_repository.dart';
 import 'package:esalesapp/repositories/msttitle/titlecrud_repository.dart';
 import 'package:esalesapp/repositories/polis/poliscrud_repository.dart';
 import 'package:esalesapp/repositories/projectplan/plancrud_repository.dart';
+import 'package:esalesapp/pages/splash/splash_screen.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:esalesapp/blocs/chatting/chatgroupcari_bloc.dart';
 import 'package:esalesapp/blocs/chatting/chatgroupcrud_bloc.dart';
@@ -248,40 +249,41 @@ class App extends StatelessWidget {
 
         routes: const {},
 
-        home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
-          builder: (context, state) {
-            if (state is AuthenticationUninitialized) {
-              debugPrint("AuthenticationUninitialized #10");
-
-              return const SplashPage();
-            }
-
-            if (state is AuthenticationAuthenticated) {
-              debugPrint("AuthenticationAuthenticated #20");
-
-              return HomePage(
-                userRepository: userRepository,
-                userid: 0,
-                key: null,
-              );
-            }
-
-            if (state is AuthenticationUnauthenticated) {
-              debugPrint("AuthenticationUnauthenticated #30");
-              return LoginPage(
-                userRepository: userRepository,
-              );
-            }
-
-            if (AppData.kIsWeb) {
-              return LoginPage(
-                userRepository: userRepository,
-              );
-            } else {
-              return const LoadingIndicator();
-            }
-          },
-        ),
+        // home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+        //   builder: (context, state) {
+        //     if (state is AuthenticationUninitialized) {
+        //       debugPrint("AuthenticationUninitialized #10");
+        //
+        //       return const SplashPage();
+        //     }
+        //
+        //     if (state is AuthenticationAuthenticated) {
+        //       debugPrint("AuthenticationAuthenticated #20");
+        //
+        //       return HomePage(
+        //         userRepository: userRepository,
+        //         userid: 0,
+        //         key: null,
+        //       );
+        //     }
+        //
+        //     if (state is AuthenticationUnauthenticated) {
+        //       debugPrint("AuthenticationUnauthenticated #30");
+        //       return LoginPage(
+        //         userRepository: userRepository,
+        //       );
+        //     }
+        //
+        //     if (AppData.kIsWeb) {
+        //       return LoginPage(
+        //         userRepository: userRepository,
+        //       );
+        //     } else {
+        //       return const LoadingIndicator();
+        //     }
+        //   },
+        // ),
+        home: SplashScreen(userRepository: userRepository, imageAsset: 'assets/images/jps-image.png',),
       ),
     );
   }

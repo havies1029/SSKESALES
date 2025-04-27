@@ -62,7 +62,10 @@ class _HomePageState extends State<HomePage> {
             return (current.status == ListStatus.success);
           }, listener: (context, state) {
             //debugPrint("_HomePageState => JobRealTabState #00 => listeners ${state.status}");
-            if (state.status == ListStatus.success) {
+            // if (state.status == ListStatus.success) {
+            //   selectedTabEvent(state.listJobCatGroup![0]);
+            // }
+            if (state.status == ListStatus.success && state.listJobCatGroup != null && state.listJobCatGroup!.isNotEmpty) {
               selectedTabEvent(state.listJobCatGroup![0]);
             }
           }),

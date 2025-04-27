@@ -38,7 +38,7 @@ class DatabaseProvider {
   }
   
   Future<void> _createDb(Database db) async {
-    await db.execute("drop table if exists $userTable");
+    //await db.execute("drop table if exists $userTable");
 
     //debugPrint("_createDb -> userTable :$userTable");
 
