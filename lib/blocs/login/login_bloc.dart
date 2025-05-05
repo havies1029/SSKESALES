@@ -31,7 +31,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       );
       
       emit(LoginPreAuthenticate());      
-      authenticationBloc.add(LoggedIn(user: user));      
+      authenticationBloc.add(LoggedIn(user: user, remember: event.remember));      
       emit(LoginPostAuthenticate());            
     } catch (error) {      
       emit(LoginFailure(error: error.toString()));

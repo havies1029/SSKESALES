@@ -11,14 +11,15 @@ class AppStarted extends AuthenticationEvent {}
 
 class LoggedIn extends AuthenticationEvent {
   final User user;
+  final bool remember;
 
-  const LoggedIn({required this.user});
-
-  @override
-  List<Object> get props => [user];
+  const LoggedIn({required this.user, required this.remember});
 
   @override
-  String toString() => 'LoggedIn { user: $user.username.toString() }';
+  List<Object> get props => [user, remember];
+
+  @override
+  String toString() => 'LoggedIn { user: $user.username.toString(), remember: $remember }';
 }
 
 class LoggedOut extends AuthenticationEvent {}

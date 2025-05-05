@@ -33,5 +33,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<SOAClientPageActiveEvent>((event, emit) => emit(SOAClientPageActive())); 
     on<ProjectPageActiveEvent>((event, emit) => emit(ProjectPageActive()));
     on<DashboardPageActiveEvent>((event, emit) => emit(DashboardPageActive()));
+    on<ProjectTreePageActiveEvent>((event, emit) => emit(ProjectTreePageActive()));
   }
 }

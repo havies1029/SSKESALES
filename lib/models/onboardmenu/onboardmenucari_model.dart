@@ -10,8 +10,7 @@ class OnBoardMenuCariModel {
       {required this.clientassignment, required this.policyoutstanding, required this.briefing});
 
   factory OnBoardMenuCariModel.fromJson(Map<String, dynamic> data) {
-    debugPrint(
-        "toBoolean(data['policyoutstanding'].toString()) : ${toBoolean(data['policyoutstanding'].toString())}");
+    //debugPrint("toBoolean(data['policyoutstanding'].toString()) : ${toBoolean(data['policyoutstanding'].toString())}");
 
     return OnBoardMenuCariModel(
         clientassignment: toBoolean(data['clientassignment'].toString()),

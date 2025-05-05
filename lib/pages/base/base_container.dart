@@ -25,6 +25,8 @@ import 'package:esalesapp/pages/mststaff/staffcari_main.dart';
 import 'package:esalesapp/pages/msttitle/titlecari_main.dart';
 import 'package:esalesapp/pages/polis/poliscari_main.dart';
 import 'package:esalesapp/pages/calendar/sfcalendar_page.dart';
+import 'package:esalesapp/pages/projecttree/prjtreelist_main.dart';
+import 'package:esalesapp/pages/projecttree/projecttree_view_main.dart';
 import 'package:esalesapp/pages/soaclient/agingsoa_main.dart';
 import 'package:esalesapp/pages/timeline/expiredpolis_main.dart';
 import 'package:flutter/material.dart';
@@ -158,6 +160,8 @@ class PageContainer extends PageContainerBase {
         return "Master Project";
       case PageType.dashboard:
         return "Dashboard Main";
+      case PageType.projecttree:
+        return "Project Tree";
       default:
         return "Login Page";
     }
@@ -240,6 +244,9 @@ class PageContainer extends PageContainerBase {
         break;
       case PageType.dashboard:
         page = const DashboardMain();
+        break;
+      case PageType.projecttree:
+        page = const PrjtreeListMainPage();
         break;
       default:
         page = null;

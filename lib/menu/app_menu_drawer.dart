@@ -393,36 +393,18 @@ class AppMenuState extends State<AppMenu> with RouteAware {
                     //     ),
                     //   ],
                     // ),
-                    ExpansionTile(
-                      leading: const Icon(
-                        Icons.settings,
-                      ),
-                      trailing: const Icon(
-                        Icons.arrow_forward_ios_rounded,
-                        size: 10.0,
-                      ),
-                      title: const Text(
-                        "Menu Dashboard",
-                        style: TextStyle(),
-                      ),
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.only(left: 15.0),
-                          child: ListTile(
-                            leading: const Icon(Icons.person),
-                            title: const Text("Dashboard"),
-                            //selected: _activeRoute == AppRoutes.homePage,
-                            onTap: () {
-                              SchedulerBinding.instance
-                                  .addPostFrameCallback((timeStamp) {
-                                Navigator.of(context).pop();
-                                homeBloc.add(DashboardPageActiveEvent());
-                              });
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
+                    ListTile(
+                      leading: const Icon(Icons.menu),
+                      title: const Text("Menu Dashboard"),
+                      //selected: _activeRoute == AppRoutes.homePage,
+                      onTap: () {
+                        SchedulerBinding.instance
+                            .addPostFrameCallback((timeStamp) {
+                          Navigator.of(context).pop();
+                          homeBloc.add(DashboardPageActiveEvent());
+                        });
+                      },
+                    ),                    
                     ExpansionTile(
                       leading: const Icon(
                         Icons.settings,
