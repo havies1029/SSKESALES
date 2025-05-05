@@ -15,3 +15,5 @@ class AuthenticationLoading extends AuthenticationState {}
 
 class AuthenticationPreCheckHasToken extends AuthenticationState {}
 class AuthenticationPostCheckHasToken extends AuthenticationState {}
+
+class AuthenticationInitial extends AuthenticationState {}

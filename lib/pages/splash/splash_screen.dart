@@ -48,22 +48,15 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     if (!mounted || _navigated) return;
     _navigated = true;
 
-    Widget destination;
-    if (state is AuthenticationAuthenticated) {
-      destination = HomePage(
-        userRepository: widget.userRepository,
-        userid: 0,
-        key: null,
-      );
-    } else {
-      destination = LoginPage(
-        userRepository: widget.userRepository,
-      );
-    }
+    final Widget destination = (state is AuthenticationAuthenticated)
+        ? HomePage(
+      userRepository: widget.userRepository,
+      userid: 0,
+      key: null,
+    )
+        : LoginPage(userRepository: widget.userRepository);
 
-    Navigator.of(context).pushReplacement(
-      MaterialPageRoute(builder: (_) => destination),
-    );
+    Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (_) => destination));
   }
 
   @override
@@ -76,9 +69,14 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   Widget build(BuildContext context) {
     return BlocListener<AuthenticationBloc, AuthenticationState>(
       listener: (context, state) {
-        if (state is AuthenticationAuthenticated || state is AuthenticationUnauthenticated) {
+        if (_navigated) return;
+
+        // Navigasi langsung jika login, delay kalau tidak
+        if (state is AuthenticationAuthenticated) {
+          _navigateBasedOnAuth(state); // tanpa delay
+        } else if (state is AuthenticationUnauthenticated) {
           Future.delayed(widget.animationDuration, () {
-            _navigateBasedOnAuth(state);
+            _navigateBasedOnAuth(state); // pakai delay supaya animasi sempat tampil
           });
         }
       },

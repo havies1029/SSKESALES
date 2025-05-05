@@ -283,7 +283,24 @@ class App extends StatelessWidget {
         //     }
         //   },
         // ),
-        home: SplashScreen(userRepository: userRepository, imageAsset: 'assets/images/jps-image.png',),
+        home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+          builder: (context, state) {
+            if (state is AuthenticationInitial) {
+              return SplashScreen(
+                userRepository: userRepository,
+                imageAsset: 'assets/images/jps-image.png',
+              );
+            } else if (state is AuthenticationAuthenticated) {
+              return HomePage(
+                userRepository: userRepository,
+                userid: 0,
+                key: null,
+              );
+            } else {
+              return LoginPage(userRepository: userRepository);
+            }
+          },
+        ),
       ),
     );
   }
