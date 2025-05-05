@@ -5,7 +5,7 @@ const List<Map<String, dynamic>> menuSections = [
       {"label": "Briefing", "menuid": "briefing", "icon": "assets/images/logo-briefing.png"},
       {"label": "Tasks", "menuid": "jobrealcari", "icon": "assets/images/logo-tasks.png"},
       {"label": "Project", "menuid": "project", "icon": "assets/images/logo-project.png"},
-      {"label": "Project Tree", "menuid": "projecttree", "icon": "assets/images/logo-project.png"},
+      {"label": "Project Tree", "menuid": "projecttree", "icon": "assets/images/logo-project-tree.png"},
       {"label": "Subordinate Finished Tasks", "menuid": "realgroup", "icon": "assets/images/logo-subordinate.png"},
       {"label": "SOA Client", "menuid": "soaclient", "icon": "assets/images/logo-soa.png"},
     ]
@@ -26,7 +26,7 @@ const List<Map<String, dynamic>> menuSections = [
       {"label": "Class of Business", "menuid": "cobcari", "icon": "assets/images/logo-business.png"},
       {"label": "Insurer", "menuid": "asuransicari", "icon": "assets/images/logo-insurer.png"},
       {"label": "Policy", "menuid": "poliscari", "icon": "assets/images/logo-policy.png"},
-      {"label": "Calendar Policy Exp", "menuid": "calendar", "icon": "assets/images/logo-calender.png"},
+        {"label": "Calendar Policy Exp", "menuid": "calendar", "icon": "assets/images/logo-calender.png"},
       {"label": "Timeline Policy Exp", "menuid": "timelineexpired", "icon": "assets/images/logo-timeline.png"},
     ]
   },
@@ -43,14 +43,14 @@ const List<Map<String, dynamic>> menuSections = [
   {
     "title": "User Security",
     "menus": [
-      {"label": "Profile", "menuid": "profile", "icon": "assets/images/vector-7.png"},
-      {"label": "Change Password", "menuid": "changepassword", "icon": "assets/images/vector-8.png"},
+      {"label": "Profile", "menuid": "profile", "icon": "assets/images/logo-password.png"},
+      {"label": "Change Password", "menuid": "changepassword", "icon": "assets/images/logo-password-change.png"},
     ]
   },
   {
     "title": "Support",
     "menus": [
-      {"label": "Chat Support", "menuid": "chatsupport", "icon": "assets/images/vector-9.png"},
+      {"label": "Chat Support", "menuid": "chatsupport", "icon": "assets/images/logo-support.png"},
     ]
   },
 ];

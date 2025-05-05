@@ -45,13 +45,11 @@ import 'package:esalesapp/blocs/polis/poliscrud_bloc.dart';
 import 'package:esalesapp/blocs/projectplan/plancrud_bloc.dart';
 import 'package:esalesapp/blocs/projectplan/planinfo_bloc.dart';
 import 'package:esalesapp/blocs/projectplan/planlist_bloc.dart';
-import 'package:esalesapp/blocs/projecttree/prjtree_bloc.dart';
-import 'package:esalesapp/blocs/projecttree/prjtreecrud_bloc.dart';
-import 'package:esalesapp/blocs/projecttree/prjtreelist_bloc.dart';
 import 'package:esalesapp/blocs/soaclient/aginglist_bloc.dart';
 import 'package:esalesapp/blocs/soaclient/dnlist_bloc.dart';
 import 'package:esalesapp/common/app_data.dart';
 import 'package:esalesapp/pages/dashboard/dashboard_main.dart';
+import 'package:esalesapp/pages/splash/splash_screen.dart';
 import 'package:esalesapp/repositories/jobreal/jobrealcrud_repository.dart';
 import 'package:esalesapp/repositories/jobreal/jobrealfoto_repository.dart';
 import 'package:esalesapp/repositories/login/change_password_repository.dart';
@@ -69,7 +67,6 @@ import 'package:esalesapp/repositories/mststaff/staffcrud_repository.dart';
 import 'package:esalesapp/repositories/msttitle/titlecrud_repository.dart';
 import 'package:esalesapp/repositories/polis/poliscrud_repository.dart';
 import 'package:esalesapp/repositories/projectplan/plancrud_repository.dart';
-import 'package:esalesapp/repositories/projecttree/prjtreecrud_repository.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:esalesapp/blocs/chatting/chatgroupcari_bloc.dart';
 import 'package:esalesapp/blocs/chatting/chatgroupcrud_bloc.dart';
@@ -91,6 +88,7 @@ import 'blocs/takeimage/takeimage_cubit.dart';
 Future<void> main() async {
   final userRepository = UserRepository();
   AppData.kIsWeb = kIsWeb;
+  //runApp(MyApp(key: null,));
   
   runApp(BlocProvider<AuthenticationBloc>(
     create: (context) {
@@ -104,6 +102,22 @@ Future<void> main() async {
   ));
   
 }
+
+/*
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        appBar: AppBar(title: Text("My App")),
+        body: Center(child: Text("Hello, Flutter!")),
+      ),
+    );
+  }
+}
+*/
 
 class App extends StatelessWidget {
   final UserRepository userRepository;
@@ -223,11 +237,6 @@ class App extends StatelessWidget {
             create: (context) =>
                 PlanCrudBloc(repository: PlanCrudRepository())),
         BlocProvider<PlanInfoBloc>(create: (context) => PlanInfoBloc()),
-        BlocProvider<PrjTreeBloc>(create: (context) => PrjTreeBloc()),
-        BlocProvider<PrjtreeListBloc>(create: (context) => PrjtreeListBloc()),
-        BlocProvider<PrjtreeCrudBloc>(
-            create: (context) =>
-                PrjtreeCrudBloc(repository: PrjtreeCrudRepository())),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -242,15 +251,16 @@ class App extends StatelessWidget {
 
         home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state) {
-            if (state is AuthenticationUninitialized) {
-              //debugPrint("AuthenticationUninitialized #10");
-
-              return const SplashPage();
+            if (state is AuthenticationInitial) {
+              debugPrint("State: AuthenticationSplash");
+              return SplashScreen(
+                userRepository: userRepository,
+                imageAsset: 'assets/images/jps-image.png',
+              );
             }
 
             if (state is AuthenticationAuthenticated) {
-              //debugPrint("AuthenticationAuthenticated #20");
-
+              debugPrint("State: AuthenticationAuthenticated");
               return HomePage(
                 userRepository: userRepository,
                 userid: 0,
@@ -259,19 +269,14 @@ class App extends StatelessWidget {
             }
 
             if (state is AuthenticationUnauthenticated) {
-              //debugPrint("AuthenticationUnauthenticated #30");
+              debugPrint("State: AuthenticationUnauthenticated");
               return LoginPage(
                 userRepository: userRepository,
               );
             }
 
-            if (AppData.kIsWeb) {
-              return LoginPage(
-                userRepository: userRepository,
-              );
-            } else {
-              return const LoadingIndicator();
-            }
+            debugPrint("State: Unknown or default");
+            return const LoadingIndicator();
           },
         ),
       ),
