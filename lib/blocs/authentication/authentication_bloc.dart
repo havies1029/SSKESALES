@@ -24,7 +24,7 @@ class AuthenticationBloc
 
   Future<void> _onAppStarted(
       AppStarted event, Emitter<AuthenticationState> emit) async {
-    debugPrint("_onAppStarted");
+    //debugPrint("_onAppStarted");
 
     emit(AuthenticationPreCheckHasToken());
     bool hasToken = AppData.kIsWeb ? false : await userRepository.hasToken();
@@ -44,8 +44,11 @@ class AuthenticationBloc
   Future<void> _onLoggedIn(
       LoggedIn event, Emitter<AuthenticationState> emit) async {
     emit(AuthenticationLoading());
+    debugPrint("_onLoggedIn #10");
     if (!AppData.kIsWeb) {
+      debugPrint("_onLoggedIn #20");      
       if (event.remember) {
+        debugPrint("_onLoggedIn #30");
         await userRepository.persistToken(user: event.user);
       }
     }

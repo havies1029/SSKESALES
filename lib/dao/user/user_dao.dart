@@ -1,3 +1,4 @@
+import 'package:esalesapp/repositories/login/login_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:esalesapp/common/app_data.dart';
@@ -63,37 +64,47 @@ class UserDao {
   }
 
   Future<bool> checkUser(int id) async {
-    debugPrint("func checkUser");
+    //debugPrint("func checkUser");
     final db = await dbProvider.database;
 
-    debugPrint("func checkUser -> get db");
+    //debugPrint("func checkUser -> get db");
 
     try {
-      debugPrint("func checkUser -> start -> cek users id : $id");
+      //debugPrint("func checkUser -> start -> cek users id : $id");
 
       List<Map> users =
           await db!.query(userTable, where: 'id = ?', whereArgs: [id]);
 
       if (users.isNotEmpty) {
-        debugPrint("func checkUser -> has user #10");
+        //debugPrint("func checkUser -> has user #10");
 
-        AppData.userToken = users[0]["token"];
-        AppData.userid = users[0]["username"];
-        AppData.personId = users[0]["personId"];
-        AppData.personName = users[0]["nama"] ?? "";
-        AppData.userCabang = users[0]["userCabang"] ?? "";
-        AppData.hasDownline = users[0]["hasDownline"] == 1;
-        AppData.httpHeaders = <String, String>{
-          'Content-Type': 'application/json; odata=verbos',
-          'Accept': 'application/json; odata=verbos',
-          'Authorization': 'Bearer ${AppData.userToken}'
-        };
+        LoginRepository loginRepository = LoginRepository();
+        final bool isTokenAktif = await loginRepository.isTokenAktif(
+            users[0]["username"], users[0]["token"]);
 
-        debugPrint("func checkUser -> has user #20");
+        //debugPrint("func checkUser -> isTokenAktif : $isTokenAktif");
 
-        return true;
+        if (isTokenAktif) {
+          AppData.userToken = users[0]["token"];
+          AppData.userid = users[0]["username"];
+          AppData.personId = users[0]["personId"];
+          AppData.personName = users[0]["nama"] ?? "";
+          AppData.userCabang = users[0]["userCabang"] ?? "";
+          AppData.hasDownline = users[0]["hasDownline"] == 1;
+          AppData.httpHeaders = <String, String>{
+            'Content-Type': 'application/json; odata=verbos',
+            'Accept': 'application/json; odata=verbos',
+            'Authorization': 'Bearer ${AppData.userToken}'
+          };
+
+          //debugPrint("func checkUser -> has user #30");
+
+          //debugPrint(AppData.user.toDatabaseJson().toString());
+        }
+        
+        return isTokenAktif;
       } else {
-        debugPrint("func checkUser -> no user");
+        //debugPrint("func checkUser -> no user");
 
         return false;
       }

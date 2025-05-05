@@ -147,6 +147,9 @@ class _HomePageState extends State<HomePage> {
             } else if (state is DashboardPageActive) {
               debugPrint("DashboardPageActive");
               return const PageContainer(pageType: PageType.dashboard);
+            } else if (state is ProjectTreePageActive) {
+              debugPrint("ProjectTreePageActive");
+              return const PageContainer(pageType: PageType.projecttree);
             } else if (state is ProfilePageActive) {
               return PageContainerWithUserRepository(
                 pageType: PageType.profile,
@@ -163,12 +166,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> refreshDataTabJobReal() async {
-    debugPrint("JobRealCariTabPage #00 -> refreshData");
+    //debugPrint("JobRealCariTabPage #00 -> refreshData");
     jobRealTabBloc.add(RefreshJobRealTabEvent(personId: AppData.personId));
   }
 
   void selectedTabEvent(ComboJobcatgroupModel selectedTab) {
-    debugPrint("selectedTabEvent #00");
+    //debugPrint("selectedTabEvent #00");
 
     jobRealGlobalCubit.setSelectedJobCatGroup(selectedTab);
 

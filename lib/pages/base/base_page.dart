@@ -36,7 +36,8 @@ enum PageType {
   briefing,
   soaclient,
   project,
-  dashboard
+  dashboard,
+  projecttree,
 }
 
 abstract class PageContainerBase extends StatefulWidget {

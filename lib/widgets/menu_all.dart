@@ -1,3 +1,4 @@
+import 'package:esalesapp/menu/data_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:esalesapp/blocs/home/home_bloc.dart';
@@ -147,11 +148,11 @@ class MenuGridState extends State<MenuGrid> {
   Widget _buildMenuGrid(
       List<Map<String, String>> items, HomeBloc homeBloc) {
     // ─── HELPERS ────────────────────────────────────────────────────────────
-    String _wrapLongWords(String text, {int every = 12}) =>
+    String wrapLongWords(String text, {int every = 12}) =>
         text.replaceAllMapped(
             RegExp(r'(\S{' + every.toString() + r'})'), (m) => '${m[1]}\u200B');
 
-    String _formatLabel(String raw) {
+    String formatLabel(String raw) {
       // 1️⃣ Selalu patah di spasi pertama → kata kedua pasti turun ke baris 2
       final firstSpace = raw.indexOf(' ');
       String formatted = (firstSpace == -1)
@@ -160,7 +161,7 @@ class MenuGridState extends State<MenuGrid> {
           '${raw.substring(firstSpace + 1)}';   // sisanya di bawah
 
       // 2️⃣ Tambahkan zero‑width space agar kata super‑panjang ikut wrap
-      return _wrapLongWords(formatted);
+      return wrapLongWords(formatted);
     }
     // ────────────────────────────────────────────────────────────────────────
 
@@ -180,7 +181,7 @@ class MenuGridState extends State<MenuGrid> {
           final data      = items[index];
           final menuid    = data['menuid']!;
           final imagePath = data['icon']!;
-          final label     = _formatLabel(data['label']!);
+          final label     = formatLabel(data['label']!);
 
           return InkWell(
             onTap: () => _handleMenuTap(menuid, homeBloc),
@@ -273,6 +274,9 @@ class MenuGridState extends State<MenuGrid> {
         break;
       case 'project':
         homeBloc.add(ProjectPageActiveEvent());
+        break;
+      case 'projecttree':
+        homeBloc.add(ProjectTreePageActiveEvent());
         break;
       default:
         homeBloc.add(HomePageActiveEvent());

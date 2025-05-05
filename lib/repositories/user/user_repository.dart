@@ -19,7 +19,8 @@ class UserRepository {
     String? password,
   }) async {
     UserLogin userLogin = UserLogin(username: username, password: password);
-    User user = await validateUserLogin(userLogin);
+    final userLoginApi = UserLoginApi();
+    User user = await userLoginApi.validateUserLogin(userLogin);
 
     return user;
   }
@@ -28,6 +29,9 @@ class UserRepository {
     // write token with the user to the database
 
     debugPrint("-- persistToken --");
+
+    //hapus user lama
+    await userDao.deleteUser(0);
 
     await userDao.createUser(user);
 
@@ -43,10 +47,10 @@ class UserRepository {
   }
 
   Future<bool> hasToken() async {
-    debugPrint("func hasToken() a");
+    //debugPrint("func hasToken() a");
     bool result = await userDao.checkUser(0);
 
-    debugPrint("func hasToken() b");
+    //debugPrint("func hasToken() b");
     return result;
   }
 
