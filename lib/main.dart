@@ -1,9 +1,5 @@
 import 'package:esalesapp/blocs/briefing/briefinginfo_bloc.dart';
 import 'package:esalesapp/blocs/briefing/briefinglist_bloc.dart';
-import 'package:esalesapp/blocs/todo/timelinecrud_bloc.dart';
-import 'package:esalesapp/blocs/todo/timelinelist_bloc.dart';
-import 'package:esalesapp/blocs/todo/companycrud_bloc.dart';
-import 'package:esalesapp/blocs/todo/companylist_bloc.dart';
 import 'package:esalesapp/blocs/calendar/eventrenewalcari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal2cari_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal2grid_bloc.dart';
@@ -59,8 +55,6 @@ import 'package:esalesapp/repositories/login/change_password_repository.dart';
 import 'package:esalesapp/repositories/mstcob/cobcrud_repository.dart';
 import 'package:esalesapp/repositories/mstcustcat/custcatcrud_repository.dart';
 import 'package:esalesapp/repositories/mstjabatan/jabatancrud_repository.dart';
-import 'package:esalesapp/repositories/todo/timelinecrud_repository.dart';
-import 'package:esalesapp/repositories/todo/companycrud_repository.dart';
 import 'package:esalesapp/repositories/mstjob/jobcrud_repository.dart';
 import 'package:esalesapp/repositories/mstjobcat/jobcatcrud_repository.dart';
 import 'package:esalesapp/repositories/mstjobgroup/jobgroupcrud_repository.dart';
@@ -199,24 +193,6 @@ class App extends StatelessWidget {
             create: (context) =>
                 JabatanCrudBloc(repository: JabatanCrudRepository())),
         BlocProvider<StaffCariBloc>(create: (context) => StaffCariBloc()),
-
-        BlocProvider<TitleCrudBloc>(
-            create: (context) =>
-                TitleCrudBloc(repository: TitleCrudRepository())),
-        BlocProvider<TimelineListBloc>(create: (context) => TimelineListBloc()),
-        BlocProvider<TimelineCrudBloc>(
-            create: (context) =>
-                TimelineCrudBloc(repository: TimelineCrudRepository())),
-        BlocProvider<StaffCariBloc>(create: (context) => StaffCariBloc()),
-        BlocProvider<TitleCrudBloc>(
-            create: (context) =>
-                TitleCrudBloc(repository: TitleCrudRepository())),
-        BlocProvider<CompanyListBloc>(create: (context) => CompanyListBloc()),
-        BlocProvider<CompanyCrudBloc>(
-            create: (context) =>
-                CompanyCrudBloc(repository: CompanyCrudRepository())),
-        BlocProvider<StaffCariBloc>(create: (context) => StaffCariBloc()),
-
         BlocProvider<StaffCrudBloc>(
             create: (context) =>
                 StaffCrudBloc(repository: StaffCrudRepository())),
