@@ -30,6 +30,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     on<TimelinePolicyExpiredPageActiveEvent>((event, emit) => emit(TimelinePolicyExpiredPageActive())); 
     on<OnBoardPageActiveEvent>((event, emit) => emit(OnBoardPageActive())); 
     on<BriefingPageActiveEvent>((event, emit) => emit(BriefingPageActive())); 
+    on<TimelinePageActiveEvent>((event, emit) => emit(TimelinePageActive())); 
     on<SOAClientPageActiveEvent>((event, emit) => emit(SOAClientPageActive())); 
     on<ProjectPageActiveEvent>((event, emit) => emit(ProjectPageActive()));
     on<DashboardPageActiveEvent>((event, emit) => emit(DashboardPageActive()));

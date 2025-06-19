@@ -75,6 +75,21 @@ class AppMenuState extends State<AppMenu> with RouteAware {
                           padding: const EdgeInsets.only(left: 15.0),
                           child: ListTile(
                             leading: const Icon(Icons.person),
+                            title: const Text("To Do"),
+                            //selected: _activeRoute == AppRoutes.homePage,
+                            onTap: () {
+                              SchedulerBinding.instance
+                                  .addPostFrameCallback((timeStamp) {
+                                Navigator.of(context).pop();
+                                homeBloc.add(TimelinePageActiveEvent());
+                              });
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 15.0),
+                          child: ListTile(
+                            leading: const Icon(Icons.person),
                             title: const Text("Tasks"),
                             //selected: _activeRoute == AppRoutes.homePage,
                             onTap: () {

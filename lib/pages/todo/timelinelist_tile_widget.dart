@@ -38,61 +38,7 @@ class TimelineListTileWidget extends StatelessWidget {
 				child: Column(
 					crossAxisAlignment: CrossAxisAlignment.start,
 					children: [
-						Text("aktivitas",
-							style: MyText.bodyLarge(context)!
-								.copyWith(color: MyColors.grey_40)),
-						Container(height: 5),
-						Text(
-							aktivitas,
-							style: MyText.bodyLarge(context)!
-								.copyWith(color: MyColors.grey_80)),
-						Container(height: 10),
-						Text("catName",
-							style: MyText.bodyLarge(context)!
-								.copyWith(color: MyColors.grey_40)),
-						Container(height: 5),
-						Text(
-							catName,
-							style: MyText.bodyLarge(context)!
-								.copyWith(color: MyColors.grey_80)),
-						Container(height: 10),
-						Text("jamAkhir",
-							style: MyText.bodyLarge(context)!
-								.copyWith(color: MyColors.grey_40)),
-						Container(height: 5),
-						Text(
-							DateFormat("dd/MM/yyyy").format(jamAkhir),
-							style: MyText.bodyLarge(context)!
-								.copyWith(color: MyColors.grey_80)),
-						Container(height: 10),
-						Text("jamMulai",
-							style: MyText.bodyLarge(context)!
-								.copyWith(color: MyColors.grey_40)),
-						Container(height: 5),
-						Text(
-							DateFormat("dd/MM/yyyy").format(jamMulai),
-							style: MyText.bodyLarge(context)!
-								.copyWith(color: MyColors.grey_80)),
-						Container(height: 10),
-						Text("jobNama",
-							style: MyText.bodyLarge(context)!
-								.copyWith(color: MyColors.grey_40)),
-						Container(height: 5),
-						Text(
-							jobNama,
-							style: MyText.bodyLarge(context)!
-								.copyWith(color: MyColors.grey_80)),
-						Container(height: 10),
-						Text("tglTimeline",
-							style: MyText.bodyLarge(context)!
-								.copyWith(color: MyColors.grey_40)),
-						Container(height: 5),
-						Text(
-							DateFormat("dd/MM/yyyy").format(tglTimeline),
-							style: MyText.bodyLarge(context)!
-								.copyWith(color: MyColors.grey_80)),
-						Container(height: 10),
-						Text("timeline1Id",
+            Text("No Timeline",
 							style: MyText.bodyLarge(context)!
 								.copyWith(color: MyColors.grey_40)),
 						Container(height: 5),
@@ -101,6 +47,66 @@ class TimelineListTileWidget extends StatelessWidget {
 							style: MyText.bodyLarge(context)!
 								.copyWith(color: MyColors.grey_80)),
 						Container(height: 10),
+
+            Text("Tanngal TimeLine",
+							style: MyText.bodyLarge(context)!
+								.copyWith(color: MyColors.grey_40)),
+						Container(height: 5),
+						Text(
+							DateFormat("dd/MM/yyyy").format(tglTimeline),
+							style: MyText.bodyLarge(context)!
+								.copyWith(color: MyColors.grey_80)),
+						Container(height: 10),
+
+            Text("Jam Mulai",
+							style: MyText.bodyLarge(context)!
+								.copyWith(color: MyColors.grey_40)),
+						Container(height: 5),
+						Text(
+							DateFormat('HH:mm').format(jamMulai),
+							style: MyText.bodyLarge(context)!
+								.copyWith(color: MyColors.grey_80)),
+						Container(height: 10),
+
+            Text("Jam Akhir",
+							style: MyText.bodyLarge(context)!
+								.copyWith(color: MyColors.grey_40)),
+						Container(height: 5),
+						Text(
+							DateFormat('HH:mm').format(jamAkhir),
+							style: MyText.bodyLarge(context)!
+								.copyWith(color: MyColors.grey_80)),
+						Container(height: 10),
+
+            Text("Program",
+							style: MyText.bodyLarge(context)!
+								.copyWith(color: MyColors.grey_40)),
+						Container(height: 5),
+						Text(
+							catName,
+							style: MyText.bodyLarge(context)!
+								.copyWith(color: MyColors.grey_80)),
+						Container(height: 10),
+
+            Text("Program Kerja",
+							style: MyText.bodyLarge(context)!
+								.copyWith(color: MyColors.grey_40)),
+						Container(height: 5),
+						Text(
+							jobNama,
+							style: MyText.bodyLarge(context)!
+								.copyWith(color: MyColors.grey_80)),
+						Container(height: 10),
+
+						Text("Aktivitas",
+							style: MyText.bodyLarge(context)!
+								.copyWith(color: MyColors.grey_40)),
+						Container(height: 5),
+						Text(
+							aktivitas,
+							style: MyText.bodyLarge(context)!
+								.copyWith(color: MyColors.grey_80)),
+						Container(height: 10),	
 				]),
 			)
 		);

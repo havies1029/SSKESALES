@@ -22,12 +22,11 @@ class AppData {
 */
 
 
-/*
 static bool useSSL = false;
 static String apiDomain = "http://localhost/eSalesAPI/";
 static String prefixEndPoint = "/eSalesAPI";
 static String httpAuthority = "localhost";
-*/
+
 
 /*
 static bool useSSL = false;
@@ -37,13 +36,13 @@ static String httpAuthority = "216.172.109.8";
 */
 
 
-
+/*
   static bool useSSL = true;
   static String apiDomain =
       "http${useSSL ? "s" : ""}://eplannerdevapi.smartsoft-id.com/";
   static String prefixEndPoint = "";
   static String httpAuthority = "eplannerdevapi.smartsoft-id.com";
-
+*/
 
 
   /*

@@ -259,6 +259,9 @@ class MenuGridState extends State<MenuGrid> {
       case 'briefing':
         homeBloc.add(BriefingPageActiveEvent());
         break;
+      case 'todo':
+        homeBloc.add(TimelinePageActiveEvent());
+        break;
       case 'soaclient':
         homeBloc.add(SOAClientPageActiveEvent());
         break;

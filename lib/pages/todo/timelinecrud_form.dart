@@ -6,8 +6,9 @@ import 'package:esalesapp/blocs/todo/timelinecrud_bloc.dart';
 import 'package:esalesapp/models/todo/timelinecrud_model.dart';
 import 'package:intl/intl.dart';
 import 'package:date_field/date_field.dart';
+import 'package:esalesapp/models/combobox/combojobcat_model.dart';
+import 'package:esalesapp/widgets/combobox/combojobcat_widget.dart';
 import 'package:dropdown_search/dropdown_search.dart';
-
 
 class TimelineCrudFormPage extends StatefulWidget {
 	final String viewMode;
@@ -27,6 +28,8 @@ class TimelineCrudFormPageFormState extends State<TimelineCrudFormPage> {
 	var fieldJamAkhirController = TextEditingController(text: DateTime.now().toIso8601String());
 	var fieldJamMulaiController = TextEditingController(text: DateTime.now().toIso8601String());
 	var fieldTglTimelineController = TextEditingController(text: DateTime.now().toIso8601String());
+  ComboJobcatModel? fieldCombojobcat = const ComboJobcatModel();
+  final comboReferralKey = GlobalKey<DropdownSearchState<ComboJobcatModel>>();
 
 	@override
 	void initState() {
@@ -63,12 +66,12 @@ class TimelineCrudFormPageFormState extends State<TimelineCrudFormPage> {
 											),
 										),
 										const SizedBox(height: 25),
+                    buildFieldTglTimeline(),
+                    buildFieldJamMulai(),
+                    buildFieldJamAkhir(),
+                    buildFieldMjobcatId(labelText: ''),
+                    buildFieldMjobId(),
 										buildFieldAktivitas(),
-										buildFieldJamAkhir(),
-										buildFieldJamMulai(),
-										buildFieldMjobId(),
-										buildFieldMjobcatId(),
-										buildFieldTglTimeline(),
 										const SizedBox(height: 25),
 										FormError(
 											errors: errors,
@@ -123,6 +126,7 @@ class TimelineCrudFormPageFormState extends State<TimelineCrudFormPage> {
 							fieldJamAkhirController.text = state.record!.jamAkhir.toIso8601String();
 							fieldJamMulaiController.text = state.record!.jamMulai.toIso8601String();
 							fieldTglTimelineController.text = state.record!.tglTimeline.toIso8601String();
+              fieldCombojobcat = state.record!.combojobcat;
 						}
 					}
 				},
@@ -135,95 +139,13 @@ class TimelineCrudFormPageFormState extends State<TimelineCrudFormPage> {
 		}
 	}
 
-	Widget buildFieldAktivitas(){
-		return TextFormField(
-			controller: fieldAktivitasController,
-			decoration: const InputDecoration(
-				labelText: "aktivitas",
-				floatingLabelBehavior: FloatingLabelBehavior.always,
-			),
-			onChanged: (value) {
-				if (value.isNotEmpty) {
-				removeError(error: kStringNullError);
-				}
-			},
-			validator: (value) {
-				if (value == null || value.isEmpty) {
-					addError(error: kStringNullError);
-					return "";
-				}
-				return null;
-			},
-		);
-	}
-
-	Widget buildFieldJamAkhir(){
-		return DateTimeFormField(
-			mode: DateTimeFieldPickerMode.date,
-			dateFormat: DateFormat('dd/MM/yyyy'),
-			initialValue: DateTime.tryParse(fieldJamAkhirController.text),
-			decoration: const InputDecoration(
-				labelText: "jamAkhir",
-				floatingLabelBehavior: FloatingLabelBehavior.always,
-			),
-			onChanged: (value) {
-				if (value != null) {
-				removeError(error: kStringNullError);
-					fieldJamAkhirController.text = value.toIso8601String();
-				}
-			},
-			validator: (value) {
-				if (value == null) {
-					addError(error: kStringNullError);
-					return "";
-				}
-				return null;
-			},
-		);
-	}
-
-	Widget buildFieldJamMulai(){
-		return DateTimeFormField(
-			mode: DateTimeFieldPickerMode.date,
-			dateFormat: DateFormat('dd/MM/yyyy'),
-			initialValue: DateTime.tryParse(fieldJamMulaiController.text),
-			decoration: const InputDecoration(
-				labelText: "jamMulai",
-				floatingLabelBehavior: FloatingLabelBehavior.always,
-			),
-			onChanged: (value) {
-				if (value != null) {
-				removeError(error: kStringNullError);
-					fieldJamMulaiController.text = value.toIso8601String();
-				}
-			},
-			validator: (value) {
-				if (value == null) {
-					addError(error: kStringNullError);
-					return "";
-				}
-				return null;
-			},
-		);
-	}
-
-	Widget buildFieldMjobId(){
-		return TextFormField(
-		);
-	}
-
-	Widget buildFieldMjobcatId(){
-		return TextFormField(
-		);
-	}
-
 	Widget buildFieldTglTimeline(){
 		return DateTimeFormField(
 			mode: DateTimeFieldPickerMode.date,
 			dateFormat: DateFormat('dd/MM/yyyy'),
 			initialValue: DateTime.tryParse(fieldTglTimelineController.text),
 			decoration: const InputDecoration(
-				labelText: "tglTimeline",
+				labelText: "Tanngal TimeLine",
 				floatingLabelBehavior: FloatingLabelBehavior.always,
 			),
 			onChanged: (value) {
@@ -242,6 +164,121 @@ class TimelineCrudFormPageFormState extends State<TimelineCrudFormPage> {
 		);
 	}
 
+  Widget buildFieldJamMulai(){
+		return DateTimeFormField(
+			mode: DateTimeFieldPickerMode.date,
+			dateFormat: DateFormat('HH:mm'),
+			initialValue: DateTime.tryParse(fieldJamMulaiController.text),
+			decoration: const InputDecoration(
+				labelText: "Jam Mulai",
+				floatingLabelBehavior: FloatingLabelBehavior.always,
+			),
+			onChanged: (value) {
+				if (value != null) {
+				removeError(error: kStringNullError);
+					fieldJamMulaiController.text = value.toIso8601String();
+				}
+			},
+			validator: (value) {
+				if (value == null) {
+					addError(error: kStringNullError);
+					return "";
+				}
+				return null;
+			},
+		);
+	}
+
+  Widget buildFieldJamAkhir(){
+		return DateTimeFormField(
+			mode: DateTimeFieldPickerMode.date,
+			dateFormat: DateFormat('HH:mm'),
+			initialValue: DateTime.tryParse(fieldJamAkhirController.text),
+			decoration: const InputDecoration(
+				labelText: "Jam Akhir",
+				floatingLabelBehavior: FloatingLabelBehavior.always,
+			),
+			onChanged: (value) {
+				if (value != null) {
+				removeError(error: kStringNullError);
+					fieldJamAkhirController.text = value.toIso8601String();
+				}
+			},
+			validator: (value) {
+				if (value == null) {
+					addError(error: kStringNullError);
+					return "";
+				}
+				return null;
+			},
+		);
+	}
+
+  	Widget buildFieldMjobcatId({required String labelText}){
+		return TextFormField(
+      decoration: const InputDecoration(
+				labelText: "Program",
+				floatingLabelBehavior: FloatingLabelBehavior.always,
+			),
+      onChanged: (value) {
+				if (value.isNotEmpty) {
+				removeError(error: kStringNullError);
+				}
+			},
+			validator: (value) {
+				if (value == null || value.isEmpty) {
+					addError(error: kStringNullError);
+					return "";
+				}
+				return null;
+			},
+		);
+	}
+
+  	Widget buildFieldMjobId(){
+		return TextFormField(
+      decoration: const InputDecoration(
+				labelText: "Program Kerja",
+				floatingLabelBehavior: FloatingLabelBehavior.always,
+			),
+      onChanged: (value) {
+				if (value.isNotEmpty) {
+				removeError(error: kStringNullError);
+				}
+			},
+			validator: (value) {
+				if (value == null || value.isEmpty) {
+					addError(error: kStringNullError);
+					return "";
+				}
+				return null;
+			},
+		);
+	}
+
+	Widget buildFieldAktivitas(){
+		return TextFormField(
+			controller: fieldAktivitasController,
+			decoration: const InputDecoration(
+				labelText: "Aktivitas",
+				floatingLabelBehavior: FloatingLabelBehavior.always,
+			),
+			onChanged: (value) {
+				if (value.isNotEmpty) {
+				removeError(error: kStringNullError);
+				}
+			},
+			validator: (value) {
+				if (value == null || value.isEmpty) {
+					addError(error: kStringNullError);
+					return "";
+				}
+				return null;
+			},
+		);
+	}
+
+
 	void _dismissDialog() {
 		Navigator.pop(context);
 	}
@@ -255,6 +292,7 @@ class TimelineCrudFormPageFormState extends State<TimelineCrudFormPage> {
 				jamMulai: DateTime.parse(fieldJamMulaiController.text),
 				tglTimeline: DateTime.parse(fieldTglTimelineController.text),
 				timeline1Id: '',
+        mjobcatId: fieldCombojobcat?.mjobcatId, combojobcat: null
 			);
 			if (widget.viewMode == "tambah") {
 				timelineCrudBloc.add(TimelineCrudTambahEvent(record: record));

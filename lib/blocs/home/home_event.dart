@@ -31,6 +31,7 @@ class RealGroupPageActiveEvent extends HomeEvent {}
 class TimelinePolicyExpiredPageActiveEvent extends HomeEvent {}
 class OnBoardPageActiveEvent extends HomeEvent {}
 class BriefingPageActiveEvent extends HomeEvent {}
+class TimelinePageActiveEvent extends HomeEvent {}
 class SOAClientPageActiveEvent extends HomeEvent {}
 class ProjectPageActiveEvent extends HomeEvent {}
 class DashboardPageActiveEvent extends HomeEvent{}

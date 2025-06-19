@@ -34,6 +34,7 @@ enum PageType {
   realgroup,
   timeline,
   briefing,
+  todo,
   soaclient,
   project,
   dashboard

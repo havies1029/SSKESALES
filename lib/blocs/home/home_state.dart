@@ -30,6 +30,7 @@ class RealGroupPageActive extends HomeState {}
 class TimelinePolicyExpiredPageActive extends HomeState {}
 class OnBoardPageActive extends HomeState {}
 class BriefingPageActive extends HomeState {}
+class TimelinePageActive extends HomeState {}
 class SOAClientPageActive extends HomeState {}
 class ProjectPageActive extends HomeState {}
 class DashboardPageActive extends HomeState{}
