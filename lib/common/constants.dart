@@ -58,6 +58,7 @@ const List<Map<String, dynamic>> menuSections = [
     "menus": [
       {"label": "Briefing", "menuid": "briefing", "icon": "assets/images/vector-1.png"},
       {"label": "Tasks", "menuid": "jobrealcari", "icon": "assets/images/vector-2.png"},
+      {"label": "To Do", "menuid": "todo", "icon": "assets/images/vector-13.png"},
       {"label": "Project", "menuid": "project", "icon": "assets/images/vector-3.png"},
       {"label": "Subordinate Finished Tasks", "menuid": "realgroup", "icon": "assets/images/vector-4.png"},
       {"label": "SOA Client", "menuid": "soaclient", "icon": "assets/images/vector-5.png"},

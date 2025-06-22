@@ -47,8 +47,11 @@ import 'package:esalesapp/blocs/projectplan/planinfo_bloc.dart';
 import 'package:esalesapp/blocs/projectplan/planlist_bloc.dart';
 import 'package:esalesapp/blocs/soaclient/aginglist_bloc.dart';
 import 'package:esalesapp/blocs/soaclient/dnlist_bloc.dart';
+import 'package:esalesapp/blocs/todo/todocompanycrud_bloc.dart';
+import 'package:esalesapp/blocs/todo/todocompanylist_bloc.dart';
+import 'package:esalesapp/blocs/todo/todotimelinecrud_bloc.dart';
+import 'package:esalesapp/blocs/todo/todotimelinelist_bloc.dart';
 import 'package:esalesapp/common/app_data.dart';
-import 'package:esalesapp/pages/dashboard/dashboard_main.dart';
 import 'package:esalesapp/repositories/jobreal/jobrealcrud_repository.dart';
 import 'package:esalesapp/repositories/jobreal/jobrealfoto_repository.dart';
 import 'package:esalesapp/repositories/login/change_password_repository.dart';
@@ -66,6 +69,8 @@ import 'package:esalesapp/repositories/mststaff/staffcrud_repository.dart';
 import 'package:esalesapp/repositories/msttitle/titlecrud_repository.dart';
 import 'package:esalesapp/repositories/polis/poliscrud_repository.dart';
 import 'package:esalesapp/repositories/projectplan/plancrud_repository.dart';
+import 'package:esalesapp/repositories/todo/todocompanycrud_repository.dart';
+import 'package:esalesapp/repositories/todo/todotimelinecrud_repository.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:esalesapp/blocs/chatting/chatgroupcari_bloc.dart';
 import 'package:esalesapp/blocs/chatting/chatgroupcrud_bloc.dart';
@@ -236,6 +241,14 @@ class App extends StatelessWidget {
             create: (context) =>
                 PlanCrudBloc(repository: PlanCrudRepository())),
         BlocProvider<PlanInfoBloc>(create: (context) => PlanInfoBloc()),
+        BlocProvider<TodoTimelineListBloc>(create: (context) => TodoTimelineListBloc()),
+        BlocProvider<TodoTimelineCrudBloc>(
+            create: (context) =>
+                TodoTimelineCrudBloc(repository: TodoTimelineCrudRepository())),        
+        BlocProvider<TodoCompanyListBloc>(create: (context) => TodoCompanyListBloc()),
+        BlocProvider<TodoCompanyCrudBloc>(
+            create: (context) =>
+                TodoCompanyCrudBloc(repository: TodoCompanyCrudRepository())),        
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

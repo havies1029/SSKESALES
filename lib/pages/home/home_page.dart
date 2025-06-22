@@ -147,6 +147,9 @@ class _HomePageState extends State<HomePage> {
             } else if (state is DashboardPageActive) {
               debugPrint("DashboardPageActive");
               return const PageContainer(pageType: PageType.dashboard);
+            } else if (state is TodoPageActive) {
+              debugPrint("TodoPageActive");
+              return const PageContainer(pageType: PageType.todo);
             } else if (state is ProfilePageActive) {
               return PageContainerWithUserRepository(
                 pageType: PageType.profile,

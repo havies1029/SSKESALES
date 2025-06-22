@@ -165,9 +165,7 @@ class MenuGridState extends State<MenuGrid> {
           if (label.length > threshold) {
             int lastSpace = label.lastIndexOf(" ");
             if (lastSpace != -1) {
-              label = label.substring(0, lastSpace) +
-                  "\n" +
-                  label.substring(lastSpace + 1);
+              label = "${label.substring(0, lastSpace)}\n${label.substring(lastSpace + 1)}";
             }
           }
 
@@ -264,6 +262,9 @@ class MenuGridState extends State<MenuGrid> {
         break;
       case 'project':
         homeBloc.add(ProjectPageActiveEvent());
+        break;
+      case 'todo':
+        homeBloc.add(TodoPageActiveEvent());
         break;
       default:
         homeBloc.add(HomePageActiveEvent());

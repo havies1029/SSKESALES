@@ -4,6 +4,7 @@ import 'package:esalesapp/models/combobox/combojob_model.dart';
 import 'package:esalesapp/models/combobox/combojobcat_model.dart';
 import 'package:esalesapp/models/combobox/combomedia_model.dart';
 import 'package:esalesapp/models/combobox/combomproject_model.dart';
+import 'package:esalesapp/models/combobox/combotodolist_model.dart';
 
 class JobRealCrudModel {
   String? hasil;
@@ -29,6 +30,8 @@ class JobRealCrudModel {
   String? projectId;
   ComboMProjectModel? comboProject;
   String jobCatGroupCode;
+  String timeline1Id = "";
+  ComboTodoListModel? comboTodoList;
 
   JobRealCrudModel(
       {this.hasil,
@@ -53,7 +56,9 @@ class JobRealCrudModel {
       this.hasFoto = false,
       this.projectId,
       this.comboProject,
-      this.jobCatGroupCode = ""});
+      this.jobCatGroupCode = "",
+      this.timeline1Id = "",
+      this.comboTodoList});
 
   factory JobRealCrudModel.fromJson(Map<String, dynamic> data) {
     ComboJobModel? comboJob;
@@ -86,6 +91,11 @@ class JobRealCrudModel {
       comboProject = ComboMProjectModel.fromJson(data['comboProject']);
     }
 
+    ComboTodoListModel? comboTodoList;
+    if (data['comboTodoList'] != null) {
+      comboTodoList = ComboTodoListModel.fromJson(data['comboTodoList']);
+    }
+
     return JobRealCrudModel(
         hasil: data['hasil'] ?? '',
         jobreal1Id: data['jobreal1Id'] ?? '',
@@ -111,7 +121,9 @@ class JobRealCrudModel {
         hasFoto: data['hasFoto'] ?? false,
         projectId: data["projectId"] ?? "",
         jobCatGroupCode: data["jobCatGroupCode"]??"",
-        comboProject: comboProject);
+        comboProject: comboProject,
+        timeline1Id: data["timeline1Id"] ?? "",
+        comboTodoList: comboTodoList);
   }
 
   Map<String, dynamic> toJson() => {
@@ -137,6 +149,8 @@ class JobRealCrudModel {
         'hasFoto': hasFoto.toString(),
         'projectId': projectId,
         'comboProject': comboProject?.toJson(),
-        "jobCatGroupCode": jobCatGroupCode
+        "jobCatGroupCode": jobCatGroupCode,
+        'timeline1Id': timeline1Id,
+        'comboTodoList': comboTodoList?.toJson(),
       };
 }

@@ -8,6 +8,7 @@ import 'package:esalesapp/common/app_data.dart';
 import 'package:esalesapp/models/combobox/combocustomer_model.dart';
 import 'package:esalesapp/models/combobox/comboinsurer_model.dart';
 import 'package:esalesapp/models/combobox/combomproject_model.dart';
+import 'package:esalesapp/models/combobox/combotodolist_model.dart';
 import 'package:esalesapp/models/jobreal/jobreal2cari_model.dart';
 import 'package:esalesapp/models/jobreal/jobreal3cari_model.dart';
 import 'package:esalesapp/models/jobreal/newbriefinginitvalue_model.dart';
@@ -65,7 +66,10 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
         onComboProjectJobRealCrudChangedEvent);
     on<GetInitValueNewProjectTaskModeEvent>(
         onGetInitValueNewProjectReleaseTaskMode);
+    on<ComboTodoListJobRealCrudChangedEvent>(
+        onComboTodoListJobRealCrudChangedEvent);  
   }
+
 
   Future<void> onPreOpen(
       JobRealCrudPreOpenEvent event, Emitter<JobRealCrudState> emit) async {
@@ -264,6 +268,8 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
     ComboInsurerModel? comboInsurer =
         record.comboInsurer ?? ComboInsurerModel();
     comboProject = record.comboProject ?? ComboMProjectModel();
+    ComboTodoListModel? comboTodoList =
+        record.comboTodoList ?? ComboTodoListModel();
 
     //debugPrint("comboProject : ${comboProject.toString()}");
 
@@ -277,6 +283,7 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
         comboMedia: comboMedia,
         comboInsurer: comboInsurer,
         comboProject: comboProject,
+        comboTodoList: comboTodoList,
         requireComboInsurer: comboInsurer.mrekanId.isNotEmpty));
   }
 
@@ -420,4 +427,16 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
     //emit(state.copyWith(isSaving: false, isSaved: true, record: rec));
     emit(state.copyWith(record: rec));
   }
+
+  Future<void> onComboTodoListJobRealCrudChangedEvent(
+      ComboTodoListJobRealCrudChangedEvent event,
+      Emitter<JobRealCrudState> emit) async {
+    emit(state.copyWith(isLoading: true, isLoaded: false));
+
+    ComboTodoListModel comboTodoList = event.comboTodoList;
+
+    emit(state.copyWith(isLoading: false, isLoaded: true, 
+        comboTodoList: comboTodoList));
+  }
+  
 }

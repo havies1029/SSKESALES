@@ -14,6 +14,7 @@ class JobRealCrudState extends Equatable {
   final ComboCustomerModel? comboCustomer;
   final ComboInsurerModel? comboInsurer;
   final ComboMProjectModel? comboProject;
+  final ComboTodoListModel? comboTodoList;
   final bool requireComboInsurer;
   final bool forceChangeComboCustomer;
   const JobRealCrudState(
@@ -30,6 +31,7 @@ class JobRealCrudState extends Equatable {
       this.comboCustomer,
       this.comboInsurer,
       this.comboProject,
+      this.comboTodoList,
       this.requireComboInsurer = false,
       this.forceChangeComboCustomer = false});
 
@@ -47,6 +49,7 @@ class JobRealCrudState extends Equatable {
     ComboCustomerModel? comboCustomer,
     ComboInsurerModel? comboInsurer,
     ComboMProjectModel? comboProject,
+    ComboTodoListModel? comboTodoList,
     bool? requireComboInsurer,
     bool? forceChangeComboCustomer,
   }) {
@@ -64,6 +67,7 @@ class JobRealCrudState extends Equatable {
         comboCustomer: comboCustomer ?? this.comboCustomer,
         comboInsurer: comboInsurer ?? this.comboInsurer,
         comboProject: comboProject ?? this.comboProject,
+        comboTodoList: comboTodoList ?? this.comboTodoList,
         requireComboInsurer: requireComboInsurer ?? this.requireComboInsurer,
         forceChangeComboCustomer:
             forceChangeComboCustomer ?? this.forceChangeComboCustomer);

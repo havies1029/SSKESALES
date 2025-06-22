@@ -7,4 +7,9 @@ class ComboCustomerRepository {
 		ComboCustomerAPI api = ComboCustomerAPI();
 		return await api.getComboCustomerAPI(filter);
 	}
+
+  Future<List<ComboCustomerModel>> getComboCustomer4JobReal(String timeline1Id, String filter) async {
+		ComboCustomerAPI api = ComboCustomerAPI();
+		return await api.getComboCustomer4JobRealAPI(timeline1Id, filter);
+	}
 }

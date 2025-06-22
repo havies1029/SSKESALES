@@ -1,5 +1,4 @@
 import 'package:esalesapp/common/app_data.dart';
-import 'package:esalesapp/pages/briefing/briefinglist_list.dart';
 import 'package:esalesapp/pages/briefing/briefinglist_main.dart';
 import 'package:esalesapp/pages/chatting/roomcari_list.dart';
 import 'package:esalesapp/pages/dashboard/dashboard_main.dart';
@@ -27,6 +26,7 @@ import 'package:esalesapp/pages/polis/poliscari_main.dart';
 import 'package:esalesapp/pages/calendar/sfcalendar_page.dart';
 import 'package:esalesapp/pages/soaclient/agingsoa_main.dart';
 import 'package:esalesapp/pages/timeline/expiredpolis_main.dart';
+import 'package:esalesapp/pages/todo/todo_main.dart';
 import 'package:flutter/material.dart';
 import 'package:esalesapp/pages/profile/profile_main_page.dart';
 import 'package:esalesapp/repositories/user/user_repository.dart';
@@ -158,6 +158,8 @@ class PageContainer extends PageContainerBase {
         return "Master Project";
       case PageType.dashboard:
         return "Dashboard Main";
+      case PageType.todo:
+        return "To Do";
       default:
         return "Login Page";
     }
@@ -240,6 +242,9 @@ class PageContainer extends PageContainerBase {
         break;
       case PageType.dashboard:
         page = const DashboardMain();
+        break;
+      case PageType.todo:
+        page = const TodoMain();
         break;
       default:
         page = null;

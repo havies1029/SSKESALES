@@ -145,3 +145,11 @@ class ComboProjectJobRealCrudChangedEvent extends JobRealCrudEvents {
   @override
   List<Object> get props => [comboProject];
 }
+
+class ComboTodoListJobRealCrudChangedEvent extends JobRealCrudEvents {
+  final ComboTodoListModel comboTodoList;
+  const ComboTodoListJobRealCrudChangedEvent({required this.comboTodoList});
+
+  @override
+  List<Object> get props => [comboTodoList];
+}

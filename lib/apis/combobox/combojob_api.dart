@@ -8,9 +8,7 @@ class ComboJobAPI {
   Future<List<ComboJobModel>> getComboJobAPI(String mjobcatId) async {
     String urlGetComboEndPoint =
         "${AppData.prefixEndPoint}/api/mjobcombobox/getlist";
-
-    debugPrint("ComboJobAPI");
-    
+        
     Map<String, String> queryParams = {"mjobcatId": mjobcatId};
 
     var uri = AppData.uriHtpp(

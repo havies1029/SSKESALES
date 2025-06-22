@@ -1,0 +1,2 @@
+E:/Development/eAssistApp/eSales/SSKSalesGitNonProject/SSKESALES/android/app/.cxx/Debug/b6hv1n5e/armeabi-v7a/CMakeFiles/edit_cache.dir
+E:/Development/eAssistApp/eSales/SSKSalesGitNonProject/SSKESALES/android/app/.cxx/Debug/b6hv1n5e/armeabi-v7a/CMakeFiles/rebuild_cache.dir
