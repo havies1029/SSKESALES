@@ -112,7 +112,7 @@ class TodoTimelineCrudFormPageFormState extends State<TodoTimelineCrudFormPage> 
 										mainAxisAlignment: MainAxisAlignment.spaceAround,
 										children: [
 											SizedBox(
-												width: MediaQuery.of(context).size.width * 0.3,
+												width: 100,
 												height: 60,
 												child: Padding(
 													padding: const EdgeInsets.only(top: 30.0),
@@ -128,7 +128,7 @@ class TodoTimelineCrudFormPageFormState extends State<TodoTimelineCrudFormPage> 
 												),
 											),
 											SizedBox(
-												width: MediaQuery.of(context).size.width * 0.3,
+												width: 100,
 												height: 60,
 												child: Padding(
 													padding: const EdgeInsets.only(top: 30.0),
