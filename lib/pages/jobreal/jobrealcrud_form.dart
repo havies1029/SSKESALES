@@ -1237,7 +1237,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
           : false),
       child: buildFieldComboMProject(
         enabled: (widget.viewMode != "lihat" && (!widget.isProjectMode)),
-        labelText: 'Rencana Kerja',
+        labelText: 'Project',
         initItem: fieldComboProject,
         rekanId: fieldComboCustomer?.mrekanId ?? "",
         comboKey: comboProjectKey,
