@@ -1,17 +1,17 @@
 import 'package:esalesapp/models/combobox/combojobcatgroup_model.dart';
 
 class TodoTimelineCrudModel {
-	String aktivitas;
-	DateTime jamAkhir;
-	DateTime jamMulai;
-	DateTime tglTimeline;
-	String timeline1Id;
+	String? aktivitas;
+	DateTime? jamAkhir;
+	DateTime? jamMulai;
+	DateTime? tglTimeline;
+	String? timeline1Id;
 	String? mjobcatgroupId;
 	ComboJobcatgroupModel? comboJobcatgroup;
 
-	TodoTimelineCrudModel({required this.aktivitas, required this.jamAkhir, 
-		required this.jamMulai, required this.tglTimeline, 
-		required this.timeline1Id, this.mjobcatgroupId, this.comboJobcatgroup});
+	TodoTimelineCrudModel({this.aktivitas, this.jamAkhir, 
+		this.jamMulai, this.tglTimeline, 
+		this.timeline1Id, this.mjobcatgroupId, this.comboJobcatgroup});
 
 	factory TodoTimelineCrudModel.fromJson(Map<String, dynamic> data) {
 		ComboJobcatgroupModel? comboJobcatgroup;
@@ -33,9 +33,9 @@ class TodoTimelineCrudModel {
 
 	Map<String, dynamic> toJson() =>
 		{'aktivitas': aktivitas,
-		'jamAkhir': jamAkhir.toIso8601String(),
-		'jamMulai': jamMulai.toIso8601String(),
-		'tglTimeline': tglTimeline.toIso8601String(),
+		'jamAkhir': jamAkhir?.toIso8601String(),
+		'jamMulai': jamMulai?.toIso8601String(),
+		'tglTimeline': tglTimeline?.toIso8601String(),
 		'timeline1Id': timeline1Id,
 		'mjobcatgroupId': mjobcatgroupId,
 		'comboJobcatgroup': comboJobcatgroup?.toJson()};

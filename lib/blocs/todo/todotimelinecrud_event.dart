@@ -43,5 +43,7 @@ class ComboJobcatgroupChangedEvent extends TodoTimelineCrudEvents{
 	final ComboJobcatgroupModel comboJobcatgroup;
 	const ComboJobcatgroupChangedEvent({required this.comboJobcatgroup});
 
-	@override	List<Object> get props => [comboJobcatgroup];}
+	@override	List<Object> get props => [comboJobcatgroup];
+}
 
+class TodoTimelineCrudResetEvent extends TodoTimelineCrudEvents {}

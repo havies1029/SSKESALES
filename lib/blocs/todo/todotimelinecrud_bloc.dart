@@ -16,6 +16,7 @@ class TodoTimelineCrudBloc extends Bloc<TodoTimelineCrudEvents, TodoTimelineCrud
 		on<TodoTimelineCrudHapusEvent>(onHapusTodoTimelineCrud);
 		on<TodoTimelineCrudLihatEvent>(onLihatTodoTimelineCrud);
 		on<ComboJobcatgroupChangedEvent>(onComboJobcatgroupChanged);
+    on<TodoTimelineCrudResetEvent>(onResetTodoTimelineCrud);
 	}
 
 	Future<void> onTambahTodoTimelineCrud(
@@ -57,13 +58,21 @@ class TodoTimelineCrudBloc extends Bloc<TodoTimelineCrudEvents, TodoTimelineCrud
 	Future<void> onComboJobcatgroupChanged(
 			ComboJobcatgroupChangedEvent event, Emitter<TodoTimelineCrudState> emit) async {
 
-		emit(state.copyWith(isLoading: true, isLoaded: false));
-
 		ComboJobcatgroupModel comboJobcatgroup = event.comboJobcatgroup;
 		emit(state.copyWith(
-			isLoading: false,
-			isLoaded: true,
 			comboJobcatgroup: comboJobcatgroup));
 	}
+
+  Future<void> onResetTodoTimelineCrud(
+    TodoTimelineCrudResetEvent event, Emitter<TodoTimelineCrudState> emit) async {
+    emit(state.copyWith(
+      isLoading: false,
+      isLoaded: false,
+      isSaving: false,
+      isSaved: false,
+      hasFailure: false,
+      record: TodoTimelineCrudModel(),
+      comboJobcatgroup: ComboJobcatgroupModel()));
+  }
 
 }

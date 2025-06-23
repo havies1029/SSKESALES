@@ -153,10 +153,10 @@ class TodoTimelineCrudFormPageFormState extends State<TodoTimelineCrudFormPage> 
 				listener: (context, state) {
 					if (state.isLoaded) {
 						if (state.record != null){
-							fieldAktivitasController.text = state.record!.aktivitas;
-							fieldJamAkhirController.text = state.record!.jamAkhir.toIso8601String();
-							fieldJamMulaiController.text = state.record!.jamMulai.toIso8601String();
-							fieldTglTimelineController.text = state.record!.tglTimeline.toIso8601String();
+							fieldAktivitasController.text = state.record!.aktivitas??"";
+							fieldJamAkhirController.text = state.record!.jamAkhir?.toIso8601String()?? DateTime.now().toIso8601String();
+							fieldJamMulaiController.text = state.record!.jamMulai?.toIso8601String()?? DateTime.now().toIso8601String();
+							fieldTglTimelineController.text = state.record!.tglTimeline?.toIso8601String()?? DateTime.now().toIso8601String();
 						}
 						fieldComboJobcatgroup = state.comboJobcatgroup;
 					}
@@ -165,9 +165,13 @@ class TodoTimelineCrudFormPageFormState extends State<TodoTimelineCrudFormPage> 
 		}
 	void loadData() {
 		if (widget.viewMode == "ubah") {
-		todoTimelineCrudBloc.add(
-			TodoTimelineCrudLihatEvent(recordId: widget.recordId));
+      todoTimelineCrudBloc.add(
+        TodoTimelineCrudLihatEvent(recordId: widget.recordId));
 		}
+    else if (widget.viewMode == "tambah") {
+      todoTimelineCrudBloc.add(
+        TodoTimelineCrudResetEvent());
+    }
 	}
 
 	Widget buildFieldAktivitas(){
