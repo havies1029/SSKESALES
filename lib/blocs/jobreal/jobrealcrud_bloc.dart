@@ -172,6 +172,7 @@ class JobRealCrudBloc extends Bloc<JobRealCrudEvents, JobRealCrudState> {
         comboJob: const ComboJobModel(),
         comboJobCat: const ComboJobcatModel(),
         comboMedia: const ComboMediaModel(),
+        comboTodoList: const ComboTodoListModel(),
         isLoaded: false,
         isLoading: false,
         isSaved: false,
