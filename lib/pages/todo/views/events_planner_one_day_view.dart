@@ -100,8 +100,9 @@ class _EventsPlannerOneDayViewState extends State<EventsPlannerOneDayView> {
         setState(() {
           this.selectedDay = selectedDay;
         });
-        widget.controller.updateFocusedDay(selectedDay);
+        widget.controller.updateFocusedDay(selectedDay);        
         oneDayViewKey.currentState?.jumpToDate(selectedDay);
+        context.read<TodoTimelineListBloc>().add(RefreshTodoTimelineListEvent(tgl1: selectedDay, calendarView: "day"));
       },
       headerVisible: false,
       weekNumbersVisible: true,

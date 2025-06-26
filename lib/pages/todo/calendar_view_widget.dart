@@ -1,6 +1,5 @@
 
 import 'package:esalesapp/constance/enum_calendar_view.dart';
-import 'package:esalesapp/pages/todo/views/events_list_all_parameters_view.dart';
 import 'package:esalesapp/pages/todo/views/events_months_view.dart';
 import 'package:esalesapp/pages/todo/views/events_planner_one_day_view.dart';
 import 'package:flutter/material.dart';

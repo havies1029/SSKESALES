@@ -60,14 +60,13 @@ Future<User> validateUserLogin(UserLogin userLogin) async {
 
     String tokeninfo = jsonDecode(response.body);
     List<String> info = tokeninfo.split(";");
-
     Token token = Token.split(userLogin.username!, tokeninfo);
 
     try {
       User user = User(
         id: 0,
         token: token.token,
-        username: userLogin.username,
+        username: userLogin.username!,
         nama: info[2],
         email: info[5],
         personId: info[12],
