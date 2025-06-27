@@ -684,6 +684,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
         if (value != null) {
           removeError(error: "Field Tanggal tidak boleh kosong.");
           fieldRealTglController.text = value.toIso8601String();
+          comboTodoListKey.currentState?.clear();
         }
       },
     );
