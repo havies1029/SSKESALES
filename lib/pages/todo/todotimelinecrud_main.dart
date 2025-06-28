@@ -14,7 +14,7 @@ class TodoTimelineCrudMainPage extends StatelessWidget {
 		return MobileDesignWidget(
 			child: Scaffold(
 				appBar: AppBar(
-					title: Text('${viewMode == "tambah"?"Tambah":"Ubah"} To Do'),
+					title: Text('${viewMode == "tambah"?"Tambah":"Ubah"} Planning'),
 				),
 				body: SingleChildScrollView(
 					child: Column(

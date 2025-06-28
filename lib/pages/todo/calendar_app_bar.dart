@@ -48,7 +48,7 @@ class _CustomCalendarAppBarState extends State<CustomCalendarAppBar> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "To Do List",
+            "Planning List",
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   color: color,
                 ),

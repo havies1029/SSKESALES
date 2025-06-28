@@ -50,7 +50,7 @@ class TodoCompanyCrudFormPageFormState extends State<TodoCompanyCrudFormPage> {
 									children: [
 										const SizedBox(height: 10),
 										Text(
-											"${widget.viewMode == "tambah" ? "Tambah" : "Ubah"} To Do",
+											"${widget.viewMode == "tambah" ? "Tambah" : "Ubah"} Planning",
 											style: const TextStyle(
 												fontSize: 20.0,
 												color: Color(0xffff6101),

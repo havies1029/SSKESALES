@@ -13,7 +13,7 @@ class TodoCompanyCrudMainPage extends StatelessWidget {
 		return MobileDesignWidget(
 			child: Scaffold(
 				appBar: AppBar(
-					title: Text('${viewMode == "tambah"?"Tambah":"Ubah"} To Do'),
+					title: Text('${viewMode == "tambah"?"Tambah":"Ubah"} Planning'),
 				),
 				body: TodoCompanyCrudFormPage(timeline1Id: timeline1Id, viewMode: viewMode, recordId: recordId)));
 	}

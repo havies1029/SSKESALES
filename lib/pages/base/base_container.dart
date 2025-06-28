@@ -159,7 +159,7 @@ class PageContainer extends PageContainerBase {
       case PageType.dashboard:
         return "Dashboard Main";
       case PageType.todo:
-        return "To Do";
+        return "Planning";
       default:
         return "Login Page";
     }
