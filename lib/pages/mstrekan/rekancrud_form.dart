@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:date_field/date_field.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:esalesapp/models/combobox/combocustcat_model.dart';
 import 'package:esalesapp/models/combobox/combocustomer_model.dart';
@@ -14,6 +15,7 @@ import 'package:esalesapp/blocs/mstrekan/rekancrud_bloc.dart';
 import 'package:esalesapp/models/mstrekan/rekancrud_model.dart';
 import 'package:esalesapp/models/combobox/combotitle_model.dart';
 import 'package:esalesapp/widgets/combobox/combotitle_widget.dart';
+import 'package:intl/intl.dart';
 
 class RekanCrudFormPage extends StatefulWidget {
   final String rekanTypeId;
@@ -41,6 +43,9 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
   ComboMarketingModel? fieldComboMarketing = const ComboMarketingModel();
   ComboCustomerModel? fieldComboReferral = const ComboCustomerModel();
   final comboReferralKey = GlobalKey<DropdownSearchState<ComboCustomerModel>>();
+  var fieldTanggalRefController = TextEditingController();
+  DateTime? tanggalReferral;
+  Key? tanggalFieldKey = UniqueKey();
 
   @override
   void initState() {
@@ -48,6 +53,17 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
     Future.delayed(const Duration(milliseconds: 500), () {
       loadData();
     });
+  }
+
+  @override
+  void dispose() {
+    //debugPrint("JobRealCrudFormPage dispose #10");
+    disposalController();
+    super.dispose();
+  }
+
+  void disposalController() {
+    fieldTanggalRefController.dispose();
   }
 
   @override
@@ -62,7 +78,7 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    const SizedBox(height: 10),                    
+                    const SizedBox(height: 10),
                     buildFieldComboTitle(
                       labelText: 'Title',
                       initItem: fieldComboTitle,
@@ -94,8 +110,7 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
                       labelText: 'Category',
                       initItem: fieldComboCustCat,
                       onChangedCallback: (value) {
-                        if ((value != null) &&
-                            (value.mcustcatId.isNotEmpty)) {
+                        if ((value != null) && (value.mcustcatId.isNotEmpty)) {
                           removeError(
                               error: "Field Category tidak boleh kosong.");
                           fieldComboCustCat = value;
@@ -108,8 +123,7 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
                       },
                       validatorCallback: (value) {
                         if ((value == null) || (value.mcustcatId.isEmpty)) {
-                          addError(
-                              error: "Field Category tidak boleh kosong.");
+                          addError(error: "Field Category tidak boleh kosong.");
                           return "";
                         }
                         return null;
@@ -119,8 +133,7 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
                       labelText: 'Marketing',
                       initItem: fieldComboMarketing,
                       onChangedCallback: (value) {
-                        if ((value != null) &&
-                            (value.msalesId.isNotEmpty)) {
+                        if ((value != null) && (value.msalesId.isNotEmpty)) {
                           removeError(
                               error: "Field Marketing tidak boleh kosong.");
                           fieldComboMarketing = value;
@@ -141,6 +154,7 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
                       },
                     ),
                     cmdBuildComboReferral(),
+                    buildTanggalReferral(),
                     const SizedBox(height: 25),
                     FormError(
                       errors: errors,
@@ -196,7 +210,9 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
           fieldComboCustCat = state.record!.comboCustCat;
           fieldComboMarketing = state.record!.comboMarketing;
           fieldComboReferral = state.record!.comboReferral;
-          //debugPrint("fieldComboReferral #20 : ${jsonEncode(fieldComboReferral?.toJson())}");
+          fieldTanggalRefController.text =
+              state.record?.referralTgl?.toIso8601String() ?? '';
+          tanggalReferral = DateTime.tryParse(fieldTanggalRefController.text);
         }
       },
     );
@@ -226,7 +242,8 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
           rekanNama: fieldRekanNamaController.text,
           mcustcatId: fieldComboCustCat?.mcustcatId,
           msalesId: fieldComboMarketing?.msalesId,
-          referralFrom: fieldComboReferral?.mrekanId);
+          referralFrom: fieldComboReferral?.mrekanId,
+          referralTgl: DateTime.tryParse(fieldTanggalRefController.text));
 
       if (widget.viewMode == "tambah") {
         rekanCrudBloc.add(RekanCrudTambahEvent(record: record));
@@ -261,9 +278,53 @@ class RekanCrudFormPageFormState extends State<RekanCrudFormPage> {
       labelText: 'Referral from',
       initItem: fieldComboReferral,
       onSaveCallback: (value) {
-        //if (value != null) {
         fieldComboReferral = value;
-        //}
+      },
+      onChangedCallback: (combo) {
+        if (combo == null) {
+          setState(() {
+            fieldComboReferral = const ComboCustomerModel();
+            fieldTanggalRefController.text = '';
+            tanggalReferral = null;
+            tanggalFieldKey = UniqueKey();
+          });
+        } else {
+          setState(() {
+            fieldComboReferral = combo;
+          });
+        }
+      },
+    );
+  }
+
+  DateTimeFormField buildTanggalReferral() {
+    return DateTimeFormField(
+      key: tanggalFieldKey,
+      enabled: fieldComboReferral?.mrekanId.isNotEmpty ?? false,
+      mode: DateTimeFieldPickerMode.date,
+      dateFormat: DateFormat('dd/MM/yyyy'),
+      initialValue: tanggalReferral,
+      decoration: const InputDecoration(
+        labelText: "Referral Date",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+      ),
+      onSaved: (newValue) {
+        fieldTanggalRefController.text = newValue?.toIso8601String() ?? '';
+      },
+      validator: (value) {
+        if (value == null) {
+          if (fieldComboReferral?.mrekanId.isNotEmpty ?? false) {
+            addError(error: "Field Tanggal Referral tidak boleh kosong.");
+            return "";
+          }
+        }
+        return null;
+      },
+      onChanged: (value) {
+        if (value != null) {
+          removeError(error: "Field Tanggal Referral tidak boleh kosong.");
+          fieldTanggalRefController.text = value.toIso8601String();
+        }
       },
     );
   }
