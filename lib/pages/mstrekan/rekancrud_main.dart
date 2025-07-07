@@ -28,7 +28,7 @@ class RekanCrudMainPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
-              height: 400,
+              height: 480,
               child: RekanCrudFormPage(
                   rekanTypeId: rekanTypeId, viewMode: viewMode, recordId: recordId),
             ),

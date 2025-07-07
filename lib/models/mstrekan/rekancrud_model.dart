@@ -17,6 +17,7 @@ class RekanCrudModel {
   String? mcustcatId;
   String? msalesId;
   String? referralFrom;
+  DateTime? referralTgl;
   ComboTitleModel? comboTitle;
   ComboCustCatModel? comboCustCat;
   ComboJobModel? comboJob;
@@ -36,6 +37,7 @@ class RekanCrudModel {
       this.telp2,
       this.mcustcatId,
       this.msalesId,
+      this.referralTgl,
       this.comboCustCat,
       this.comboJob,
       this.comboMedia,
@@ -86,6 +88,9 @@ class RekanCrudModel {
         mcustcatId: data['mcustcatId'] ?? "",
         msalesId: data['msalesId'] ?? "",
         referralFrom: data['referralFrom'] ?? "",
+        referralTgl: data['referralTgl'] != null
+            ? DateTime.parse(data['referralTgl'])
+            : null,
         comboTitle: comboTitle,
         comboCustCat: comboCustCat,
         comboJob: comboJob,
@@ -106,6 +111,7 @@ class RekanCrudModel {
         'mcustcatId': mcustcatId,
         'msalesId': msalesId,
         'referralFrom': referralFrom,
+        'referralTgl': referralTgl?.toIso8601String(),
         'comboTitle': comboTitle?.toJson(),
         'comboCustCat': comboCustCat?.toJson(),
         'comboJob': comboJob?.toJson(),

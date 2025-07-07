@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:esalesapp/blocs/briefing/briefinginfo_bloc.dart';
@@ -24,7 +23,6 @@ import 'package:esalesapp/pages/jobreal/jobreal3cari_main.dart';
 import 'package:esalesapp/pages/jobreal/jobreal3grid_list_widget.dart';
 import 'package:esalesapp/pages/jobreal/jobrealcurd_foto.dart';
 import 'package:esalesapp/widgets/combobox/combocustomer4jobreal_widget.dart';
-import 'package:esalesapp/widgets/combobox/combocustomer_widget.dart';
 import 'package:esalesapp/widgets/combobox/comboinsurer_widget.dart';
 import 'package:esalesapp/widgets/combobox/combomproject_widget.dart';
 import 'package:esalesapp/widgets/combobox/combotodolist_widget.dart';
