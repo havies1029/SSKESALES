@@ -1,24 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
   <base href="$FLUTTER_BASE_HREF">
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
   <meta name="description" content="A new Flutter project.">
+
+  <!-- ✅ Versi Aplikasi: Ganti setiap kali deploy -->
+  <meta name="flutter-app-version" content="1.0.2">
 
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -40,9 +30,28 @@
   <script src="flutter.js" defer></script>
 </head>
 <body>
+
+  <!-- ✅ Script cache busting -->
+  <script>
+    const CURRENT_VERSION = document.querySelector('meta[name="flutter-app-version"]').getAttribute('content');
+    const VERSION_KEY = 'flutter-app-version';
+    const previousVersion = localStorage.getItem(VERSION_KEY);
+
+    if (previousVersion && previousVersion !== CURRENT_VERSION) {
+      console.log('New version detected, clearing cache...');
+      caches.keys().then(function(names) {
+        for (let name of names) caches.delete(name);
+      }).then(() => {
+        localStorage.setItem(VERSION_KEY, CURRENT_VERSION);
+        window.location.reload(true);
+      });
+    } else {
+      localStorage.setItem(VERSION_KEY, CURRENT_VERSION);
+    }
+  </script>
+
   <script>
     window.addEventListener('load', function(ev) {
-      // Download main.dart.js
       _flutter.loader.loadEntrypoint({
         serviceWorker: {
           serviceWorkerVersion: serviceWorkerVersion,
