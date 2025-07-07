@@ -16,6 +16,7 @@ DropdownSearch<ComboTodoListModel> buildFieldComboTodoList({
 	Function(ComboTodoListModel?)? validatorCallback
 	}) {
 	return DropdownSearch<ComboTodoListModel>(
+    enabled: enabled,
 		key: comboKey,
 		selectedItem: initItem,
 		decoratorProps: DropDownDecoratorProps(
