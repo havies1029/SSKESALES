@@ -1,4 +1,3 @@
-
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:esalesapp/blocs/briefing/briefinginfo_bloc.dart';
 import 'package:esalesapp/blocs/jobreal/jobreal2cari_bloc.dart';
@@ -89,6 +88,8 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
   var fieldPicNameController = TextEditingController();
   var fieldRealJamController =
       TextEditingController(text: DateTime.now().toIso8601String());
+  var fieldJamSelesaiController =
+      TextEditingController(text: DateTime.now().toIso8601String());
   var fieldRealTglController =
       TextEditingController(text: DateTime.now().toIso8601String());
   var fieldTaskDescController = TextEditingController();
@@ -99,6 +100,10 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
   final comboProjectKey = GlobalKey<DropdownSearchState<ComboMProjectModel>>();
   final comboTodoListKey = GlobalKey<DropdownSearchState<ComboTodoListModel>>();
   final jobKey = GlobalKey<DropdownSearchState<ComboJobModel>>();
+  String fieldPICLabel = "PIC";
+  String fieldFeedbackLabel = "Feedback";
+  int fieldFeedbackMaxLines = 3;
+  String fieldJamMulaiLabel = "Jam";
 
   @override
   void initState() {
@@ -123,6 +128,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
     fieldRealJamController.dispose();
     fieldRealTglController.dispose();
     fieldTaskDescController.dispose();
+    fieldJamSelesaiController.dispose();
   }
 
   @override
@@ -180,8 +186,8 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       child: BlocConsumer<JobRealCrudBloc, JobRealCrudState>(
         builder: (context, state) {
           //debugPrint("BlocConsumer -> state.isLoaded : ${state.isLoaded}");
-          return (state.isLoaded || widget.viewMode == "tambah")
-              ? SingleChildScrollView(
+          if ((state.isLoaded || widget.viewMode == "tambah")) {
+            return SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Form(
@@ -213,10 +219,29 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
                             buildFieldCustomerPIC(),
                             cmdBuildFieldComboJobCat(),
                             cmdBuildFieldComboJob(state),
+                            cmdBuildFieldMedia(),
                             buildFieldTaskDesc(state),
                             buildFieldPerihal(),
                             buildFieldFeedback(),
-                            cmdBuildFieldMedia(),
+                            if (fieldComboMedia?.needMoM ?? false) ...[
+                              Row(
+                                children: [
+                                  Flexible(
+                                    flex: 1,
+                                    child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: buildJamSelesai()),
+                                  ),
+                                  Flexible(
+                                    flex: 1,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: Container(),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
                             buildGridSPPA(state),
                             buildGridCob(state),
                             buildWidgetFoto(),
@@ -229,11 +254,13 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
                           ],
                         )),
                   ),
-                )
-              : const LoadingIndicator();
+                );
+          } else {
+            return const LoadingIndicator();
+          }
         },
         buildWhen: (previous, current) {
-          return (current.isLoaded);
+          return (!previous.isLoaded && current.isLoaded);
         },
         listener: (context, state) {
           if (state.isLoaded) {
@@ -246,7 +273,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
             fieldComboInsurer = state.comboInsurer;
             fieldComboProject = state.comboProject;
             fieldComboTodoList = state.comboTodoList;
-
+            
             //debugPrint("listener fieldComboProject : ${fieldComboProject.toString()}");
 
             if (state.viewMode != "tambah") {
@@ -258,6 +285,12 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
               fieldRealTglController.text =
                   (state.record?.realTgl ?? DateTime.now()).toIso8601String();
               fieldTaskDescController.text = state.record?.taskDesc ?? "";
+
+              if (fieldComboMedia?.needMoM ?? false) {
+                fieldJamSelesaiController.text =
+                    (state.record?.realSelesai ?? DateTime.now())
+                        .toIso8601String();
+              }
 
               if (fieldComboJobcat?.mjobcatdoctypeId == "sppa") {
                 loadGridPolis(state.record?.jobreal1Id ?? "");
@@ -278,6 +311,19 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
               comboCustomerKey.currentState
                   ?.changeSelectedItem(fieldComboCustomer);
             }
+
+            if (fieldComboMedia?.needMoM ?? false) {
+              fieldPICLabel = "Peserta Meeting";
+              fieldFeedbackLabel = "Hasil Meeting";
+              fieldFeedbackMaxLines = 10;
+              fieldJamMulaiLabel = "Jam Mulai";
+            } else {
+              fieldPICLabel = "PIC";
+              fieldFeedbackLabel = "Feedback";
+              fieldFeedbackMaxLines = 3;
+              fieldJamMulaiLabel = "Jam";              
+            }
+
           }
         },
       ),
@@ -343,8 +389,21 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       }
       if (fieldRealJamController.text.isEmpty) {
         errorCount++;
-        addError(error: "Field Jam tidak boleh kosong.");
+        addError(error: "Field $fieldJamMulaiLabel tidak boleh kosong.");
       }
+
+      if (fieldComboMedia?.needMoM ?? false) {
+        if (fieldJamSelesaiController.text.isEmpty) {
+          errorCount++;
+          addError(error: "Field Jam Selesai tidak boleh kosong.");
+        }
+        else if (DateTime.parse(fieldJamSelesaiController.text)
+            .isBefore(DateTime.parse(fieldRealJamController.text))) {
+          errorCount++;
+          addError(error: "Field Jam Selesai tidak boleh sebelum Jam Mulai.");
+        }
+      }
+
       if (fieldPicNameController.text.isEmpty) {
         errorCount++;
         addError(error: "Field PIC tidak boleh kosong.");
@@ -470,7 +529,8 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
               taskDesc: fieldTaskDescController.text,
               isConfirmed: isRequestConfirm,
               projectId: fieldComboProject?.mprojectId ?? "",
-              timeline1Id: fieldComboTodoList?.timeline1Id ?? "");
+              timeline1Id: fieldComboTodoList?.timeline1Id ?? "",
+              realSelesai: DateTime.tryParse(fieldJamSelesaiController.text));
 
           //debugPrint("fieldComboJobcat?.mjobcatId : ${fieldComboJobcat?.mjobcatId}");
 
@@ -692,6 +752,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
     //debugPrint("buildJamJob : ${DateTime.tryParse(fieldRealJamController.text)}");
     return DateTimeFormField(
       enableFeedback: false,
+      canClear: false,
       mode: DateTimeFieldPickerMode.time,
       dateFormat: DateFormat('HH:mm'),
       initialValue: DateTime.tryParse(fieldRealJamController.text),
@@ -700,8 +761,8 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
           ? DateTime.now()
           : DateTime.tryParse(fieldRealJamController.text),
       */
-      decoration: const InputDecoration(
-        labelText: "Jam",
+      decoration: InputDecoration(
+        labelText: fieldJamMulaiLabel,
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
       onSaved: (newValue) {
@@ -710,8 +771,44 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       },
       onChanged: (value) {
         if (value != null) {
-          removeError(error: "Field Jam tidak boleh kosong.");
+          removeError(error: "Field $fieldJamMulaiLabel tidak boleh kosong.");
           fieldRealJamController.text = value.toIso8601String();
+          if (fieldComboMedia?.needMoM ?? false) {
+            final selesai = value.add(const Duration(hours: 1));
+            fieldJamSelesaiController.text = selesai.toIso8601String();
+            setState(() {});
+          }
+        }
+      },
+    );
+  }
+
+  DateTimeFormField buildJamSelesai() {
+    //debugPrint("buildJamJob : ${DateTime.tryParse(fieldRealJamController.text)}");
+    return DateTimeFormField(
+      enableFeedback: false,
+      canClear: false,
+      mode: DateTimeFieldPickerMode.time,
+      dateFormat: DateFormat('HH:mm'),
+      initialValue: DateTime.tryParse(fieldJamSelesaiController.text),
+      decoration: const InputDecoration(
+        labelText: "Jam Selesai",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+      ),
+      onSaved: (newValue) {
+        fieldJamSelesaiController.text =
+            newValue?.toIso8601String() ?? DateTime.now().toIso8601String();
+      },
+      onChanged: (value) {
+        if (value != null) {
+          removeError(error: "Field Jam Selesai tidak boleh kosong.");
+          if (value.isBefore(DateTime.parse(fieldRealJamController.text))) {
+            addError(error: "Jam selesai tidak boleh sebelum jam mulai.");
+          } else {
+            removeError(error: "Jam selesai tidak boleh sebelum jam mulai.");
+            fieldJamSelesaiController.text = value.toIso8601String();
+            setState(() {});
+          }
         }
       },
     );
@@ -852,14 +949,14 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       minLines: 1,
       maxLines: 3,
       controller: fieldPicNameController,
-      decoration: const InputDecoration(
-        labelText: "PIC",
+      decoration: InputDecoration(
+        labelText: fieldPICLabel,
         floatingLabelBehavior: FloatingLabelBehavior.always,
       ),
       onChanged: (value) {
         fieldPicNameController.text = value;
         if (value.isNotEmpty) {
-          removeError(error: "Field PIC tidak boleh kosong.");
+          removeError(error: "Field $fieldPICLabel tidak boleh kosong.");
         }
       },
     );
@@ -989,10 +1086,10 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       enabled: widget.viewMode != "lihat",
       keyboardType: TextInputType.multiline,
       minLines: 1,
-      maxLines: 3,
+      maxLines: fieldFeedbackMaxLines,
       controller: fieldHasilController,
       decoration: InputDecoration(
-          labelText: "Feedback",
+          labelText: fieldFeedbackLabel,
           floatingLabelBehavior: FloatingLabelBehavior.always,
           suffixIcon: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween, // added line
@@ -1029,7 +1126,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
           )),
       onChanged: (value) {
         if (value.isNotEmpty) {
-          removeError(error: "Field Feedback tidak boleh kosong.");
+          removeError(error: "Field $fieldFeedbackLabel tidak boleh kosong.");
         }
       },
     );
@@ -1044,6 +1141,20 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
         if (value != null) {
           removeError(error: "Field Media tidak boleh kosong.");
           fieldComboMedia = value;
+
+          setState(() {
+            if (value.needMoM) {
+              fieldPICLabel = "Peserta Meeting";
+              fieldFeedbackLabel = "Hasil Meeting";
+              fieldFeedbackMaxLines = 10;
+              fieldJamMulaiLabel = "Jam Mulai";
+            } else {
+              fieldPICLabel = "PIC";
+              fieldFeedbackLabel = "Feedback";
+              fieldFeedbackMaxLines = 3;
+              fieldJamMulaiLabel = "Jam";
+            }
+          });
         }
       },
       onSaveCallback: (value) {
@@ -1158,7 +1269,7 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
                     //child: Container(),
                     child: const JobReal3GridListWidget(),
                   ),
-                  (widget.viewMode != "lihat" && (! widget.isProjectMode))
+                  (widget.viewMode != "lihat" && (!widget.isProjectMode))
                       ? Align(
                           alignment: Alignment.topRight,
                           child: GestureDetector(
@@ -1255,23 +1366,22 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
     );
   }
 
-
   Widget cmdBuildComboToDo() {
-    return buildFieldComboTodoList(      
+    return buildFieldComboTodoList(
       enabled: widget.viewMode != "lihat",
       labelText: 'Rencana Kerja',
       initItem: fieldComboTodoList,
-      jobCatGroupId: jobRealGlobalCubit.state.selectedJobCatGroup.mjobcatgroupId,
+      jobCatGroupId:
+          jobRealGlobalCubit.state.selectedJobCatGroup.mjobcatgroupId,
       tgl: DateTime.tryParse(fieldRealTglController.text) ?? DateTime.now(),
       comboKey: comboTodoListKey,
       onChangedCallback: (value) {
         if (value != null) {
           jobRealCrudBloc
-              .add(ComboTodoListJobRealCrudChangedEvent(comboTodoList: value));          
-        }
-        else {          
-          jobRealCrudBloc
-              .add(ComboTodoListJobRealCrudChangedEvent(comboTodoList: const ComboTodoListModel()));
+              .add(ComboTodoListJobRealCrudChangedEvent(comboTodoList: value));
+        } else {
+          jobRealCrudBloc.add(ComboTodoListJobRealCrudChangedEvent(
+              comboTodoList: const ComboTodoListModel()));
         }
         comboCustomerKey.currentState?.clear();
         comboProjectKey.currentState?.clear();
@@ -1283,5 +1393,4 @@ class JobRealCrudFormPageFormState extends State<JobRealCrudFormPage> {
       },
     );
   }
-
 }

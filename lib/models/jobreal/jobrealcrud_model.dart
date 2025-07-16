@@ -32,6 +32,7 @@ class JobRealCrudModel {
   String jobCatGroupCode;
   String timeline1Id = "";
   ComboTodoListModel? comboTodoList;
+  DateTime? realSelesai;
 
   JobRealCrudModel(
       {this.hasil,
@@ -58,7 +59,8 @@ class JobRealCrudModel {
       this.comboProject,
       this.jobCatGroupCode = "",
       this.timeline1Id = "",
-      this.comboTodoList});
+      this.comboTodoList,
+      this.realSelesai});
 
   factory JobRealCrudModel.fromJson(Map<String, dynamic> data) {
     ComboJobModel? comboJob;
@@ -123,7 +125,8 @@ class JobRealCrudModel {
         jobCatGroupCode: data["jobCatGroupCode"]??"",
         comboProject: comboProject,
         timeline1Id: data["timeline1Id"] ?? "",
-        comboTodoList: comboTodoList);
+        comboTodoList: comboTodoList,
+        realSelesai: DateTime.tryParse(data['realSelesai'].toString()));
   }
 
   Map<String, dynamic> toJson() => {
@@ -152,5 +155,6 @@ class JobRealCrudModel {
         "jobCatGroupCode": jobCatGroupCode,
         'timeline1Id': timeline1Id,
         'comboTodoList': comboTodoList?.toJson(),
+        'realSelesai': realSelesai?.toIso8601String()
       };
 }

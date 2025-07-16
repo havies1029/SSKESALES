@@ -19,6 +19,7 @@ class JobRealCariTileWidget extends StatelessWidget {
   final String rdPartyName;
   final String projectNama;
   final String jobCatGroupCode;
+  final bool needMoM;
 
   const JobRealCariTileWidget({
     super.key,
@@ -36,7 +37,8 @@ class JobRealCariTileWidget extends StatelessWidget {
     required this.catGroupName,
     required this.rdPartyName,
     required this.projectNama,
-    required this.jobCatGroupCode
+    required this.jobCatGroupCode,
+    this.needMoM = false,
   });
 
   @override
@@ -171,7 +173,7 @@ class JobRealCariTileWidget extends StatelessWidget {
                 style: MyText.bodyLarge(context)!
                     .copyWith(color: MyColors.grey_95)),
             Container(height: 10),
-            Text("Feedback",
+            Text(needMoM ? "Hasil Meeting" : "Feedback",
                 style: MyText.bodyLarge(context)!
                     .copyWith(color: MyColors.grey_60)),
             Container(height: 5),
