@@ -204,6 +204,7 @@ class JobRealCariListWidgetState extends State<JobRealCariListWidget> {
                                 rdPartyName: state.items[index].rdPartyName??"",
                                 projectNama: state.items[index].projectNama,
                                 jobCatGroupCode: state.items[index].jobCatGroupCode,
+                                needMoM: state.items[index].needMoM,
                               )),
                         );
                       }),
